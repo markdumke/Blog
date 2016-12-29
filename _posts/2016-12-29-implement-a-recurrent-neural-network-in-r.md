@@ -133,6 +133,77 @@ rnn_forward <- function(x, weights, n_hidden, n_vocab, one_hot) {
   list(h = h, o = o)
 }
 ```
+## Backpropagation
+Now we have to compute the gradients with respect to all parameters.
 
+```r
+#' Computing gradients
+calculate_gradients <- function(o, h, x, y, weights, one_hot, n_vocab) {
+  n_hidden <- nrow(h)
+  n_seq <- ifelse(is.matrix(x) == TRUE, ncol(x), length(x))
+  V <- weights$V
+  W <- weights$W
+  
+  if(one_hot == TRUE){
+    grad_o <- o - y
+  } else {
+    grad_o <- o
+    ind <- matrix(c(y, seq_along(y)), ncol = 2)
+    grad_o[ind] <- grad_o[ind] - 1
+  }
+  
+  grad_c <- rep(0, n_vocab)
+  grad_b <- rep(0, n_hidden)
+  grad_W <- matrix(0, nrow = n_hidden, ncol = n_hidden)
+  grad_V <- matrix(0, nrow = n_vocab, ncol = n_hidden)
+  grad_U <- matrix(0, nrow = n_hidden, ncol = n_vocab)
+  grad_h <- matrix(0, nrow = n_hidden, ncol = n_seq)
+  grad_h[, n_seq] <- t(V) %*% grad_o[, n_seq]
+    
+  for(t in seq((n_seq - 1), 1)) {
+    grad_h[, t] <- t(W) %*% grad_h[, t + 1] * (1 - h[, t + 1]^2) + t(V) %*% grad_o[, t]
+  }
+  
+  if(n_seq > 1){
+    for(t in seq(n_seq, 1)) {
+      grad_U <- grad_U # + diag(1 - h[, t]^2) %*% grad_h[, t] %*% t(x[, t])
+      grad_V <- grad_V + grad_o[, t] %*% t(h[, t])
+      grad_b <- grad_b # + diag(1 - h[, t]^2) %*% grad_h[, t]
+      grad_c <- grad_c + grad_o[, t]
+    }  
+    for(t in seq(n_seq, 2)) {
+    grad_W <- grad_W + diag(1 - h[, t]^2) %*% grad_h[, t] %*% t(h[, t - 1]) # false?, loss not decreasing
+    }
+  }
+  
+  list(U = grad_U, V = grad_V, W = grad_W, b = grad_b, c = grad_c)
+}
 
+#' Cross entropy loss for multinoulli distribution
+loss <- function(o, y, one_hot, n_vocab) {
+  if(one_hot == FALSE){
+    y <- make_one_hot_coding(y, n_vocab)
+  }
+  - 1 / ncol(o) * sum(diag(t(y) %*% log(o)))
+}
+
+# Gradient Descent update
+sgd_update <- function(learning_rate, weights, gradients) {
+  weights$U <- weights$U - learning_rate * gradients$U
+  weights$V <- weights$V - learning_rate * gradients$V
+  weights$W <- weights$W - learning_rate * gradients$W
+  weights$b <- weights$b - learning_rate * gradients$b
+  weights$c <- weights$c - learning_rate * gradients$c
+  weights
+}
+
+#' Back propagation through time
+rnn_backward <- function(learning_rate, o, h, x, y, weights, one_hot, n_vocab) {
+  loss <- loss(o, y, one_hot, n_vocab)
+  gradients <- calculate_gradients(o, h, x, y, weights, one_hot, n_vocab)
+  
+  weights <- sgd_update(learning_rate, weights, gradients)
+  list(loss = loss, weights = weights)
+}
+```
 The code can be found here: [Github](https://github.com/markdumke/Deep-Learning-Seminar)
