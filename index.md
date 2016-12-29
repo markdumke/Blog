@@ -3,7 +3,7 @@
 This blog post is about how to implement a Recurrent Neural Network (RNN) in R.
 
 ## What is an RNN?
-RNNs are neural network for sequence data. Therefore it is suited for text data. 
+An RNN is a neural network for sequential data. Therefore it is suited for text data. 
 Some applications of RNNs include machine translation, speech recognition and generation,
 sentiment analysis, text prediction and generation.
 
@@ -80,6 +80,26 @@ x <- train$x
 y <- train$y
 ```
 Now we have the training data. Note that the labels y are just x shifted one.
+
+Next we need to initialize all weights to small random numbers.
+
+```r
+#' Initialize weights to small random numbers
+#' @param seed: set random seed
+#' @inheritParams train_rnn
+#' @return list with entries U, V, W, b, c
+intialize_weights <- function(seed, n_hidden, n_vocab) {
+  set.seed(seed)
+  U <- matrix(runif(n_hidden * n_vocab, - 0.1, 0.1), ncol = n_vocab)
+  V <- matrix(runif(n_hidden * n_vocab, - 0.1, 0.1), ncol = n_hidden)
+  W <- matrix(runif(n_hidden * n_hidden, - 0.1, 0.1), ncol = n_hidden)
+  b <- runif(n_hidden, - 0.1, 0.1)
+  c <- runif(n_vocab, - 0.1, 0.1)
+  list(U = U, V = V, W = W, b = b, c = c)
+}
+
+weights <- intialize_weights(seed = 281116, n_hidden = 10, n_vocab = nrow(dict$dict))
+```
 
 
 ### Forward Propagation
