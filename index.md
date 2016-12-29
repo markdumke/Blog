@@ -8,7 +8,7 @@ sentiment analysis, text prediction and generation.
 
 We will step-by-step explore how to build a simple RNN in R.
 First we'll need some data. We will use Obama speeches. The data set can be found on my Github repository:
-https://github.com/markdumke/Deep-Learning-Seminar/blob/master/data/obama.txt 
+[https://github.com/markdumke/Deep-Learning-Seminar/blob/master/data/obama.txt]
 
 ```r
 fi   <- file("data/obama.txt", "r")
