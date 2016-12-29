@@ -8,4 +8,4 @@ This blog post is about different Recurrent Neural Network architectures.
 
 ## Attention
 
-![alt text](https://github.com/markdumke/markdumke.github.io/blob/master/_images/c-album.JPG)
+![Image](https://github.com/markdumke/markdumke.github.io/blob/master/_images/c-album.JPG)
