@@ -25,6 +25,7 @@ input <- paste0(input, collapse = "")
 Each unique character will be represented as a number.
 
 ```r
+#' split input into characters and give each character an unique integer id
 make_dictionary <- function(x) {
   x_char <- strsplit(x, NULL)[[1]]
   characters <- unique(names(table(x_char)))
@@ -45,9 +46,6 @@ More text...
 
 ```r
 #' represent characters as one-hot vector, one entry is 1, all other 0
-#' @param x : integer vector, the sequence of symbols
-#' @inheritParams train_rnn
-#' @return a matrix, the input coded as one-hot vector
 make_one_hot_coding <- function(x, n_vocab) {
   n_seq <- length(x)
   one_hot <- matrix(0, nrow = n_vocab, ncol = n_seq)
@@ -57,11 +55,6 @@ make_one_hot_coding <- function(x, n_vocab) {
 
 #' function returning training data (x, y)
 #' output sequence is just input sequence shifted one in time
-#' @param x: integer vector as specified by dict$x_vec
-#' @inheritParams train_rnn
-#' @param minibatch: #currently not implemented
-#' @return a list with two entries: 
-#' x and y, each either an integer vector or a matrix in one_hot_coding
 make_train_data <- function(x, one_hot, n_vocab, minibatch) {
 
   x_train <- x[1:(length(x) - 1)]
@@ -85,9 +78,6 @@ Next we need to initialize all weights to small random numbers.
 
 ```r
 #' Initialize weights to small random numbers
-#' @param seed: set random seed
-#' @inheritParams train_rnn
-#' @return list with entries U, V, W, b, c
 intialize_weights <- function(seed, n_hidden, n_vocab) {
   set.seed(seed)
   U <- matrix(runif(n_hidden * n_vocab, - 0.1, 0.1), ncol = n_vocab)
@@ -106,16 +96,12 @@ weights <- intialize_weights(seed = 281116, n_hidden = 10, n_vocab = nrow(dict$d
 
 
 ```r
-#' Conmpute softmax function
-#' @param x: a numeric vector
+#' Compute softmax function
 softmax <- function(x) {
   exp(x) / sum(exp(x))
 }
 
 #' Forward Propagation, compute hidden state and output for each time step
-#' multiplication with one-hot vector is equal to indexing with integer
-#' @inheritParams train_rnn
-#' @return list with hidden states h and output o
 rnn_forward <- function(x, weights, n_hidden, n_vocab, one_hot) {
   U <- weights$U
   V <- weights$V
