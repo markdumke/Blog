@@ -8,6 +8,4 @@ This blog post is about different Recurrent Neural Network architectures.
 
 ## Attention
 
-![Test](/images/test.png)
-Format: ![Alt Text](url)
-
+![alt text](/images/c-album.jpg)
