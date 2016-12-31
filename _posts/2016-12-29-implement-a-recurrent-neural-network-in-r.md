@@ -207,3 +207,5 @@ rnn_backward <- function(learning_rate, o, h, x, y, weights, one_hot, n_vocab) {
 }
 ```
 The code can be found here: [Github](https://github.com/markdumke/Deep-Learning-Seminar)
+
+{% include disqus.html %}
