@@ -1,18 +1,4 @@
 theme: jekyll-theme-cayman
 
 title: markdumke.github.io
-tagline: Blog
-baseurl: ""
-paginate: 1
-
-# About/contact
-author:
-  name: Markus Dumke
-  url: markdumke.github.io 
-
-# Gems
-gems:
-  - jekyll-paginate
-
-#Others
-markdown: kramdown
+description: Blog

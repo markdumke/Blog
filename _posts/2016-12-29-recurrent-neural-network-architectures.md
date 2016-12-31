@@ -12,5 +12,6 @@ This blog post is about different Recurrent Neural Network architectures.
 
 ## Attention
 
+![](https://assets-cdn.github.com/images/icons/emoji/octocat.png)
 
 {% include disqus.html %}
