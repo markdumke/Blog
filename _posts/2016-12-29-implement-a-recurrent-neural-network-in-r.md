@@ -2,6 +2,7 @@
 layout: default
 comments: true
 title: Implement a Recurrent Neural Network in R
+excerpt_separator: <!--more-->
 ---
 
 This blog post is about how to implement a Recurrent Neural Network (RNN) in R.
@@ -10,6 +11,8 @@ This blog post is about how to implement a Recurrent Neural Network (RNN) in R.
 An RNN is a neural network for sequential data. Therefore it is suited for text data. 
 Some applications of RNNs include machine translation, speech recognition and generation,
 sentiment analysis, text prediction and generation.
+
+<!--more-->
 
 ## Implementation
 
