@@ -90,8 +90,11 @@ y <- train$y
 Now we have the training data. The RNN equations are:
 
 $ a_t = b + W  h_{t-1}  + U x_t $
+
 $ h_t  = \tanh(a_t) $
+
 $ o_t  = c + V  h_t $
+
 $ \hat{y}_t = \mathrm{softmax}(o_t) $
 
 Next we need to initialize all weights to small random numbers.
