@@ -5,6 +5,13 @@ title: Implement a Recurrent Neural Network in R
 excerpt_separator: <!--more-->
 ---
 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+</script>
+
 This blog post is about how to implement a Recurrent Neural Network (RNN) in R.
 
 ## What is an RNN?
@@ -14,11 +21,14 @@ sentiment analysis, text prediction and generation.
 
 <!--more-->
 
+When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are
+$$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
+
 ## Implementation
 
 ### Data
 We will step-by-step explore how to build a simple RNN in R.
-First we'll need some data. We will use Obama speeches. The data set can be found on my Github repository:
+First we'll need some data. We will use speeches from Barack Obama. The data set can be found on my Github repository:
 [Obama speeches data](https://github.com/markdumke/Deep-Learning-Seminar/blob/master/data/obama.txt)
 
 ```r
@@ -47,10 +57,10 @@ make_dictionary <- function(x) {
 }
 
 dict <- make_dictionary(input)
-print(dict)
+print(dict$dictionary)
 ```
 
-More text...
+Next we will make matrices holding the training data and labels. Note that the labels are equal to the inputs shifted one, as we try to predict the next character. Each character will be represented as a one-hot vector, each character now represented as a vector of this structure [0, ..., 0, 1, 0, ..., 0].
 
 ```r
 #' represent characters as one-hot vector, one entry is 1, all other 0
@@ -80,7 +90,11 @@ train <- make_train_data(x = dict$x_vec, one_hot = FALSE)
 x <- train$x
 y <- train$y
 ```
-Now we have the training data. Note that the labels y are just x shifted one.
+Now we have the training data. The RNN equations are:
+
+a_t &= b + W \, h_{t-1}  + U \, x_t
+h_t  &= \tanh(a_t)
+o_t  &= c + V \, h_t
 
 Next we need to initialize all weights to small random numbers.
 
