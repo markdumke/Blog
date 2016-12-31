@@ -1,5 +1,6 @@
 ---
 layout: default
+title: Hallo
 ---
 
 {% for post in site.posts %}
