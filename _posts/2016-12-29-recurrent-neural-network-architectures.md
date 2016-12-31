@@ -13,3 +13,4 @@ This blog post is about different Recurrent Neural Network architectures.
 ## Attention
 
 
+{% include disqus.html %}

@@ -218,6 +218,6 @@ The code can be found here: [Github](https://github.com/markdumke/Deep-Learning-
 
 <hr>
 # More posts:
-
+[Recurrent Neural Network architectures](https://markdumke.github.io/2016/12/29/recurrent-neural-network-architectures.html)
 
 {% include disqus.html %}
