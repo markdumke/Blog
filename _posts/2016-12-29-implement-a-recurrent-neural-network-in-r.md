@@ -12,6 +12,10 @@ An RNN is a neural network for sequential data. Therefore it is suited for text 
 Some applications of RNNs include machine translation, speech recognition and generation,
 sentiment analysis, text prediction and generation.
 
+---
+excerpt_separator
+---
+
 ## Implementation
 ### Data
 We will step-by-step explore how to build a simple RNN in R.
@@ -212,5 +216,9 @@ rnn_backward <- function(learning_rate, o, h, x, y, weights, one_hot, n_vocab) {
 }
 ```
 The code can be found here: [Github](https://github.com/markdumke/Deep-Learning-Seminar)
+
+<hr>
+# More posts:
+
 
 {% include disqus.html %}
