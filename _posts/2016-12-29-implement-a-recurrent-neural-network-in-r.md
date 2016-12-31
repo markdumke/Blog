@@ -21,9 +21,6 @@ sentiment analysis, text prediction and generation.
 
 <!--more-->
 
-When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are
-$$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
-
 ## Implementation
 
 ### Data
@@ -92,9 +89,10 @@ y <- train$y
 ```
 Now we have the training data. The RNN equations are:
 
-a_t &= b + W \, h_{t-1}  + U \, x_t
-h_t  &= \tanh(a_t)
-o_t  &= c + V \, h_t
+$ a_t = b + W  h_{t-1}  + U x_t $
+$ h_t  = \tanh(a_t) $
+$ o_t  = c + V  h_t $
+$ \hat{y}_t = \mathrm{softmax}(o_t) $
 
 Next we need to initialize all weights to small random numbers.
 
