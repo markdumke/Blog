@@ -1,3 +1,6 @@
+layout: default
+comments: true
+
 #  Implement a Recurrent Neural Network in R
 
 This blog post is about how to implement a Recurrent Neural Network (RNN) in R.
