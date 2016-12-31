@@ -12,6 +12,8 @@ excerpt_separator: <!--more-->
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
 </script>
 
+# <span style="color:red">Still under construction!!!</span>
+
 This blog post is about how to implement a Recurrent Neural Network (RNN) in R.
 
 ## What is an RNN?
@@ -230,6 +232,67 @@ rnn_backward <- function(learning_rate, o, h, x, y, weights, one_hot, n_vocab) {
   list(loss = loss, weights = weights)
 }
 ```
+
+## Train the RNN
+
+Now we can put it all together.
+
+```r
+#' Train full RNN model
+train_rnn <- function(steps, learning_rate, x, y, weights, n_hidden, 
+                      n_vocab, one_hot = FALSE) {
+  loss <- rep(0, steps)
+  for(i in seq_len(steps)) {
+    forward <- rnn_forward(x, weights, n_hidden, n_vocab, one_hot)
+    h <- forward$h
+    o <- forward$o
+    bptt <- rnn_backward(learning_rate, o, h, x, y, weights, one_hot, n_vocab)
+    weights <- bptt$weights
+    loss[i] <- bptt$loss
+  }
+  list(loss = loss, weights = weights)
+}
+
+model <- train_rnn(2, 0.1, x, y, weights, n_hidden = 10, 
+                   n_vocab = nrow(dict$dict), one_hot = FALSE)
+```
+
+Now we have sucessfully trained our first RNN model.
+
+## Generate text
+
+```r
+#' Sample from RNN
+predict_rnn <- function(o, sample) {
+  if(sample == FALSE){
+    int <- argmax(o)
+  } else {
+    int <- sample(size = 1, x = seq(nrow(o)), prob = o)
+  }
+  int
+}
+
+#' Generate new text by returning the next character with highest probability
+generate_text <- function(len, weights, dict, initial_character = FALSE, sample = TRUE) {
+  if(initial_character == FALSE){
+    initial_character <- sample(size = 1, levels(dict$dict$characters))
+  }
+  int <- rep(NA, len)
+  int[1] <- which(initial_character == dict$dict$characters)
+  n_vocab <- nrow(dict$dict)
+  n_hidden <- length(weights$b)
+  
+  for(i in seq_len(len - 1)){
+    forward <- rnn_forward(x = int[i], weights, n_hidden, n_vocab, one_hot = FALSE)
+    int[i + 1] <- predict_rnn(forward$o, sample = sample)
+  }
+  dict$dict$characters[int]
+}
+
+new_text <- generate_text(100, model$weights, dict, initial_character = "T", sample = TRUE)
+print(new_text)
+```
+
 The code can be found here: [Github](https://github.com/markdumke/Deep-Learning-Seminar)
 
 <hr>
