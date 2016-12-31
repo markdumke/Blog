@@ -2,7 +2,6 @@
 layout: default
 comments: true
 title: Implement a Recurrent Neural Network in R
-date: <%= Time.now.strftime('%Y-%m-%d %H:%M:%S %z') %>
 ---
 
 This blog post is about how to implement a Recurrent Neural Network (RNN) in R.
