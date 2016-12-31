@@ -1,4 +1,8 @@
-# Recurrent Neural Network architectures
+---
+layout: default
+comments: true
+title: Recurrent Neural Network architectures
+---
 
 This blog post is about different Recurrent Neural Network architectures.
 
@@ -8,4 +12,4 @@ This blog post is about different Recurrent Neural Network architectures.
 
 ## Attention
 
-![Image](https://github.com/markdumke/markdumke.github.io/blob/master/_images/c-album.JPG)
+
