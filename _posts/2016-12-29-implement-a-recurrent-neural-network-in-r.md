@@ -1,5 +1,7 @@
+---
 layout: default
 comments: true
+---
 
 #  Implement a Recurrent Neural Network in R
 
