@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Hallo
+title: {{ site.name }}
 ---
 
 {% for post in site.posts %}
