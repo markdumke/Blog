@@ -1,7 +1,7 @@
-<ul>
-  {% for post in site.posts %}
-    <li>
-      <a href="{{ post.url }}">{{ post.excerpt }}</a>
-    </li>
-  {% endfor %}
-</ul>
+---
+layout: default
+---
+
+{% for post in site.posts %}
+  {% include post_excerpt.html %}
+{% endfor %}
