@@ -157,6 +157,7 @@ rnn_forward <- function(x, weights, n_hidden, n_vocab, one_hot) {
 }
 ```
 ## Backpropagation
+
 Now we have to compute the gradients with respect to all parameters.
 
 ```r
