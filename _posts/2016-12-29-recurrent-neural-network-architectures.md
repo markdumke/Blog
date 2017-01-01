@@ -19,7 +19,7 @@ This blog post is about different Recurrent Neural Network architectures.
 
 ![](https://github.com/markdumke/Deep-Learning-Seminar/blob/master/Images/mod_bidirectional_rnn2.JPG)
 
-![](https://raw.githubusercontent.com/i-saumitra/Voice-controlled-MP3-Player/master/screenshot.jpg)
+![](https://raw.githubusercontent.com/markdumke/Deep-Learning-Seminar/blob/master/Images/mod_bidirectional_rnn2.JPG)
 
 ## Deep RNN
 
