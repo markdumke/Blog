@@ -8,7 +8,7 @@ This blog post is about different Recurrent Neural Network architectures.
 
 ## Bidirectional RNN
 
-<img src="{{ site.url }}/assets/mod_bidirectional_rnn2.JPG" width="600" height="300" />
+<img src="{{ site.url }}/assets/mod_bidirectional_rnn2.JPG" width="400" height="300" />
 
 ## Deep RNN
 
