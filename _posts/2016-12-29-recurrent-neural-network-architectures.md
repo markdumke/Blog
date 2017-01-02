@@ -8,7 +8,7 @@ This blog post is about different Recurrent Neural Network architectures.
 
 ## Bidirectional RNN
 
-![My helpful screenshot]({{ site.url }}/img/mod_bidirectional_rnn2.JPG)
+![My helpful screenshot](_posts/img/mod_bidirectional_rnn2.JPG)
 
 <div style="width:11.8%; margin-left:auto; margin-right:auto; margin-bottom:5px; margin-top:17px;">
 <img src="img/mod_bidirectional_rnn2.JPG" alt>
