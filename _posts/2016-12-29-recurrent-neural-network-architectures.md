@@ -3,6 +3,7 @@ layout: post
 title: Recurrent Neural Network architectures
 abstract: This blog is still under Construction
 author: Markus Dumke
+image: mod_bidirectional_rnn2.JPG
 tags: Test Post
 comments: true
 ---
