@@ -1,4 +1,21 @@
-theme: jekyll-theme-cayman
+theme: jekyll-theme-lanyon
 
-title: markdumke.github.io
-description: Blog
+title:               markdumke Blog
+tagline:             ''
+description:         ''
+url:                 https://markdumke.github.io/
+baseurl:             ''
+paginate:            5
+
+# About/contact
+author:
+  name:              Markus Dumke
+#  url:
+#  email:
+
+# Custom vars
+#version:             1.0.0
+
+authors:
+  Markus:
+display_name: Markus Dumke
