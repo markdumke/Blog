@@ -1,7 +1,10 @@
----
-layout: default
-comments: true
+ ---
+layout: post
 title: Recurrent Neural Network architectures
+abstract: This blog is still under Construction
+author: Markus Dumke
+tags: Test Post
+comments: true
 ---
 
 This blog post is about different Recurrent Neural Network architectures.

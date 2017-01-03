@@ -1,8 +1,10 @@
 ---
-layout: default
+layout: post
+title: Blog under Construction
+abstract: This blog is still under Construction
+author: Markus Dumke
+tags: Implement a Recurrent Neural Network in R
 comments: true
-title: Implement a Recurrent Neural Network in R
-excerpt_separator: <!--more-->
 ---
 
 <script type="text/x-mathjax-config">
