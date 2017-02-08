@@ -105,13 +105,15 @@ altitude2[altitude2 < 0] <- 0 # remove artifacts in the data (negative altitude)
   
 # match coordinates altitude pairs into the dataframe
 # iterator over all locations, finds matches in dataframe and sets altitude to the corresponding value
-df$altitude <- NA
+data$altitude <- NA
 for(i in seq_len(nrow(locations))) {
-  ind <- which(df$latitude == locations[i, 1] & df$longitude == locations[i, 2])
-  df$altitude[ind] <- altitude2[i]
+  ind <- which(data$latitude == locations[i, 1] & data$longitude == locations[i, 2])
+  data$altitude[ind] <- altitude2[i]
 }
 ```
 
+### Füge geographische Informationen hinzu
+Praktisch ist es auch Informationen wie Land, Bundesland, Kreis, Gemeinde automatisch aus den Daten zu extrahieren.
 
 ```r
 # we will need to download geographic information about countries DE, CH, AUT, IT
@@ -119,66 +121,63 @@ for(i in seq_len(nrow(locations))) {
 # gemeinden_de <- getData('GADM', country = 'DE', level = 3)
 # gemeinden_ch <- getData('GADM', country = 'CH', level = 3)
 # gemeinden_at <- getData('GADM', country = 'AUT', level = 3)
-# gemeinden_it <- getData('GADM', country = 'IT', level = 3)
 
 # this takes time, so we save the downloaded files in the folder and load them the next time
 # save(gemeinden_de, file = "gemeinden_de")
 # save(gemeinden_ch, file = "gemeinden_ch")
 # save(gemeinden_at, file = "gemeinden_at")
-# save(gemeinden_it, file = "gemeinden_it")
 
 # Vordefinierte Objekte für Deutschland, Schweiz und Österreich.
 load("gemeinden_de")
 load("gemeinden_ch")
 load("gemeinden_at")
 
-df_geo <- df
-coordinates(df_geo) <- c("longitude", "latitude")
+data_geo <- data
+coordinates(data_geo) <- c("longitude", "latitude")
   
-  # use same lat/lon reference system
-  proj4string(df_geo) <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
+# use same lat/lon reference system
+proj4string(data_geo) <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
   
-  # which Bundesland (if any) contains each sighting and
-  # store the Bundesland name as an attribute of df
+# which Bundesland (if any) contains each sighting and
+# store the Bundesland name as an attribute of data
   
-  which_gemeinde <- over(df_geo, gemeinden)
-  df$Land <- which_gemeinde$NAME_0
-  which_gemeinde_ch <- over(df_geo, gemeinden_ch)
-  df$Land2 <- which_gemeinde_ch$NAME_0
-  df$Land[!is.na(df$Land2)] <- df$Land2[!is.na(df$Land2)]
-  which_gemeinde_at <- over(df_geo, gemeinden_at)
-  df$Land3 <- which_gemeinde_at$NAME_0
-  df$Land[!is.na(df$Land3)] <- df$Land3[!is.na(df$Land3)]
-  which_gemeinde_it <- over(df_geo, gemeinden_it)
-  df$Land4 <- which_gemeinde_it$NAME_0
-  df$Land[!is.na(df$Land4)] <- df$Land4[!is.na(df$Land4)]
+which_gemeinde <- over(data_geo, gemeinden)
+data$Land <- which_gemeinde$NAME_0
+which_gemeinde_ch <- over(data_geo, gemeinden_ch)
+data$Land2 <- which_gemeinde_ch$NAME_0
+data$Land[!is.na(data$Land2)] <- data$Land2[!is.na(data$Land2)]
+which_gemeinde_at <- over(data_geo, gemeinden_at)
+data$Land3 <- which_gemeinde_at$NAME_0
+data$Land[!is.na(data$Land3)] <- data$Land3[!is.na(data$Land3)]
+which_gemeinde_it <- over(data_geo, gemeinden_it)
+
+data$Bundesland <- which_gemeinde$NAME_1
+data$Bundesland2 <- which_gemeinde_ch$NAME_1
+data$Bundesland[!is.na(data$Bundesland2)] <- data$Bundesland2[!is.na(data$Bundesland2)]
+data$Bundesland3 <- which_gemeinde_at$NAME_1
+data$Bundesland[!is.na(data$Bundesland3)] <- data$Bundesland3[!is.na(data$Bundesland3)]
+data$Bundesland4 <- which_gemeinde_it$NAME_1
+data$Bundesland[!is.na(data$Bundesland4)] <- data$Bundesland4[!is.na(data$Bundesland4)]
   
-  df$Bundesland <- which_gemeinde$NAME_1
-  df$Bundesland2 <- which_gemeinde_ch$NAME_1
-  df$Bundesland[!is.na(df$Bundesland2)] <- df$Bundesland2[!is.na(df$Bundesland2)]
-  df$Bundesland3 <- which_gemeinde_at$NAME_1
-  df$Bundesland[!is.na(df$Bundesland3)] <- df$Bundesland3[!is.na(df$Bundesland3)]
-  df$Bundesland4 <- which_gemeinde_it$NAME_1
-  df$Bundesland[!is.na(df$Bundesland4)] <- df$Bundesland4[!is.na(df$Bundesland4)]
-  
-  df$Kreis <- which_gemeinde$NAME_2
-  df$Kreis2 <- which_gemeinde_ch$NAME_2
-  df$Kreis[!is.na(df$Kreis2)] <- df$Kreis2[!is.na(df$Kreis2)]
-  df$Kreis3 <- which_gemeinde_at$NAME_2
-  df$Kreis[!is.na(df$Kreis3)] <- df$Kreis3[!is.na(df$Kreis3)]
-  df$Kreis4 <- which_gemeinde_it$NAME_2
-  df$Kreis[!is.na(df$Kreis4)] <- df$Kreis4[!is.na(df$Kreis4)]
-  
-  df$Gemeinde <- which_gemeinde$NAME_3
-  df$Gemeinde2 <- which_gemeinde_ch$NAME_3
-  df$Gemeinde[!is.na(df$Gemeinde2)] <- df$Gemeinde2[!is.na(df$Gemeinde2)]
-  df$Gemeinde3 <- which_gemeinde_at$NAME_3
-  df$Gemeinde[!is.na(df$Gemeinde3)] <- df$Gemeinde3[!is.na(df$Gemeinde3)]
-  df$Gemeinde4 <- which_gemeinde_it$NAME_3
-  df$Gemeinde[!is.na(df$Gemeinde4)] <- df$Gemeinde4[!is.na(df$Gemeinde4)]
+data$Kreis <- which_gemeinde$NAME_2
+data$Kreis2 <- which_gemeinde_ch$NAME_2
+data$Kreis[!is.na(data$Kreis2)] <- data$Kreis2[!is.na(data$Kreis2)]
+data$Kreis3 <- which_gemeinde_at$NAME_2
+data$Kreis[!is.na(data$Kreis3)] <- data$Kreis3[!is.na(data$Kreis3)]
+ 
+data$Gemeinde <- which_gemeinde$NAME_3
+data$Gemeinde2 <- which_gemeinde_ch$NAME_3
+data$Gemeinde[!is.na(data$Gemeinde2)] <- data$Gemeinde2[!is.na(data$Gemeinde2)]
+data$Gemeinde3 <- which_gemeinde_at$NAME_3
+data$Gemeinde[!is.na(data$Gemeinde3)] <- data$Gemeinde3[!is.na(data$Gemeinde3)]
+
 ```
 
+Endlich sind wir fertig und können den fertigen Datensatz abspeichern.
 
+```r
+write.csv2(data, "data.csv")
+```
 
 
 
