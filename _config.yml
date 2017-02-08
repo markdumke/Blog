@@ -1,5 +1,10 @@
+# Permalinks
+#
+# Use of `relative_permalinks` ensures post links from the index work properly.
+#permalink:           pretty
 
-title:               markdumke Blog
+# Setup
+title:               My blog
 tagline:             ''
 description:         ''
 url:                 https://markdumke.github.io/
@@ -17,4 +22,9 @@ author:
 
 authors:
   Markus:
-display_name: Markus Dumke
+    display_name: Markus Dumke
+    #gravatar: 60fd5218fff6927c0ed376cce01c5460
+    #email: matt@lostdecadegames.com
+    #web: http://www.richtaur.com/
+    #twitter: richtaur
+    #github: richtaur
