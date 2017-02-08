@@ -116,28 +116,23 @@ for(i in seq_len(nrow(locations))) {
 ```
 
 ### Füge geographische Informationen hinzu
-Praktisch ist es auch Informationen wie Land, Bundesland, Kreis, Gemeinde automatisch aus den Daten zu extrahieren.
+Praktisch ist es auch Informationen wie Land, Bundesland, Kreis, Gemeinde automatisch aus den Daten zu extrahieren. Dafür müssen wir zunächst die entsprechenden Pakete laden und geographische Informationen des jeweiligen Landes (hier am Beispiel Deustchland) herunterladen. Dies kann kurz dauern, anschliessend speichern wir diese Datei ab (save), dann können wir sie beim nächsten Mal einfach aus unserem Ordner laden  (load) und müssen sie nicht erneut herunterladen.
 
 ```r
 library(sp)
 library(raster)
 
-# we will need to download geographic information about countries DE, CH, AUT, IT
-# add other ones if you have data from other countries
-# gemeinden_de <- getData('GADM', country = 'DE', level = 3)
-# gemeinden_ch <- getData('GADM', country = 'CH', level = 3)
-# gemeinden_at <- getData('GADM', country = 'AUT', level = 3)
+# falls du andere Länder brauchst, ersetze "DE" z.B. durch "CH" für die Schweiz oder "AUT" für Österreich. Dies kann ein paar Minuten dauern.
+gemeinden_de <- getData('GADM', country = 'DE', level = 3)
 
-# this takes time, so we save the downloaded files in the folder and load them the next time
-# save(gemeinden_de, file = "gemeinden_de")
-# save(gemeinden_ch, file = "gemeinden_ch")
-# save(gemeinden_at, file = "gemeinden_at")
+save(gemeinden_de, file = "gemeinden_de")
 
-# Vordefinierte Objekte für Deutschland, Schweiz und Österreich.
+# Die oberen Zeilen können nun gelöscht werden und wir können die Datei mit load laden.
 load("gemeinden_de")
-load("gemeinden_ch")
-load("gemeinden_at")
+```
 
+
+```r
 data_geo <- data
 coordinates(data_geo) <- c("longitude", "latitude")
   
