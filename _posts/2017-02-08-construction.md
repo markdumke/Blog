@@ -15,7 +15,7 @@ some text some text some text some text some text some text some text some text 
 
 some image some image some image some image some image some image some image some image some image :
 
-![My helpful screenshot]({{ site.url }}/assets/mod_bidirectional_rnn2.JPG)
+![My helpful screenshot]({{ site.url }}/assets/encoder_decoder.JPG)
 
 {% include disqus.html %}
 
