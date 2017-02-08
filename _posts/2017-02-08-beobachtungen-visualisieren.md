@@ -33,10 +33,10 @@ und könnte ungefähr folgendermassen aussehen:
 | 04.07.2010 | Polygonia c-album   | Falter    | 3      |
 | ...        | ...                 | ...       | ...    |
 
-Um die Daten korrekt darzustellen, sind leider ein paar Vorbereitungen nötig. Zunächst lesen wir die Daten in R ein:
+Um die Daten korrekt darzustellen, sind leider ein paar Vorbereitungen nötig. Zunächst lesen wir die Daten in R ein (ersetze "daten.csv" durch den Namen des Datensatzs, falls dieser anders heisst):
 
 ```r
-data <- read.csv2("daten.csv", stringsAsFactors = FALSE, encoding = "utf8") # ersetze "daten.csv" durch den Namen des Datensatzs, falls anders.
+data <- read.csv2("daten.csv", stringsAsFactors = FALSE, encoding = "utf8")
 ```
 
 Die Daten sollten Koordinaten enthalten, d.h. zwei Spalten latitude (der Breitengrad) und longitude (der Längengrad). 
