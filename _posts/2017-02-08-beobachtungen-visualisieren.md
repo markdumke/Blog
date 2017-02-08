@@ -33,6 +33,8 @@ und könnte ungefähr folgendermassen aussehen:
 | 04.07.2010 | Polygonia c-album   | Falter    | 3      | 51.243652  | 10.35251|
 | ...        | ...                 | ...       | ...    |    ...     | ...|
 
+Wichtig ist, dass der Datensatz Koordinaten enthält, alles andere ist optional (je nachdem was man erfassen und darstellen will).
+
 Um die Daten korrekt darzustellen, sind leider ein paar Vorbereitungen nötig. Zunächst lesen wir die Daten in R ein (ersetze "daten.csv" durch den Namen des Datensatzs, falls dieser anders heisst):
 
 ```r
@@ -59,35 +61,20 @@ data$latitude <- extract_coordinates(data$latitude)
 data$longitude <- extract_coordinates(data$longitude)
 ```
 
-Als nächstes wollen wir automatisch Informationen aus den Koordinaten herausziehen, z.B. die Höhe des Fundpunkts, in welchem Land, Bundesland, Kreis etc. diese liegt.
+Als nächstes wollen wir automatisch Informationen aus den Koordinaten herausziehen, z.B. die Höhe des Fundpunkts, in welchem Land, Bundesland, Kreis etc. dieser liegt.
 Dafür benutzen wir folgenden Code: Zunächst müssen wir ein paar Pakete installieren (Pakete enthalten in R nützliche Zusatzfunktionen). 
 Das geht einfach mit install.packages("paketname"), wobei wir für paketname dann z.B. raster, sp, lubridate etc. einsetzen müssen.
 Wenn wir die Pakete installiert haben, können wir die entsprechenden Zeilen löschen. Danach können wir die Pakete laden und dann die Funktionen aus diesen Paketen nutzen.
-Das Paket geonames benötigen wir wenn wir anhand der Koordinaten die Höhe abfragen wollen. 
-Dafür ist eine kostenlose Registration auf 
-<a href="http://www.geonames.org/login" target="_blank">GeoNames</a> nötig. Setze deinen Username dann in options(geonamesUsername="username") ein.
-
-```r
-install.packages("sp")
-install.packages("raster")
-install.packages("lubridate")
-install.packages("geonames") # Zeilen können nach der Installation gelöscht werden
-
-library(sp) # Laden der Pakete
-library(raster)
-library(lubridate)
-library(geonames) # registriere bei geonames um webservices zu nutzen (z.B. Höhenabfrage von Koordinaten)
-options(geonamesUsername="username") # ersetze username durch deinen Benutzernamen.
-```
 
 Fertig, es kann losgehen.
 
 ### Mehr Informationen über das Datum
 Extrahiere weitere Informationen aus einem Datum. Es wird vorausgesetzt, dass im Datensatz bereits eine Datumsspalte mit Einträgen im Format "dd.mm.yyyy", also z.B. "24.04.1993" vorliegen.
 Diese wandeln wir zunächst in ein sogenanntes date Object in R um und fragen dann Zusatzinformationen wie Tag, Monat, Jahr, Tag im Jahr, Monatstag etc ab. 
-Dafür haben wir vorher das lubridate Paket installiert.
+Dafür müssen wir das lubridate Paket laden.
 
 ```r
+library(lubridate)
 data$Datum2 <- dmy(data$Datum)
 data$Datum2 <- as.character(data$Datum2)
   
@@ -102,10 +89,17 @@ data$Monatstag <- mday(data$Datum2)
 ```
 
 ### Bestimme die Höhe aus den Koordinaten
+Das Paket geonames benötigen wir wenn wir anhand der Koordinaten die Höhe abfragen wollen. 
+Dafür ist eine kostenlose Registration auf 
+<a href="http://www.geonames.org/login" target="_blank">GeoNames</a> nötig. Setze deinen Username dann in options(geonamesUsername="username") ein.
 Dafür verwenden wir jetzt unseren geonames Account. Dieser erlaubt uns 2000 Anfragen pro Stunde.
 
 ```r
-# bestimme Höhe aus Koordinaten
+# Bestimme Höhe aus Koordinaten
+# registriere bei geonames um webservices zu nutzen
+library(geonames) 
+options(geonamesUsername="username") # ersetze username durch deinen Benutzernamen.
+
 # Abfrage nur für unterschiedliche Koordinaten-Paare nötig. Daher extrahieren wir zunächst alle einzigartigen (latitude, longitude)-Paare.
 locations <- unique(data[c("latitude", "longitude")])
 altitude <- mapply(GNsrtm3, locations$latitude, locations$longitude)
@@ -125,6 +119,9 @@ for(i in seq_len(nrow(locations))) {
 Praktisch ist es auch Informationen wie Land, Bundesland, Kreis, Gemeinde automatisch aus den Daten zu extrahieren.
 
 ```r
+library(sp)
+library(raster)
+
 # we will need to download geographic information about countries DE, CH, AUT, IT
 # add other ones if you have data from other countries
 # gemeinden_de <- getData('GADM', country = 'DE', level = 3)
