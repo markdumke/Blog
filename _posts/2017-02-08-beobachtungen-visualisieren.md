@@ -4,6 +4,7 @@ title: Visualisation Schmetterlingsdaten
 abstract: Text
 author: Markus Dumke
 tags: Visualisation Schmetterlingsdaten
+image: podalirius_karte.JPG
 comments: true
 ---
 

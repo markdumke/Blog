@@ -2,7 +2,7 @@
 layout: post
 title: Blog under Construction
 abstract: This blog is still under Construction
-image: encoder_decoder.JPG
+image: 
 author: Markus Dumke
 tags: Test Post
 comments: true
