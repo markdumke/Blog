@@ -26,12 +26,12 @@ Speichere die Datei in dem Ordner, den wir gerade angelegt haben. Erstelle nun e
 Ein Beispiel-"Rohdatensatz" kann hier gefunden werden (Link)
 und könnte ungefähr folgendermassen aussehen:
 
-| Datum      | Art                 | Stadium   | Anzahl |
-| :--------: | :-----------------: | :--------:| :-----:|
-| 02.08.2009 | Gonepteryx rhamni   | Falter    |    5   |
-| 04.07.2010 | Aglais io           | Falter    | 18     |
-| 04.07.2010 | Polygonia c-album   | Falter    | 3      |
-| ...        | ...                 | ...       | ...    |
+| Datum      | Art                 | Stadium   | Anzahl | Geschlecht |Beobachter |
+| :--------: | :-----------------: | :--------:| :-----:| :-----:    | :-----: |
+| 02.08.2009 | Gonepteryx rhamni   | Falter    |    5   | m          |Markus Dumke|
+| 04.07.2010 | Aglais io           | Falter    | 18     |            | Markus Dumke|
+| 04.07.2010 | Polygonia c-album   | Falter    | 3      |            | Markus Dumke|
+| ...        | ...                 | ...       | ...    |            | Markus Dumke|
 
 Um die Daten korrekt darzustellen, sind leider ein paar Vorbereitungen nötig. Zunächst lesen wir die Daten in R ein (ersetze "daten.csv" durch den Namen des Datensatzs, falls dieser anders heisst):
 
