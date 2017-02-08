@@ -2,7 +2,7 @@
 layout: post
 title: Blog under Construction
 abstract: This blog is still under Construction
-image: mod_bidirectional_rnn2.JPG
+image: encoder_decoder.JPG
 author: Markus Dumke
 tags: Test Post
 comments: true
