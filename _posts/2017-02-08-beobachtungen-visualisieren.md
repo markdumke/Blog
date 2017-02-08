@@ -25,6 +25,7 @@ Speichere die Datei in dem Ordner, den wir gerade angelegt haben. Erstelle nun e
 
 Ein Beispiel-"Rohdatensatz" kann hier gefunden werden: Link
 und sieht folgendermassen aus:
+
 | Datum               | Art                 | Stadium             |
 | :-----------------: | :-----------------: | :-----------------: |
 | 02.08.2009          | Gonepteryx rhamni   | Falter              |
@@ -39,7 +40,7 @@ data <- read.csv2("daten.csv", stringsAsFactors = FALSE, encoding = "utf8") # er
 
 Die Daten sollten Koordinaten enthalten, d.h. zwei Spalten latitude (der Breitengrad) und longitude (der Längengrad). 
 Diese sollten als Zahlen vorliegen, ein korrekter Längengrad ist z.B. longitude = 11.3124, ein Breitengrad z.B. latitude = 48.21453.
-Falls die Koordinaten in einem anderen Format sind, müssen wir sie erst transformieren. Dafür könnten diese Helferfunktionen nützlich sein:
+Falls die Koordinaten in einem anderen Format sind, müssen wir sie erst transformieren. Dafür könnte diese Helferfunktion nützlich sein:
 
 ```r
 # Koordinaten in richtiges Format bringen
@@ -53,8 +54,8 @@ extract_coordinates <- function(x) {
 }
 
 # Koordinaten als Zahlen in Datensatz hinzufügen
-data$latitude <- extract_coordinates(data$Breite)
-data$longitude <- extract_coordinates(data$Länge)
+data$latitude <- extract_coordinates(data$latitude)
+data$longitude <- extract_coordinates(data$longitude)
 ```
 
 Als nächstes wollen wir automatisch Informationen aus den Koordinaten herausziehen, z.B. die Höhe des Fundpunkts, in welchem Land, Bundesland, Kreis etc. diese liegt.
