@@ -116,13 +116,13 @@ for(i in seq_len(nrow(locations))) {
 ```
 
 ### Füge geographische Informationen hinzu
-Praktisch ist es auch Informationen wie Land, Bundesland, Kreis, Gemeinde automatisch aus den Daten zu extrahieren. Dafür müssen wir zunächst die entsprechenden Pakete laden und geographische Informationen des jeweiligen Landes (hier am Beispiel Deustchland) herunterladen. Dies kann kurz dauern, anschliessend speichern wir diese Datei ab (save), dann können wir sie beim nächsten Mal einfach aus unserem Ordner laden  (load) und müssen sie nicht erneut herunterladen.
+Praktisch ist es auch Informationen wie Land, Bundesland, Kreis, Gemeinde automatisch aus den Daten zu extrahieren. Dafür müssen wir zunächst die entsprechenden Pakete laden und geographische Informationen des jeweiligen Landes (hier am Beispiel Deutschland) herunterladen. Dies kann kurz dauern, anschliessend speichern wir diese Datei ab (save), dann können wir sie beim nächsten Mal einfach aus unserem Ordner laden  (load) und müssen sie nicht erneut herunterladen.
 
 ```r
 library(sp)
 library(raster)
 
-# falls du andere Länder brauchst, ersetze "DE" z.B. durch "CH" für die Schweiz oder "AUT" für Österreich. Dies kann ein paar Minuten dauern.
+# falls du andere Länder brauchst, ersetze "DE" z.B. durch "CH" für die Schweiz oder "AUT" für Österreich.
 gemeinden_de <- getData('GADM', country = 'DE', level = 3)
 
 save(gemeinden_de, file = "gemeinden_de")
@@ -141,37 +141,12 @@ proj4string(data_geo) <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towg
   
 # which Bundesland (if any) contains each sighting and
 # store the Bundesland name as an attribute of data
-  
+
 which_gemeinde <- over(data_geo, gemeinden)
 data$Land <- which_gemeinde$NAME_0
-which_gemeinde_ch <- over(data_geo, gemeinden_ch)
-data$Land2 <- which_gemeinde_ch$NAME_0
-data$Land[!is.na(data$Land2)] <- data$Land2[!is.na(data$Land2)]
-which_gemeinde_at <- over(data_geo, gemeinden_at)
-data$Land3 <- which_gemeinde_at$NAME_0
-data$Land[!is.na(data$Land3)] <- data$Land3[!is.na(data$Land3)]
-which_gemeinde_it <- over(data_geo, gemeinden_it)
-
 data$Bundesland <- which_gemeinde$NAME_1
-data$Bundesland2 <- which_gemeinde_ch$NAME_1
-data$Bundesland[!is.na(data$Bundesland2)] <- data$Bundesland2[!is.na(data$Bundesland2)]
-data$Bundesland3 <- which_gemeinde_at$NAME_1
-data$Bundesland[!is.na(data$Bundesland3)] <- data$Bundesland3[!is.na(data$Bundesland3)]
-data$Bundesland4 <- which_gemeinde_it$NAME_1
-data$Bundesland[!is.na(data$Bundesland4)] <- data$Bundesland4[!is.na(data$Bundesland4)]
-  
 data$Kreis <- which_gemeinde$NAME_2
-data$Kreis2 <- which_gemeinde_ch$NAME_2
-data$Kreis[!is.na(data$Kreis2)] <- data$Kreis2[!is.na(data$Kreis2)]
-data$Kreis3 <- which_gemeinde_at$NAME_2
-data$Kreis[!is.na(data$Kreis3)] <- data$Kreis3[!is.na(data$Kreis3)]
- 
 data$Gemeinde <- which_gemeinde$NAME_3
-data$Gemeinde2 <- which_gemeinde_ch$NAME_3
-data$Gemeinde[!is.na(data$Gemeinde2)] <- data$Gemeinde2[!is.na(data$Gemeinde2)]
-data$Gemeinde3 <- which_gemeinde_at$NAME_3
-data$Gemeinde[!is.na(data$Gemeinde3)] <- data$Gemeinde3[!is.na(data$Gemeinde3)]
-
 ```
 
 Endlich sind wir fertig und können den fertigen Datensatz abspeichern.
