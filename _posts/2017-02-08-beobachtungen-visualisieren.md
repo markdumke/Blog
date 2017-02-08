@@ -23,14 +23,15 @@ Für die grafische Benutzeroberfläche brauchen wir zudem noch ein weiteres Skri
 Zunächst speichere deinen Datensatz als csv Datei ab (in Excel Speichern unter, Dateiformat csv auswählen). 
 Speichere die Datei in dem Ordner, den wir gerade angelegt haben. Erstelle nun ein neues R Skript, wir nennen es "Datenaufbereitung.R".
 
-Ein Beispiel-"Rohdatensatz" kann hier gefunden werden: Link
-und sieht folgendermassen aus:
+Ein Beispiel-"Rohdatensatz" kann hier gefunden werden (Link)
+und könnte ungefähr folgendermassen aussehen:
 
-| Datum               | Art                 | Stadium             |
-| :-----------------: | :-----------------: | :-----------------: |
-| 02.08.2009          | Gonepteryx rhamni   | Falter              |
-| 04.07.2010          | Aglais io           | Falter              |
-| 04.07.2010          | Polygonia c-album   | Falter              |
+| Datum      | Art                 | Stadium   | Anzahl |
+| :--------: | :-----------------: | :--------:| :-----:|
+| 02.08.2009 | Gonepteryx rhamni   | Falter    |    5   |
+| 04.07.2010 | Aglais io           | Falter    | 18     |
+| 04.07.2010 | Polygonia c-album   | Falter    | 3      |
+| ...        | ...                 | ...       | ...    |
 
 Um die Daten korrekt darzustellen, sind leider ein paar Vorbereitungen nötig. Zunächst lesen wir die Daten in R ein:
 
