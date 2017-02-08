@@ -20,10 +20,17 @@ Installiere diese als erstes auf deinem PC. Lege dann einen neuen Ordner an, in 
 Für die grafische Benutzeroberfläche brauchen wir zudem noch ein weiteres Skript "ui.R". Wichtig, diese Dateien müssen genauso heissen.
 
 ## Datenaufbereitung
-Zunächst speichere deinen Daten als csv Datei ab (in Excel Speichern unter, Dateiformat csv auswählen). 
-Speichere die Datei in demselben Ordner, den wir gerade angelegt haben. Erstelle nun ein neues R Skript, wir nennen es "Datenaufbereitung.R".
+Zunächst speichere deinen Datensatz als csv Datei ab (in Excel Speichern unter, Dateiformat csv auswählen). 
+Speichere die Datei in dem Ordner, den wir gerade angelegt haben. Erstelle nun ein neues R Skript, wir nennen es "Datenaufbereitung.R".
 
-Ein Beispiel-"Rohdatensatz" kann hier gefunden werden: 
+Ein Beispiel-"Rohdatensatz" kann hier gefunden werden: Link
+und sieht folgendermassen aus:
+| Datum               | Art                 | Stadium             |
+| :-----------------: | :-----------------: | :-----------------: |
+| 02.08.2009          | Gonepteryx rhamni   | Falter              |
+| 04.07.2010          | Aglais io           | Falter              |
+| 04.07.2010          | Polygonia c-album   | Falter              |
+
 Um die Daten korrekt darzustellen, sind leider ein paar Vorbereitungen nötig. Zunächst lesen wir die Daten in R ein:
 
 ```r
@@ -37,11 +44,11 @@ Falls die Koordinaten in einem anderen Format sind, müssen wir sie erst transfo
 ```r
 # Koordinaten in richtiges Format bringen
 # Funktion extrahiert Koordinaten als Zahlen aus String
-# z.B. "11,069° E" wird zu 11.069
+# z.B. wird "11,069° E" zu 11.069
 extract_coordinates <- function(x) {
-  coord <- sub(x = x, pattern = "[A-Z]", replacement = "")
-  coord <- sub(x = coord, pattern = "° ", replacement = "")
-  coord <- sub(x = coord, pattern = ",", replacement = ".")
+  coord <- gsub(x = x, pattern = "[A-Z]", replacement = "")
+  coord <- gsub(x = coord, pattern = "° ", replacement = "")
+  coord <- gsub(x = coord, pattern = ",", replacement = ".")
   as.numeric(coord)
 }
 
