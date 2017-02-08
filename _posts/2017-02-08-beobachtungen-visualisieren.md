@@ -181,7 +181,7 @@ write.csv2(data, "data.csv")
 
 
 
-
+Lese weiter in Teil 2 wie wir nun eine Shiny App mit diesen Daten bauen...
 
 
 [Shiny App](https://github.com/markdumke/lepivis)
