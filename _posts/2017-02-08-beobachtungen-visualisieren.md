@@ -7,13 +7,6 @@ tags: Visualisation Schmetterlingsdaten
 comments: true
 ---
 
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
-</script>
-<script type="text/javascript" async
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
-</script>
-
 Wissen teilen, auch f?r andere Leute vielleicht n?tzlich und interessant.
 Du hast eine Excel Tabelle mit Beobachtungsdaten, z.B. Schmetterlingsbeobachtungen, aber weisst nicht, wie du sie sch?n auf einer Karte darstellen kannst.
 Zum Gl?ck gibt es grossartige Pakete wie Shiny oder Leaflet in R, die es sehr einfach machen, eine sch?ne Visualisation zu basteln.
