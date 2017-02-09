@@ -47,7 +47,9 @@ Als nächstes wollen wir die Koordinaten als Punkte auf der Karte darstellen las
 shinyServer(
   function(input, output, session) {
     
-    points <- reactive({cbind(data$longitude, data$latitude)})
+    points <- reactive({
+      cbind(data$longitude, data$latitude)
+    })
         
     output$map <- renderLeaflet({
       leaflet() %>% addTiles()  %>%
@@ -86,8 +88,9 @@ shinyServer(
       data[data$Art %in% input$Art, ]
     })
     
-    points <- reactive({cbind(data_subset()$longitude, 
-                        data_subset()$latitude)})
+    points <- reactive({
+      cbind(data_subset()$longitude, data_subset()$latitude)
+    })
         
     output$Karte <- renderLeaflet({
       leaflet() %>% addTiles()  %>%
@@ -99,7 +102,7 @@ shinyServer(
 )
 ```
 
-Nun wird jedes Mal wenn ein Input verändert wird, d.h. eine neue Art ausgewählt wird, erneut **renderLeaflet** aufgerufen und die Karte neu erzeugt. Das ist nicht unbedingt das erwünschte Verhalten. Um das zu umgehen, müssen wir das **addCircleMarkers** aus dem **renderLeaflet** nehmen und in ein **leafletProxy** Aufruf schreiben, dieser verhindert das die gesamte Karte neu erzeugt werden muss, sodass bei einer neuen Auswahl der aktuelle Kartenausschnitt erhalten bleibt. Mit **clearGroup** werden alle alten Punkte von der Karte gelöscht und danach die neuen basierend auf der aktuellen Artenauswahl dargestellt.
+Nun wird jedes Mal wenn ein Input verändert wird, d.h. eine neue Art ausgewählt wird, erneut `renderLeaflet` aufgerufen und die Karte neu erzeugt. Das ist nicht unbedingt das erwünschte Verhalten. Um das zu umgehen, müssen wir das `addCircleMarkers` aus dem `renderLeaflet` nehmen und in ein `leafletProxy` Aufruf schreiben, dieser verhindert das die gesamte Karte neu erzeugt werden muss, sodass bei einer neuen Auswahl der aktuelle Kartenausschnitt erhalten bleibt. Mit `clearGroup` werden alle alten Punkte von der Karte gelöscht und danach die neuen basierend auf der aktuellen Artenauswahl dargestellt.
 
 ```r
 shinyServer(
@@ -109,7 +112,9 @@ shinyServer(
       data[data$Art %in% input$Art, ]
     })
     
-    points <- reactive({cbind(data_subset()$longitude, data_subset()$latitude)})
+    points <- reactive({
+      cbind(data_subset()$longitude, data_subset()$latitude)
+    })
         
     output$Karte <- renderLeaflet({
       leaflet() %>% addTiles()  %>%
@@ -118,7 +123,8 @@ shinyServer(
     
     observeEvent(input$Art, {
       leafletProxy("Karte") %>% clearGroup("points") %>%
-        addCircleMarkers(data = points(), fillOpacity = 1, opacity = 1, group = "points")
+        addCircleMarkers(data = points(), fillOpacity = 1, 
+                         opacity = 1, group = "points")
     })
   }
 )
