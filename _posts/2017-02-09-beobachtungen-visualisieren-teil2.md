@@ -15,7 +15,7 @@ library(shiny)
 library(leaflet)
 
 # load data
-df <- read.csv2("data_proprocessed.csv", encoding = "utf8", stringsAsFactors = TRUE)
+data <- read.csv2("data_proprocessed.csv", encoding = "utf8")
 ```
 
 Zunächst fangen wir mit einer einfachen App an, die einfach eine Karte anzeigt. Dafür fügen wir in ui.R einen leafletOutput ein, damit wird standardmässig die Openstreetmap Karte eingebunden. Die Breite der Karte setzen wir auf 100% der Bildschirmbreite, die Höhe auf 700 Pixel (Wichtig: Es ist nicht möglich, beide auf 100% zu setzen!)
@@ -34,7 +34,7 @@ shinyServer(
     
     output$map <- renderLeaflet({
       leaflet() %>% addTiles()  %>%
-        setView(11.6, 50.5, 6)
+        setView(11, 49, 7)
     })
   }
 )
@@ -51,8 +51,9 @@ shinyServer(
         
     output$map <- renderLeaflet({
       leaflet() %>% addTiles()  %>%
-        setView(11.6, 50.5, 6) %>% 
-        addCircleMarkers(data = points(), fillOpacity = 1, opacity = 1)
+        setView(11, 49, 7) %>% 
+        addCircleMarkers(data = points(), fillOpacity = 1, 
+                         opacity = 1)
     })
   }
 )
