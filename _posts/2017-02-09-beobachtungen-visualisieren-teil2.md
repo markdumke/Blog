@@ -86,19 +86,42 @@ shinyServer(
       data[data$Art %in% input$Art, ]
     })
     
-    points <- reactive({cbind(data_subset()$longitude, data_subset()$latitude)})
+    points <- reactive({cbind(data_subset()$longitude, 
+                        data_subset()$latitude)})
         
     output$Karte <- renderLeaflet({
       leaflet() %>% addTiles()  %>%
         setView(11, 49, 7) %>% 
-        addCircleMarkers(data = points(), fillOpacity = 1, opacity = 1)
+        addCircleMarkers(data = points(), fillOpacity = 1, 
+                         opacity = 1)
     })
   }
 )
 ```
 
+Nun wird jedes Mal wenn ein Input verändert wird, d.h. eine neue Art ausgewählt wird, erneut **renderLeaflet** aufgerufen und die Karte neu erzeugt. Das ist nicht unbedingt das erwünschte Verhalten. Um das zu umgehen, müssen wir das **addCircleMarkers** aus dem **renderLeaflet** nehmen und in ein **leafletProxy** Aufruf schreiben, dieser verhindert das die gesamte Karte neu erzeugt werden muss, sodass bei einer neuen Auswahl der aktuelle Kartenausschnitt erhalten bleibt. Mit **clearGroup** werden alle alten Punkte von der Karte gelöscht und danach die neuen basierend auf der aktuellen Artenauswahl dargestellt.
 
 ```r
+shinyServer(
+  function(input, output, session) {
+    
+    data_subset <- reactive({
+      data[data$Art %in% input$Art, ]
+    })
+    
+    points <- reactive({cbind(data_subset()$longitude, data_subset()$latitude)})
+        
+    output$Karte <- renderLeaflet({
+      leaflet() %>% addTiles()  %>%
+        setView(11, 49, 7)
+    })
+    
+    observeEvent(input$Art, {
+      leafletProxy("Karte") %>% clearGroup("points") %>%
+        addCircleMarkers(data = points(), fillOpacity = 1, opacity = 1, group = "points")
+    })
+  }
+)
 
 ```
 
