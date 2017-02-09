@@ -134,18 +134,23 @@ Schon ganz nützlich. Natürlich können wir in der Sidebar noch zahlreiche weit
 ```r
 ui <- fluidPage(
   sidebarPanel(
-    selectizeInput("Art", label = "Art", selected = "Polygonia c-album",
+    selectizeInput("Art", label = "Art", 
+                   selected = "Polygonia c-album",
                    choices = levels(data$Art), multiple = TRUE),
     selectizeInput("Stadium", label = "Stadium", selected = "Falter",
                    multiple = TRUE, choices = levels(data$Stadium)),
-    selectizeInput("Bundesland", label = "Bundesland", selected = "Bayern", 
+    selectizeInput("Bundesland", label = "Bundesland", 
+                   selected = "Bayern", 
                    choices = levels(data$Bundesland), multiple = TRUE),
-    selectizeInput("Beobachter", label = "Beobachter", selected = "Markus Dumke",
+    selectizeInput("Beobachter", label = "Beobachter", 
+                   selected = "Markus Dumke",
                    choices = levels(data$Beobachter), multiple = TRUE),
-    sliderInput("Jahr", "Jahr", min = min(data$Jahr), max = max(data$Jahr), 
-                step = 1, ticks = TRUE, value = c(min(data$Jahr), max(data$Jahr))),
-    sliderInput("altitude", label = "Höhe", min = 0,  step = 100, ticks = TRUE,
-                max = max(data$altitude), value = c(0, max(data$altitude)))
+    sliderInput("Jahr", "Jahr", min = min(data$Jahr), 
+                max = max(data$Jahr), step = 1, ticks = TRUE, 
+                value = c(min(data$Jahr), max(data$Jahr))),
+    sliderInput("altitude", label = "Höhe", min = 0, step = 100, 
+                ticks = TRUE, max = max(data$altitude), 
+                value = c(0, max(data$altitude)))
   ),
   mainPanel(leafletOutput("Karte", width = "100%", height = "700"))
 )
@@ -162,7 +167,8 @@ shinyServer(
            data$Stadium %in% input$Stadium & 
            data$Bundesland %in% input$Bundesland & 
            data$Beobachter %in% input$Beobachter & 
-           data$altitude >= input$altitude[1] & data$altitude <= input$altitude[2] &
+           data$altitude >= input$altitude[1] & 
+           data$altitude <= input$altitude[2] &
            data$Jahr >= input$Jahr[1] & data$Jahr <= input$Jahr[2], ]
     })
     
