@@ -143,7 +143,7 @@ proj4string(data_geo) <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towg
 # which Bundesland (if any) contains each sighting and
 # store the Bundesland name as an attribute of data
 
-which_gemeinde <- over(data_geo, gemeinden)
+which_gemeinde <- over(data_geo, gemeinden_de)
 data$Land <- which_gemeinde$NAME_0
 data$Bundesland <- which_gemeinde$NAME_1
 data$Kreis <- which_gemeinde$NAME_2
@@ -153,7 +153,7 @@ data$Gemeinde <- which_gemeinde$NAME_3
 Endlich sind wir fertig und können den fertigen Datensatz abspeichern.
 
 ```r
-write.csv2(data, "data.csv")
+write.csv2(data, "data_preprocessed.csv")
 ```
 
 
