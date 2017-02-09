@@ -8,7 +8,7 @@ comments: true
 ---
 
 ## Erstellen einer Shiny App
-Zunächst müssen wir das Paket Shiny installieren. Dieses erstellt im Folgenden die Visualisation. Eine Shiny App besteht immer aus 2 Teilen: einem ui.R Skript, dass die grafische Benutzeroberfläche (Buttons etc., die der Nutzer klicken kann) erstellt und ein server.R Skript, dass festlegt, was passieren soll, wenn z.B. ein Button geklickt wird. Zunächst müssen wir das Peket laden und die Daten einlesen. Ausserdem brauchen wir noch das leaflet Paket, das die Karten zur Verfügung stellt. Platziere dafür folgenden Code in deiner server.R Datei:
+Zunächst müssen wir das Paket Shiny installieren. Dieses erstellt im Folgenden die Visualisation. Eine Shiny App besteht immer aus 2 Teilen: einem ui.R Skript, dass die grafische Benutzeroberfläche (Buttons etc., die der Nutzer klicken kann) erstellt und ein server.R Skript, dass festlegt, was passieren soll, wenn z.B. ein Button geklickt wird. Zunächst müssen wir das Peket laden und die Daten einlesen. Ausserdem brauchen wir noch das leaflet Paket, das die Karten zur Verfügung stellt. Platziere dafür folgenden Code in deiner ui.R **und** in deiner server.R Datei:
 
 ```r
 library(shiny)
@@ -36,18 +36,30 @@ shinyServer(
       leaflet() %>% addTiles()  %>%
         setView(11.6, 50.5, 6)
     })
+  }
+)
+```
+Jetzt haben wir bereits eine lauffähige App, wenn du in Rstudio auf **Run App** klickst, sollte sich ein Fenster öffnen, in dem eine leere Openstreetmap Karte gezeigt wird.
 
+Als nächstes wollen wir die Koordinaten als Punkte auf der Karte darstellen lassen. Dafür ändern wir server.R, sodass folgender Code dort steht:
+
+```r
+shinyServer(
+  function(input, output, session) {
+    
+    points <- reactive({cbind(data$longitude, data$latitude)})
+        
+    output$map <- renderLeaflet({
+      leaflet() %>% addTiles()  %>%
+        setView(11.6, 50.5, 6) %>% 
+        addCircleMarkers(data = points(), fillOpacity = 1, opacity = 1)
+    })
   }
 )
 
-
 ```
 
 
-
-```r
-
-```
 
 ```r
 
