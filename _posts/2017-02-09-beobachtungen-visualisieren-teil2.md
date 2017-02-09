@@ -59,7 +59,6 @@ shinyServer(
     })
   }
 )
-
 ```
 
 Jetzt sollte der Output mit **Run App** etwa so aussehen:
@@ -128,7 +127,6 @@ shinyServer(
     })
   }
 )
-
 ```
 
 Schon ganz nützlich. Natürlich können wir in der Sidebar noch zahlreiche weitere Inputs hinzufügen. Z.B. weitere `selectizeInput` oder auch `sliderInput` für Jahr oder Höhe. In ui.R kann das ganze dann so aussehen:
@@ -173,6 +171,8 @@ shinyServer(
 )
 ```
 
+Die App sollte jetzt etwa so aussehen:
+![Shiny App]({{ site.url }}/assets/app3.JPG)
 
 ```r
 
