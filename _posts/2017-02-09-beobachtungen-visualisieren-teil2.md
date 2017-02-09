@@ -196,6 +196,7 @@ Dann ändern wir den Aufruf von `output$Karte <- ...` in server.R so:
 ```r
     output$Karte <- renderLeaflet({
       leaflet() %>% setView(11, 49, 7) %>% 
+      addSearchOSM() %>%
       addTiles(group = "OSM") %>%
       addProviderTiles("Esri.WorldImagery", group = "Satellit") %>%
       addProviderTiles("Esri.WorldTopoMap", group = "Gelände") %>%
@@ -203,9 +204,22 @@ Dann ändern wir den Aufruf von `output$Karte <- ...` in server.R so:
     })
 ```
 
-```r
+Jetzt können wir zwischen verschiedenen Karten wechseln und zudem einfach nach Orten suchen.
 
+### Messtischblätter und Quadranten anzeigen
+Praktisch wäre weiterhin MTBs und Quadranten anzeigen zu lassen. Hier habe ich bereits vordefinierte Objekte erstellt, die am besten einfach hier heruntergeladen werden können: Link
+
+In server.R fügen wir oben im Skript (am besten nach den library Aufrufen) folgenden Code hinzu
+
+```r
+load("mtb_list.rds")
+load("mtb_spatial.rds")
+load("mtb_4_spatial.rds")
+load("mtb_4_list.rds")
+
+source("show_only_mtb_within_map_bounds.R", encoding = "utf8")
 ```
+
 
 ```r
 
