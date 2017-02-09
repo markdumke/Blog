@@ -178,14 +178,29 @@ shinyServer(
 ```
 
 Die App sollte jetzt etwa so aussehen:
+
 ![Shiny App]({{ site.url }}/assets/app3.JPG)
 
-```r
+### Satellitenbilder hinzufügen
+Manchmal sind auch Satelliten- oder Geländekarten mit Höhenlinien nützlich. Diese können wir recht einfach hinzufügen. Zudem fügen wir noch eine Suche hinzufügen. Diese Funktionen sind in dem Paket `leaflet.extras`, das wir zunächst noch installieren müssen. Um das Paket zu installieren, ist ausserdem die neueste Version des Pakets `leaflet` nötig, beides können wir einfach von Github installieren.
 
+```r
+install("devtools")
+devtools::install_github("rstudio/leaflet")
+devtools::install_github("bhaskarvk/leaflet.extras")
+library(leaflet.extras)
 ```
 
-```r
+Dann ändern wir den Aufruf von `output$Karte <- ...` in server.R so:
 
+```r
+    output$Karte <- renderLeaflet({
+      leaflet() %>% setView(11, 49, 7) %>% 
+      addTiles(group = "OSM") %>%
+      addProviderTiles("Esri.WorldImagery", group = "Satellit") %>%
+      addProviderTiles("Esri.WorldTopoMap", group = "Gelände") %>%
+      addLayersControl(baseGroup = c("OSM", "Satellit", "Gelände"))
+    })
 ```
 
 ```r
