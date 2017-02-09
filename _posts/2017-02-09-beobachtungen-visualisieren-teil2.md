@@ -59,13 +59,19 @@ shinyServer(
 )
 
 ```
-
-
+Als nächster Schritt wäre es cool, eine Möglichkeit zu haben, welche Daten angezeigt werden sollen, z.B. nur eine bestimmte Art oder nur Beobachtungen ab einem bestimmten Jahr darzustellen.
+Dafür fügen wir in ui.R eine sidebar ein, die es uns erlaubt genau diese Auswahlen zu treffen. In Shiny sind zahlreiche Inputs möglich, z.B. Buttons, Checkboxes und TextInputs, für mehr siehe hier: <a href="http://shiny.rstudio.com/gallery/widget-gallery.html" target="_blank">Shiny Widgets</a> 
 
 ```r
-
+ui <- fluidPage(
+  sidebarPanel(
+    selectizeInput("Art", label = "Art", selected = "Polygonia c-album",
+                   choices = levels(df$Art), multiple = TRUE)),
+    mainPanel(leafletOutput("Karte", width = "100%", height = "700"))
+)
 ```
 
+Damit bei Auswahl einer Art, auch nur die Punkte dieser Art auf der Karte angezeigt werden, müssen wir in server.R ein subset bilden.
 
 ```r
 
