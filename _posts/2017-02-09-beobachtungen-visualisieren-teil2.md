@@ -208,7 +208,7 @@ Jetzt können wir zwischen verschiedenen Karten wechseln und zudem einfach nach 
 
 ### Messtischblätter und Quadranten anzeigen
 Praktisch wäre weiterhin MTBs und Quadranten anzeigen zu lassen. Hier habe ich bereits vordefinierte Objekte erstellt, die am besten einfach hier heruntergeladen werden können: Link
-
+Ausserdem brauchen wir noch eine von mir geschriebene Hilfsfunktion, die berechnet, welche MTBs in dem aktuellen Kartenauschnitt liegen, sodass dann nur diese dargestellt werden (ansonsten kann die App recht langsam werden, wenn alle geplottet werden!).
 In server.R fügen wir oben im Skript (am besten nach den library Aufrufen) folgenden Code hinzu
 
 ```r
