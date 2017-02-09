@@ -73,7 +73,7 @@ Dafür fügen wir in ui.R eine sidebar ein, die es uns erlaubt genau diese Auswa
 ui <- fluidPage(
   sidebarPanel(
     selectizeInput("Art", label = "Art", selected = "Polygonia c-album",
-                   choices = levels(df$Art), multiple = TRUE)),
+                   choices = levels(data$Art), multiple = TRUE)),
     mainPanel(leafletOutput("Karte", width = "100%", height = "700"))
 )
 ```
@@ -131,11 +131,76 @@ shinyServer(
 
 ```
 
+Schon ganz nützlich. Natürlich können wir in der Sidebar noch zahlreiche weitere Inputs hinzufügen. Z.B. weitere `selectizeInput` oder auch `sliderInput` für Jahr oder Höhe. In ui.R kann das ganze dann so aussehen:
+
+```r
+ui <- fluidPage(
+  sidebarPanel(
+    selectizeInput("Art", label = "Art", selected = "Polygonia c-album",
+                   choices = levels(data$Art), multiple = TRUE),
+    selectizeInput("Stadium", label = "Stadium", selected = "Falter",
+                   multiple = TRUE, choices = levels(data$Stadium)),
+    selectizeInput("Bundesland", label = "Bundesland", selected = "Bayern", 
+                   choices = levels(data$Bundesland), multiple = TRUE),
+    selectizeInput("Beobachter", label = "Beobachter", selected = "Markus Dumke",
+                   choices = levels(data$Beobachter), multiple = TRUE),
+    sliderInput("Jahr", "Jahr", min = min(data$Jahr), max = max(data$Jahr), 
+                step = 1, ticks = TRUE, value = c(min(data$Jahr), max(data$Jahr))),
+    sliderInput("altitude", label = "Höhe", min = 0,  step = 100, ticks = TRUE,
+                max = max(data$altitude), value = c(0, max(data$altitude)))
+  ),
+  mainPanel(leafletOutput("Karte", width = "100%", height = "700"))
+)
+```
+
+In server.R müssen wir dann `data_subset`anpassen:
+
+```r
+shinyServer(
+  function(input, output, session) {
+    
+    data_subset <- reactive({
+      data[data$Art %in% input$Art & 
+           data$Stadium %in% input$Stadium & 
+           data$Bundesland %in% input$Bundesland & 
+           data$Beobachter %in% input$Beobachter & 
+           data$altitude >= input$altitude[1] & data$altitude <= input$altitude[2] &
+           data$Jahr >= input$Jahr[1] & data$Jahr <= input$Jahr[2], ]
+    })
+    
+    # Rest bleibt so ...
+  }
+)
+```
+
 
 ```r
 
 ```
 
+```r
+
+```
+
+```r
+
+```
+
+```r
+
+```
+
+```r
+
+```
+
+```r
+
+```
+
+```r
+
+```
 
 
 
