@@ -15,7 +15,7 @@ library(shiny)
 library(leaflet)
 
 # load data
-data <- read.csv2("data_proprocessed.csv", encoding = "utf8")
+data <- read.csv2("data_preprocessed.csv", encoding = "utf8")
 ```
 
 Zunächst fangen wir mit einer einfachen App an, die einfach eine Karte anzeigt. Dafür fügen wir in ui.R einen leafletOutput ein, damit wird standardmässig die Openstreetmap Karte eingebunden. Die Breite der Karte setzen wir auf 100% der Bildschirmbreite, die Höhe auf 700 Pixel (Wichtig: Es ist nicht möglich, beide auf 100% zu setzen!)
@@ -65,8 +65,12 @@ Jetzt sollte der Output mit **Run App** etwa so aussehen:
 
 ![Shiny App]({{ site.url }}/assets/app2.JPG)
 
+Der Code kann hier gefunden werden:  
+<a href="https://gist.github.com/markdumke/55fd69e4a4d1d994c17d85c14d139388" target="_blank">Code</a>
+
+
 Als nächster Schritt wäre es cool, eine Möglichkeit zu haben, welche Daten angezeigt werden sollen, z.B. nur eine bestimmte Art oder nur Beobachtungen ab einem bestimmten Jahr darzustellen.
-Dafür fügen wir in ui.R eine sidebar ein, die es uns erlaubt genau diese Auswahlen zu treffen. In Shiny sind zahlreiche Inputs möglich, z.B. Buttons, Checkboxes und TextInputs, für mehr siehe hier: <a href="http://shiny.rstudio.com/gallery/widget-gallery.html" target="_blank">Shiny Widgets</a> 
+Dafür fügen wir in ui.R eine sidebar ein, die es uns erlaubt genau diese Auswahlen zu treffen. In Shiny sind zahlreiche Inputs möglich, z.B. Buttons, Checkboxes und TextInputs, für mehr Informationen siehe hier: <a href="http://shiny.rstudio.com/gallery/widget-gallery.html" target="_blank">Shiny Widgets</a> 
 
 ```r
 ui <- fluidPage(
@@ -77,14 +81,17 @@ ui <- fluidPage(
 )
 ```
 
-Damit bei Auswahl einer Art, auch nur die Punkte dieser Art auf der Karte angezeigt werden, müssen wir in server.R ein subset bilden.
+Damit bei Auswahl einer Art, auch nur die Punkte dieser Art auf der Karte angezeigt werden, müssen wir in server.R ein subset der Daten bilden. Code hier: 
 
 ```r
 shinyServer(
   function(input, output, session) {
     
+    # check if code
     data_subset <- reactive({
-      data[data$Art %in% input$Art, ]
+      ifelse(!is.null(input$Art), species_selected = input$Art, 
+             species_selected = levels(data$Art))
+      data[data$Art %in% species_selected, ]
     })
     
     points <- reactive({
