@@ -65,8 +65,7 @@ Jetzt sollte der Output mit **Run App** etwa so aussehen:
 
 ![Shiny App]({{ site.url }}/assets/app2.JPG)
 
-Der Code kann hier gefunden werden:  
-<a href="https://gist.github.com/markdumke/55fd69e4a4d1d994c17d85c14d139388" target="_blank">Code</a>
+Der Code kann hier gefunden werden:  <a href="https://gist.github.com/markdumke/55fd69e4a4d1d994c17d85c14d139388" target="_blank">Code</a>
 
 
 Als nächster Schritt wäre es cool, eine Möglichkeit zu haben, welche Daten angezeigt werden sollen, z.B. nur eine bestimmte Art oder nur Beobachtungen ab einem bestimmten Jahr darzustellen.
@@ -87,7 +86,7 @@ Damit bei Auswahl einer Art, auch nur die Punkte dieser Art auf der Karte angeze
 shinyServer(
   function(input, output, session) {
     
-    # check if code
+    # check if input is empty, then do no subsetting
     data_subset <- reactive({
       ifelse(!is.null(input$Art), species_selected = input$Art, 
              species_selected = levels(data$Art))
@@ -192,7 +191,7 @@ Die App sollte jetzt etwa so aussehen:
 Manchmal sind auch Satelliten- oder Geländekarten mit Höhenlinien nützlich. Diese können wir recht einfach hinzufügen. Zudem fügen wir noch eine Suche hinzufügen. Diese Funktionen sind in dem Paket `leaflet.extras`, das wir zunächst noch installieren müssen. Um das Paket zu installieren, ist ausserdem die neueste Version des Pakets `leaflet` nötig, beides können wir einfach von Github installieren.
 
 ```r
-install("devtools")
+install.packages("devtools")
 devtools::install_github("rstudio/leaflet")
 devtools::install_github("bhaskarvk/leaflet.extras")
 library(leaflet.extras)

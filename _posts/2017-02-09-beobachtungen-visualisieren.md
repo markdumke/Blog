@@ -8,6 +8,7 @@ image: podalirius_karte.JPG
 comments: true
 ---
 
+
 Wissen teilen, auch für andere Leute vielleicht nützlich und interessant.
 Du hast eine Excel Tabelle mit Beobachtungsdaten, z.B. Schmetterlingsbeobachtungen, aber weisst nicht, wie du sie schön auf einer Karte darstellen kannst.
 Zum Glück gibt es grossartige Pakete wie Shiny oder Leaflet in R, die es sehr einfach machen, eine schöne Visualisation zu basteln.
@@ -30,19 +31,19 @@ Speichere die Datei in dem Ordner, den wir gerade angelegt haben. Erstelle nun e
 Ein Beispiel-"Rohdatensatz" kann hier gefunden werden (Link)
 und könnte ungefähr folgendermassen aussehen:
 
-| Datum      | Art                 | Stadium   | Anzahl | latitude   |longitude |
-| :--------: | :-----------------: | :--------:| :-----:| :-----:    | :-----: |
-| 02.08.2009 | Gonepteryx rhamni   | Falter    |    5   | 48.114332  |11.1566|
-| 04.07.2010 | Aglais io           | Falter    | 18     | 51.243652  | 10.35251|
-| 04.07.2010 | Polygonia c-album   | Falter    | 3      | 51.243652  | 10.35251|
-| ...        | ...                 | ...       | ...    |    ...     | ...|
+|   |Datum      |Art               | Anzahl|Stadium | latitude| longitude|
+|:--|:----------|:-----------------|------:|:-------|--------:|---------:|
+|1  |31.03.2016 |Gonepteryx rhamni |     15|Falter  | 48.26293|  11.69147|
+|3  |31.03.2016 |Aglais urticae    |      3|Falter  | 48.26592|  11.69244|
+|5  |31.03.2016 |Aglais io         |     15|Falter  | 48.25689|  11.68959|
+|...  |... |...      |    ...|...  | ...|  ...|
 
 Wichtig ist, dass der Datensatz Koordinaten enthält, alles andere ist optional (je nachdem was man erfassen und darstellen will).
 
 Um die Daten korrekt darzustellen, sind leider ein paar Vorbereitungen nötig. Zunächst lesen wir die Daten in R ein (ersetze "daten.csv" durch den Namen des Datensatzs, falls dieser anders heisst):
 
 ```r
-data <- read.csv2("daten.csv", stringsAsFactors = FALSE, encoding = "utf8")
+data <- read.csv2("data.csv", stringsAsFactors = FALSE, encoding = "utf8")
 ```
 
 Die Daten sollten Koordinaten enthalten, d.h. zwei Spalten latitude (der Breitengrad) und longitude (der Längengrad). 
