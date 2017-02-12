@@ -8,7 +8,6 @@ image: podalirius_karte.JPG
 comments: true
 ---
 
-
 Wissen teilen, auch für andere Leute vielleicht nützlich und interessant.
 Du hast eine Excel Tabelle mit Beobachtungsdaten, z.B. Schmetterlingsbeobachtungen, aber weisst nicht, wie du sie schön auf einer Karte darstellen kannst.
 Zum Glück gibt es grossartige Pakete wie Shiny oder Leaflet in R, die es sehr einfach machen, eine schöne Visualisation zu basteln.
@@ -43,7 +42,7 @@ Wichtig ist, dass der Datensatz Koordinaten enthält, alles andere ist optional 
 Um die Daten korrekt darzustellen, sind leider ein paar Vorbereitungen nötig. Zunächst lesen wir die Daten in R ein (ersetze "daten.csv" durch den Namen des Datensatzs, falls dieser anders heisst):
 
 ```r
-data <- read.csv2("data.csv", stringsAsFactors = FALSE, encoding = "utf8")
+data <- read.csv2("data.csv", encoding = "utf8")
 ```
 
 Die Daten sollten Koordinaten enthalten, d.h. zwei Spalten latitude (der Breitengrad) und longitude (der Längengrad). 
@@ -51,9 +50,8 @@ Diese sollten als Zahlen vorliegen, ein korrekter Längengrad ist z.B. longitude
 Falls die Koordinaten in einem anderen Format sind, müssen wir sie erst transformieren. Dafür könnte diese Helferfunktion nützlich sein:
 
 ```r
-# Koordinaten in richtiges Format bringen
-# Funktion extrahiert Koordinaten als Zahlen aus String
-# z.B. wird "11,069° E" zu 11.069
+# extract coordinates from string
+# e.g "11,069° E" will be 11.069
 extract_coordinates <- function(x) {
   coord <- gsub(x = x, pattern = "[A-Z]", replacement = "")
   coord <- gsub(x = coord, pattern = "° ", replacement = "")
@@ -61,7 +59,7 @@ extract_coordinates <- function(x) {
   as.numeric(coord)
 }
 
-# Koordinaten als Zahlen in Datensatz hinzufügen
+# add coordinates to data
 data$latitude <- extract_coordinates(data$latitude)
 data$longitude <- extract_coordinates(data$longitude)
 ```
@@ -79,14 +77,15 @@ Diese wandeln wir zunächst in ein sogenanntes date Object in R um und fragen da
 Dafür müssen wir das lubridate Paket laden.
 
 ```r
+# get date into the format "yyyy-mm-dd"
 library(lubridate)
 data$Datum2 <- dmy(data$Datum)
 data$Datum2 <- as.character(data$Datum2)
   
-# von Datum im Format "2009-07-04" zurück zu "04.07.2009"
+## from date format "yyyy-mm-dd" back to "dd.mm.yyyy"
 # data$Datum <- format(Datum2, "%d.%m.%Y")
   
-# get more information about dates
+# extract year, month, yday and mday out of date
 data$Jahr <- year(data$Datum2)
 data$Monat <- month(data$Datum2)
 data$yday <- yday(data$Datum2)
@@ -100,22 +99,23 @@ Dafür ist eine kostenlose Registration auf
 Dafür verwenden wir jetzt unseren geonames Account. Dieser erlaubt uns 2000 Anfragen pro Stunde.
 
 ```r
-# Bestimme Höhe aus Koordinaten
-# registriere bei geonames um webservices zu nutzen
+# get altitude values from coordinates
+# register by geonames to use webservices
 library(geonames) 
-options(geonamesUsername="username") # ersetze username durch deinen Benutzernamen.
+options(geonamesUsername="username") # replace username by your geonames username
 
-# Abfrage nur für unterschiedliche Koordinaten-Paare nötig. Daher extrahieren wir zunächst alle einzigartigen (latitude, longitude)-Paare.
+# getting altitudes only for unique coordinate pairs necessary.
 locations <- unique(data[c("latitude", "longitude")])
 altitude <- mapply(GNsrtm3, locations$latitude, locations$longitude)
 altitude2 <- unlist(altitude[seq(1, length(altitude), by = 3)])
-altitude2[altitude2 < 0] <- 0 # remove artifacts in the data (negative altitude)
-  
+
 # match coordinates altitude pairs into the dataframe
-# iterator over all locations, finds matches in dataframe and sets altitude to the corresponding value
+# iterator over all locations, finds matches in dataframe and 
+# sets altitude to the corresponding value
 data$altitude <- NA
 for(i in seq_len(nrow(locations))) {
-  ind <- which(data$latitude == locations[i, 1] & data$longitude == locations[i, 2])
+  ind <- which(data$latitude == locations[i, 1] & 
+                 data$longitude == locations[i, 2])
   data$altitude[ind] <- altitude2[i]
 }
 ```
@@ -124,29 +124,30 @@ for(i in seq_len(nrow(locations))) {
 Praktisch ist es auch Informationen wie Land, Bundesland, Kreis, Gemeinde automatisch aus den Daten zu extrahieren. Dafür müssen wir zunächst die entsprechenden Pakete laden und geographische Informationen des jeweiligen Landes (hier am Beispiel Deutschland) herunterladen. Dies kann kurz dauern, anschliessend speichern wir diese Datei ab (save), dann können wir sie beim nächsten Mal einfach aus unserem Ordner laden  (load) und müssen sie nicht erneut herunterladen.
 
 ```r
+# get geographic information out of coordinates
 library(sp)
 library(raster)
 
-# falls du andere Länder brauchst, ersetze "DE" z.B. durch "CH" für die Schweiz oder "AUT" für Österreich.
+# if you need different countries, 
+# change "DE" e.g. by "CH" for Switzerland or "AUT" for Austria
 gemeinden_de <- getData('GADM', country = 'DE', level = 3)
-
 save(gemeinden_de, file = "gemeinden_de")
 
-# Die oberen Zeilen können nun gelöscht werden und wir können die Datei mit load laden.
+# after we saved the file we can just load it and delete the above lines
 load("gemeinden_de")
 ```
 
 
 ```r
+# make SpatialPointsDataFrame
 data_geo <- data
 coordinates(data_geo) <- c("longitude", "latitude")
   
 # use same lat/lon reference system
 proj4string(data_geo) <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
   
-# which Bundesland (if any) contains each sighting and
-# store the Bundesland name as an attribute of data
-
+# which Land/Bundesland/Kreis/Gemeinde (if any) contains each sighting and
+# store the the name as a column in data
 which_gemeinde <- over(data_geo, gemeinden_de)
 data$Land <- which_gemeinde$NAME_0
 data$Bundesland <- which_gemeinde$NAME_1
@@ -160,14 +161,9 @@ Endlich sind wir fertig und können den fertigen Datensatz abspeichern.
 write.csv2(data, "data_preprocessed.csv")
 ```
 
-
-
-Lese weiter in Teil 2 wie wir nun eine Shiny App mit diesen Daten bauen...
-
+Lese weiter in Teil 2 wie wir diese Daten nun mithilfe einer Shiny App visualisieren können (Link)
 
 [Shiny App](https://github.com/markdumke/lepivis)
-
-
 
 The code can be found here: [Github](https://github.com/markdumke/lepivis)
 {% include disqus.html %}
