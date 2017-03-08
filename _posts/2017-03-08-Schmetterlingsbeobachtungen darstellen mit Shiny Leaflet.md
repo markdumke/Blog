@@ -51,7 +51,8 @@ Man kann sich einfach auch früheste und späteste Sichtungen einer Art anzeigen
 ![]({{ site.url }}/assets/schmetterlinge_shiny/erstsichtung.JPG)
 
 Wie viele Arten habe ich in jedem Jahr beobachtet und in welchem Bundesland/Kanton habe ich die meisten Arten oder Falter gesehen? Auch das lässt sich sehr einfach berechnen und darstellen. Das ganze kann natürlich auch für andere Variablen berechnet werden (Monat, Datum, Land, Gemeinde Höhenlage ...)
-![]({{ site.url }}/assets/schmetterlinge_shiny/summary_bundesland.JPG) ![]({{ site.url }}/assets/schmetterlinge_shiny/summary_jahr.JPG)
+
+![]({{ site.url }}/assets/schmetterlinge_shiny/summary.JPG) 
 
 ## HTML Dateien einbinden
 
