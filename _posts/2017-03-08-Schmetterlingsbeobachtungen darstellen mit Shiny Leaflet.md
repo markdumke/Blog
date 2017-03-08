@@ -5,7 +5,7 @@ abstract: Abstract
 author: Markus Dumke
 tags: Visualisation Schmetterlingsdaten
 comments: true
-image: karte_zitronenfalter.JPG
+image: schmetterlinge_shiny/karte_zitronenfalter.JPG
 ---
 
 ## Einleitung
