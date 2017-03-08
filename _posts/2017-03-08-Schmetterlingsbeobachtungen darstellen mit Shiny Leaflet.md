@@ -41,6 +41,15 @@ image: schmetterlinge_shiny/karte_zitronenfalter.JPG
 
 ![]({{ site.url }}/assets/schmetterlinge_shiny/summary_jahr.JPG)
 
+## HTML Dateien einbinden
+
+![]({{ site.url }}/assets/schmetterlinge_shiny/html_spini.JPG)
+
+
+## Zeitleiste hinzufügen
+
+
+
 ## Neue Daten erfassen
 
 ![]({{ site.url }}/assets/schmetterlinge_shiny/daten_eingabe.JPG)
