@@ -16,7 +16,7 @@ comments: true
 
 ![]({{ site.url }}/assets/schmetterlinge_shiny/karte_calbum.JPG)
 
-### Messtischblatt-Quadranten anzeigen und Daten aggregieren
+## Messtischblatt-Quadranten anzeigen und Daten aggregieren
 
 ![]({{ site.url }}/assets/schmetterlinge_shiny/karte_quadranten.JPG)
 
@@ -33,6 +33,12 @@ comments: true
 ![]({{ site.url }}/assets/schmetterlinge_shiny/jahresliste.JPG)
 
 ![]({{ site.url }}/assets/schmetterlinge_shiny/erstsichtung.JPG)
+
+## Daten zusammenfassen
+
+![]({{ site.url }}/assets/schmetterlinge_shiny/summary_bundesland.JPG)
+
+![]({{ site.url }}/assets/schmetterlinge_shiny/summary_jahr.JPG)
 
 ## Neue Daten erfassen
 
