@@ -7,16 +7,17 @@ title: Home
   {% for post in paginator.posts %}
   <div class="post">
 
-    <!-- add image  style="    float: right;  margin: 0px 20px 20px 0px;"  -->
-      {% if  post.image %}
-      <img class="abstract-image"  src="{{ site.url }}/assets/{{ post.image }}"  >
-      {% endif %}
-
     <h1 class="post-title">
       <a href="{{ site.url }}/{{ post.url }}" class="abstract-text">
         {{ post.title }}
       </a>
     </h1>
+
+    <!-- add image  style="    float: right;  margin: 0px 20px 20px 0px;"  -->
+      {% if  post.image %}
+      <img class="abstract-image"  src="{{ site.url }}/assets/{{ post.image }}"  >
+      {% endif %}
+
 
   <!--  <span class="post-date" >{{ post.date | date_to_string }}</span> -->
 
