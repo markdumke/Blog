@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Schmetterlingsbeobachtungen darstellen mit Shiny
-abstract: Abstract
+abstract: Schon seit ich mich für Schmetterlinge interessiere, habe ich Beobachtungen in ein Notizbuch eingetragen, später dann in eine Excel-Tabelle. Doch ist dieses recht mühsam und bietet einem keine schöne Visualisation der Funde. Daher habe ich diese Shiny App entwickelt, die auf einer Karte die Funde darstellt und auch ermöglicht, neue Funde einfach hinzuzufügen ...
 author: Markus Dumke
 tags: Visualisation Schmetterlingsdaten
 comments: true
