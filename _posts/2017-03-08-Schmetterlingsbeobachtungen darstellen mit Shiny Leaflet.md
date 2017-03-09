@@ -5,11 +5,11 @@ abstract: Abstract
 author: Markus Dumke
 tags: Visualisation Schmetterlingsdaten
 comments: true
-image: schmetterlinge_shiny/karte_zitronenfalter.JPG
+image: schmetterlinge_shiny/karte_calbum.JPG
 ---
 
-## Einleitung
-
+Schon seit ich mich für Schmetterlinge interessiere, habe ich angefangen, Beobachtungen zu erfassen und in ein Notizbuch einzutragen, später dann in eine Excel-Tabelle. Doch ist dieses recht mühsam und bietet einem keine schöne Visualisation der Funde. Daher habe ich diese Shiny App entwickelt, die auf einer Karte die Funde darstellt und auch ermöglicht, neue Funde einfach hinzuzufügen. Im Folgenden möchte ich die Funktionen der App kurz vorstellen. Eine Demo-Version kann hier aufgerufen werden, um zu sehen, wie es interaktiv ausschaut: 
+https://markusdumke.shinyapps.io/shinybutterfly/
 
 ## Verbreitungskarten
 
@@ -19,7 +19,7 @@ Praktisch ist es, die Daten zu filtern, dafür bietet sich eine Sidebar links de
 
 ![]({{ site.url }}/assets/schmetterlinge_shiny/karte_zitronenfalter.JPG)
 
-Die Punkte können natürlich beliebig gestaltet werden, z.B. die Farbe geändert werden. Praktisch ist es, jedem Punkt ein Popup hinzufügen. Wenn dieser angeklickt wird, lässt sich z.B. eine Zusammenfassung des Funds (Art, Datum, Beobachter etc.) udn auch ein Foto anzeigen.
+Die Punkte können natürlich beliebig gestaltet werden, z.B. die Farbe geändert werden. Praktisch ist es, jedem Punkt ein Popup hinzufügen. Wenn dieser angeklickt wird, lässt sich z.B. eine Zusammenfassung des Funds (Art, Datum, Beobachter etc.) und auch ein Foto anzeigen.
 
 ![]({{ site.url }}/assets/schmetterlinge_shiny/karte_calbum.JPG)
 
