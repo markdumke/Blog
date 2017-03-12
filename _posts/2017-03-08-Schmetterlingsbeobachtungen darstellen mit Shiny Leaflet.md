@@ -8,12 +8,12 @@ comments: true
 image: schmetterlinge_shiny/karte_calbum.JPG
 ---
 
-Schon seit ich mich für Schmetterlinge interessiere, habe ich Beobachtungen in ein Notizbuch eingetragen, später dann in eine Excel-Tabelle. Doch ist dieses recht mühsam und bietet einem keine schöne Visualisation der Funde. Daher habe ich diese Shiny App entwickelt, die auf einer Karte die Funde darstellt und auch ermöglicht, neue Funde einfach hinzuzufügen. Im Folgenden möchte ich die Funktionen der App kurz vorstellen. Eine Demo-Version kann hier aufgerufen werden, um die Funktionen interaktiv auszutesten:
+Schon seit ich mich für Schmetterlinge interessiere, habe ich Beobachtungen in ein Notizbuch eingetragen, später dann in eine Excel-Tabelle. Doch ist dieses recht mühsam und bietet einem keine schöne Visualisation der Funde. Daher habe ich in R diese Shiny App entwickelt, die auf einer Karte die Funde darstellt und auch ermöglicht, neue Funde einfach hinzuzufügen. Im Folgenden möchte ich die Funktionen der App kurz vorstellen. Eine Demo-Version kann hier aufgerufen werden, um die Funktionen interaktiv auszutesten:
 <a href="https://markusdumke.shinyapps.io/shinybutterfly/" target="_blank">Shinyapps.io</a>
 
 ## Verbreitungskarten
 
-Wenn man Koordinaten hat, ist es nicht schwierig, diese auf einer Karte darzustellen, dafür lässt sich z.B. Leaflet verwenden. Standardmässig werden die Daten auf einer OpenStreetMap Karte dargestellt, doch lassen sich verschiedene Kartenanbieter verwenden, z.B. auch welche mit Satellitenbildern oder Höhenlinien.
+Das R Paket ![Leaflet](https://rstudio.github.io/leaflet/) bietet eine einfache Möglichkeit, die Daten als Punkte auf einer Karte zu visualisieren. Standardmässig werden die Punkte auf einer OpenStreetMap Karte dargestellt, doch lassen sich auch andere Kartenanbieter verwenden, z.B. Satellitenbilder oder Höhenlinien anzeigen.
 
 Praktisch ist es, die Daten zu filtern, dafür bietet sich eine Sidebar links der Karte an. Hier kann man z.B. bestimmte Arten, Jahre, Beobachtungen in einem bestimmten Bundesland oder einer Gemeinde auswählen. Alle Informationen, die in den Daten enthalten sind, können prinzipiell zum Filtern verwendet werden. Z.B. kann man sich alle Beobachtungen von Vanessa atalanta oberhalb von 2000m in Südtirol zwischen dem 15.August 2010 und dem 12.Mai 2013 anzeigen lassen. Damit sind im Gegensatz z.B. zu Verbreitungskarten, die in Büchern verwendet werden, die Auswahlmöglichkeiten sehr flexibel, die Interaktivität der Karte ermöglicht ein ganz nahes Heranzoomen, aber auch z.B. ein Betrachten der Karte eines ganzen Landes.
 
@@ -31,7 +31,7 @@ Die Funde können natürlich einfach aggregiert werden, wie es in vielen Verbrei
 
 ## Daten in einer Tabelle anzeigen
 
-Neben der Darstellung in einer Karte ist es auch praktisch, sich die Daten in Tabellenform anzuschauen. Auch das ist z.B. mit DataTable einfach möglich. Ausgewählte Funde, die auf der Karte gerade sichtbar sind, werden dann in der Tabelle angezeigt. Auch die Tabelle lässt sich beliebig anpassen, z.B. kann man nach verschiedenen Spalten sortieren oder einzelne Spalten durchsuchen. Auch Fotos der Beobachtungen können hier angezeigt werden.
+Neben der Darstellung in einer Karte ist es auch praktisch, sich die Daten in Tabellenform anzuschauen. Dafür ist das ![DataTable](https://rstudio.github.io/DT/) Paket sehr geeignet. Ausgewählte Funde, die auf der Karte gerade sichtbar sind, werden dann in der Tabelle angezeigt. Auch die Tabelle lässt sich beliebig anpassen, z.B. kann man nach verschiedenen Spalten sortieren oder einzelne Spalten durchsuchen. Auch Fotos der Beobachtungen können hier angezeigt werden.
 
 ![]({{ site.url }}/assets/schmetterlinge_shiny/datentabelle.JPG)
 
@@ -60,12 +60,12 @@ Weiterhin lassen sich in einer Shiny auch html Dateien sehr einfach einbinden, h
 ![]({{ site.url }}/assets/schmetterlinge_shiny/html_spini.JPG)
 
 
-## Zeitleiste hinzufügen
-
 ## Neue Daten erfassen
 
 Eine sehr praktische Funktion ist es, Daten neu zu erfassen. Dabei ist es sehr mühsam per Hand Koordinaten herauszusuchen. Viel einfacher ist es neue Datenpunkte einfach per Klick auf die Karte hinzufügen. Das ganze ist sehr einfach: Man trägt die Daten der Beobachtung in die Inputfelder in der Sidebar ein. Wenn man fertig ist, klickt man auf die Karte, dort wo die Beobachtung war. Die Beobachtung wird dann automatisch in einen Datensatz aufgenommen. Wenn man dann alle Bebachtungen erfasst hat, muss man noch einmal auf den Daten Speichern Button klicken. Dadurch wird für die hinzugefügten Koordinaten u.a. die Höhenlage oder in welchem Land/Bundesland/Kreis die Beobachtung liegt, abgefragt und der gesamte Datensatz dann an den alten Datensatz angehängt und alles zusammen als csv Datei abgespeichert, sodass man beim nächsten Start der App alle Daten hat.
 
 ![]({{ site.url }}/assets/schmetterlinge_shiny/daten_eingabe.JPG)
+
+Im Folgenden werde ich Schritt-für-Schritt Tutorial geben, wie man eine solche Shiny App selbst bauen kann. Siehe hierzu: 
 
 {% include disqus.html %}
