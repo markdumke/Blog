@@ -13,7 +13,7 @@ Schon seit ich mich für Schmetterlinge interessiere, habe ich Beobachtungen in 
 
 ## Verbreitungskarten
 
-Das R Paket ![Leaflet](https://rstudio.github.io/leaflet/) bietet eine einfache Möglichkeit, die Daten als Punkte auf einer Karte zu visualisieren. Standardmässig werden die Punkte auf einer OpenStreetMap Karte dargestellt, doch lassen sich auch andere Kartenanbieter verwenden, z.B. Satellitenbilder oder Höhenlinien anzeigen.
+Das R Paket [Leaflet](https://rstudio.github.io/leaflet/) bietet eine einfache Möglichkeit, die Daten als Punkte auf einer Karte zu visualisieren. Standardmässig werden die Punkte auf einer OpenStreetMap Karte dargestellt, doch lassen sich auch andere Kartenanbieter verwenden, z.B. Satellitenbilder oder Höhenlinien anzeigen.
 
 Praktisch ist es, die Daten zu filtern, dafür bietet sich eine Sidebar links der Karte an. Hier kann man z.B. bestimmte Arten, Jahre, Beobachtungen in einem bestimmten Bundesland oder einer Gemeinde auswählen. Alle Informationen, die in den Daten enthalten sind, können prinzipiell zum Filtern verwendet werden. Z.B. kann man sich alle Beobachtungen von Vanessa atalanta oberhalb von 2000m in Südtirol zwischen dem 15.August 2010 und dem 12.Mai 2013 anzeigen lassen. Damit sind im Gegensatz z.B. zu Verbreitungskarten, die in Büchern verwendet werden, die Auswahlmöglichkeiten sehr flexibel, die Interaktivität der Karte ermöglicht ein ganz nahes Heranzoomen, aber auch z.B. ein Betrachten der Karte eines ganzen Landes.
 
@@ -31,7 +31,7 @@ Die Funde können natürlich einfach aggregiert werden, wie es in vielen Verbrei
 
 ## Daten in einer Tabelle anzeigen
 
-Neben der Darstellung in einer Karte ist es auch praktisch, sich die Daten in Tabellenform anzuschauen. Dafür ist das ![DataTable](https://rstudio.github.io/DT/) Paket sehr geeignet. Ausgewählte Funde, die auf der Karte gerade sichtbar sind, werden dann in der Tabelle angezeigt. Auch die Tabelle lässt sich beliebig anpassen, z.B. kann man nach verschiedenen Spalten sortieren oder einzelne Spalten durchsuchen. Auch Fotos der Beobachtungen können hier angezeigt werden.
+Neben der Darstellung in einer Karte ist es auch praktisch, sich die Daten in Tabellenform anzuschauen. Dafür ist das [DataTable](https://rstudio.github.io/DT/) Paket sehr geeignet. Ausgewählte Funde, die auf der Karte gerade sichtbar sind, werden dann in der Tabelle angezeigt. Auch die Tabelle lässt sich beliebig anpassen, z.B. kann man nach verschiedenen Spalten sortieren oder einzelne Spalten durchsuchen. Auch Fotos der Beobachtungen können hier angezeigt werden.
 
 ![]({{ site.url }}/assets/schmetterlinge_shiny/datentabelle.JPG)
 
