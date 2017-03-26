@@ -18,6 +18,8 @@ library(leaflet) # for the map
 data <- read.csv2("data.csv")
 ```
 
+## Karte erstellen
+
 Zunächst fangen wir mit einer einfachen App an, die einfach eine Karte anzeigt. Schritt für Schritt werden wir dann diese erweitern. Dafür fügen wir in `ui` einen `leafletOutput` ein, damit wird standardmässig die Openstreetmap Karte eingebunden. Die Breite der Karte setzen wir auf 100% der Bildschirmbreite, die Höhe auf 700 Pixel.
 
 ```r
@@ -36,7 +38,9 @@ server <- function(input, output, session) {
   })
 }
 ```
-Jetzt haben wir bereits eine lauffähige App, die in Rstudio durch Klicken auf **Run App** gestartet werden kann. Es sollte sich ein Fenster öffnen, in dem eine leere Openstreetmap Karte gezeigt wird. Der vollständige Code findet sich hier: (https://gist.github.com/markdumke/c574874f432fb542fb18b5f253d273c3)
+Jetzt haben wir bereits eine lauffähige App, die in Rstudio durch Klicken auf **Run App** gestartet werden kann. Es sollte sich ein Fenster öffnen, in dem eine leere Openstreetmap Karte gezeigt wird. Der vollständige Code findet sich hier: [Code](https://gist.github.com/markdumke/c574874f432fb542fb18b5f253d273c3)
+
+## Funde auf der Karte darstellen
 
 Als nächstes wollen wir die Koordinaten der Fundpunkte auf der Karte darstellen. Dafür fügen wir in  `renderLeaflet()` ein `addCircleMarkers()` ein, das die Punkte der Karte hinzufügt.
 
