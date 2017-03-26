@@ -62,10 +62,11 @@ Zunächst fügen wir einen `selectizeInput` ein, mit dem wir die Art auswählen 
 ui <- fluidPage(
   sidebarPanel(
     selectizeInput("Art", label = "Art", 
-                   selected = "Polygonia c-album",
-                   choices = levels(data$Art), multiple = TRUE)
-              ),
-    mainPanel(leafletOutput("Karte", width = "100%", height = "700"))
+      selected = "Polygonia c-album",
+      choices = levels(data$Art), 
+      multiple = TRUE)
+  ),
+  mainPanel(leafletOutput("Karte", width = "100%", height = "700px"))
 )
 ```
 
@@ -143,13 +144,31 @@ In `server.R` müssen wir dann `data_subset`anpassen, sodass auch nach den ander
 
 ## Datentabelle einfügen
 
-Nützlich ist es zusätzlich zur Karte auch noch die Funde in einer Tabelle (ähnlich zu Excel) anzeigen zu lassen. Datentabellen können mit dem R Paket `DT` hinzugefügt werden. In `ui.R` ändern wir jetzt das Design, sodass die App mehrere Tabs nebeneinander enthalten kann. In einem neuen Tab fügen wir dann eine Datentabelle hinzu, die alle Funde anzeigt, die auch auf der Karte sichtbar sind. 
+Nützlich ist es zusätzlich zur Karte auch noch die Funde in einer Tabelle (ähnlich zu Excel) anzeigen zu lassen. Datentabellen können mit dem R Paket `DT` hinzugefügt werden. In `ui.R` ändern wir jetzt das Design, sodass die Shiny App mehrere Tabs nebeneinander enthalten kann. In einem neuen Tab fügen wir dann eine Datentabelle hinzu, die alle Funde anzeigt, die auch auf der Karte sichtbar sind. 
 
 ```r
+ui <- fluidPage(
+  navbarPage("Visualisation Tagfalter Daten",
+    tabPanel("Karte",
+      sidebarPanel(
+      # ... unchanged
+      )
+    ),
+    tabPanel("Daten", dataTableOutput("table"))
+  )
+)
 
 ```
 
+Jetzt haben wir eine App mit zwei Tabs. In `server.R` müssen wir nun die Datentabelle erzeugen. Um Fotos und anderen HTML Content darzustellen, muss `escape = FALSE` gesetzt werden.
+
+```r
+  output$table <- DT::renderDataTable(
+    data_subset(),
+    rownames = FALSE,
+    escape = FALSE # to include html, e.g. images in datatable
+  )
+```
 
 
-The code can be found here: [Github](https://github.com/markdumke/lepivis)
 {% include disqus.html %}
