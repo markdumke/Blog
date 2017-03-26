@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Visualisation Schmetterlingsdaten 2 - Erstellen einer Karte
+title: Visualisation Schmetterlingsdaten - Erstellen einer Karte
 abstract: Abstract
 author: Markus Dumke
 tags: Visualisation Schmetterlingsdaten
@@ -8,25 +8,25 @@ comments: true
 ---
 
 ## Erstellen einer Shiny App
-Zunächst müssen wir das Paket Shiny installieren. Dieses erstellt im Folgenden die Visualisation. Eine Shiny App besteht immer aus 2 Teilen: einem `ui.R` Skript, dass die grafische Benutzeroberfläche (Buttons etc., die der Nutzer klicken kann) erstellt und ein `server.R` Skript, dass festlegt, was passieren soll, wenn z.B. ein Button geklickt wird. Zudem ist es nützlich ein weiteres Skript global.R zu haben, in dem alles passiert, was nur einmal vor Start der App gemacht werden muss, z.B. das Laden der Pakete und Daten. In `global.R` schreiben wir zunächst:
+Zunächst müssen wir das R Paket Shiny installieren. Dieses erstellt im Folgenden die Visualisation. Eine Shiny App besteht aus 2 Teilen: einem `ui.R` Skript, dass die grafische Benutzeroberfläche (Buttons etc., die der Nutzer klicken kann) erstellt und ein `server.R` Skript, dass festlegt, was passieren soll, wenn z.B. ein Button geklickt wird. Zudem ist es nützlich ein weiteres Skript `global.R` zu haben, in dem Code nur einmal bei Start der App ausgeführt wird, z.B. das Laden der Pakete und Daten. In `global.R` schreiben wir zunächst:
 
 ```r
 library(shiny)
-library(leaflet)
+library(leaflet) # for the map
 
 # load data
-data <- read.csv2("data_preprocessed.csv")
+data <- read.csv2("data.csv")
 ```
 
 Zunächst fangen wir mit einer einfachen App an, die einfach eine Karte anzeigt. Schritt für Schritt werden wir dann diese erweitern. Dafür fügen wir in `ui` einen `leafletOutput` ein, damit wird standardmässig die Openstreetmap Karte eingebunden. Die Breite der Karte setzen wir auf 100% der Bildschirmbreite, die Höhe auf 700 Pixel.
 
 ```r
 ui <- fluidPage(
-  leafletOutput("map", width = "100%", height = "700")
+  leafletOutput("map", width = "100%", height = "700px")
 )
 ```
 
-In server.R fügen wir dann folgenden Code ein, der die Karte dann tatsächlich erstellt. Mit `setView()` setzen wir den aktuellen Kartenausschnitt. Die ersten Argumente bestimmen Höhen- und Breitengrad des Kartenmittelpunkts, die letzte Zahl den Zoom Faktor. Ändere diese nach Belieben.
+In `server.R` fügen wir dann folgenden Code ein, der die Karte dann tatsächlich erstellt. Mit `setView()` setzen wir den aktuellen Kartenausschnitt. Die ersten Argumente bestimmen Höhen- und Breitengrad des Kartenmittelpunkts, die letzte Zahl den Zoom Faktor.
 
 ```r
 server <- function(input, output, session) {
@@ -34,12 +34,11 @@ server <- function(input, output, session) {
   output$map <- renderLeaflet({
     leaflet() %>% addTiles() %>% setView(11, 49, 7)
   })
-  
 }
 ```
-Jetzt haben wir bereits eine lauffähige App, wenn du in Rstudio auf **Run App** klickst, sollte sich ein Fenster öffnen, in dem eine leere Openstreetmap Karte gezeigt wird.
+Jetzt haben wir bereits eine lauffähige App, die in Rstudio durch Klicken auf **Run App** gestartet werden kann. Es sollte sich ein Fenster öffnen, in dem eine leere Openstreetmap Karte gezeigt wird. Der vollständige Code findet sich hier: (https://gist.github.com/markdumke/c574874f432fb542fb18b5f253d273c3)
 
-Als nächstes wollen wir die Koordinaten als Punkte auf der Karte darstellen lassen. Dafür ändern wir den Aufruf `renderLeaflet()` in `server.R` so, dass dort folgender Code steht:
+Als nächstes wollen wir die Koordinaten der Fundpunkte auf der Karte darstellen. Dafür fügen wir in  `renderLeaflet()` ein `addCircleMarkers()` ein, das die Punkte der Karte hinzufügt.
 
 ```r
 output$map <- renderLeaflet({
@@ -47,15 +46,11 @@ output$map <- renderLeaflet({
       addCircleMarkers(fillOpacity = 1, opacity = 1)
 ```
 
-Jetzt sollte der Output mit **Run App** etwa so aussehen:
-
-![Shiny App]({{ site.url }}/assets/app2.JPG)
-
-Der Code kann hier gefunden werden:  <a href="https://gist.github.com/markdumke/55fd69e4a4d1d994c17d85c14d139388" target="_blank">Code</a>
+Als nächster Schritt wäre es cool, eine Möglichkeit zu haben, auszuwählen, welche Daten angezeigt werden sollen, z.B. nur eine bestimmte Art oder nur Beobachtungen ab einem bestimmten Jahr.
+Dafür fügen wir in `ui.R` eine Sidebar ein, die es uns ermöglicht, die Daten zu filtern. In Shiny sind zahlreiche Inputs möglich, z.B. Buttons, Checkboxes und TextInputs, für mehr Informationen siehe [Shiny Widgets](http://shiny.rstudio.com/gallery/widget-gallery.html).
 
 
-Als nächster Schritt wäre es cool, eine Möglichkeit zu haben, welche Daten angezeigt werden sollen, z.B. nur eine bestimmte Art oder nur Beobachtungen ab einem bestimmten Jahr darzustellen.
-Dafür fügen wir in `ui.R` eine sidebar ein, die es uns erlaubt genau diese Auswahlen zu treffen. In Shiny sind zahlreiche Inputs möglich, z.B. Buttons, Checkboxes und TextInputs, für mehr Informationen siehe <a href="http://shiny.rstudio.com/gallery/widget-gallery.html" target="_blank">Shiny Widgets</a> 
+Zunächst fügen wir einen `selectizeInput` ein, mit dem wir die Art auswählen können.
 
 ```r
 ui <- fluidPage(
@@ -67,7 +62,7 @@ ui <- fluidPage(
 )
 ```
 
-Damit bei Auswahl einer Art, auch nur die Punkte dieser Art auf der Karte angezeigt werden, müssen wir in `server.R` ein subset der Daten bilden.
+Damit bei Auswahl einer Art, auch nur die Punkte dieser Art auf der Karte angezeigt werden, müssen wir in `server.R` ein subset der Daten bilden. Falls keine Art ausgewählt ist, werden alle Punkte angezeigt.
 
 ```r
   # check if input is empty, then do not subset
