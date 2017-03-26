@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Visualisation Schmetterlingsdaten - Tutorial
+title: Visualisation Schmetterlingsdaten - Tutorial Teil 2
 abstract: Abstract
 author: Markus Dumke
 tags: Visualisation Schmetterlingsdaten
@@ -38,7 +38,7 @@ server <- function(input, output, session) {
   })
 }
 ```
-Jetzt haben wir bereits eine lauffähige App, die in Rstudio durch Klicken auf **Run App** gestartet werden kann. Es sollte sich ein Fenster öffnen, in dem eine leere Openstreetmap Karte gezeigt wird. Der vollständige Code findet sich hier: [Code](https://gist.github.com/markdumke/c574874f432fb542fb18b5f253d273c3)
+Jetzt haben wir bereits eine lauffähige App, die in Rstudio durch Klicken auf **Run App** gestartet werden kann. Es sollte sich ein Fenster öffnen, in dem eine leere Openstreetmap Karte gezeigt wird. Der vollständige Code findet sich [hier](https://gist.github.com/markdumke/c574874f432fb542fb18b5f253d273c3).
 
 ## Funde auf der Karte darstellen
 
@@ -91,7 +91,7 @@ Damit bei Auswahl einer Art, auch nur die Punkte dieser Art auf der Karte angeze
   })      
 ```
 
-Der Code findet sich hier: [Code](https://gist.github.com/markdumke/865ad1e76463d96bb2d9a0c7533c7a1c)
+Der Code findet sich [hier](https://gist.github.com/markdumke/35b6f7cc4b9b4c0e6166853303d576e7).
 
 Natürlich können wir in der Sidebar noch zahlreiche weitere Inputs hinzufügen. Z.B. weitere `selectizeInput` oder auch `sliderInput` für Jahr oder Höhe. In `ui.R` kann das ganze dann z.B. so aussehen:
 
@@ -126,9 +126,11 @@ In `server.R` müssen wir dann `data_subset`anpassen, sodass auch nach den ander
 
 ```r
   # build subset of data.frame ------------------------------
-  # input id and name of variable in dataframe (column name) must be the same!
+  # input id and name of variable in dataframe (column name) 
+    must be the same!
   data_subset <- reactive({
-    textinput_vars <- c("Art", "Stadium", "Land", "Geschlecht", "Beobachter")
+    textinput_vars <- c("Art", "Stadium", "Land", "Geschlecht", 
+      "Beobachter")
     for (i in textinput_vars){
       if (!is_input_empty(input[[i]])) {
         data <- data[data[, i] %in% input[[i]], ]
@@ -136,11 +138,13 @@ In `server.R` müssen wir dann `data_subset`anpassen, sodass auch nach den ander
     }
     sliderinput_vars <- c("altitude", "Jahr")
     for (i in sliderinput_vars){
-      data <- data[data[, i] >= input[[i]][1] & data[, i] <= input[[i]][2], ]
+      data <- data[data[, i] >= input[[i]][1] & 
+        data[, i] <= input[[i]][2], ]
     }
     data
   })
 ```
+Code [hier](https://gist.github.com/markdumke/6f925faf00ea3016321b4d4a4c201409).
 
 ## Datentabelle einfügen
 
@@ -170,5 +174,8 @@ Jetzt haben wir eine App mit zwei Tabs. In `server.R` müssen wir nun die Datent
   )
 ```
 
+Der Code der App bis hierhin kann [hier](https://gist.github.com/markdumke/d22ddd59cebed89741ee95019c475524) gefunden werden 
+
+Die Shiny App enthält inzwischen bereits zahlreiche nützliche Funktionen. Lese in [Teil 3]() weiter wie Daten in der App erfasst werden können.
 
 {% include disqus.html %}
