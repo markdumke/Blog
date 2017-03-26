@@ -50,6 +50,8 @@ output$map <- renderLeaflet({
       addCircleMarkers(fillOpacity = 1, opacity = 1)
 ```
 
+## Sidebar hinzufügen
+
 Als nächster Schritt wäre es cool, eine Möglichkeit zu haben, auszuwählen, welche Daten angezeigt werden sollen, z.B. nur eine bestimmte Art oder nur Beobachtungen ab einem bestimmten Jahr.
 Dafür fügen wir in `ui.R` eine Sidebar ein, die es uns ermöglicht, die Daten zu filtern. In Shiny sind zahlreiche Inputs möglich, z.B. Buttons, Checkboxes und TextInputs, für mehr Informationen siehe [Shiny Widgets](http://shiny.rstudio.com/gallery/widget-gallery.html).
 
@@ -89,6 +91,7 @@ Damit bei Auswahl einer Art, auch nur die Punkte dieser Art auf der Karte angeze
 ```
 
 Der Code findet sich hier: [Code](https://gist.github.com/markdumke/865ad1e76463d96bb2d9a0c7533c7a1c)
+
 Natürlich können wir in der Sidebar noch zahlreiche weitere Inputs hinzufügen. Z.B. weitere `selectizeInput` oder auch `sliderInput` für Jahr oder Höhe. In `ui.R` kann das ganze dann z.B. so aussehen:
 
 ```r
