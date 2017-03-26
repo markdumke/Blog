@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Visualisation Schmetterlingsdaten - Erstellen einer Karte
+title: Visualisation Schmetterlingsdaten - Tutorial
 abstract: Abstract
 author: Markus Dumke
 tags: Visualisation Schmetterlingsdaten
@@ -59,9 +59,10 @@ Zunächst fügen wir einen `selectizeInput` ein, mit dem wir die Art auswählen 
 ```r
 ui <- fluidPage(
   sidebarPanel(
-    selectizeInput("Art", label = "Art", selected = "Polygonia c-album",
+    selectizeInput("Art", label = "Art", 
+                   selected = "Polygonia c-album",
                    choices = levels(data$Art), multiple = TRUE)
-                   ),
+              ),
     mainPanel(leafletOutput("Karte", width = "100%", height = "700"))
 )
 ```
@@ -80,25 +81,14 @@ Damit bei Auswahl einer Art, auch nur die Punkte dieser Art auf der Karte angeze
   })
       
   output$map <- renderLeaflet({
-    leaflet(data_subset()) %>% addTiles() %>% setView(9.5, 47.5, 9) %>%
+    leaflet(data_subset()) %>% 
+      addTiles() %>% 
+      setView(9.5, 47.5, 9) %>% 
       addCircleMarkers(fillOpacity = 1, opacity = 1)
   })      
 ```
 
-Nun wird jedes Mal wenn ein Input verändert wird, d.h. eine neue Art ausgewählt wird, erneut `renderLeaflet` aufgerufen und die Karte neu erzeugt. Das ist nicht unbedingt das erwünschte Verhalten. Um das zu umgehen, müssen wir das `addCircleMarkers` aus dem `renderLeaflet` nehmen und in ein `leafletProxy` Aufruf schreiben, dieser verhindert das die gesamte Karte neu erzeugt werden muss, sodass bei einer neuen Auswahl der aktuelle Kartenausschnitt erhalten bleibt. Mit `clearGroup` werden alle alten Punkte von der Karte gelöscht und danach die neuen basierend auf der aktuellen Artenauswahl dargestellt.
-
-```r
-  output$map <- renderLeaflet({
-    leaflet() %>% addTiles() %>% setView(9.5, 47.5, 9)
-  })
-  
-  observe({
-    leafletProxy("map") %>% 
-      addCircleMarkers(data_subset(), fillOpacity = 1, opacity = 1)
-  })
-```
-
-Schon ganz nützlich. Natürlich können wir in der Sidebar noch zahlreiche weitere Inputs hinzufügen. Z.B. weitere `selectizeInput` oder auch `sliderInput` für Jahr oder Höhe. In `ui.R` kann das ganze dann so aussehen:
+Natürlich können wir in der Sidebar noch zahlreiche weitere Inputs hinzufügen. Z.B. weitere `selectizeInput` oder auch `sliderInput` für Jahr oder Höhe. In `ui.R` kann das ganze dann z.B. so aussehen:
 
 ```r
 ui <- fluidPage(
@@ -110,10 +100,12 @@ ui <- fluidPage(
                    multiple = TRUE, choices = levels(data$Stadium)),
     selectizeInput("Bundesland", label = "Bundesland", 
                    selected = "Bayern", 
-                   choices = levels(data$Bundesland), multiple = TRUE),
+                   choices = levels(data$Bundesland), 
+                   multiple = TRUE),
     selectizeInput("Beobachter", label = "Beobachter", 
                    selected = "Markus Dumke",
-                   choices = levels(data$Beobachter), multiple = TRUE),
+                   choices = levels(data$Beobachter), 
+                   multiple = TRUE),
     sliderInput("Jahr", "Jahr", min = min(data$Jahr), 
                 max = max(data$Jahr), step = 1, ticks = TRUE, 
                 value = c(min(data$Jahr), max(data$Jahr))),
@@ -125,7 +117,7 @@ ui <- fluidPage(
 )
 ```
 
-In `server.R` müssen wir dann `data_subset`anpassen, sodass auch nach den anderen Variablen gefiltert wird. Dafür müssen wir in `global.R` noch das `shinybutterfly` Paket laden (Link zu global2.R). In `server.R` ersetzen wir dann das bisherige `data_subset` durch:
+In `server.R` müssen wir dann `data_subset`anpassen, sodass auch nach den anderen Variablen gefiltert wird. Dafür müssen wir in `global.R` noch das `shinybutterfly` Paket laden. In `server.R` ersetzen wir dann das bisherige `data_subset` durch:
 
 ```r
   # build subset of data.frame ------------------------------
