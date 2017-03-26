@@ -88,6 +88,7 @@ Damit bei Auswahl einer Art, auch nur die Punkte dieser Art auf der Karte angeze
   })      
 ```
 
+Der Code findet sich hier: [Code](https://gist.github.com/markdumke/865ad1e76463d96bb2d9a0c7533c7a1c)
 Natürlich können wir in der Sidebar noch zahlreiche weitere Inputs hinzufügen. Z.B. weitere `selectizeInput` oder auch `sliderInput` für Jahr oder Höhe. In `ui.R` kann das ganze dann z.B. so aussehen:
 
 ```r
@@ -117,7 +118,7 @@ ui <- fluidPage(
 )
 ```
 
-In `server.R` müssen wir dann `data_subset`anpassen, sodass auch nach den anderen Variablen gefiltert wird. Dafür müssen wir in `global.R` noch das `shinybutterfly` Paket laden. In `server.R` ersetzen wir dann das bisherige `data_subset` durch:
+In `server.R` müssen wir dann `data_subset`anpassen, sodass auch nach den anderen Variablen gefiltert wird. Dafür müssen wir in `global.R` noch das `shinybutterfly` Paket laden (`devtools::install_github("markdumke/shinybutterfly")`). In `server.R` ersetzen wir dann das bisherige `data_subset` durch:
 
 ```r
   # build subset of data.frame ------------------------------
@@ -137,123 +138,9 @@ In `server.R` müssen wir dann `data_subset`anpassen, sodass auch nach den ander
   })
 ```
 
-Die App sollte jetzt etwa so aussehen:
-
-![Shiny App]({{ site.url }}/assets/app3.JPG)
-Code: 
-
-### Füge dynamische UI Elemente hinzu
-Für input Felder wie Bundesland wäre es sinnvoll, dass die Möglichkeiten von der Auswahl des Lands abhängig sind. Wenn z.B. als Land "Germany"" ausgewählt ist, sind mögliche Inputs bei Bundesland "Bayern" und "Baden-Württemberg". Daher erzeugen wir dieses ui Element mit `renderUI` in `server.R` abhängig davon welches Land ausgewählt ist. Dasselbe machen wir für Kreis und Gemeinde.
-
-In `ui.R`:
-
-```r
- renderUI("Bundesland"),
- renderUI("Kreis"),
- renderUI("Gemeinde"),
-
-```
-
-In `server.R`:
-
-```r
-  # build ui: choices of Bundesland depend on which Land is selected
-  output$Bundesland <- renderUI({
-    choices <- select_choices(data, input, "Bundesland", "Land")
-    selectizeInput("Bundesland", label = "Bundesland", selected = FALSE,
-      choices = choices, 
-      multiple = TRUE)
-  })
-  
-  output$Kreis <- renderUI({
-    choices <- select_choices(data, input, "Kreis", c("Land", "Bundesland"))
-    selectizeInput("Kreis", label = "Kreis", selected = FALSE,
-      choices = choices, 
-      multiple = TRUE)
-  })
-  
-  output$Gemeinde <- renderUI({
-    choices <- select_choices(data, input, "Gemeinde", c("Land", "Bundesland", "Kreis"))
-    selectizeInput("Gemeinde", label = "Gemeinde", selected = FALSE,
-      choices = choices, 
-      multiple = TRUE)
-  })
-```
-
-### Satellitenbilder hinzufügen
-Manchmal sind auch Satelliten- oder Geländekarten mit Höhenlinien nützlich. Diese können wir recht einfach hinzufügen. Zudem fügen wir noch eine Suche hinzu. Diese Funktionen sind in dem Paket `leaflet.extras`, das wir zunächst noch installieren müssen. <Um das Paket zu installieren, ist ausserdem die neueste Version des Pakets `leaflet` nötig, beides können wir einfach von Github installieren.>
-
-```r
-devtools::install_github("bhaskarvk/leaflet.extras")
-library(leaflet.extras)
-```
-
-Dann ändern wir den Aufruf von `output$map` in `server.R` so:
-
-```r
-    output$map <- renderLeaflet({
-      leaflet() %>% setView(11, 49, 7) %>% 
-      addSearchOSM() %>%
-      addTiles(group = "OSM") %>%
-      addProviderTiles("Esri.WorldImagery", group = "Satellit") %>%
-      addProviderTiles("Esri.WorldTopoMap", group = "Gelände") %>%
-      addLayersControl(baseGroup = c("OSM", "Satellit", "Gelände"))
-    })
-```
-
-Jetzt können wir zwischen verschiedenen Karten wechseln und zudem einfach nach Orten suchen.
-
-### Popups hinzufügen
-
-Nun können wir den Punkten noch einfache Popups hinzufügen. Dafür kann beliebiger HTML Text verwendet werden, z.B. eine Zusammenfassung des jeweiligen Funds und auch Fotos oder Links können dort angezeigt werden. Hier ein Beispiel:
-
-```r
-      addCircleMarkers(fillOpacity = 1, opacity = 1, 
-        popup = paste(
-          data_subset()$Foto, "<br>", 
-          data_subset()$Art, "<br>",
-          data_subset()$Beobachter, "<br>",
-          as.character(data_subset()$Anzahl), 
-          data_subset()$Stadium, "<br>",
-          data_subset()$Datum)
-        )
-```
-
-### Messtischblätter und Quadranten anzeigen
-Praktisch wäre weiterhin MTBs und Quadranten anzeigen zu lassen. Hier habe ich bereits vordefinierte Objekte erstellt, die mit dem `shinybutterfly` Paket geladen werden.
-welche MTBs in dem aktuellen Kartenauschnitt liegen, sodass dann nur diese dargestellt werden (ansonsten kann die App recht langsam werden, wenn alle geplottet werden!).
-In `global.R` fügen wir dafür folgenden Code hinzu
-
-```r
-getInputwithJS <- '
-Shiny.addCustomMessageHandler("findInput",
-function(message) {
-var inputs = document.getElementsByTagName("input");
-Shiny.onInputChange("MTB", inputs[22].checked);
-Shiny.onInputChange("Quadranten", inputs[23].checked);
-Shiny.onInputChange("MTB_map2", inputs[47].checked);
-Shiny.onInputChange("Quadranten_map2", inputs[48].checked);
-console.log(inputs);
-}
-);
-'
-```
-
-In `ui.R`:
-```r
-
-```
-
-```r
-
-```
-
-
-
 ## Datentabelle einfügen
 
-In einem neuen Tab fügen wir jetzt eine Datentabelle ein, die alle Funde anzeigt, die auch auf der Karte sichtbar sind. Datentabelle können mit dem R Paket `DT` hinzugefügt werden. 
-
+Nützlich ist es zusätzlich zur Karte auch noch die Funde in einer Tabelle (ähnlich zu Excel) anzeigen zu lassen. Datentabellen können mit dem R Paket `DT` hinzugefügt werden. In `ui.R` ändern wir jetzt das Design, sodass die App mehrere Tabs nebeneinander enthalten kann. In einem neuen Tab fügen wir dann eine Datentabelle hinzu, die alle Funde anzeigt, die auch auf der Karte sichtbar sind. 
 
 ```r
 
