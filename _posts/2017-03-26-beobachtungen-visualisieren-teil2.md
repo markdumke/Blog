@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Visualisation Schmetterlingsdaten - Tutorial Teil 2
+title: Visualisation Schmetterlingsdaten - Tutorial Teil 1
 abstract: Abstract
 author: Markus Dumke
 tags: Visualisation Schmetterlingsdaten
