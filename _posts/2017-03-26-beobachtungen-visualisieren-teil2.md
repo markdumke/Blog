@@ -132,7 +132,7 @@ ui <- fluidPage(
 )
 ```
 
-Damit bei Auswahl einer Art, auch nur die Punkte dieser Art auf der Karte angezeigt werden, müssen wir in `server.R` ein subset der Daten bilden. Falls keine Art ausgewählt ist, werden alle Punkte angezeigt.
+Damit bei Auswahl einer Art, auch nur die Punkte dieser Art auf der Karte angezeigt werden, müssen wir im `server` Aufruf die Daten nach den ausgewähltem Input filtern. Falls keine Art ausgewählt ist, werden alle Punkte angezeigt (es sind also alle Arten ausgewählt).
 
 ```r
   # check if input is empty, then do not subset
@@ -155,7 +155,7 @@ Damit bei Auswahl einer Art, auch nur die Punkte dieser Art auf der Karte angeze
 
 Der Code findet sich [hier](https://gist.github.com/markdumke/35b6f7cc4b9b4c0e6166853303d576e7).
 
-Natürlich können wir in der Sidebar noch zahlreiche weitere Inputs hinzufügen. Z.B. weitere `selectizeInput` oder auch `sliderInput` für Jahr oder Höhe. In `ui.R` kann das ganze dann z.B. so aussehen:
+Natürlich können wir in der Sidebar noch zahlreiche weitere Inputs hinzufügen. Z.B. weitere `selectizeInput` oder auch `sliderInput` für Jahr oder Höhe. In der `ui` kann das ganze dann z.B. so aussehen:
 
 ```r
 ui <- fluidPage(
@@ -184,7 +184,7 @@ ui <- fluidPage(
 )
 ```
 
-In `server.R` müssen wir dann `data_subset`anpassen, sodass auch nach den anderen Variablen gefiltert wird. Dafür müssen wir in `global.R` noch das `shinybutterfly` Paket laden (`devtools::install_github("markdumke/shinybutterfly")`). In `server.R` ersetzen wir dann das bisherige `data_subset` durch:
+Im `server` müssen wir dann `data_subset`anpassen, sodass auch nach den anderen Variablen gefiltert wird. Dafür müssen wir in `global.R` noch das `shinybutterfly` Paket laden (`devtools::install_github("markdumke/shinybutterfly")`). Hier ersetzen wir jetzt das bisherige `data_subset` durch:
 
 ```r
   # build subset of data.frame ------------------------------
@@ -210,7 +210,7 @@ Code [hier](https://gist.github.com/markdumke/6f925faf00ea3016321b4d4a4c201409).
 
 ## Datentabelle einfügen
 
-Nützlich ist es zusätzlich zur Karte auch noch die Funde in einer Tabelle (ähnlich zu Excel) anzeigen zu lassen. Datentabellen können mit dem R Paket `DT` hinzugefügt werden. In `ui.R` ändern wir jetzt das Design, sodass die Shiny App mehrere Tabs nebeneinander enthalten kann. In einem neuen Tab fügen wir dann eine Datentabelle hinzu, die alle Funde anzeigt, die auch auf der Karte sichtbar sind. 
+Nützlich ist es zusätzlich zur Karte auch noch die Funde in einer Tabelle (ähnlich zu Excel) anzeigen zu lassen. Datentabellen können mit dem R Paket `DT` hinzugefügt werden. In der `ui` ändern wir jetzt das Design, sodass die Shiny App mehrere Tabs nebeneinander enthalten kann (eine `navbarPage`). In einem neuen Tab fügen wir dann eine Datentabelle hinzu, die alle Funde anzeigt, die auch auf der Karte sichtbar sind. 
 
 ```r
 ui <- fluidPage(
@@ -226,7 +226,7 @@ ui <- fluidPage(
 
 ```
 
-Jetzt haben wir eine App mit zwei Tabs. In `server.R` müssen wir nun die Datentabelle erzeugen. Um Fotos und anderen HTML Content darzustellen, muss `escape = FALSE` gesetzt werden.
+Jetzt haben wir eine App mit zwei Tabs. Im `server` müssen wir nun die Datentabelle erzeugen. Um z.B. Fotos und andere HTML Inhalte darzustellen, muss das Argument `escape = FALSE` gesetzt werden.
 
 ```r
   output$table <- DT::renderDataTable(
@@ -238,6 +238,6 @@ Jetzt haben wir eine App mit zwei Tabs. In `server.R` müssen wir nun die Datent
 
 Der Code der App bis hierhin kann [hier](https://gist.github.com/markdumke/d22ddd59cebed89741ee95019c475524) gefunden werden 
 
-Die Shiny App enthält inzwischen bereits zahlreiche nützliche Funktionen. Lese in [Teil 3]() weiter wie Daten in der App erfasst werden können.
+Die Shiny App enthält inzwischen bereits zahlreiche nützliche Funktionen. Lese in Teil 2 weiter wie Daten in der App erfasst werden können.
 
 {% include disqus.html %}
