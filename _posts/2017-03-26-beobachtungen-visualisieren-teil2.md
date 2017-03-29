@@ -24,25 +24,25 @@ Dieser kann hier gefunden und heruntergeladen werden: [Rohdaten](https://github.
 Ein Beispiel-Rohdatensatz `raw_data.csv` kann hier gefunden werden (Link)
 und sieht ungefähr folgendermassen aus:
 
-|   |Datum      |Art               | Anzahl|Stadium | latitude| longitude|
-|:--|:----------|:-----------------|------:|:-------|--------:|---------:|
-|1  |02.04.2017 |Gonepteryx rhamni |     15|Falter  | 47.6301 N|  9.7348 E|
-|3  |19.08.2015 |Gonepteryx rhamni    |      5|Falter  | 47.5614 N|  9.7813 E|
-|5  |02.04.2017|Aglais io         |    3|Falter  | 47.5493 N|  9.9134 E|
-|...  |... |...      |    ...|...  | ...|  ...|
+|Datum      |Art               | Anzahl|Stadium | latitude| longitude|
+|:----------|:-----------------|------:|:-------|--------:|---------:|
+|02.04.2017 |Gonepteryx rhamni |     15|Falter  | 47.630 N|  9.7348 E|
+|19.08.2015 |Gonepteryx rhamni    |      5|Falter  | 47.561 N|  9.7813 E|
+|02.04.2017|Aglais io         |    3|Falter  | 47.549 N|  9.9134 E|
+|... |...      |    ...|...  | ...|  ...|
 
 ## Datenaufbereitung
 
 In R können wir den Datensatz mit den folgenden Zeilen einlesen:
 
 ```r
-data <- read.csv2("raw_data.csv", encoding = "utf8")
+data <- read.csv2("rawdata.csv", encoding = "utf8")
 ```
 
 Zunächst müssen wir diesen Datensatz ein wenig aufbereiten, um ihn für die App nutzbar zu machen. Wichtig ist, dass der Datensatz Koordinaten (d.h. zwei Spalten `latitude` (der Breitengrad) und `longitude` (der Höhengrad)) enthält, die wir auf der Karte darstellen wollen.
 
-Diese sollten als Zahlen vorliegen, ein korrekter Längengrad ist z.B. longitude = 11.3124, ein Breitengrad z.B. latitude = 48.21453.
-Falls die Koordinaten in einem anderen Format sind, müssen wir sie erst transformieren. Dafür können wir die `extract_coordinates` Funktion aus dem `shinybutterfly` Paket verwenden.
+Diese sollten als Zahlen vorliegen, ein korrekter Längengrad ist z.B. `longitude = 11.3124`, ein Breitengrad z.B. `latitude = 48.21453`.
+Falls die Koordinaten in einem anderen Format sind, müssen wir sie erst transformieren. Dafür habe ich die Funktion `extract_coordinates` geschrieben, die mit dem `shinybutterfly` Paket geladen werden kann.
 
 Dafür müssen wir das Paket erst einmal installieren, das funktioniert mit folgendem Code (da das Paket nur auf Github verfügbar ist, müssen wir vorher noch das Paket `devtools` installieren):
 
