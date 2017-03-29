@@ -7,8 +7,70 @@ tags: Visualisation Schmetterlingsdaten
 comments: true
 ---
 
-## Erstellen einer Shiny App
-Zunächst müssen wir das R Paket Shiny installieren. Dieses erstellt im Folgenden die Visualisation. Eine Shiny App besteht aus 2 Teilen: einem `ui.R` Skript, dass die grafische Benutzeroberfläche (Buttons etc., die der Nutzer klicken kann) erstellt und ein `server.R` Skript, dass festlegt, was passieren soll, wenn z.B. ein Button geklickt wird. Zudem ist es nützlich ein weiteres Skript `global.R` zu haben, in dem Code nur einmal bei Start der App ausgeführt wird, z.B. das Laden der Pakete und Daten. In `global.R` schreiben wir zunächst:
+In diesem Tutorial wollen wir lernen, wie eine einfache Datenvisualisation mithilfe der Statistik-Software R erstellt werden kann. Siehe auch den vorherigen Artikel [Schmetterlingsbeobachtungen darstellen mit R Shiny](https://markdumke.github.io///2017/03/08/Schmetterlingsbeobachtungen-darstellen-mit-Shiny-Leaflet.html).
+
+## Vorbereitungen
+Zunächst einmal brauchen wir 
+<a href="https://cran.r-project.org/bin/windows/base/" target="_blank">R</a> und 
+<a href="https://www.rstudio.com/products/rstudio/download/" target="_blank">RStudio</a> 
+(die kostenlose Version reicht aus). 
+Installiere R und RStudio als erstes auf deinem PC und erstelle in RStudio ein neues Projekt (File -> New Project -> New Directory -> Empty Project). 
+In RStudio öffnen wir dann ein neues Skript, das wir als "app.R" abspeichern. Dieses wird mal die App, die die Visualisation startet.
+
+## Daten
+Basis der Visualisation sind natürlich Daten. Für das Tutorial werden wir im Folgenden einen kleinen Testdatensatz verwenden (mit frei erfundenen Beobachtungen). 
+Dieser kann hier gefunden und heruntergeladen werden: [Rohdaten](https://github.com/markdumke/shinybutterfly/blob/master/inst/application/rawdata.csv)
+
+Ein Beispiel-Rohdatensatz `raw_data.csv` kann hier gefunden werden (Link)
+und sieht ungefähr folgendermassen aus:
+
+|   |Datum      |Art               | Anzahl|Stadium | latitude| longitude|
+|:--|:----------|:-----------------|------:|:-------|--------:|---------:|
+|1  |02.04.2017 |Gonepteryx rhamni |     15|Falter  | 47.6301 N|  9.7348 E|
+|3  |19.08.2015 |Gonepteryx rhamni    |      5|Falter  | 47.5614 N|  9.7813 E|
+|5  |02.04.2017|Aglais io         |    3|Falter  | 47.5493 N|  9.9134 E|
+|...  |... |...      |    ...|...  | ...|  ...|
+
+## Datenaufbereitung
+
+In R können wir den Datensatz mit den folgenden Zeilen einlesen:
+
+```r
+data <- read.csv2("raw_data.csv", encoding = "utf8")
+```
+
+Zunächst müssen wir diesen Datensatz ein wenig aufbereiten, um ihn für die App nutzbar zu machen. Wichtig ist, dass der Datensatz Koordinaten (d.h. zwei Spalten `latitude` (der Breitengrad) und `longitude` (der Höhengrad)) enthält, die wir auf der Karte darstellen wollen.
+
+Diese sollten als Zahlen vorliegen, ein korrekter Längengrad ist z.B. longitude = 11.3124, ein Breitengrad z.B. latitude = 48.21453.
+Falls die Koordinaten in einem anderen Format sind, müssen wir sie erst transformieren. Dafür können wir die `extract_coordinates` Funktion aus dem `shinybutterfly` Paket verwenden.
+
+Dafür müssen wir das Paket erst einmal installieren, das funktioniert mit folgendem Code (da das Paket nur auf Github verfügbar ist, müssen wir vorher noch das Paket `devtools` installieren):
+
+```r
+install.packages("devtools")
+devtools::install_github("markdumke/shinybutterfly")
+```
+Nach der Installation müssen wir zunächst das Paket mit `library()` laden.
+
+```r
+library(shinybutterfly)
+
+# extract coordinates from character
+# e.g "11,069 E" will be 11.069
+data$latitude <- extract_coordinates(data$latitude)
+data$longitude <- extract_coordinates(data$longitude)
+```
+
+Mithilfe der Koordinaten lassen sich dann zahlreiche weitere Informationen automatisch bestimmen, z.B. in welchem Land, Bundesland, Kreis und Gemeinde der Fund liegt sowie die Höhenlage. Aus dem Datum lassen sich Jahr, Monat, Tag im Jahr und Tag herauslesen. Der vollständige Code dafür findet sich [hier](https://gist.github.com/markdumke/36e4005fc5c49246cccee9dc4d6011d4).
+
+Die fertig aufbereiteten Daten finden sich dann hier:
+[Daten](https://github.com/markdumke/shinybutterfly/blob/master/inst/application/data.csv)
+Diese Daten wollen wir im Folgenden interaktiv auf einer Karte darstellen.
+
+## Erstellen der Visualisation mit Shiny
+Für die Visualisation verwenden wir das R Paket `Shiny`, das für gut für interaktive Datenvisualisation geeignet ist. Mehr Informationen über Shiny [hier](https://shiny.rstudio.com/). Eine Shiny App besteht meist aus 2 Teilen: einer `ui`, die die grafische Benutzeroberfläche (z.B. Buttons, die der Nutzer klicken kann, um eine bestimmte Art auszuwählen) erstellt und einer Funktion `server`, die festlegt, was passieren soll, wenn z.B. der Button geklickt wird. Zudem gibt es noch Code, der nur einmal bei Start der App ausgeführt werden muss, z.B. das Laden der Pakete und Daten. Dieses schreiben wir einfach ganz oben in unser `app.R` Skript. Dabei ist es möglich die App in einem Skript `app.R` zu haben, oder drei Skripts `ui.R`, `server.R` und `global.R` anzulegen, die die einzelnen Komponenten enthalten. Im Folgenden werden wir nur ein Skript `app.R` verwenden, das alle drei Komponenten enthält.
+
+In `app.R` laden wir zunächst die aufbereiteten Daten und laden wir das Paket `shiny` und das `leaflet` Paket, das die Karten bereitstellt.
 
 ```r
 library(shiny)
@@ -28,7 +90,7 @@ ui <- fluidPage(
 )
 ```
 
-In `server.R` fügen wir dann folgenden Code ein, der die Karte dann tatsächlich erstellt. Mit `setView()` setzen wir den aktuellen Kartenausschnitt. Die ersten Argumente bestimmen Höhen- und Breitengrad des Kartenmittelpunkts, die letzte Zahl den Zoom Faktor.
+Darunter fügen wir dann den folgenden Code für die `server` Funktion ein, der die Karte dann tatsächlich erstellt. `addTiles` lädt die Karte und mit `setView()` legen wir den aktuellen Kartenausschnitt fest. Dabei bestimmen die ersten beiden Argumente Höhen- und Breitengrad des Kartenmittelpunkts, die letzte Zahl den Zoom Faktor.
 
 ```r
 server <- function(input, output, session) {
@@ -38,7 +100,7 @@ server <- function(input, output, session) {
   })
 }
 ```
-Jetzt haben wir bereits eine lauffähige App, die in Rstudio durch Klicken auf **Run App** gestartet werden kann. Es sollte sich ein Fenster öffnen, in dem eine leere Openstreetmap Karte gezeigt wird. Der vollständige Code findet sich [hier](https://gist.github.com/markdumke/c574874f432fb542fb18b5f253d273c3).
+Jetzt haben wir bereits eine lauffähige App, die in Rstudio durch Klicken auf **Run App** gestartet werden kann. Es sollte sich ein Fenster öffnen, in dem eine leere Openstreetmap Karte gezeigt wird. Der vollständige Code unserer App zum jetzigen Zeitpunkt findet sich [hier](https://gist.github.com/markdumke/c574874f432fb542fb18b5f253d273c3).
 
 ## Funde auf der Karte darstellen
 
