@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Visualisation Schmetterlingsdaten - Tutorial Teil 1
-abstract: Abstract
+abstract: Schritt für Schritt Tutorial, wie eine interaktive Datenvisualisation mit Shiny in R erstellt werden kann. Im ersten Teil des Tutorials lernen wir wie die Daten aus einer Excel Tabelle in einen R Datensatz überführt werden können und die Funde auf einer Karte und in einer Tabelle in der App dargestellt werden können.
 author: Markus Dumke
 tags: Visualisation Schmetterlingsdaten
 comments: true
