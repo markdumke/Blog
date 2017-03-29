@@ -66,5 +66,6 @@ Eine sehr praktische Funktion ist es, Daten neu zu erfassen. Dabei ist es sehr m
 ![]({{ site.url }}/assets/schmetterlinge_shiny/daten_eingabe.JPG)
 
 Im Folgenden werde ich Schritt-für-Schritt Tutorial geben, wie man eine solche Shiny App selbst bauen kann. Siehe hierzu: 
+[Tutorial Teil 1](https://markdumke.github.io///2017/03/26/beobachtungen-visualisieren-teil2.html)
 
 {% include disqus.html %}
