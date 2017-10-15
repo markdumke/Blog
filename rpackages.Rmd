@@ -1,0 +1,25 @@
+---
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, error = FALSE, tidy = TRUE)
+```
+
+<br>
+
+# Selected R Packages
+
+```{r showcase, echo = FALSE}
+library(shiny)
+library(apputils)
+pkgs <- c("reinforcelearn")
+page_urls <- paste0("https://markdumke.github.io/", pkgs)
+img_urls <- rep("assets/img/Rlogo.svg", 1) # reinforcelearn.png
+gh_urls <- paste0("https://github.com/markdumke/", pkgs)
+lab <- paste0("<h4>", pkgs,
+  "<a href=\"", gh_urls, "\" style=\"padding-left:10px;\"><span class=\"fa fa-github fa-lg\"></span></a></h4>")
+lab <- purrr::map(lab, ~HTML(.x))
+subtitles <- c("Reinforcement Learning in R")
+app_showcase(page_urls, img_urls, pkgs, subtitles, lab, img_style = "padding:10px;", new_window = FALSE)
+```

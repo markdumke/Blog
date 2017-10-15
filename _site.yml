@@ -1,0 +1,22 @@
+name: "dumke"
+navbar:
+  title: "Markus' Blog"
+  type: inverse
+  left:
+    - text: "Blog"
+      href: index.html
+    - text: "R Packages"
+      href: rpackages.html
+  right:     
+    - text: "About"
+      href: about.html
+    - icon: fa-github fa-lg
+      href: https://github.com/markdumke
+output:
+  html_document:
+    theme: cosmo
+    highlight: textmate
+    include:
+      after_body: footer.html
+    css: styles.css
+output_dir: "."
