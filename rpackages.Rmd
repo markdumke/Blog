@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, error = FA
 ```{r showcase, echo = FALSE}
 library(shiny)
 library(apputils)
-pkgs <- c("reinforcelearn")
+pkgs <- "reinforcelearn"
 page_urls <- paste0("https://markdumke.github.io/", pkgs)
 img_urls <- rep("assets/img/Rlogo.svg", 1) # reinforcelearn.png
 gh_urls <- paste0("https://github.com/markdumke/", pkgs)

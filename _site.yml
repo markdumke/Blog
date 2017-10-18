@@ -1,6 +1,6 @@
 name: "dumke"
 navbar:
-  title: "Markus' Blog"
+  title: "Markus Dumke"
   type: inverse
   left:
     - text: "Blog"

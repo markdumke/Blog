@@ -20,21 +20,28 @@ layout: page
 
 ### R Packages
 
-- `reinforcelearn`: [markdumke/reinforcelearn](https://github.com/markdumke/reinforcelearn)
+- <a href="https://markdumke.github.io/reinforcelearn">
+<img src="assets/img/reinforcelearn.png" style="width: 150px;"/>
+</a> <a href="https://github.com/markdumke/reinforcelearn" style="padding-left:10px;"><span class="fa fa-github fa-lg"></span></a>
 
 ---
 
 ### Interests
 
-- R
-- Shiny
-- Python
-- statistical modeling
-- machine learning
-- deep learning
-- reinforcement learning
-- data visualization 
+- Statistical modeling
+- Machine learning
+- Deep learning
+- Reinforcement learning
+- Data visualization 
+
+### Software
+
+- R, Python
+
+### Statistical reports
+
+- R Markdown, Shiny, LaTeX
 
 ---
 
-Have a look at my github page: [github.com/markdumke](https://github.com/markdumke)
+Have a look at my github page: <a href="https://github.com/markdumke" style="padding-left:10px;"><span class="fa fa-github fa-lg"></span></a>
