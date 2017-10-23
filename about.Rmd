@@ -3,18 +3,44 @@ layout: page
 ---
 <br>
 
-## Markus Dumke
+# Markus Dumke
 
 ---
 
-### Education
+## Education
 
 - 2015 - 2017 Master Statistics LMU Munich
 - 2012 - 2015 Bachelor Statistics LMU Munich
 
 ---
 
-### Publications
+## Skills
+
+### Statistics
+
+- Statistical modeling
+- Classification and regression (GLMs)
+- Machine learning (Trees, Random Forests, Neural Networks, Boosting)
+- Deep learning (Feedforward, Recurrent and Convolutional Networks)
+- Reinforcement learning
+- Unsupervised learning (Clustering, PCA, outlier detection)
+- Functional data
+- Mixed Models (longitudinal data)
+- Categorical data analysis (contingency tables)
+- Data preprocessing
+
+### Software
+
+- R, Python, (Matlab)
+
+### Statistical reports and visualization
+
+- R Markdown, Shiny, LaTeX
+- ggplot, matplotlib
+
+### Languages
+
+- Deutsch, English
 
 ---
 
@@ -26,21 +52,10 @@ layout: page
 
 ---
 
-### Interests
+### Publications
 
-- Statistical modeling
-- Machine learning
-- Deep learning
-- Reinforcement learning
-- Data visualization 
-
-### Software
-
-- R, Python
-
-### Statistical reports
-
-- R Markdown, Shiny, LaTeX
+- Reinforcement Learning in R (Master thesis)
+- Asymmetric Correlations in Financial Returns (Bachelor thesis)
 
 ---
 
