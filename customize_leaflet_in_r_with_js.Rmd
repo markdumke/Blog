@@ -55,11 +55,4 @@ server <- function(input, output) {
 shinyApp(ui, server)
 ```
 
-<br>
-
-![](assets/img/leaflet_map_zoom_control.JPG)
-
-
-
-
-
+<center><img src = "assets/img/leaflet_map_zoom_control.JPG"></center>
