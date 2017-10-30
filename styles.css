@@ -1,3 +1,11 @@
+.footer {
+  position: relative;
+  z-index: 2;
+  box-sizing: border-box;
+  height: 41px;
+  text-align: center;
+}
+
 body {
   font-family: "Source Sans Pro", "Helvetica Neue", Helvetica Neue, Helvetica, Arial, sans-serif;
   background-color:#fff;
@@ -290,12 +298,12 @@ p {
   position: relative;
   z-index: 1;
   min-height: 100%;
-  margin-bottom: -91px;  /* height of footer */
+  margin-bottom: -41px;  /* height of footer */
 }
 
 #homeContent:after, #pageContent:after {
   content: "";
-  height: 91px; /* height of footer */
+  height: 41px; /* height of footer */
   display: block;
 }
 
