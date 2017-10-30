@@ -6,6 +6,22 @@ output:
 <br>
 
 <!--html_preserve-->
+<div class="band full">
+  <div class="bandContent gallerySection">
+    <div class="gallerySectionTitle">Data Visualization</div>
+    <div class="galleryIntro">Articles about Data Visualization with R, Shiny, R Markdown, ggplot, Python, Matplotlib and more.</div>
+    <div class="galleryItems">
+      <div class="galleryItem">
+        <a href="customize_leaflet_in_r_with_js.html"><img class="galleryItemImage" src="assets/img/leaflet_map_zoom_control.JPG"/></a>
+        <a href="customize_leaflet_in_r_with_js.html" class="galleryItemLabel">Customize leaflet map with HTML.</a>
+        <div class="galleryItemDescription">Customize leaflet map with HTML.</div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--/html_preserve-->
+
+<!--html_preserve-->
 <!--
 <div class="band full">
   <div class="bandContent gallerySection">
