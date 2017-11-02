@@ -12,13 +12,13 @@ knitr::opts_chunk$set(eval = FALSE)
 
 <br>
 
-## Customize leaflet in R via Javascript, HTML and CSS
+# Customize leaflet map in R with HTML, CSS and Javascript
 
 This blog post shows examples of how to customize a leaflet map with javascript, html and css.
 
-### Put leaflet zoom control in lower right of map
+## Put leaflet zoom control in lower right of map
 
-Here is a simple leaflet map, where we move the zoom control (+ - symbol) from the upper left to the lower right of the map. In the `ui.R` file we will hide the original zoom control by setting the CSS attribute `visibility` to `hidden`.
+Here is a simple leaflet map in a shiny app, where we move the zoom control (+ - symbol) from the upper left to the lower right of the map. In the `ui.R` file we will hide the original zoom control by setting the CSS attribute `visibility` to `hidden`.
 
 ```{r}
 library(shiny)

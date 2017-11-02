@@ -236,12 +236,12 @@ $(document).ready(function () {
 
 
 <p><br></p>
-<div id="customize-leaflet-in-r-via-javascript-html-and-css" class="section level2">
-<h2>Customize leaflet in R via Javascript, HTML and CSS</h2>
+<div id="customize-leaflet-map-in-r-with-html-css-and-javascript" class="section level1">
+<h1>Customize leaflet map in R with HTML, CSS and Javascript</h1>
 <p>This blog post shows examples of how to customize a leaflet map with javascript, html and css.</p>
-<div id="put-leaflet-zoom-control-in-lower-right-of-map" class="section level3">
-<h3>Put leaflet zoom control in lower right of map</h3>
-<p>Here is a simple leaflet map, where we move the zoom control (+ - symbol) from the upper left to the lower right of the map. In the <code>ui.R</code> file we will hide the original zoom control by setting the CSS attribute <code>visibility</code> to <code>hidden</code>.</p>
+<div id="put-leaflet-zoom-control-in-lower-right-of-map" class="section level2">
+<h2>Put leaflet zoom control in lower right of map</h2>
+<p>Here is a simple leaflet map in a shiny app, where we move the zoom control (+ - symbol) from the upper left to the lower right of the map. In the <code>ui.R</code> file we will hide the original zoom control by setting the CSS attribute <code>visibility</code> to <code>hidden</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(shiny)
 <span class="kw">library</span>(leaflet)
 <span class="kw">library</span>(htmlwidgets)
