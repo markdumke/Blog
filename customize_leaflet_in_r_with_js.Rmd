@@ -33,7 +33,7 @@ ui <- fluidPage(
       }
     "))
   ),
-  leafletOutput("map", height = "400px")
+  leafletOutput("map", width = "870px", height = "696px")
 )
 ```
 
@@ -54,5 +54,7 @@ server <- function(input, output) {
 
 shinyApp(ui, server)
 ```
-
-<center><img src = "assets/img/leaflet_map_zoom_control.JPG"></center>
+<figure>
+<center><img src = "assets/img/leaflet_map_zoom_control.png" width = "600px">
+<figcaption>A leaflet map with the zoom control in the lower right of the figure.</figcaption></center>
+</figure>

@@ -254,7 +254,7 @@ ui &lt;-<span class="st"> </span><span class="kw">fluidPage</span>(
 <span class="st">      }</span>
 <span class="st">    &quot;</span>))
   ),
-  <span class="kw">leafletOutput</span>(<span class="st">&quot;map&quot;</span>, <span class="dt">height =</span> <span class="st">&quot;400px&quot;</span>)
+  <span class="kw">leafletOutput</span>(<span class="st">&quot;map&quot;</span>, <span class="dt">width =</span> <span class="st">&quot;870px&quot;</span>, <span class="dt">height =</span> <span class="st">&quot;696px&quot;</span>)
 )</code></pre></div>
 <p>In the <code>server.R</code> we can then add a leaflet zoom control with Javascript, here we specify the position as <code>'bottomright'</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">server &lt;-<span class="st"> </span><span class="cf">function</span>(input, output) {
@@ -270,9 +270,14 @@ ui &lt;-<span class="st"> </span><span class="kw">fluidPage</span>(
 }
 
 <span class="kw">shinyApp</span>(ui, server)</code></pre></div>
+<figure>
 <center>
-<img src = "assets/img/leaflet_map_zoom_control.JPG">
+<img src = "assets/img/leaflet_map_zoom_control.png" width = "600px">
+<figcaption>
+A leaflet map with the zoom control in the lower right of the figure.
+</figcaption>
 </center>
+</figure>
 </div>
 </div>
 

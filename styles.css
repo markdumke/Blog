@@ -381,14 +381,14 @@ p {
 
 .gallerySection .galleryItems {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
   flex-wrap: wrap;
 }
 
 .gallerySection .galleryItems .galleryItem {
-  width: 49%;
-
+  width: 48%;
   border: 1px solid #f0f0f0;
   margin-bottom: 20px;
 }

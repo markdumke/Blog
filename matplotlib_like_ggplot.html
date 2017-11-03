@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Markus Dumke</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Blog</a>
+</li>
+<li>
+  <a href="rpackages.html">R Packages</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="https://github.com/markdumke">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<p><br></p>
+<div id="make-matplotlib-look-like-ggplot" class="section level1">
+<h1>Make matplotlib look like ggplot</h1>
+<p>This is a fun post, where I wanted to try to make a matplotlib figure similar to a ggplot figure. Can you guess which image was created with matplotlib and which with ggplot? The answer can be found <a href="#exactline">here</a>.</p>
+<figure>
+<center>
+<img src = "assets/img/iris_r.png" width = "400px" hspace="50"> <img src = "assets/img/iris_matplotlib.png" width = "400px">
+<figcaption>
+Two plots, one generated with matplotlib, one with ggplot.
+</figcaption>
+</center>
+</figure>
+<p><br></p>
+<p>To make the matplotlib similar to the ggplot you can pass on a style argument. There is a <code>ggplot</code> style already available but I personally prefer the white background as in ggplot’s <code>theme_bw</code>. So I adapted the mplstyle file and put it on <a href="https://gist.github.com/markdumke/572e2a8546c54b322b48c0c792799b77">Gist</a>.</p>
+<p>If you want to use this style download the file and specify in Python the path to this file, e.g.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt
+theme_bw <span class="op">=</span> <span class="st">&quot;path2file/theme_bw.mplstyle&quot;</span>
+plt.style.use(theme_bw)</code></pre></div>
+<p>You can also put the <code>theme_bw.mplstyle</code> into your matplotlib folder (Python -&gt; Lib -&gt; site-packages -&gt; matplotlib -&gt; mpl-data -&gt; stylelib), then you can load the style more easily with</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">plt.style.use(<span class="st">&quot;theme_bw&quot;</span>)</code></pre></div>
+<p>Here is the full code to generate the two figures above. I had to make a few tweaks to make them as similar as possible.</p>
+<p>In R with ggplot:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+
+<span class="co"># Define colors</span>
+cols &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;setosa&quot;</span> =<span class="st"> &quot;#E24A33&quot;</span>, <span class="st">&quot;virginica&quot;</span> =<span class="st"> &quot;#348ABD&quot;</span>, <span class="st">&quot;versicolor&quot;</span> =<span class="st"> &quot;#FBC15E&quot;</span>)
+
+g &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> iris, <span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Length, <span class="dt">y =</span> Sepal.Width, <span class="dt">col =</span> <span class="kw">factor</span>(Species))) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Sepal Length&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Sepal Width&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Iris&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_colour_manual</span>(<span class="dt">values =</span> cols) <span class="op">+</span>
+<span class="st">  </span><span class="kw">guides</span>(<span class="dt">col =</span> <span class="kw">guide_legend</span>(<span class="dt">title =</span> <span class="st">&quot;Species&quot;</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.title.align =</span> <span class="fl">0.5</span>,
+    <span class="dt">legend.background =</span> <span class="kw">element_rect</span>(<span class="dt">colour =</span> <span class="st">&#39;lightgrey&#39;</span>, <span class="dt">linetype =</span> <span class="st">&#39;solid&#39;</span>))
+
+g</code></pre></div>
+<p>And in Python with matplotlib:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> pandas <span class="im">as</span> pd
+<span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt
+<span class="im">import</span> numpy <span class="im">as</span> np
+<span class="im">from</span> sklearn <span class="im">import</span> datasets
+
+<span class="co"># Load the theme_bw matplotlib theme</span>
+theme_bw <span class="op">=</span> <span class="st">&quot;path2file/theme_bw.mplstyle&quot;</span>
+plt.style.use(theme_bw)
+
+<span class="co"># Load the famous iris data</span>
+iris <span class="op">=</span> datasets.load_iris()
+<span class="co"># Convert to pandas data frame and rename columns</span>
+df <span class="op">=</span> pd.DataFrame(data <span class="op">=</span> np.c_[iris[<span class="st">&#39;data&#39;</span>], iris[<span class="st">&#39;target&#39;</span>]],
+                     columns <span class="op">=</span> iris[<span class="st">&#39;feature_names&#39;</span>] <span class="op">+</span> [<span class="st">&#39;target&#39;</span>])
+df.rename(columns <span class="op">=</span> {<span class="st">&#39;sepal length (cm)&#39;</span>: <span class="st">&#39;sepal_length&#39;</span>, 
+                     <span class="st">&#39;sepal width (cm)&#39;</span>: <span class="st">&#39;sepal_width&#39;</span>,
+                     <span class="st">&quot;petal length (cm)&quot;</span>: <span class="st">&quot;petal_length&quot;</span>,
+                     <span class="st">&quot;petal width (cm)&quot;</span>: <span class="st">&quot;petal_width&quot;</span>,
+                     <span class="st">&quot;target&quot;</span>: <span class="st">&quot;species&quot;</span>}, inplace<span class="op">=</span><span class="va">True</span>)
+<span class="co"># Specify colors</span>
+col <span class="op">=</span> [<span class="st">&quot;#E24A33&quot;</span>, <span class="st">&quot;#FBC15E&quot;</span>, <span class="st">&quot;#348ABD&quot;</span>]
+species <span class="op">=</span> [<span class="st">&quot;setosa&quot;</span>, <span class="st">&quot;versicolor&quot;</span>, <span class="st">&quot;virginica&quot;</span>]
+
+<span class="co"># Plot</span>
+fig <span class="op">=</span> plt.figure(figsize <span class="op">=</span> (<span class="dv">9</span>, <span class="fl">7.2</span>), dpi <span class="op">=</span> <span class="dv">50</span>)
+ax <span class="op">=</span> plt.subplot(<span class="dv">111</span>)
+<span class="co"># A few tweaks to save the image in the same aspect ratio as the R graphic</span>
+fig.subplots_adjust(top <span class="op">=</span> <span class="fl">0.8</span>,
+                    bottom <span class="op">=</span> <span class="fl">0.1</span>,
+                    left <span class="op">=</span> <span class="fl">0.1</span>,
+                    right <span class="op">=</span> <span class="fl">0.9</span>)
+
+<span class="co"># Add plot for each species</span>
+<span class="cf">for</span> i <span class="kw">in</span> np.unique(df[<span class="st">&quot;species&quot;</span>]):
+    ax.plot(df[df[<span class="st">&quot;species&quot;</span>] <span class="op">==</span> i][<span class="st">&quot;sepal_length&quot;</span>], 
+            df[df[<span class="st">&quot;species&quot;</span>] <span class="op">==</span> i][<span class="st">&quot;sepal_width&quot;</span>], <span class="st">&quot;o&quot;</span>, markersize <span class="op">=</span> <span class="dv">8</span>,
+            c <span class="op">=</span> col[<span class="bu">int</span>(i)], label <span class="op">=</span> species[<span class="bu">int</span>(i)])
+plt.ylabel(<span class="st">&quot;Sepal Width&quot;</span>)
+plt.xlabel(<span class="st">&quot;Sepal Length&quot;</span>)
+plt.title(<span class="st">&quot;Iris&quot;</span>, loc <span class="op">=</span> <span class="st">&quot;left&quot;</span>)
+
+<span class="co"># Add space for legend on the right</span>
+box <span class="op">=</span> ax.get_position()
+ax.set_position([box.x0, box.y0, box.width <span class="op">*</span> <span class="fl">0.75</span>, box.height])
+<span class="co"># Add legend</span>
+ax.legend(bbox_to_anchor <span class="op">=</span> (<span class="dv">1</span>, <span class="fl">0.6</span>), title <span class="op">=</span> <span class="st">&quot;Species&quot;</span>, labelspacing <span class="op">=</span> <span class="fl">1.5</span>)
+<span class="co"># Remove minor ticks on x axis</span>
+plt.xticks(np.arange(<span class="dv">5</span>, <span class="bu">max</span>(df.sepal_length) <span class="op">+</span> <span class="dv">1</span>, <span class="fl">1.0</span>))
+plt.show()</code></pre></div>
+<p><a name="exactline"></a> To answer the initial question: The left plot above has been created with ggplot in R, the right plot with matplotlib in Python.</p>
+</div>
+
+<!-- disqus -->
+ <div id="disqus_thread" class="standardPadding"></div>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'markdumke'; // required: replace example with your forum shortname
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            // create disqus script tag
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            // determine container
+            var container = document.getElementsByTagName('body')[0] || document.getElementsByTagName('head')[0];
+            // append script tag enclosed by google indexing suppression comment
+            container.appendChild(document.createComment('googleoff: all'));
+            container.appendChild(dsq);
+            container.appendChild(document.createComment('googleon: all'));
+        })();
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
