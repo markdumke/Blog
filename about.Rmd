@@ -1,5 +1,6 @@
 ---
 layout: page
+  toc:true
 ---
 <br>
 
@@ -9,8 +10,24 @@ layout: page
 
 ## Education
 
-- 2015 - 2017 Master Statistics LMU Munich
-- 2012 - 2015 Bachelor Statistics LMU Munich
+* 10/2015 - 11/2017 Master of Science in Statistics, LMU Munich 
+    * Thesis: Reinforcement Learning in R
+* 10/2012 - 9/2015 Bachelor of Science in Statistics, LMU Munich 
+    * Thesis: Asymmetric Correlations in Financial Returns
+    
+---
+
+## Selected Projects
+
+* 10/2016 - 3/2017 Team project: Analysis of neuroscience experiment on spatial exploration
+    * Unsupervised learning (PCA, clustering), multiple testing
+	  * Simulations in R, presentation and report on results
+* 4/2016 Team project:  DataFest: Analyse TicketMaster event data 
+		* Supervised classification, clustering, data visualisation
+* 3/2015 - today	Shiny app, author and maintainer
+    * Interactive spatial data visualisation for butterfly sightings
+		* https://markusdumke.shinyapps.io/tagfalter_deutschlands/
+
 
 ---
 
@@ -18,44 +35,43 @@ layout: page
 
 ### Statistics
 
-- Statistical modeling
-- Classification and regression (GLMs)
-- Machine learning (Trees, Random Forests, Neural Networks, Boosting)
-- Deep learning (Feedforward, Recurrent and Convolutional Networks)
-- Reinforcement learning
-- Unsupervised learning (Clustering, PCA, outlier detection)
-- Functional data
-- Mixed Models (longitudinal data)
-- Categorical data analysis (contingency tables)
-- Data preprocessing
+* Supervised machine learning (e.g. decision trees, random forests, neural networks, boosting, GLMs)
+* Unsupervised machine learning (e.g. clustering, PCA, outlier detection)
+* Deep learning (feedforward, recurrent and convolutional neural networks)
+* Reinforcement learning
+* Functional data, mixed models and longitudinal data
+* Time series analysis
+* Categorical data
+* Data visualization
 
-### Software
+### Programming
 
-- R, Python, (Matlab)
-
-### Statistical reports and visualization
-
-- R Markdown, Shiny, LaTeX
-- ggplot, matplotlib
+* R (ggplot, tidyverse), Python (pandas, numpy, matplotlib, sklearn, tensorflow, keras)
+* R Markdown, Shiny, LaTeX
+* Git
 
 ### Languages
 
-- Deutsch, English
-
----
-
-### R Packages
-
-- <a href="https://markdumke.github.io/reinforcelearn">
-<img src="assets/img/reinforcelearn.png" style="width: 150px;"/>
-</a> <a href="https://github.com/markdumke/reinforcelearn" style="padding-left:10px;"><span class="fa fa-github fa-lg"></span></a>
+* German (native speaker), English
 
 ---
 
 ### Publications
 
-- Reinforcement Learning in R (Master thesis)
-- Asymmetric Correlations in Financial Returns (Bachelor thesis)
+* Double Q(σ) and Q(σ; λ): Unifying reinforcement learning control algorithms [pdf](https://arxiv.org/pdf/1711.01569.pdf) [arXiv cs.AI].
+
+---
+
+### R Packages
+
+* <a href="https://markdumke.github.io/reinforcelearn"><img src="assets/img/reinforcelearn.png" style="width: 150px;"/></a> <a href="https://github.com/markdumke/reinforcelearn" style="padding-left:10px;"><span class="fa fa-github fa-lg"></span></a> 
+    * Reinforcement Learning algorithms and environments for R.
+
+---
+
+### Teaching
+
+* 10/2013, 4/2014 and 10/2014 Basic mathematics course for economics freshmen on linear algebra and calculus
 
 ---
 
