@@ -1,4 +1,6 @@
 ---
+title: "Make matplotlib look like ggplot"
+date: "3 November 2017"
 output: 
   html_document:
     highlight: pygments
@@ -7,12 +9,17 @@ output:
 ---
 
 ```{r setup, include = FALSE}
-knitr::opts_chunk$set(eval = FALSE)
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  fig.align = "center",
+  fig.width = 6,
+  fig.asp = 0.618,
+  out.width = "70%",
+  message = FALSE,
+  eval = FALSE
+)
 ```
-
-<br>
-
-# Make matplotlib look like ggplot
 
 This is a fun post, where I wanted to try to make a matplotlib figure similar to a ggplot figure. Can you guess which image was created with matplotlib and which with ggplot? The answer can be found <a href="#exactline">here</a>.
 
@@ -30,7 +37,7 @@ To make the matplotlib similar to the ggplot you can pass on a style argument. T
 
 If you want to use this style download the file and specify in Python the path to this file, e.g.
 
-```{python}
+```{python, eval = FALSE}
 import matplotlib.pyplot as plt
 theme_bw = "path2file/theme_bw.mplstyle"
 plt.style.use(theme_bw)
@@ -38,7 +45,7 @@ plt.style.use(theme_bw)
 
 You can also put the `theme_bw.mplstyle` into your matplotlib folder (Python -> Lib -> site-packages -> matplotlib -> mpl-data -> stylelib), then you can load the style more easily with 
 
-```{python}
+```{python, eval = FALSE}
 plt.style.use("theme_bw")
 ```
 
@@ -68,7 +75,7 @@ g
 
 And in Python with matplotlib:
 
-```{python}
+```{python, eval = FALSE}
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np

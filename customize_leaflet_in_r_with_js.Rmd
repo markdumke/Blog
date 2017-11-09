@@ -1,4 +1,6 @@
 ---
+title: "Customize leaflet map in R with HTML, CSS and Javascript"
+date: "1 November 2017"
 output: 
   html_document:
     highlight: pygments
@@ -7,12 +9,17 @@ output:
 ---
 
 ```{r setup, include = FALSE}
-knitr::opts_chunk$set(eval = FALSE)
+knitr::opts_chunk$set(
+  eval = FALSE,
+  comment = "#>",
+  collapse = TRUE,
+  fig.align = "center",
+  fig.width = 6,
+  fig.asp = 0.618,
+  out.width = "70%",
+  message = FALSE
+)
 ```
-
-<br>
-
-# Customize leaflet map in R with HTML, CSS and Javascript
 
 This blog post shows examples of how to customize a leaflet map with javascript, html and css.
 
