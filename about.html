@@ -20,8 +20,8 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -31,10 +31,12 @@
   }
 </style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlightingOnLoad(); }, 0);
+  }
 }
 </script>
 
@@ -211,94 +213,15 @@ $(document).ready(function () {
 <div id="markus-dumke" class="section level1">
 <h1>Markus Dumke</h1>
 <hr />
-<div id="education" class="section level2">
-<h2>Education</h2>
-<ul>
-<li>10/2015 - 11/2017 Master of Science in Statistics, LMU Munich
-<ul>
-<li>Thesis: Reinforcement Learning in R</li>
-</ul></li>
-<li>10/2012 - 9/2015 Bachelor of Science in Statistics, LMU Munich
-<ul>
-<li>Thesis: Asymmetric Correlations in Financial Returns</li>
-</ul></li>
-</ul>
+<p>Master Student Statistics (Ludwig-Maximilians-Universität)</p>
 <hr />
-</div>
-<div id="selected-projects" class="section level2">
-<h2>Selected Projects</h2>
-<ul>
-<li>10/2016 - 3/2017 Team project: Analysis of neuroscience experiment on spatial exploration
-<ul>
-<li>Unsupervised learning (PCA, clustering), multiple testing</li>
-<li>Simulations in R, presentation and report on results</li>
-</ul></li>
-<li>4/2016 Team project: DataFest: Analyse TicketMaster event data * Supervised classification, clustering, data visualisation</li>
-<li>3/2015 - today Shiny app, author and maintainer
-<ul>
-<li>Interactive spatial data visualisation for butterfly sightings
-<ul>
-<li><a href="https://markusdumke.shinyapps.io/tagfalter_deutschlands/" class="uri">https://markusdumke.shinyapps.io/tagfalter_deutschlands/</a></li>
-</ul></li>
-</ul></li>
-</ul>
-<hr />
-</div>
-<div id="skills" class="section level2">
-<h2>Skills</h2>
-<div id="statistics" class="section level3">
-<h3>Statistics</h3>
-<ul>
-<li>Supervised machine learning (e.g. decision trees, random forests, neural networks, boosting, GLMs)</li>
-<li>Unsupervised machine learning (e.g. clustering, PCA, outlier detection)</li>
-<li>Deep learning (feedforward, recurrent and convolutional neural networks)</li>
-<li>Reinforcement learning</li>
-<li>Functional data, mixed models and longitudinal data</li>
-<li>Time series analysis</li>
-<li>Categorical data</li>
-<li>Data visualization</li>
-</ul>
-</div>
-<div id="programming" class="section level3">
-<h3>Programming</h3>
-<ul>
-<li>R (ggplot, tidyverse), Python (pandas, numpy, matplotlib, sklearn, tensorflow, keras)</li>
-<li>R Markdown, Shiny, LaTeX</li>
-<li>Git</li>
-</ul>
-</div>
-<div id="languages" class="section level3">
-<h3>Languages</h3>
-<ul>
-<li>German (native speaker), English</li>
-</ul>
-<hr />
-</div>
 <div id="publications" class="section level3">
 <h3>Publications</h3>
 <ul>
-<li>Double Q(σ) and Q(σ; λ): Unifying reinforcement learning control algorithms <a href="https://arxiv.org/pdf/1711.01569.pdf">pdf</a> [arXiv cs.AI].</li>
+<li>Double Q(sigma) and Q(sigma; lambda): Unifying reinforcement learning control algorithms (arXiv cs.AI: <a href="https://arxiv.org/pdf/1711.01569.pdf">pdf</a> )</li>
 </ul>
 <hr />
-</div>
-<div id="r-packages" class="section level3">
-<h3>R Packages</h3>
-<ul>
-<li><a href="https://markdumke.github.io/reinforcelearn"><img src="assets/img/reinforcelearn.png" style="width: 150px;"/></a> <a href="https://github.com/markdumke/reinforcelearn" style="padding-left:10px;"><span class="fa fa-github fa-lg"></span></a>
-<ul>
-<li>Reinforcement Learning algorithms and environments for R.</li>
-</ul></li>
-</ul>
-<hr />
-</div>
-<div id="teaching" class="section level3">
-<h3>Teaching</h3>
-<ul>
-<li>10/2013, 4/2014 and 10/2014 Basic mathematics course for economics freshmen on linear algebra and calculus</li>
-</ul>
-<hr />
-<p>Have a look at my github page: <a href="https://github.com/markdumke" style="padding-left:10px;"><span class="fa fa-github fa-lg"></span></a></p>
-</div>
+<p>Github: <a href="https://github.com/markdumke" style="padding-left:10px;"><span class="fa fa-github fa-lg"></span></a></p>
 </div>
 </div>
 
