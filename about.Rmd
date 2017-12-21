@@ -8,7 +8,7 @@ layout: page
 
 ---
 
-Master Student Statistics (Ludwig-Maximilians-Universität)
+Master Student Statistics (Ludwig-Maximilians-University)
 
 ---
 
@@ -19,4 +19,4 @@ Master Student Statistics (Ludwig-Maximilians-Universität)
 
 ---
 
-Github: <a href="https://github.com/markdumke" style="padding-left:10px;"><span class="fa fa-github fa-lg"></span></a>
+Github: <a href="https://github.com/markusdumke" style="padding-left:10px;"><span class="fa fa-github fa-lg"></span></a>

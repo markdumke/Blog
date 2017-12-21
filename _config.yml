@@ -4,10 +4,10 @@
 #permalink:           pretty
 
 # Setup
-title:               Markus Blog
+title:               Markus' Blog
 tagline:             ''
 description:         ''
-url:                 https://markdumke.github.io/
+url:                 https://markusdumke.github.io/
 baseurl:             ''
 paginate:            5
 
@@ -25,4 +25,4 @@ authors:
     display_name: Markus Dumke
     #gravatar: 60fd5218fff6927c0ed376cce01c5460
     #email: markusdumke@gmail.com
-    #github: markdumke
+    #github: markusdumke

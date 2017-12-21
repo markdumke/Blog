@@ -20,8 +20,8 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -31,10 +31,12 @@
   }
 </style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
 }
 </script>
 
@@ -189,7 +191,7 @@ $(document).ready(function () {
   <a href="about.html">About</a>
 </li>
 <li>
-  <a href="https://github.com/markdumke">
+  <a href="https://github.com/markusdumke">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -212,10 +214,10 @@ $(document).ready(function () {
 <h1>Selected R Packages</h1>
 <div class="row" style="padding: 10px;">
 <div class="col-sm-4" style="min-width: 300px; max-width: 400px; padding:5px;">
-<h4>reinforcelearn<a href="https://github.com/markdumke/reinforcelearn" style="padding-left:10px;"><span class="fa fa-github fa-lg"></span></a></h4>
+<h4>reinforcelearn<a href="https://github.com/markusdumke/reinforcelearn" style="padding-left:10px;"><span class="fa fa-github fa-lg"></span></a></h4>
 <div class="img_link_wrap">
     <img class="img_app" src="assets/img/Rlogo.svg" style="padding:10px;" width="100%" height="200"/>
-    <a href="https://markdumke.github.io/reinforcelearn" style="color:white;" 
+    <a href="https://markusdumke.github.io/reinforcelearn" style="color:white;" 
     <div class="img_hover_layer">
     <div class="img_hover">
     <h3><p>reinforcelearn</p></h3>

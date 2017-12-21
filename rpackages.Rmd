@@ -14,9 +14,9 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, error = FA
 library(shiny)
 library(apputils)
 pkgs <- "reinforcelearn"
-page_urls <- paste0("https://markdumke.github.io/", pkgs)
+page_urls <- paste0("https://markusdumke.github.io/", pkgs)
 img_urls <- rep("assets/img/Rlogo.svg", 1) # reinforcelearn.png
-gh_urls <- paste0("https://github.com/markdumke/", pkgs)
+gh_urls <- paste0("https://github.com/markusdumke/", pkgs)
 lab <- paste0("<h4>", pkgs,
   "<a href=\"", gh_urls, "\" style=\"padding-left:10px;\"><span class=\"fa fa-github fa-lg\"></span></a></h4>")
 lab <- purrr::map(lab, ~HTML(.x))
