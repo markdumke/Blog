@@ -33,7 +33,7 @@ This is a fun post, where I wanted to try to make a matplotlib figure similar to
 
 <br>
 
-To make the matplotlib similar to the ggplot you can pass on a style argument. There is a `ggplot` style already available but I personally prefer the white background as in ggplot's `theme_bw`. So I adapted the mplstyle file and put it on  [Gist](https://gist.github.com/markdumke/572e2a8546c54b322b48c0c792799b77).
+To make the matplotlib similar to the ggplot you can pass on a style argument. There is a `ggplot` style already available but I personally prefer the white background as in ggplot's `theme_bw`. So I adapted the mplstyle file and put it on  [Gist](https://gist.github.com/markusdumke/572e2a8546c54b322b48c0c792799b77).
 
 If you want to use this style download the file and specify in Python the path to this file, e.g.
 
