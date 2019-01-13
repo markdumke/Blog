@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="og:image" content="https://www.tidyverse.org/images/tidyverse-default.png" >
+<meta name="generator" content="Hugo 0.52" />
+
+<title>broom 0.5.0 - markusdumke</title>
+<meta property="og:title" content="broom 0.5.0 - markusdumke">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tidyverse.org/articles/broom-0-5-0-sq.jpg" >
+<meta property="description" content="broom 0.5.0 is on CRAN.
+">
+<meta property="og:description" content="broom 0.5.0 is on CRAN.
+">
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png" />
+<link rel="manifest" href="/images/favicons/site.webmanifest" />
+<link rel="mask-icon" href="/images/favicons/safari-pinned-tab.svg" />
+<link rel="shortcut icon" href="/images/favicons/favicon.ico" />
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" href="/images/favicons/browserconfig.xml" >
+
+
+<script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/js/site.js"></script>
+
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.11.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+<link rel="stylesheet" href="/css/tidyverse-site.css" />
+<link rel="stylesheet" href="/css/tweaks.css" />
+<link rel="icon" href="/images/favicon.ico" />
+<link rel="alternate" type="application/atom+xml" title="Blog" href="/articles/index.xml" />
+
+  </head>
+  <body>
+    <div id="appTidyverseSite" class="shrinkHeader alwaysShrinkHeader">
+      <div id="main">
+        
+        <div id="rStudioHeader">
+          <div class="band">
+            <div class="innards bandContent">
+              <div>
+                <a class="productName" href="/">markusdumke</a>
+              </div>
+              <div id="menu">
+  <div id="menuToggler"></div>
+  <div id="menuItems" class="">
+    
+    
+    <a class="menuItem " href="/packages/">Packages</a>
+    
+    <a class="menuItem current" href="/articles/">Blog</a>
+    
+    <a class="menuItem " href="/about/">About</a>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </div>
+
+
+<div class="band padForHeader pushFooter">
+  <div class="bandContent">
+    <div class="full splitColumns withMobileMargins">
+      <div class="column75">
+
+      <h1 class="article-title">broom 0.5.0</h1>
+
+      
+      
+      <div class="article-header">
+        <div class="photo" style="background-image: url('../../../broom-0-5-0-wd.jpg');"></div>
+        <div class="photoCredit">Photo by <a href="https://unsplash.com/photos/vYcH7pI6v1Q">Nagesh Badu</a></div>
+      </div>
+      
+
+      
+
+      <div class="article-content">
+      
+
+<p><html>
+<style>
+h2 code {
+    font-size: 1em;
+}
+</style>
+</html></p>
+
+<p>I am delighted to announced that <a href="https://broom.tidyverse.org/">broom</a> 0.5.0 is now available on CRAN. broom 0.5.0 is a major new release featuring changes that affect both users and developers. See the <a href="https://broom.tidyverse.org/news/">News</a> for a detailed list of changes.</p>
+
+<p>This release was possible due to RStudio&rsquo;s internship program, which has enabled me (<a href="https://github.com/alexpghayes/">Alex Hayes</a>) to act as broom&rsquo;s maintainer for the course of the summer. David Robinson continues to steer design decisions. Many thanks to both RStudio and Dave for this opportunity.</p>
+
+<h2 id="tibble">Tibble output</h2>
+
+<p>All tidiers should now return <code>tibble</code>s rather than <code>data.frame</code>s. This allows broom to take advantage of the nice tibble print method and the more consistent behavior of tibbles:</p>
+
+<pre><code class="language-r">library(broom)
+
+fit &lt;- lm(mpg ~ ., mtcars)
+tidy(fit)
+</code></pre>
+
+<pre><code>## # A tibble: 11 x 5
+##   term        estimate std.error statistic p.value
+##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+## 1 (Intercept)  12.3      18.7        0.657   0.518
+## 2 cyl          -0.111     1.05      -0.107   0.916
+## 3 disp          0.0133    0.0179     0.747   0.463
+## 4 hp           -0.0215    0.0218    -0.987   0.335
+## 5 drat          0.787     1.64       0.481   0.635
+## # ... with 6 more rows
+</code></pre>
+
+<p>These changes will mostly likely affect you when you:</p>
+
+<ul>
+<li>subset with <code>[</code>, which always returns a tibble.</li>
+<li>set rownames on a tibble, which is deprecated.</li>
+<li>use augment methods on models with matrix covariates specified in a formula, which will error.</li>
+</ul>
+
+<p><code>augment()</code> will error with matrix covariates because tibbles are more strict about their contents than data frames. More details are <a href="#appendix">available below</a>.</p>
+
+<p>Deprecated tidiers still return data frames. Tidiers for mixed models also return data frames.</p>
+
+<h2 id="new-tidiers">New tidiers</h2>
+
+<p>broom 0.5.0 introduces tidiers for:</p>
+
+<ul>
+<li><code>lavaan</code> objects from the <code>lavaan</code> package</li>
+<li><code>ivreg</code> objects from the <code>AER</code> package</li>
+<li><code>Kendall</code> objects from the <code>Kendall</code> package</li>
+<li><code>garch</code> objects from the <code>tseries</code> package</li>
+<li><code>irlba</code> lists from the <code>irlba</code> package</li>
+<li><code>durbinWatsonTest</code> objects from the <code>car</code> package</li>
+<li><code>confusionMatrix</code> objects from the <code>caret</code> package</li>
+<li><code>glmnet</code> and <code>cv.glmnet</code> objects from the <code>glmnetUtils</code> package</li>
+<li><code>clm</code> and <code>clmm</code> objects from the <code>ordinal</code> package</li>
+<li><code>svyolr</code> objects from the <code>survey</code> package, and</li>
+<li><code>polr</code> objects from the <code>MASS</code> package.</li>
+</ul>
+
+<p>In addition to these new tidiers, this release includes fixes for a large number of bugs in existing tidiers.</p>
+
+<h2 id="new-test-suite">New test suite</h2>
+
+<p>We are heavily invested in making it easier to contribute to broom, and also in making broom behavior more standardized and consistent. To this end, we&rsquo;ve written new testing infrastructure. At the moment, the new tests mostly ensure tibble output. For example, <code>tidy()</code> output should now pass the following test:</p>
+
+<pre><code class="language-r">td &lt;- tidy(model)
+check_tidy_output(td)
+</code></pre>
+
+<p>Similar tests exist for <code>glance()</code> and <code>augment()</code>. Stricter versions of these tests are under development for future releases.</p>
+
+<h2 id="mixed-models-are-moving-to-broom-mixed">Mixed models are moving to <code>broom.mixed</code></h2>
+
+<p>As broom&rsquo;s popularity has grown, broom has grown to encompass a fairly broad range of models. Dave and I have little to no experience with many of these models, and while we can fix bugs in the tidying code, we are no longer able to determine what constitutes a reasonable summary for many of these models.</p>
+
+<p>Our intended solution is to split broom into several packages for tidying model objects. broom will provide tidiers for popular models (and those in <code>base</code> and <code>stats</code>), and then domain experts will manage domain-specific tidying packages. Currently we&rsquo;re working on a spec for all of these sub-packages to implement. With any luck this we&rsquo;ll have a well-written spec to accompany the next release. We&rsquo;d like all of the domain-specific tidying packages to eventually live in <a href="https://github.com/tidymodels">tidymodels</a>, so that users can load a bunch of tools all at once with <code>library(tidymodels)</code>. tidymodels will act as meta-package that gathers together tidyverse compatible tools for modelling. Max Kuhn has migrated a number of his packages to the tidymodels organization, and we plan to move broom in the near future.</p>
+
+<p>Mixed-model tidiers have long been a bit of a mess in broom. A while back <a href="https://github.com/bbolker/broom.mixed"><code>broom.mixed</code></a> forked off to clean them up. broom.mixed is now a pilot for the larger project of splitting broom into domain specific tidying packages. We anticipate that broom.mixed will makes its way onto CRAN in the next several weeks, which will allow us to deprecate mixed model tidiers in broom 0.7.0. Although these models are <a href="https://broom.tidyverse.org/news/index.html#deprecations">not yet deprecated</a>, there is currently no ongoing development work for them. In particular, the tidiers for:</p>
+
+<ul>
+<li>lme, lme4 and nmle models,</li>
+<li>brms models,</li>
+<li>rstanarm models, and</li>
+<li>mcmc objects</li>
+</ul>
+
+<p>are one release away from deprecation, and effectively frozen.</p>
+
+<h2 id="new-suggested-workflow">New suggested workflow</h2>
+
+<p>When working with many models at the same time, we now recommend using list-columns and a <code>nest()-map()-unnest()</code> workflow. This mirrors similar moves across the rest of the tidyverse. We have updated the <a href="https://broom.tidyverse.org/articles/kmeans.html">kmeans</a>, <a href="https://broom.tidyverse.org/articles/broom_and_dplyr.html">broom and dplyr</a> and  <a href="https://broom.tidyverse.org/articles/bootstrapping.html">bootstrapping</a> vignettes to reflect the new workflow. Additional, we&rsquo;ve updated the bootstrapping vignette to use <a href="https://tidymodels.github.io/rsample/">rsample</a> rather than the now-deprecated <code>bootstrap()</code> function. We no longer recommend the older <code>group_by()-do()</code> workflow.</p>
+
+<h2 id="new-vignettes-and-documentation">New vignettes and documentation</h2>
+
+<p>The list of available tidiers has been moved out of the README and into the <a href="https://broom.tidyverse.org/articles/available-methods.html">Available Methods</a> vignette.</p>
+
+<p>We also have two new vignettes that are <strong>strictly works in progress</strong> at the moment. The first covers <a href="https://broom.tidyverse.org/articles/adding-tidiers.html">Adding New Tidiers</a> and seeks to make the barrier of entry for broom contributions as low as possible. The second contains a <a href="https://broom.tidyverse.org/articles/glossary.html">Glossary</a> of terms we are developing for use in an upcoming release of broom. This glossary will standardize argument names across tidiers, and column names across tidy output.</p>
+
+<p>We have also migrated to a new template-based documentation strategy. Repeated documentation material now lives in <code>roxygen2</code> templates and can easily be added to a new tidy method. For an example of how this works, see <a href="https://github.com/tidyverse/broom/blob/master/R/aer-tidiers.R"><code>R/aer-tidiers.R</code></a>.</p>
+
+<h2 id="deprecations">Deprecations</h2>
+
+<h3 id="hard-deprecations">Hard deprecations</h3>
+
+<ul>
+<li><code>inflate()</code> has been removed from <code>broom</code></li>
+<li>Matrix and vector tidiers have been deprecated in  favor of <code>tibble::as_tibble()</code> and <code>tibble::enframe()</code></li>
+<li>Dataframe tidiers and rowwise dataframe tidiers have been deprecated</li>
+<li><code>bootstrap()</code> has been deprecated in favor of the <a href="https://tidymodels.github.io/rsample/"><code>rsample</code></a></li>
+</ul>
+
+<h3 id="soft-deprecations">Soft deprecations</h3>
+
+<p>The following functions will be deprecated in the next release of broom:</p>
+
+<ul>
+<li><code>sp</code> tidying methods (in favor of <code>sf</code>)</li>
+<li><code>tidy.summaryDefault()</code> (in favor of <code>skimr::skim()</code>)</li>
+<li><code>tidy.table()</code> (in favor of <code>tibble::as_tibble()</code>)</li>
+<li>Mixed model and bayesian tidiers</li>
+</ul>
+
+<h2 id="contributors">Contributors</h2>
+
+<p>Max Kuhn provided advice on dealing with model objects. Mara Averick provided feedback on drafts of this post.</p>
+
+<p>An additional 38 fantastic contributors offered thoughtful comments on design, wrote bug reports and created PRs. The broom community has been kind, supportive and insighftul and I look forward to working you all again!</p>
+
+<p><a href="https://github.com/atyre2">@atyre2</a>, <a href="https://github.com/batpigandme">@batpigandme</a>, <a href="https://github.com/bfgray3">@bfgray3</a>, <a href="https://github.com/bmannakee">@bmannakee</a>, <a href="https://github.com/briatte">@briatte</a>, <a href="https://github.com/cawoodjm">@cawoodjm</a>, <a href="https://github.com/cimentadaj">@cimentadaj</a>, <a href="https://github.com/dan87134">@dan87134</a>, <a href="https://github.com/dmenne">@dmenne</a>, <a href="https://github.com/ekatko1">@ekatko1</a>, <a href="https://github.com/ellessenne">@ellessenne</a>, <a href="https://github.com/erleholgersen">@erleholgersen</a>, <a href="https://github.com/Hong-Revo">@Hong-Revo</a>, <a href="https://github.com/huftis">@huftis</a>, <a href="https://github.com/IndrajeetPatil">@IndrajeetPatil</a>, <a href="https://github.com/jacob-long">@jacob-long</a>, <a href="https://github.com/jarvisc1">@jarvisc1</a>, <a href="https://github.com/jenzopr">@jenzopr</a>, <a href="https://github.com/jgabry">@jgabry</a>, <a href="https://github.com/jimhester">@jimhester</a>, <a href="https://github.com/josue-rodriguez">@josue-rodriguez</a>, <a href="https://github.com/karldw">@karldw</a>, <a href="https://github.com/kfeilich">@kfeilich</a>, <a href="https://github.com/larmarange">@larmarange</a>, <a href="https://github.com/lboller">@lboller</a>, <a href="https://github.com/mariusbarth">@mariusbarth</a>, <a href="https://github.com/michaelweylandt">@michaelweylandt</a>, <a href="https://github.com/mine-cetinkaya-rundel">@mine-cetinkaya-rundel</a>, <a href="https://github.com/mkuehn10">@mkuehn10</a>, <a href="https://github.com/mvevans89">@mvevans89</a>, <a href="https://github.com/nutterb">@nutterb</a>, <a href="https://github.com/ShreyasSingh">@ShreyasSingh</a>, <a href="https://github.com/stephlocke">@stephlocke</a>, <a href="https://github.com/strengejacke">@strengejacke</a>, <a href="https://github.com/topepo">@topepo</a>, <a href="https://github.com/willbowditch">@willbowditch</a>, <a href="https://github.com/WillemSleegers">@WillemSleegers</a>, and <a href="https://github.com/wilsonfreitas">@wilsonfreitas</a></p>
+
+<h2 id="appendix">Additional details on tibbles and <code>augment()</code></h2>
+
+<p>Data frames allow users to specify columns in a matrix, like so:</p>
+
+<pre><code class="language-r">y &lt;- rnorm(5)
+x &lt;- matrix(rnorm(10), nrow = 5)
+df &lt;- data.frame(x, y)
+</code></pre>
+
+<p>Tibbles do not:</p>
+
+<pre><code class="language-r">library(tibble)
+
+tibble(x, y)
+</code></pre>
+
+<pre><code>## Error: Column `x` must be a 1d atomic vector or a list
+</code></pre>
+
+<p>Modelling functions will occasionally create a data frame like this, but since the model frame can&rsquo;t be coerced a tibble method, <code>augment()</code> will fail:</p>
+
+<pre><code class="language-r">fit &lt;- lm(y ~ x, df)
+augment(fit)
+</code></pre>
+
+<pre><code>## Error: Column `x` must be a 1d atomic vector or a list
+</code></pre>
+
+<p>In some cases, explicitly passing the original dataset via the <code>data</code> argument can resolve this:</p>
+
+<pre><code class="language-r">augment(fit, data = df)
+</code></pre>
+
+<pre><code>## # A tibble: 5 x 10
+##       X1     X2      y .fitted .se.fit   .resid  .hat .sigma   .cooksd
+## *  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;
+## 1  0.617 -0.720 -0.167   0.173   0.341 -0.340   0.661  0.108 1.26     
+## 2 -0.164  0.943 -0.389  -0.158   0.291 -0.232   0.480  0.499 0.181    
+## 3 -0.434  0.424 -0.339  -0.529   0.390  0.190   0.863  0.300 3.12     
+## 4  0.231  0.696  0.148   0.150   0.310 -0.00177 0.545  0.594 0.0000156
+## 5  0.663 -0.274  0.704   0.320   0.282  0.384   0.451  0.290 0.418    
+## # ... with 1 more variable: .std.resid &lt;dbl&gt;
+</code></pre>
+
+<p>Support for matrix-columns is on the way in dplyr and in a release cycle or two this won&rsquo;t be an issue.</p>
+
+<p><a href="#tibble">Back to tibble section</a></p>
+
+      </div>
+
+      
+
+
+      </div>
+
+      <div class="column25">
+        <div class="section hideOnMobile">
+          <div class="sectionTitle">Contents</div>
+          <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#tibble">Tibble output</a></li>
+<li><a href="#new-tidiers">New tidiers</a></li>
+<li><a href="#new-test-suite">New test suite</a></li>
+<li><a href="#mixed-models-are-moving-to-broom-mixed">Mixed models are moving to <code>broom.mixed</code></a></li>
+<li><a href="#new-suggested-workflow">New suggested workflow</a></li>
+<li><a href="#new-vignettes-and-documentation">New vignettes and documentation</a></li>
+<li><a href="#deprecations">Deprecations</a>
+<ul>
+<li><a href="#hard-deprecations">Hard deprecations</a></li>
+<li><a href="#soft-deprecations">Soft deprecations</a></li>
+</ul></li>
+<li><a href="#contributors">Contributors</a></li>
+<li><a href="#appendix">Additional details on tibbles and <code>augment()</code></a></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+
+    </div>
+  </div>  
+</div> 
+
+        <div id="rStudioFooter" class="band">
+          <div class="bandContent">
+            <div id="copyright">
+              Markus Dumke, 2019</div>
+            <div id="logos">
+              <a href="https://github.com/markusdumke" class="footerLogo gitHub"></a>
+            </div>
+          </div>
+        </div>
+
+      </div>  
+    </div>  
+
+    
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-115082821-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+  </body>
+</html>
+

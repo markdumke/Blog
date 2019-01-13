@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="og:image" content="https://www.tidyverse.org/images/tidyverse-default.png" >
+<meta name="generator" content="Hugo 0.52" />
+
+<title>👩‍💻🚙👯: My googledrive internship - markusdumke</title>
+<meta property="og:title" content="👩‍💻🚙👯: My googledrive internship - markusdumke">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tidyverse.org/articles/lucy-internship-sq.jpg" >
+<meta property="description" content="Over the past several months I have been working with Jenny Bryan on the googledrive package. I wanted to share a bit about the process and some things I learned along the way. While brainstorming this post, I went back through my GitHub commits to remind myself of the journey - it turns out they do a rather good job of showing the scope of this!
+">
+<meta property="og:description" content="Over the past several months I have been working with Jenny Bryan on the googledrive package. I wanted to share a bit about the process and some things I learned along the way. While brainstorming this post, I went back through my GitHub commits to remind myself of the journey - it turns out they do a rather good job of showing the scope of this!
+">
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png" />
+<link rel="manifest" href="/images/favicons/site.webmanifest" />
+<link rel="mask-icon" href="/images/favicons/safari-pinned-tab.svg" />
+<link rel="shortcut icon" href="/images/favicons/favicon.ico" />
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" href="/images/favicons/browserconfig.xml" >
+
+
+<script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/js/site.js"></script>
+
+<link rel="stylesheet" href="/css/tidyverse-site.css" />
+<link rel="stylesheet" href="/css/tweaks.css" />
+<link rel="icon" href="/images/favicon.ico" />
+<link rel="alternate" type="application/atom+xml" title="Blog" href="/articles/index.xml" />
+
+  </head>
+  <body>
+    <div id="appTidyverseSite" class="shrinkHeader alwaysShrinkHeader">
+      <div id="main">
+        
+        <div id="rStudioHeader">
+          <div class="band">
+            <div class="innards bandContent">
+              <div>
+                <a class="productName" href="/">markusdumke</a>
+              </div>
+              <div id="menu">
+  <div id="menuToggler"></div>
+  <div id="menuItems" class="">
+    
+    
+    <a class="menuItem " href="/packages/">Packages</a>
+    
+    <a class="menuItem current" href="/articles/">Blog</a>
+    
+    <a class="menuItem " href="/about/">About</a>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </div>
+
+
+<div class="band padForHeader pushFooter">
+  <div class="bandContent">
+    <div class="full splitColumns withMobileMargins">
+      <div class="column75">
+
+      <h1 class="article-title">👩‍💻🚙👯: My googledrive internship</h1>
+
+      
+      
+      <div class="article-header">
+        <div class="photo" style="background-image: url('../../../lucy-internship-wd.jpg');"></div>
+        <div class="photoCredit">Photo by <a href="https://twitter.com/_inundata">Karthik Ram</a></div>
+      </div>
+      
+
+      
+
+      <div class="article-content">
+      
+
+<p><em>Over the past several months I have been working with Jenny Bryan on the googledrive package. I wanted to share a bit about the process and some things I learned along the way. While brainstorming this post, I went back through my GitHub commits to remind myself of the journey - it turns out they do a rather good job of showing the scope of this!</em></p>
+
+<h2 id="day-to-day-br-img-src-images-lucy-internship-01-first-png-width-400-img"><em>Day to day</em> <br> <img src = "/images/lucy-internship/01_first.png" width = "400"> </img></h2>
+
+<p>The googledrive 📦 looked measurably different on this <a href="https://github.com/tidyverse/googledrive/tree/ef8a410f8e74080670ff3145a330cdaa100472a8">first day</a>. I think this gives some really good insight into the iterative process of package design as well as how much I absorbed from Jenny along the way. In these early days, I was beavering away, building some small wrappers for Drive endpoints, spending most of my time getting to know the <a href="https://developers.google.com/drive/v3/web/about-sdk">Drive documentation</a> and celebrating small victories.</p>
+
+<p><div style="text-align: center;">
+<div style="display: inline-block; text-align: left">
+<img src = "/images/lucy-internship/02_upload.png" width = "300"> </img><br><em>Small victory 1: The ability to upload files to Drive</em>.</p>
+
+<p><img src = "/images/lucy-internship/03_delete.png" width = "300"> </img><br> <em>Small victory 2: The ability to delete files on Drive</em>.
+</div>
+</div>
+</br></p>
+
+<p>My day to day back in April seems so foreign to the workflow Jenny and I have now established, but those first few weeks were incredibly useful for getting me steeped in all things Google Drive. Our process eventually converged to:</p>
+
+<p>👩🏻‍💻👩🏼‍💻 Video chatting once a week to set priorities / discuss design decisions.<br />
+✍️🙊 Documenting all problems as GitHub issues to resolve.<br />
+👷‍♀️👀 Submitting all changes via PRs for review.</p>
+
+<p>The PR review process was quite new to me, but SO integral to the success of this package. Here is an <a href="https://github.com/tidyverse/googledrive/pull/13">example</a> of what this can look like. Our first PR with review consisted of 49 commits and 66 comments 😱. The GitHub review process allowed Jenny to comment line by line on my code, gently pushing me towards better coding conventions and style. This process really helped me to absorb all things &ldquo;tidyverse&rdquo; in a systematic way.</p>
+
+<h2 id="absorbing-all-things-tidyverse-br-img-src-images-lucy-internship-03-markdown-docs-png-width-400-img"><em>Absorbing all things &ldquo;tidyverse&rdquo;</em> <br> <img src = "/images/lucy-internship/03_markdown-docs.png" width = "400"></img></h2>
+
+<p><center>
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">🌞 musing: learning a new coding style is like putting on freshly washed jeans; a struggle, but once I get it I&#39;m like that looks GOOD 💃 <a href="https://t.co/5QcEwEcI23">pic.twitter.com/5QcEwEcI23</a></p>&mdash; Lucy 🌻 (@LucyStats) <a href="https://twitter.com/LucyStats/status/873587893754843136">June 10, 2017</a></blockquote> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+</center></p>
+
+<p>The tidyverse has an <a href="http://style.tidyverse.org">R Style Guide</a>. My first pass at incorporating the style was switching my roxygen documentation to <a href="https://github.com/klutometis/roxygen/blob/master/vignettes/markdown.Rmd">markdown</a> (this can be enabled by adding <code>Roxygen: list(markdown = TRUE)</code> to the <code>DESCRIPTION</code> file, or if you already have documentation and you&rsquo;d like to convert it to markdown automagically ✨, check out the <a href="https://github.com/r-lib/roxygen2md">roxygen2md</a> 📦). This is an example of something I didn&rsquo;t even know existed prior to this project. Other pieces I absorbed include:</p>
+
+<p><div style="text-align: center;">
+<div style="display: inline-block; text-align: left">
+<img src = "/images/lucy-internship/04_travis.png" width = "300"> </img><br>  <em>Absorption example 1: Recommendations for continuous integration.</em></p>
+
+<p><img src = "/images/lucy-internship/05_test.png" width = "300"> </img><br> <em>Absorption example 2: Learning sensible ways to test.</em></p>
+
+<p><img src = "/images/lucy-internship/06_clean-up.png" width = "300"> </img><br>
+<em>Absorption example 3: Cleaning up my code.</em>
+</div>
+</div>
+</br></p>
+
+<p>I made GREAT use of <a href="https://github.com/jimhester/lintr">lintr</a> 🛀 until the coding conventions became second nature to me. Even still, I cannot overstate the immense utility of coding alongside Jenny. I found myself slowly adapting her excellent coding principles and style simply from seeing her suggestions and reviewing her commits. She gently nudged me towards much prettier &amp; more useful code!</p>
+
+<h2 id="flexing-my-programming-muscles-br-img-src-images-lucy-internship-08-s3-methods-png-width-400-img"><em>Flexing my programming muscles</em> <br> <img src = "/images/lucy-internship/08_s3-methods.png" width = "400"></img></h2>
+
+<p>Finally, this experience allowed me to dive into 🏊 things I otherwise may not have been exposed to. Some things that were new to me include:</p>
+
+<p>🙃 Writing S3 methods.<br />
+🙆🏻 Writing tests for an API-calling package.<br />
+💅 Working with / writing in an established coding style.</p>
+
+<p>I am so grateful for the opportunity to learn these concepts in such a welcoming environment, and am certainly committed to passing any knowledge I have gained from this experience to anyone and everyone!</p>
+
+<h2 id="an-ode-to-jenny-bryan"><em>An ode to Jenny Bryan</em></h2>
+
+<p>I&rsquo;d like to wrap up by expressing my immense gratitude to Jenny 👯. This experience was SO excellent due to her rockstar coding abilities, impeccable teaching skills, and of course her unwavering patience. And so I&rsquo;d like to end with a haiku:</p>
+
+<p>Thank you, tidyverse.<br />
+You&rsquo;ve given me a leg up!<br />
+Checkout googledrive!</p>
+
+      </div>
+
+      
+
+
+      </div>
+
+      <div class="column25">
+        <div class="section hideOnMobile">
+          <div class="sectionTitle">Contents</div>
+          <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#day-to-day-br-img-src-images-lucy-internship-01-first-png-width-400-img"><em>Day to day</em> <br> <img src = "/images/lucy-internship/01_first.png" width = "400"> </img></a></li>
+<li><a href="#absorbing-all-things-tidyverse-br-img-src-images-lucy-internship-03-markdown-docs-png-width-400-img"><em>Absorbing all things &ldquo;tidyverse&rdquo;</em> <br> <img src = "/images/lucy-internship/03_markdown-docs.png" width = "400"></img></a></li>
+<li><a href="#flexing-my-programming-muscles-br-img-src-images-lucy-internship-08-s3-methods-png-width-400-img"><em>Flexing my programming muscles</em> <br> <img src = "/images/lucy-internship/08_s3-methods.png" width = "400"></img></a></li>
+<li><a href="#an-ode-to-jenny-bryan"><em>An ode to Jenny Bryan</em></a></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+
+    </div>
+  </div>  
+</div> 
+
+        <div id="rStudioFooter" class="band">
+          <div class="bandContent">
+            <div id="copyright">
+              Markus Dumke, 2019</div>
+            <div id="logos">
+              <a href="https://github.com/markusdumke" class="footerLogo gitHub"></a>
+            </div>
+          </div>
+        </div>
+
+      </div>  
+    </div>  
+
+    
+
+    
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-115082821-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+  </body>
+</html>
+

@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+  <title>markusdumke</title>
+  <link>/</link>
+  <description>Recent content on markusdumke</description>
+  <generator>Hugo -- gohugo.io</generator>
+<language>en-us</language>
+<lastBuildDate>Thu, 09 Nov 2017 00:00:00 +0000</lastBuildDate>
+
+<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+
+
+<item>
+  <title>Intermingle R and Python in R Markdown</title>
+  <link>/articles/2017/11/intermingle-r-and-python-in-r-markdown/</link>
+  <pubDate>Thu, 09 Nov 2017 00:00:00 +0000</pubDate>
+  
+<guid>/articles/2017/11/intermingle-r-and-python-in-r-markdown/</guid>
+  <description>
+
+
+&lt;p&gt;This blog post shows how to use R and Python inside one document and how to easily intermingle code, plain text and graphics and share data between R and Python.&lt;/p&gt;
+&lt;div id=&#34;why-r-markdown&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Why R Markdown?&lt;/h2&gt;
+&lt;p&gt;R Markdown is great to make reproducible reports or presentations and allows to intermingle code, plain text and figures. It comes with a wide variety of output formats, e.g. pdf, html, word or latex beamer slides. You can even embed shiny apps in a html report. For example this document was generated with R Markdown.&lt;/p&gt;
+&lt;p&gt;In the following we will show how to combine R and Python code chunks inside one R Markdown document and how to share data between these chunks. Therefore R Markdown is a great tool for data scientists who wants to make the most out of the tools R and Python offer for data science.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;r-code-chunks&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;R code chunks&lt;/h2&gt;
+&lt;p&gt;Using R code in R Markdown is easy:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(ggplot2)
+head(iris)
+ggplot(iris, aes(Sepal.Length, Sepal.Width, col = Species)) +
+  geom_point(size = 3) + theme_bw()&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;python-code-chunks&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Python code chunks&lt;/h2&gt;
+&lt;p&gt;We can also include Python code chunks. We will use &lt;code&gt;knitr::knit_engines$set(python = reticulate::eng_python)&lt;/code&gt; in the setup to render the Python code. Make sure to install the newest &lt;code&gt;reticulate&lt;/code&gt; package via &lt;code&gt;devtools::install_github(&amp;quot;rstudio/reticulate&amp;quot;)&lt;/code&gt;.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import numpy as np
+x = np.arange(10)
+y = x**2&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And the objects are still available in the next Python chunk.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;print(y)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can also include plots.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import matplotlib.pyplot as plt
+plt.plot(x, y)
+plt.show()&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;share-data-between-r-and-python-chunks&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Share data between R and Python chunks&lt;/h2&gt;
+&lt;p&gt;To share objects between Python and R chunks we need to save the files at the end of a chunk and load again in the next chunk. The best way to do this is probably &lt;a href=&#34;https://blog.rstudio.com/2016/03/29/feather/&#34;&gt;feather&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Get the iris data set into Python using feather. First save it in an R chunk.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(feather)
+write_feather(iris, &amp;quot;iris.feather&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then we can load the file in a Python chunk.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import feather
+iris = feather.read_dataframe(&amp;quot;iris.feather&amp;quot;)
+print(iris.head())&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To share data frames from a Python chunk to an R chunk you can run&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import pandas as pd
+d = {&amp;#39;col1&amp;#39;: [1, 2, 6, 8], &amp;#39;col2&amp;#39;: [&amp;quot;first&amp;quot;, &amp;quot;lab&amp;quot;, &amp;quot;d&amp;quot;, &amp;quot;car&amp;quot;]}
+df = pd.DataFrame(data = d)
+feather.write_dataframe(df, &amp;quot;df.feather&amp;quot;)
+print(df.head())&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and load it in an R chunk with&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df &amp;lt;- read_feather(&amp;quot;df.feather&amp;quot;)
+df&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+  </item>
+  
+<item>
+  <title>Make matplotlib look like ggplot</title>
+  <link>/articles/2017/11/make-matplotlib-look-like-ggplot/</link>
+  <pubDate>Fri, 03 Nov 2017 00:00:00 +0000</pubDate>
+  
+<guid>/articles/2017/11/make-matplotlib-look-like-ggplot/</guid>
+  <description>
+
+
+&lt;p&gt;This is a fun post, where I wanted to try to make a matplotlib figure similar to a ggplot figure. Can you guess which image was created with matplotlib and which with ggplot? The answer can be found &lt;a href=&#34;#exactline&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;figure&gt;
+&lt;center&gt;
+&lt;img src = &#34;iris_r.png&#34; width = &#34;400px&#34; hspace=&#34;50&#34;&gt; &lt;img src = &#34;iris_matplotlib.png&#34; width = &#34;400px&#34;&gt;
+&lt;figcaption&gt;
+Two plots, one generated with matplotlib, one with ggplot.
+&lt;/figcaption&gt;
+&lt;/center&gt;
+&lt;/figure&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;To make the matplotlib similar to the ggplot you can pass on a style argument. There is a &lt;code&gt;ggplot&lt;/code&gt; style already available but I personally prefer the white background as in ggplot’s &lt;code&gt;theme_bw&lt;/code&gt;. So I adapted the mplstyle file and put it on &lt;a href=&#34;https://gist.github.com/markusdumke/572e2a8546c54b322b48c0c792799b77&#34;&gt;Gist&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;If you want to use this style download the file and specify in Python the path to this file, e.g.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import matplotlib.pyplot as plt
+theme_bw = &amp;quot;path2file/theme_bw.mplstyle&amp;quot;
+plt.style.use(theme_bw)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can also put the &lt;code&gt;theme_bw.mplstyle&lt;/code&gt; into your matplotlib folder (Python -&amp;gt; Lib -&amp;gt; site-packages -&amp;gt; matplotlib -&amp;gt; mpl-data -&amp;gt; stylelib), then you can load the style more easily with&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;plt.style.use(&amp;quot;theme_bw&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here is the full code to generate the two figures above. I had to make a few tweaks to make them as similar as possible.&lt;/p&gt;
+&lt;p&gt;In R with ggplot:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(ggplot2)
+# Define colors
+cols &amp;lt;- c(&amp;quot;setosa&amp;quot; = &amp;quot;#E24A33&amp;quot;, &amp;quot;virginica&amp;quot; = &amp;quot;#348ABD&amp;quot;, &amp;quot;versicolor&amp;quot; = &amp;quot;#FBC15E&amp;quot;)
+g &amp;lt;- ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width, col = factor(Species))) +
+  geom_point(size = 3) +
+  theme_bw() +
+  xlab(&amp;quot;Sepal Length&amp;quot;) +
+  ylab(&amp;quot;Sepal Width&amp;quot;) +
+  ggtitle(&amp;quot;Iris&amp;quot;) +
+  scale_colour_manual(values = cols) +
+  guides(col = guide_legend(title = &amp;quot;Species&amp;quot;)) +
+  theme(legend.title.align = 0.5,
+    legend.background = element_rect(colour = &amp;#39;lightgrey&amp;#39;, linetype = &amp;#39;solid&amp;#39;))
+g&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And in Python with matplotlib:&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+from sklearn import datasets
+# Load the theme_bw matplotlib theme
+theme_bw = &amp;quot;path2file/theme_bw.mplstyle&amp;quot;
+plt.style.use(theme_bw)
+# Load the famous iris data
+iris = datasets.load_iris()
+# Convert to pandas data frame and rename columns
+df = pd.DataFrame(data = np.c_[iris[&amp;#39;data&amp;#39;], iris[&amp;#39;target&amp;#39;]],
+                     columns = iris[&amp;#39;feature_names&amp;#39;] + [&amp;#39;target&amp;#39;])
+df.rename(columns = {&amp;#39;sepal length (cm)&amp;#39;: &amp;#39;sepal_length&amp;#39;, 
+                     &amp;#39;sepal width (cm)&amp;#39;: &amp;#39;sepal_width&amp;#39;,
+                     &amp;quot;petal length (cm)&amp;quot;: &amp;quot;petal_length&amp;quot;,
+                     &amp;quot;petal width (cm)&amp;quot;: &amp;quot;petal_width&amp;quot;,
+                     &amp;quot;target&amp;quot;: &amp;quot;species&amp;quot;}, inplace=True)
+# Specify colors
+col = [&amp;quot;#E24A33&amp;quot;, &amp;quot;#FBC15E&amp;quot;, &amp;quot;#348ABD&amp;quot;]
+species = [&amp;quot;setosa&amp;quot;, &amp;quot;versicolor&amp;quot;, &amp;quot;virginica&amp;quot;]
+# Plot
+fig = plt.figure(figsize = (9, 7.2), dpi = 50)
+ax = plt.subplot(111)
+# A few tweaks to save the image in the same aspect ratio as the R graphic
+fig.subplots_adjust(top = 0.8,
+                    bottom = 0.1,
+                    left = 0.1,
+                    right = 0.9)
+# Add plot for each species
+for i in np.unique(df[&amp;quot;species&amp;quot;]):
+    ax.plot(df[df[&amp;quot;species&amp;quot;] == i][&amp;quot;sepal_length&amp;quot;], 
+            df[df[&amp;quot;species&amp;quot;] == i][&amp;quot;sepal_width&amp;quot;], &amp;quot;o&amp;quot;, markersize = 8,
+            c = col[int(i)], label = species[int(i)])
+plt.ylabel(&amp;quot;Sepal Width&amp;quot;)
+plt.xlabel(&amp;quot;Sepal Length&amp;quot;)
+plt.title(&amp;quot;Iris&amp;quot;, loc = &amp;quot;left&amp;quot;)
+# Add space for legend on the right
+box = ax.get_position()
+ax.set_position([box.x0, box.y0, box.width * 0.75, box.height])
+# Add legend
+ax.legend(bbox_to_anchor = (1, 0.6), title = &amp;quot;Species&amp;quot;, labelspacing = 1.5)
+# Remove minor ticks on x axis
+plt.xticks(np.arange(5, max(df.sepal_length) + 1, 1.0))
+plt.show()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;a name=&#34;exactline&#34;&gt;&lt;/a&gt; To answer the initial question: The left plot above has been created with ggplot in R, the right plot with matplotlib in Python.&lt;/p&gt;
+</description>
+  </item>
+  
+<item>
+  <title>Customize leaflet map in R with HTML, CSS and Javascript</title>
+  <link>/articles/2017/11/customize-leaflet-map-in-r-with-html-css-and-javascript/</link>
+  <pubDate>Wed, 01 Nov 2017 00:00:00 +0000</pubDate>
+  
+<guid>/articles/2017/11/customize-leaflet-map-in-r-with-html-css-and-javascript/</guid>
+  <description>
+
+
+&lt;p&gt;This blog post shows examples of how to customize a leaflet map with javascript, html and css.&lt;/p&gt;
+&lt;div id=&#34;put-leaflet-zoom-control-in-lower-right-of-map&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Put leaflet zoom control in lower right of map&lt;/h2&gt;
+&lt;p&gt;Here is a simple leaflet map in a shiny app, where we move the zoom control (+ - symbol) from the upper left to the lower right of the map. In the &lt;code&gt;ui.R&lt;/code&gt; file we will hide the original zoom control by setting the CSS attribute &lt;code&gt;visibility&lt;/code&gt; to &lt;code&gt;hidden&lt;/code&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(shiny)
+library(leaflet)
+library(htmlwidgets)
+ui &amp;lt;- fluidPage(
+  tags$head(
+    tags$style(HTML(&amp;quot;
+      .leaflet-left .leaflet-control{
+        visibility: hidden;
+      }
+    &amp;quot;))
+  ),
+  leafletOutput(&amp;quot;map&amp;quot;, width = &amp;quot;870px&amp;quot;, height = &amp;quot;696px&amp;quot;)
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In the &lt;code&gt;server.R&lt;/code&gt; we can then add a leaflet zoom control with Javascript, here we specify the position as &lt;code&gt;&#39;bottomright&#39;&lt;/code&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;server &amp;lt;- function(input, output) {
+  output$map &amp;lt;- renderLeaflet({
+    leaflet() %&amp;gt;% addTiles() %&amp;gt;% setView(11.5, 48.1, 10) %&amp;gt;%
+      onRender(
+        &amp;quot;function(el, x) {
+          L.control.zoom({
+            position:&amp;#39;bottomright&amp;#39;
+          }).addTo(this);
+        }&amp;quot;)
+  })
+}
+shinyApp(ui, server)&lt;/code&gt;&lt;/pre&gt;
+&lt;figure&gt;
+&lt;center&gt;
+&lt;img src = &#34;leaflet_map_zoom_control.png&#34; width = &#34;600px&#34;&gt;
+&lt;figcaption&gt;
+A leaflet map with the zoom control in the lower right of the figure.
+&lt;/figcaption&gt;
+&lt;/center&gt;
+&lt;/figure&gt;
+&lt;/div&gt;
+</description>
+  </item>
+  
+<item>
+  <title></title>
+  <link>/about/</link>
+  <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+  
+<guid>/about/</guid>
+  <description>
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;markus-dumke&#34;&gt;Markus Dumke&lt;/h1&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Master Student Statistics (Ludwig-Maximilians-University)&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;publications&#34;&gt;Publications&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Double Q(sigma) and Q(sigma; lambda): Unifying reinforcement learning control algorithms (arXiv cs.AI:
+&lt;a href=&#34;https://arxiv.org/pdf/1711.01569.pdf&#34;&gt;pdf&lt;/a&gt; )&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Github: &lt;a href=&#34;https://github.com/markusdumke&#34; style=&#34;padding-left:10px;&#34;&gt;&lt;span class=&#34;fa fa-github fa-lg&#34;&gt;&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+  </item>
+  
+<item>
+  <title>R Packages</title>
+  <link>/packages/</link>
+  <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+  
+<guid>/packages/</guid>
+  <description>&lt;div class=&#34;package-section&#34;&gt;
+
+&lt;div class=&#34;packages&#34;&gt;
+  &lt;div class=&#34;package&#34;&gt;
+    &lt;img class=&#34;package-image&#34; src=&#34;/images/hex-reinforcelearn.png&#34; alt=&#34;&#34;&gt;&lt;/img&gt;
+    &lt;div class=&#34;package-info&#34;&gt;
+      &lt;h3&gt;&lt;a href=&#34;http://markusdumke.github.io/reinforcelearn&#34;&gt;reinforcelearn&lt;/a&gt;&lt;/h3&gt;
+      &lt;p&gt;Reinforcement Learning. &lt;a href=&#34;http://markusdumke.github.io/reinforcelearn&#34; aria-hidden=&#34;true&#34;&gt;Learn more ...&lt;/a&gt;&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  
+
+&lt;p&gt;&lt;div class=&#34;package&#34;&gt;
+    &lt;img class=&#34;package-image&#34; src=&#34;/images/hex-altituder.png&#34; alt=&#34;&#34;&gt;&lt;/img&gt;
+    &lt;div class=&#34;package-info&#34;&gt;
+      &lt;h3&gt;altituder&lt;/h3&gt;
+      &lt;p&gt;An R package to get altitude (elevation) data from several APIs. &lt;a href=&#34;https://github.com/markusdumke/altituder&#34; aria-hidden=&#34;true&#34;&gt;Learn more &amp;hellip;&lt;/a&gt;&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;package&#34;&gt;
+    &lt;img class=&#34;package-image&#34; src=&#34;/images/hex-pkghelper.png&#34; alt=&#34;&#34;&gt;&lt;/img&gt;
+    &lt;div class=&#34;package-info&#34;&gt;
+      &lt;h3&gt;pkghelper&lt;/h3&gt;
+      &lt;p&gt;Helper package for R package development. Update package dependencies section in DESCRIPTION automatically. &lt;a href=&#34;https://github.com/markusdumke/pkghelper&#34; aria-hidden=&#34;true&#34;&gt;Learn more &amp;hellip;&lt;/a&gt;&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/div&gt;&lt;/p&gt;
+</description>
+  </item>
+  
+</channel>
+  </rss>

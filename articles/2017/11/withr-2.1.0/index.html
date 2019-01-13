@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="og:image" content="https://www.tidyverse.org/images/tidyverse-default.png" >
+<meta name="generator" content="Hugo 0.52" />
+
+<title>withr 2.1.0 - markusdumke</title>
+<meta property="og:title" content="withr 2.1.0 - markusdumke">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tidyverse.org/articles/withr-2.1.0-sq.jpg" >
+<meta property="description" content="withr 2.1.0 is now available on CRAN.
+">
+<meta property="og:description" content="withr 2.1.0 is now available on CRAN.
+">
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png" />
+<link rel="manifest" href="/images/favicons/site.webmanifest" />
+<link rel="mask-icon" href="/images/favicons/safari-pinned-tab.svg" />
+<link rel="shortcut icon" href="/images/favicons/favicon.ico" />
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" href="/images/favicons/browserconfig.xml" >
+
+
+<script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/js/site.js"></script>
+
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.11.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+<link rel="stylesheet" href="/css/tidyverse-site.css" />
+<link rel="stylesheet" href="/css/tweaks.css" />
+<link rel="icon" href="/images/favicon.ico" />
+<link rel="alternate" type="application/atom+xml" title="Blog" href="/articles/index.xml" />
+
+  </head>
+  <body>
+    <div id="appTidyverseSite" class="shrinkHeader alwaysShrinkHeader">
+      <div id="main">
+        
+        <div id="rStudioHeader">
+          <div class="band">
+            <div class="innards bandContent">
+              <div>
+                <a class="productName" href="/">markusdumke</a>
+              </div>
+              <div id="menu">
+  <div id="menuToggler"></div>
+  <div id="menuItems" class="">
+    
+    
+    <a class="menuItem " href="/packages/">Packages</a>
+    
+    <a class="menuItem current" href="/articles/">Blog</a>
+    
+    <a class="menuItem " href="/about/">About</a>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </div>
+
+
+<div class="band padForHeader pushFooter">
+  <div class="bandContent">
+    <div class="full splitColumns withMobileMargins">
+      <div class="column75">
+
+      <h1 class="article-title">withr 2.1.0</h1>
+
+      
+      
+      <div class="article-header">
+        <div class="photo" style="background-image: url('../../../withr-2.1.0-wd.jpg');"></div>
+        <div class="photoCredit">Photo by <a href="https://unsplash.com/photos/V1YEEItoOTE">Suganth</a></div>
+      </div>
+      
+
+      
+
+      <div class="article-content">
+      
+
+
+<p><a href="http://withr.r-lib.org/news/index.html">withr 2.1.0</a> is now available on CRAN! <a href="http://withr.r-lib.org">withr</a> makes working with global state in R safer and less error prone. It has only base package dependencies so is easily included in packages.</p>
+<p>Install the latest version with:</p>
+<pre class="r"><code>install.packages(&quot;withr&quot;)</code></pre>
+<div id="whither-withr" class="section level1">
+<h1>Whither withr?</h1>
+<p>Many functions in R modify global state in some fashion. Some common examples are <code>par()</code> for graphics parameters, <code>dir()</code> to change the current directory and <code>options()</code> to set a global option. Using these functions is handy when using R interactively, because you can set them early in your experimentation and they will remain set for the duration of the session. However this makes programming with these settings difficult, because they make your function impure by modifying a global state. Therefore you should always strive to reset the previous state when the function exists.</p>
+<p>One common idiom for dealing with this problem is to save the current state, make your change, then restore the previous state.</p>
+<pre class="r"><code>par(&quot;col&quot; = &quot;black&quot;)
+my_plot &lt;- function(new) {
+  old &lt;- par(col = &quot;red&quot;, pch = 19)
+  plot(mtcars$hp, mtcars$wt)
+  par(old)
+}
+my_plot()</code></pre>
+<p><img src="/articles/2017-11-16-withr-2.1.0_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="r"><code>par(&quot;col&quot;)
+#&gt; [1] &quot;black&quot;</code></pre>
+<p>However this approach can fail if there’s an error before you are able to reset the options.</p>
+<pre class="r"><code>par(&quot;col&quot; = &quot;black&quot;)
+my_plot &lt;- function(new) {
+  old &lt;- par(col = &quot;red&quot;, pch = 19)
+  plot(mtcars$hpp, mtcars$wt)
+  par(old)
+}
+my_plot()
+#&gt; Error in xy.coords(x, y, xlabel, ylabel, log): &#39;x&#39; and &#39;y&#39; lengths differ
+par(&quot;col&quot;)
+#&gt; [1] &quot;red&quot;</code></pre>
+<p>Using the base function <code>on.exit()</code> is a robust solution to this problem. <code>on.exit()</code> will run the code when the function is exited, regardless whether it exits normally or with an error.</p>
+<pre class="r"><code>par(&quot;col&quot; = &quot;black&quot;)
+my_plot &lt;- function(new) {
+  old &lt;- par(col = &quot;red&quot;, pch = 19)
+  on.exit(par(old))
+  plot(mtcars$hpp, mtcars$wt)
+}
+my_plot()
+#&gt; Error in xy.coords(x, y, xlabel, ylabel, log): &#39;x&#39; and &#39;y&#39; lengths differ
+par(&quot;col&quot;)
+#&gt; [1] &quot;black&quot;
+
+options(test = 1)
+{
+  print(getOption(&quot;test&quot;))
+  on.exit(options(test = 2))
+}
+#&gt; [1] 1
+getOption(&quot;test&quot;)
+#&gt; [1] 2</code></pre>
+<p>However this solution is somewhat cumbersome to work with. You need to remember to use an <code>on.exit()</code> call after each stateful call. In addition by default each <code>on.exit()</code> action will overwrite any previous <code>on.exit()</code> action in the same function unless you use the <code>add = TRUE</code> option. <code>add = TRUE</code> also adds additional code to the <em>end</em> of existing code, which means the code is not run in the <a href="https://en.wikipedia.org/wiki/FIFO_and_LIFO_accounting">Last-In, First-Out</a> order you would generally prefer. It is also not possible to have this cleanup code performed before the function has finished.</p>
+<p><a href="http://withr.r-lib.org">withr</a> is a solution to these issues. It defines a <a href="http://withr.r-lib.org/#withr---run-code-with-modified-state">large set of functions</a> for dealing with global settings in R, such as <code>with_par()</code>. These functions set one of the global settings for the duration of a block of code, then automatically reset it after the block is completed.</p>
+<pre class="r"><code>par(&quot;col&quot; = &quot;black&quot;)
+my_plot &lt;- function(new) {
+  with_par(list(col = &quot;red&quot;, pch = 19),
+    plot(mtcars$hp, mtcars$wt)
+  )
+  par(&quot;col&quot;)
+}
+my_plot()</code></pre>
+<p><img src="/articles/2017-11-16-withr-2.1.0_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre><code>#&gt; [1] &quot;black&quot;
+par(&quot;col&quot;)
+#&gt; [1] &quot;black&quot;</code></pre>
+<p>In addition to the <code>with_*</code> functions there are <code>local_*</code> variants whose effects last until the end of the function they are included in. These work similar to <code>on.exit()</code>, but you can set the options in one call rather than two.</p>
+<pre class="r"><code>par(&quot;col&quot; = &quot;black&quot;)
+my_plot &lt;- function(new) {
+  local_par(list(col = &quot;red&quot;, pch = 19))
+  plot(mtcars$hp, mtcars$wt)
+}
+my_plot()</code></pre>
+<p><img src="/articles/2017-11-16-withr-2.1.0_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<pre class="r"><code>par(&quot;col&quot;)
+#&gt; [1] &quot;black&quot;</code></pre>
+</div>
+<div id="new-features" class="section level1">
+<h1>New features</h1>
+<p>Here are some highlights of new functions for v2.1.0.</p>
+<div id="graphics-devices" class="section level2">
+<h2>Graphics devices</h2>
+<p>There are now a comprehensive set of functions to deal with R’s builtin <a href="http://withr.r-lib.org/reference/devices.html">graphics devices</a>.</p>
+<p>These functions open a new graphics device, run some code, then automatically close the device.</p>
+<pre class="r"><code>path &lt;- file.path(Sys.glob(&quot;*withr*_files/figure-html&quot;), &quot;test.png&quot;)
+with_png(path, width = 400, height = 300, {
+  plot(mtcars$hp, mtcars$mpg)
+})</code></pre>
+<div class="figure">
+<img src="/articles/2017-11-16-withr-2.1.0_files/figure-html/test.png" />
+
+</div>
+<p>Thanks to <a href="https://github.com/richierocks">Richard Cotton’s</a> great <a href="https://github.com/r-lib/withr/pull/37">pull request</a> for this feature!</p>
+</div>
+<div id="connections" class="section level2">
+<h2>Connections</h2>
+<p>There are two new functions for cleaning up connections in R. <code>with_connection()</code> allows you to automatically close R’s file connections. Here we create a writable file connection, write some lines to it with <code>with_connection()</code>, then open a read-only connection and read the file using <code>local_connection()</code>.</p>
+<pre class="r"><code>with_connection(list(con = file(&quot;temp&quot;, &quot;w&quot;)), {
+  writeLines(c(&quot;foo&quot;, &quot;bar&quot;), con)
+})
+read_temp &lt;- function() {
+  con &lt;- local_connection(file(&quot;temp&quot;, &quot;r&quot;))
+  readLines(con)
+}
+read_temp()
+#&gt; [1] &quot;foo&quot; &quot;bar&quot;</code></pre>
+<p><code>with_db_connection()</code> provides <a href="http://rstats-db.github.io/DBI">DBI</a> connections to databases which automatically call <code>DBI::dbDisconnect()</code>. Here we create a new <a href="https://www.sqlite.org/">SQLite</a> database, connect to it with <code>with_db_connection()</code>, and write a new table to it. We then create another connection with <code>local_db_connection()</code> and read from the table.</p>
+<pre class="r"><code>db &lt;- tempfile()
+with_db_connection(
+  list(con = DBI::dbConnect(RSQLite::SQLite(), db)), {
+    DBI::dbWriteTable(con, &quot;mtcars&quot;, mtcars)
+})
+#&gt; Loading required namespace: DBI
+
+head_db_table &lt;- function(...) {
+  con &lt;- local_db_connection(DBI::dbConnect(RSQLite::SQLite(), db))
+  head(DBI::dbReadTable(con, &quot;mtcars&quot;), ...)
+}
+head_db_table()
+#&gt;    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+#&gt; 1 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+#&gt; 2 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+#&gt; 3 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+#&gt; 4 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+#&gt; 5 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+#&gt; 6 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
+unlink(db)</code></pre>
+</div>
+<div id="packages" class="section level2">
+<h2>Packages</h2>
+<p><code>with_package()</code> allows you to temporarily attach a package.</p>
+<pre class="r"><code>with_package(&quot;lattice&quot;, {
+  xyplot(y ~ x, data.frame(x = -2:2, y = dnorm(-2:2)))
+})</code></pre>
+<p><img src="/articles/2017-11-16-withr-2.1.0_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+</div>
+<div id="tempfiles" class="section level2">
+<h2>Tempfiles</h2>
+<p><code>with_tempfile()</code> handy for creating a new temporary files that are removed, often useful when writing tests.</p>
+<pre class="r"><code>with_tempfile(&quot;file1&quot;, {
+  print(file1)
+  writeLines(&quot;foo&quot;, file1)
+  readLines(file1)
+})
+#&gt; [1] &quot;/var/folders/dt/r5s12t392tb5sk181j3gs4zw0000gn/T//RtmpC6vpTp/file15b492f945411&quot;
+#&gt; [1] &quot;foo&quot;</code></pre>
+</div>
+<div id="other-changes" class="section level2">
+<h2>Other changes</h2>
+<p>There are many other bug fixes and other minor improvements in this release. You can see a complete list in the <a href="https://github.com/r-lib/withr/releases/tag/v2.1.0">release notes</a>.</p>
+<p>A big thanks goes to all the community members who contributed code and opened issues since the last release!</p>
+<p><a href="https://github.com/QuLogic">@QuLogic</a>, <a href="https://github.com/krlmlr">@krlmlr</a>, <a href="https://github.com/hadley">@hadley</a>, <a href="https://github.com/wlandau-lilly">@wlandau-lilly</a>, <a href="https://github.com/jimhester">@jimhester</a>, <a href="https://github.com/kevinushey">@kevinushey</a>, and <a href="https://github.com/richierocks">@richierocks</a></p>
+</div>
+</div>
+
+      </div>
+
+      
+
+
+      </div>
+
+      <div class="column25">
+        <div class="section hideOnMobile">
+          <div class="sectionTitle">Contents</div>
+          
+        </div>
+
+    </div>
+  </div>  
+</div> 
+
+        <div id="rStudioFooter" class="band">
+          <div class="bandContent">
+            <div id="copyright">
+              Markus Dumke, 2019</div>
+            <div id="logos">
+              <a href="https://github.com/markusdumke" class="footerLogo gitHub"></a>
+            </div>
+          </div>
+        </div>
+
+      </div>  
+    </div>  
+
+    
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-115082821-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+  </body>
+</html>
+

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="og:image" content="https://www.tidyverse.org/images/tidyverse-default.png" >
+<meta name="generator" content="Hugo 0.52" />
+
+<title>Contributing code to the tidyverse - markusdumke</title>
+<meta property="og:title" content="Contributing code to the tidyverse - markusdumke">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tidyverse.org/articles/contributing-sq.jpg" >
+<meta property="description" content="Contributing code to open source projects can be intimidating. These projects are often widely used and have well known maintainers. Contributing code and having it accepted seems an almost insurmountable task. However if you follow a few simple strategies you can have your code accepted into even the most popular projects in the tidyverse.
+">
+<meta property="og:description" content="Contributing code to open source projects can be intimidating. These projects are often widely used and have well known maintainers. Contributing code and having it accepted seems an almost insurmountable task. However if you follow a few simple strategies you can have your code accepted into even the most popular projects in the tidyverse.
+">
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png" />
+<link rel="manifest" href="/images/favicons/site.webmanifest" />
+<link rel="mask-icon" href="/images/favicons/safari-pinned-tab.svg" />
+<link rel="shortcut icon" href="/images/favicons/favicon.ico" />
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" href="/images/favicons/browserconfig.xml" >
+
+
+<script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/js/site.js"></script>
+
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.11.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+<link rel="stylesheet" href="/css/tidyverse-site.css" />
+<link rel="stylesheet" href="/css/tweaks.css" />
+<link rel="icon" href="/images/favicon.ico" />
+<link rel="alternate" type="application/atom+xml" title="Blog" href="/articles/index.xml" />
+
+  </head>
+  <body>
+    <div id="appTidyverseSite" class="shrinkHeader alwaysShrinkHeader">
+      <div id="main">
+        
+        <div id="rStudioHeader">
+          <div class="band">
+            <div class="innards bandContent">
+              <div>
+                <a class="productName" href="/">markusdumke</a>
+              </div>
+              <div id="menu">
+  <div id="menuToggler"></div>
+  <div id="menuItems" class="">
+    
+    
+    <a class="menuItem " href="/packages/">Packages</a>
+    
+    <a class="menuItem current" href="/articles/">Blog</a>
+    
+    <a class="menuItem " href="/about/">About</a>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </div>
+
+
+<div class="band padForHeader pushFooter">
+  <div class="bandContent">
+    <div class="full splitColumns withMobileMargins">
+      <div class="column75">
+
+      <h1 class="article-title">Contributing code to the tidyverse</h1>
+
+      
+      
+      <div class="article-header">
+        <div class="photo" style="background-image: url('../../../contributing-wd.jpg');"></div>
+        <div class="photoCredit">Photo by <a href="https://unsplash.com/photos/qFxS5FkUSAQ">Yuriy Rzhemovskiy</a></div>
+      </div>
+      
+
+      
+
+      <div class="article-content">
+      
+
+<blockquote>
+<p>This post originally appeared at <a href="http://www.jimhester.com/2017/08/08/contributing/">http://www.jimhester.com/2017/08/08/contributing/</a></p>
+</blockquote>
+
+<p>Contributing code to open source projects can be intimidating. These projects
+are often widely used and have well known maintainers. Contributing code and
+having it accepted seems an almost insurmountable task.</p>
+
+<p>However if you follow a few simple strategies you can have your code accepted
+into even the most popular projects in the <a href="https://tidyverse.org">tidyverse</a>.</p>
+
+<h3 id="don-t-contribute-code">Don&rsquo;t contribute code</h3>
+
+<p>The easiest way to contribute to an open source package is not to contribute
+code at all. Find a typo in the documentation, add a reproducible
+example to an open issue without one, post a solution to a question in an
+ issue, on <a href="https://twitter.com/search?q=%23rstats">twitter</a> or
+<a href="https://stackoverflow.com/questions/tagged/r">stackoverflow</a>. These types of
+contributions are among the easiest things for maintainers to review and
+accept, so it is a great place to start getting used to the contribution
+process.</p>
+
+<h3 id="read-contributing-md">Read CONTRIBUTING.md</h3>
+
+<p>Often projects will have a <code>CONTRIBUTING.md</code> document that has instructions for
+contributing to the project. These are guidelines the maintainers would like
+contributors to adhere to and exist to make the process flow more smoothly. As a
+contributor you should try to make accepting your code as easy as you
+can, this greatly increases the chance your contribution will be accepted.
+These files are not currently widespread in the tidyverse, but it&rsquo;s something
+we will be working on in the future!</p>
+
+<h3 id="explore-previously-merged-contributions">Explore previously merged contributions</h3>
+
+<p>Next you should read a few previously merged pull requests for additional
+context. If a project does not have a <code>CONTRIBUTING.md</code> (or similar)
+document this is your best source of information on expected practices for
+contributions.</p>
+
+<p>Things you should look for include how are the commit messages formatted? Are
+any additional files changed apart from the code changes (such as NEWS
+updates)? Do the contributions all include additional test cases? Do internal
+only changes need documentation?</p>
+
+<p>Some Common tidyverse conventions are</p>
+
+<ul>
+<li>Add a bullet to <code>NEWS.md</code> for each change referencing the issue number and your GitHub username.</li>
+<li>Add <code>Closes #123</code> at the end of your commit message to automatically close the issue with the PR is merged.</li>
+<li>Document functions with <a href="https://github.com/klutometis/roxygen">roxygen</a> and be sure to run <code>devtools::document()</code> before submitting.</li>
+</ul>
+
+<p>Read the reviewer comments in the pull request
+to get an idea of what in particular reviewers are looking for. Do they require
+certain <a href="http://style.tidyverse.org">code style</a>, variable names or code
+organization? Are there common requests such as adding a note to the NEWS
+commonly forgotten? If you can handle these things <em>before</em> the reviewer even
+sees your code is greatly reduces the friction in merging your changes.</p>
+
+<h3 id="make-your-changes-as-small-as-possible">Make your changes as <em>small</em> as possible</h3>
+
+<p>One of the most common mistakes contributors make is to add a complicated new
+feature as their first contribution.</p>
+
+<p>Accepting code as a maintainer means you
+have to <em>maintain</em> that code in the future, fixing bugs, updating
+documentation, refactoring it as the rest of the code evolves. This means the
+maintainer need to fully understand any code they accept.</p>
+
+<p>What this means for contributors is they should strive to make their
+contribution as simple to understand as possible. The best way to do this is to
+make the contribution as short and clear as possible, changing as little of the
+existing code as you can. First time contributions is not the time to do major
+restructuring or reformatting of existing code. The best way to check exactly
+what changes you are proposing is to use <code>git diff</code> <em>prior</em> to submitting your
+contribution. This will ensure it contains only the changes necessary for the
+new functionality.</p>
+
+<h3 id="include-tests">Include tests</h3>
+
+<p>Contributions with test cases are easier to accept because the tests ensure the
+code does what it intends to do and nothing else. Without tests the maintainer
+needs to check the new functionality by hand, a burden you can lessen or remove
+by including tests. If you are not sure what parts of your code is covered by
+tests <a href="https://cran.r-project.org/package=covr">covr</a> is a great tool to use
+before submission. Just run the following to get a local coverage report of the
+package so you can see exactly what lines are not covered in the project.</p>
+
+<pre><code class="language-r"># install.packages(&quot;covr&quot;)
+co &lt;- covr::package_coverage()
+covr::report(co)
+</code></pre>
+
+<p>In addition adding tests to parts of the code base that is not currently
+covered is a great way to contribute to a project.</p>
+
+<h3 id="follow-the-style">Follow the style</h3>
+
+<p>One of the first barriers to acceptance is coding style. Do not submit a
+contribution using camelCase to a project that uses snake_case, or use tabs
+when the project uses spaces. For tidyverse projects read the <a href="http://style.tidyverse.org">Style
+Guide</a> and use the
+<a href="https://cran.r-project.org/package=lintr">lintr</a> package to find code which
+does not adhere to the style guide.</p>
+
+<pre><code class="language-r"># install.packages(&quot;lintr&quot;)
+lintr::lint_package()
+</code></pre>
+
+<p>Remember to include style changes only in code you are contributing. If you
+want to fix style overall in the package that is a great idea, but it should be
+in a separate pull request!</p>
+
+<h3 id="contribute-to-active-projects">Contribute to active projects</h3>
+
+<p>Development of tidyverse projects typically progresses in waves. We work
+intensely on a certain project for a period of time, then let it lie fallow for
+awhile and work on other things. Because of this contributions to projects
+which are not being actively developed may not be addressed for a long length
+of time. This does not mean the contribution is not appreciated, but it does
+mean you have to be patient and when it is reviewed be prompt with a response.</p>
+
+<p>You can avoid these lengthy wait times by contributing to projects being
+actively developed. Look at the GitHub contributions of members of the
+tidyverse and times of recent commits of projects to see which are active and
+which are fallow.</p>
+
+<h3 id="be-attentive-not-pushy">Be attentive, not pushy</h3>
+
+<p>When a maintainer does review a contribution, try to address the comments in
+short order, your changes are much more likely to be accepted if they
+are addressed in the next day than the next month. In addition occasional
+comments bumping the issue can be useful if changes have been made, but do not
+repeatably &lsquo;ping&rsquo; an issue because you feel it is been opened too long without
+acceptance.</p>
+
+<p>If you absolutely need a feature from a development package an option is to
+install your personal fork with the features included, or even install the
+package directly from the pull request.</p>
+
+<pre><code class="language-r"># install.packages(&quot;devtools&quot;)
+
+# install from personal fork
+devtools::install(&quot;/path/to/pkg&quot;)
+
+# install from a pull request #123
+devtools::install_github(&quot;tidyverse/glue#123&quot;)
+</code></pre>
+
+<h3 id="view-contributing-as-a-relationship-not-a-transaction">View contributing as a relationship, not a transaction</h3>
+
+<p>The best way to be successful contributing to open source projects is to do so
+repeatedly. This means cultivating trust between yourself and the maintainer by
+multiple successful contributions. After a series of smaller contributions the
+maintainer will be much more willing to review and accept more substantial
+changes. As with any relationship being polite and considerate throughout will
+go a long way to improve trust. If you instead view the contribution as a
+solitary transaction to add your pet feature you are much less likely to be
+successful.</p>
+
+<h3 id="contribute">Contribute!</h3>
+
+<p>Contributing to open source software will make you a better programmer, gain
+valuable feedback through code review, look great on your resume and increase
+your visibility in the community. It may even get you a job; I am on the
+tidyverse team today mainly because I was a frequent open source contributor to
+tidyverse packages over a number of years.</p>
+
+      </div>
+
+      
+
+
+      </div>
+
+      <div class="column25">
+        <div class="section hideOnMobile">
+          <div class="sectionTitle">Contents</div>
+          <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#don-t-contribute-code">Don&rsquo;t contribute code</a></li>
+<li><a href="#read-contributing-md">Read CONTRIBUTING.md</a></li>
+<li><a href="#explore-previously-merged-contributions">Explore previously merged contributions</a></li>
+<li><a href="#make-your-changes-as-small-as-possible">Make your changes as <em>small</em> as possible</a></li>
+<li><a href="#include-tests">Include tests</a></li>
+<li><a href="#follow-the-style">Follow the style</a></li>
+<li><a href="#contribute-to-active-projects">Contribute to active projects</a></li>
+<li><a href="#be-attentive-not-pushy">Be attentive, not pushy</a></li>
+<li><a href="#view-contributing-as-a-relationship-not-a-transaction">View contributing as a relationship, not a transaction</a></li>
+<li><a href="#contribute">Contribute!</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+
+    </div>
+  </div>  
+</div> 
+
+        <div id="rStudioFooter" class="band">
+          <div class="bandContent">
+            <div id="copyright">
+              Markus Dumke, 2019</div>
+            <div id="logos">
+              <a href="https://github.com/markusdumke" class="footerLogo gitHub"></a>
+            </div>
+          </div>
+        </div>
+
+      </div>  
+    </div>  
+
+    
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-115082821-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+  </body>
+</html>
+

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="og:image" content="https://www.tidyverse.org/images/tidyverse-default.png" >
+<meta name="generator" content="Hugo 0.52" />
+
+<title>The tidyverse is for EDA, not packages - markusdumke</title>
+<meta property="og:title" content="The tidyverse is for EDA, not packages - markusdumke">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tidyverse.org/articles/tidyverse-not-for-packages-sq.jpg" >
+<meta property="description" content="Why the tidyverse package shouldn&#39;t be in your dependencies.
+">
+<meta property="og:description" content="Why the tidyverse package shouldn&#39;t be in your dependencies.
+">
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png" />
+<link rel="manifest" href="/images/favicons/site.webmanifest" />
+<link rel="mask-icon" href="/images/favicons/safari-pinned-tab.svg" />
+<link rel="shortcut icon" href="/images/favicons/favicon.ico" />
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" href="/images/favicons/browserconfig.xml" >
+
+
+<script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/js/site.js"></script>
+
+<link rel="stylesheet" href="/css/tidyverse-site.css" />
+<link rel="stylesheet" href="/css/tweaks.css" />
+<link rel="icon" href="/images/favicon.ico" />
+<link rel="alternate" type="application/atom+xml" title="Blog" href="/articles/index.xml" />
+
+  </head>
+  <body>
+    <div id="appTidyverseSite" class="shrinkHeader alwaysShrinkHeader">
+      <div id="main">
+        
+        <div id="rStudioHeader">
+          <div class="band">
+            <div class="innards bandContent">
+              <div>
+                <a class="productName" href="/">markusdumke</a>
+              </div>
+              <div id="menu">
+  <div id="menuToggler"></div>
+  <div id="menuItems" class="">
+    
+    
+    <a class="menuItem " href="/packages/">Packages</a>
+    
+    <a class="menuItem current" href="/articles/">Blog</a>
+    
+    <a class="menuItem " href="/about/">About</a>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </div>
+
+
+<div class="band padForHeader pushFooter">
+  <div class="bandContent">
+    <div class="full splitColumns withMobileMargins">
+      <div class="column75">
+
+      <h1 class="article-title">The tidyverse is for EDA, not packages</h1>
+
+      
+      
+      <div class="article-header">
+        <div class="photo" style="background-image: url('../../../tidyverse-not-for-packages-wd.jpg');"></div>
+        <div class="photoCredit">Photo by <a href="https://unsplash.com/photos/dQLgop4tnsc">Jamie Street</a></div>
+      </div>
+      
+
+      
+
+      <div class="article-content">
+      
+
+
+<p>A couple of months back, we sent out the following email to the maintainers of
+packages on CRAN with <a href="http://tidyverse.tidyverse.org/">tidyverse</a> listed in
+either Depends, Imports, or Suggests:</p>
+<blockquote>
+<p>Dear <code>{maintainer}</code>,</p>
+<p>As of <code>{date}</code>, your package, <code>{package_name}</code>, lists the tidyverse package in
+either Depends, Imports, or Suggests on CRAN.</p>
+<p>Because the tidyverse is a set of packages designed for interactive data
+analysis, this is, in short, a bad idea. The tidyverse package includes a
+substantial number of direct and indirect dependencies (79 packages, as of this
+writing), many of which are likely unnecessary for the purposes of your package.
+Furthermore, the CRAN maintainers frown upon depending on it, which can cause
+hassle for you down the line.</p>
+<p>If you could please correct this by importing functions from, suggesting,
+or depending on the tidyverse component packages you require at your nearest
+convenience, it would be most appreciated.</p>
+<p>Please let us know if you have any questions.</p>
+<p>Thank you,</p>
+Hadley Wickham<br />
+c/o Mara Averick
+</blockquote>
+
+      </div>
+
+      
+
+
+      </div>
+
+      <div class="column25">
+        <div class="section hideOnMobile">
+          <div class="sectionTitle">Contents</div>
+          
+        </div>
+
+    </div>
+  </div>  
+</div> 
+
+        <div id="rStudioFooter" class="band">
+          <div class="bandContent">
+            <div id="copyright">
+              Markus Dumke, 2019</div>
+            <div id="logos">
+              <a href="https://github.com/markusdumke" class="footerLogo gitHub"></a>
+            </div>
+          </div>
+        </div>
+
+      </div>  
+    </div>  
+
+    
+
+    
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-115082821-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+  </body>
+</html>
+

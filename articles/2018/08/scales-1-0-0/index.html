@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="og:image" content="https://www.tidyverse.org/images/tidyverse-default.png" >
+<meta name="generator" content="Hugo 0.52" />
+
+<title>scales 1.0.0 - markusdumke</title>
+<meta property="og:title" content="scales 1.0.0 - markusdumke">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tidyverse.org/articles/scales-1-0-0-sq.jpg" >
+<meta property="description" content="scales 1.0.0 is now on CRAN.
+">
+<meta property="og:description" content="scales 1.0.0 is now on CRAN.
+">
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png" />
+<link rel="manifest" href="/images/favicons/site.webmanifest" />
+<link rel="mask-icon" href="/images/favicons/safari-pinned-tab.svg" />
+<link rel="shortcut icon" href="/images/favicons/favicon.ico" />
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" href="/images/favicons/browserconfig.xml" >
+
+
+<script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/js/site.js"></script>
+
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.11.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+<link rel="stylesheet" href="/css/tidyverse-site.css" />
+<link rel="stylesheet" href="/css/tweaks.css" />
+<link rel="icon" href="/images/favicon.ico" />
+<link rel="alternate" type="application/atom+xml" title="Blog" href="/articles/index.xml" />
+
+  </head>
+  <body>
+    <div id="appTidyverseSite" class="shrinkHeader alwaysShrinkHeader">
+      <div id="main">
+        
+        <div id="rStudioHeader">
+          <div class="band">
+            <div class="innards bandContent">
+              <div>
+                <a class="productName" href="/">markusdumke</a>
+              </div>
+              <div id="menu">
+  <div id="menuToggler"></div>
+  <div id="menuItems" class="">
+    
+    
+    <a class="menuItem " href="/packages/">Packages</a>
+    
+    <a class="menuItem current" href="/articles/">Blog</a>
+    
+    <a class="menuItem " href="/about/">About</a>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </div>
+
+
+<div class="band padForHeader pushFooter">
+  <div class="bandContent">
+    <div class="full splitColumns withMobileMargins">
+      <div class="column75">
+
+      <h1 class="article-title">scales 1.0.0</h1>
+
+      
+      
+      <div class="article-header">
+        <div class="photo" style="background-image: url('../../../scales-1-0-0-wd.jpg');"></div>
+        <div class="photoCredit">Photo by <a href="https://unsplash.com/photos/3kzlCL3rj8A">Ricardo Gomez Angel</a></div>
+      </div>
+      
+
+      
+
+      <div class="article-content">
+      
+
+<p>We&rsquo;re delighted to announce the release of <a href="https://scales.r-lib.org/">scales</a> 1.0.0.
+The scales packages provides the internal scaling infrastructure to ggplot2 and its functions allow users to customize the transformations, breaks, guides and palettes used in visualizations in ggplot2 and beyond.</p>
+
+<p>This is a major release with significant changes to the popular formatter
+functions, and added transformations. Below we demonstrate some of the biggest
+changes in this release including:</p>
+
+<ul>
+<li>updated formatter functions</li>
+<li>new transformations</li>
+<li>improved breaks on log-transformed scales</li>
+</ul>
+
+<p>See the <a href="https://scales.r-lib.org/news/index.html">News</a> for a detailed list of changes
+and visit <a href="https://scales.r-lib.org/">the new website</a> for complete documentation and
+additional usage examples.</p>
+
+<p>Install the latest version with:</p>
+
+<pre><code class="language-r">install.packages(&quot;scales&quot;)
+</code></pre>
+
+<h2 id="formatter-changes">Formatter changes</h2>
+
+<p>Thanks to the help of <a href="https://github.com/larmarange">@larmarange</a>, scales has
+now added a generic formatter function, <code>number_format()</code>, that powers the majority
+of the formatters in the package.</p>
+
+<p>This change altered the arguments of most of the formatters:
+<code>comma_format()</code>, <code>percent_format()</code>, <code>unit_format()</code>, <code>dollar_format()</code>,
+<code>ordinal_format()</code>, and <code>scientific_format()</code>. All gained new arguments <code>accuracy</code>,
+<code>scale</code>, <code>prefix</code>, and <code>suffix</code>, allowing users to specify rounding accuracy,
+a scaling value, a prefix, and a suffix to
+customize output. Furthermore, all of these functions now allow user
+specification of the thousands separator, <code>big.mark</code>, and the decimal separator,
+<code>decimal.mark</code>. Users of these formatters will notice that the default thousands
+separator is now a space. This default was chosen as a useful compromise for
+an international audience (a space for thousands separator and a dot for decimal
+separator) and is officially endorsed by SI/ISO 31-0 standard, as well as by the
+International Bureau of Weights and Measures and the International Union of
+Pure and Applied Chemistry (IUPAC), the American Medical Association&rsquo;s widely
+followed AMA Manual of Style, and the Metrication Board, among others
+(<a href="https://www.wikiwand.com/en/Decimal_separator#/Digit_grouping">read more here</a>).
+Those interested in number formatting with no separator can simply define
+<code>big.mark = &quot;&quot;</code> to revert to the previous behaviour.</p>
+
+<pre><code class="language-r">library(scales)
+
+number(c(12.3, 4, 12345.789, 0.0002))
+#&gt; [1] &quot;12&quot;     &quot;4&quot;      &quot;12 346&quot; &quot;0&quot;
+
+# these functions round by default, but you can set the accuracy
+number(c(12.3, 4, 12345.789, 0.0002), big.mark = &quot;&quot;, accuracy = .01)
+#&gt; [1] &quot;12.30&quot;    &quot;4.00&quot;     &quot;12345.79&quot; &quot;0.00&quot;
+
+# percent() function takes a numeric and does your division and labelling for you
+percent(c(0.1, 1 / 3, 0.56))
+#&gt; [1] &quot;10.0%&quot; &quot;33.3%&quot; &quot;56.0%&quot;
+
+# comma() adds commas into large numbers for easier readability
+comma(10e6)
+#&gt; [1] &quot;10,000,000&quot;
+
+# dollar() adds currency symbols speficifed by `prefix` or `suffix`
+dollar(c(100, 125, 3000))
+#&gt; [1] &quot;$100&quot;   &quot;$125&quot;   &quot;$3,000&quot;
+dollar(c(100, 125, 3000), suffix = &quot;€&quot;, prefix = &quot;&quot;)
+#&gt; [1] &quot;100€&quot;   &quot;125€&quot;   &quot;3,000€&quot;
+
+# unit_format() adds unique units
+# the scale argument can do simple conversion on the fly
+unit_format(unit = &quot;ha&quot;, scale = 1e-4)(c(10e6, 10e4, 8e3))
+#&gt; [1] &quot;1 000 ha&quot; &quot;10 ha&quot;    &quot;1 ha&quot;
+</code></pre>
+
+<p>Three additional formatters have been added: <code>pvalue_format()</code> formats p-values, <code>number_bytes_format()</code> formats numeric vectors into byte measurements, and
+<code>time_format()</code> provides support for formatting POSIXt and hms objects. Finally, <code>ordinal_format()</code> has gained new rules for French and Spanish formatting.</p>
+
+<h2 id="new-transformations">New transformations</h2>
+
+<p>Two new transformations were added to the package for this release: <code>psuedo_log_trans()</code>,
+and <code>modulus_trans()</code>. <code>pseudo_log_trans()</code> transforms data on a signed
+logarithmic scale with a smooth transition to a linear scale around 0. The
+<code>modulus_trans()</code> was added along with a refactored <code>boxcox_trans()</code> to
+provide a better option for negative numbers. Both <code>modulus_trans()</code> and
+<code>boxcox_trans()</code> gained an argument <code>offset</code> which now allows users to fit both
+type-1 and type-2 Box-Cox transformations.</p>
+
+<h2 id="better-breaks">Better breaks</h2>
+
+<p>In a long awaited fix, <code>log_breaks()</code> now returns integer multiples of
+integer powers of base when finer breaks are needed on the log scale.
+This will change all ggplot graphics with log-transformed axes.</p>
+
+<pre><code class="language-r">library(ggplot2)
+library(dplyr)
+set.seed(5678)
+
+dsamp &lt;- sample_n(1000, tbl = diamonds)
+ggplot(dsamp, aes(y = price, x = carat)) + 
+  geom_point() + scale_x_log10() + scale_y_log10()
+</code></pre>
+
+<p><img src="/articles/2018-08-scales-1-0-0_files/figure-html/logbreaks-1.png" width="700px" style="display: block; margin: auto;" /></p>
+
+<h2 id="acknowledgements">Acknowledgements</h2>
+
+<p>We’re grateful to the 24 people who contributed issues, code and comments:
+<a href="https://github.com/alexandreliborio">@alexandreliborio</a>, <a href="https://github.com/AndreaCirilloAC">@AndreaCirilloAC</a>, <a href="https://github.com/batpigandme">@batpigandme</a>, <a href="https://github.com/BenOnEarth">@BenOnEarth</a>, <a href="https://github.com/billdenney">@billdenney</a>, <a href="https://github.com/Bisaloo">@Bisaloo</a>, <a href="https://github.com/CesarSancho">@CesarSancho</a>, <a href="https://github.com/christianhomberg">@christianhomberg</a>, <a href="https://github.com/clauswilke">@clauswilke</a>, <a href="https://github.com/cwickham">@cwickham</a>,
+<a href="https://github.com/dpseidel">@dpseidel</a>, <a href="https://github.com/foo-bar-baz-qux">@foo-bar-baz-qux</a>, <a href="https://github.com/graciecorgi">@graciecorgi</a>, <a href="https://github.com/hadley">@hadley</a>, <a href="https://github.com/jimhester">@jimhester</a>, <a href="https://github.com/jnolis">@jnolis</a>, <a href="https://github.com/larmarange">@larmarange</a>, <a href="https://github.com/lepennec">@lepennec</a>, <a href="https://github.com/markvanderloo">@markvanderloo</a>, <a href="https://github.com/ptoche">@ptoche</a>, <a href="https://github.com/RobertMyles">@RobertMyles</a>, <a href="https://github.com/statist7">@statist7</a>, <a href="https://github.com/ThierryO">@ThierryO</a>, and <a href="https://github.com/zeehio">@zeehio</a>.</p>
+
+      </div>
+
+      
+
+
+      </div>
+
+      <div class="column25">
+        <div class="section hideOnMobile">
+          <div class="sectionTitle">Contents</div>
+          <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#formatter-changes">Formatter changes</a></li>
+<li><a href="#new-transformations">New transformations</a></li>
+<li><a href="#better-breaks">Better breaks</a></li>
+<li><a href="#acknowledgements">Acknowledgements</a></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+
+    </div>
+  </div>  
+</div> 
+
+        <div id="rStudioFooter" class="band">
+          <div class="bandContent">
+            <div id="copyright">
+              Markus Dumke, 2019</div>
+            <div id="logos">
+              <a href="https://github.com/markusdumke" class="footerLogo gitHub"></a>
+            </div>
+          </div>
+        </div>
+
+      </div>  
+    </div>  
+
+    
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-115082821-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+  </body>
+</html>
+

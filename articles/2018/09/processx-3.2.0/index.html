@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="og:image" content="https://www.tidyverse.org/images/tidyverse-default.png" >
+<meta name="generator" content="Hugo 0.52" />
+
+<title>processx 3.2.0 - markusdumke</title>
+<meta property="og:title" content="processx 3.2.0 - markusdumke">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tidyverse.org/articles/processx-3.2.0-sq.jpg" >
+<meta property="description" content="Run external processes with processx
+">
+<meta property="og:description" content="Run external processes with processx
+">
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png" />
+<link rel="manifest" href="/images/favicons/site.webmanifest" />
+<link rel="mask-icon" href="/images/favicons/safari-pinned-tab.svg" />
+<link rel="shortcut icon" href="/images/favicons/favicon.ico" />
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" href="/images/favicons/browserconfig.xml" >
+
+
+<script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/js/site.js"></script>
+
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.11.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+<link rel="stylesheet" href="/css/tidyverse-site.css" />
+<link rel="stylesheet" href="/css/tweaks.css" />
+<link rel="icon" href="/images/favicon.ico" />
+<link rel="alternate" type="application/atom+xml" title="Blog" href="/articles/index.xml" />
+
+  </head>
+  <body>
+    <div id="appTidyverseSite" class="shrinkHeader alwaysShrinkHeader">
+      <div id="main">
+        
+        <div id="rStudioHeader">
+          <div class="band">
+            <div class="innards bandContent">
+              <div>
+                <a class="productName" href="/">markusdumke</a>
+              </div>
+              <div id="menu">
+  <div id="menuToggler"></div>
+  <div id="menuItems" class="">
+    
+    
+    <a class="menuItem " href="/packages/">Packages</a>
+    
+    <a class="menuItem current" href="/articles/">Blog</a>
+    
+    <a class="menuItem " href="/about/">About</a>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </div>
+
+
+<div class="band padForHeader pushFooter">
+  <div class="bandContent">
+    <div class="full splitColumns withMobileMargins">
+      <div class="column75">
+
+      <h1 class="article-title">processx 3.2.0</h1>
+
+      
+      
+      <div class="article-header">
+        <div class="photo" style="background-image: url('../../../processx-3.2.0-wd.jpg');"></div>
+        <div class="photoCredit">Photo by <a href="https://unsplash.com/photos/PtgLGdMzi-Y">Adam Sherez</a></div>
+      </div>
+      
+
+      
+
+      <div class="article-content">
+      
+
+<h2 id="introduction">Introduction</h2>
+
+<p>We&rsquo;re delighted to announce that
+<a href="https://cran.r-project.org/package=processx">processx</a> in now on CRAN.
+processx makes it easy to run external processes from R. It&rsquo;s an extended
+version of <code>system()</code> and <code>system2()</code>, that gives you greater control,
+and more visibility into the running process.</p>
+
+<p>It&rsquo;s hard to make processx examples work across platforms because system
+utilities vary from OS to OS. To work around this problem, processx bundles
+a small program, <code>px</code>, which can perform some basic tasks, like printing
+to the standard output and error, and waiting for a given amount of time.</p>
+
+<pre><code class="language-r">px &lt;- processx:::get_tool(&quot;px&quot;)
+px
+#&gt; [1] &quot;/Users/gaborcsardi/r_pkgs/processx/bin//px&quot;
+</code></pre>
+
+<p>processx deals with two kinds of external processes: foreground and
+background. Foreground processes are synchronous, R waits until they
+finish, and collects the output and the exit code of the process.
+Background processes are asynchronous, processx does not wait for them
+to finish, they run concurrently and can communicate with the R process.</p>
+
+<h2 id="foreground-processes">Foreground processes</h2>
+
+<p><code>processx::run()</code> runs a foreground external process. It is somewhat
+similar to the <code>system2()</code> base R function. Its basic usage is:</p>
+
+<pre><code class="language-r">processx::run(command, args)
+</code></pre>
+
+<p><code>command</code> is a string (length 1 character vector), and <code>args</code> should be a
+character vector of arguments. <code>command</code> can be an absolute file name, a
+relative file name, or a command name. For the latter, the current <code>PATH</code>
+is used to find the command. For example these both work on Unix systems:</p>
+
+<pre><code class="language-r">run(&quot;/bin/ls&quot;)
+run(&quot;ls&quot;)
+</code></pre>
+
+<p>Here is the output of <code>px --help</code>:</p>
+
+<pre><code class="language-r">pxhelp &lt;- run(px, &quot;--help&quot;)
+cat(pxhelp$stderr)
+#&gt; Usage: px [command arg] [command arg] ...
+#&gt; 
+#&gt; Commands:
+#&gt;   sleep  &lt;seconds&gt;           -- sleep for a number os seconds
+#&gt;   out    &lt;string&gt;            -- print string to stdout
+#&gt;   err    &lt;string&gt;            -- print string to stderr
+#&gt;   outln  &lt;string&gt;            -- print string to stdout, add newline
+#&gt;   errln  &lt;string&gt;            -- print string to stderr, add newline
+#&gt;   cat    &lt;filename&gt;          -- print file to stdout
+#&gt;   return &lt;exitcode&gt;          -- return with exitcode
+#&gt;   write &lt;fd&gt; &lt;string&gt;        -- write to file descriptor
+#&gt;   echo &lt;fd1&gt; &lt;fd2&gt; &lt;nbytes&gt;  -- echo from fd to another fd
+#&gt;   getenv &lt;var&gt;               -- environment variable to stdout
+</code></pre>
+
+<h3 id="quoting">Quoting</h3>
+
+<p>processx does not use a shell to start up the external process, so special
+characters in <code>command</code> and <code>args</code> need <em>not</em> be shell quoted. This makes it
+much easier to support arbitrary file names (that may contain spaces or
+special characters) in calls to external programs.</p>
+
+<pre><code class="language-r">run(px, c(&quot;outln&quot;, &quot;arg -   with spaces&quot;, &quot;outln&quot;, &quot;'arg with quote'&quot;))
+#&gt; $status
+#&gt; [1] 0
+#&gt; 
+#&gt; $stdout
+#&gt; [1] &quot;arg -   with spaces\n'arg with quote'\n&quot;
+#&gt; 
+#&gt; $stderr
+#&gt; [1] &quot;&quot;
+#&gt; 
+#&gt; $timeout
+#&gt; [1] FALSE
+</code></pre>
+
+<h3 id="interruption">Interruption</h3>
+
+<p>Unlike <code>system()</code> and <code>system2()</code>, <code>processx::run()</code> is always
+interruptible, you can use the usual interruption key, e.g. ESC in RStudio,
+or CTRL+C in a terminal. On interruption, the external process is
+terminated.</p>
+
+<h3 id="spinner">Spinner</h3>
+
+<p><code>run()</code> can show a friendly spinner while the external process is running.
+If the process takes longer then a few second, it is a good idea to use it.
+The spinner is automatically hidden if R is non-interactive:</p>
+
+<pre><code class="language-r">run(px, c(&quot;sleep&quot;, &quot;5&quot;), spinner = TRUE)
+</code></pre>
+
+<h3 id="time-limit">Time limit</h3>
+
+<p>You can specify a time limit in <code>run()</code>, in seconds, or as a <code>difftime</code>
+object:</p>
+
+<pre><code class="language-r">run(px, c(&quot;sleep&quot;, &quot;5&quot;), timeout = 1)
+#&gt; Error in run(px, c(&quot;sleep&quot;, &quot;5&quot;), timeout = 1): System command timeout
+</code></pre>
+
+<p><code>run()</code> throws an error of class <code>system_command_timeout_error</code>, so you
+can easily catch timeouts using <code>tryCatch()</code>, if you wish so. By default
+<code>run()</code> also throws an error if the system command fails, as indicated by
+its exit status.</p>
+
+<pre><code class="language-r">run(px, c(&quot;return&quot;, &quot;10&quot;))
+#&gt; Error in run(px, c(&quot;return&quot;, &quot;10&quot;)): System command error
+</code></pre>
+
+<p>The <code>error_on_status</code> argument can be set to <code>FALSE</code> to avoid errors
+for non-zero exit statuses. This can be useful if you anticipate a failure
+and want to handle it without throwing an R error, or if a non-zero exit
+status does not indicate an error for the given program.</p>
+
+<h3 id="standard-output-and-error">Standard output and error</h3>
+
+<p>By default, <code>run()</code> collects all standard output and error of the process
+and retuns them in two strings. If desired, it can also echo them to
+the screen while the external process is running. (They are still collected
+and returned, so you can still compute on them.)</p>
+
+<pre><code class="language-r">outp &lt;- run(&quot;ls&quot;, &quot;..&quot;, echo = TRUE)
+#&gt; _redirects
+#&gt; articles
+#&gt; contribute.md
+#&gt; help-is-on-the-way.jpg
+#&gt; help.md
+#&gt; learn.md
+#&gt; lifecycle.md
+#&gt; packages.md
+#&gt; reprex-addin.png
+#&gt; reprex-addins-menu.png
+#&gt; rstudio-logo.svg
+#&gt; test-ggplot2-1.png
+#&gt; test.md
+</code></pre>
+
+<h3 id="setting-environment-variables">Setting environment variables</h3>
+
+<p>You can set environment variables for the external process via the <code>env</code>
+argument. Usually you want to add these variables to those already set in
+the current process, otherwise the external process might fail if some
+essential environment variables (like <code>PATH</code>) are not set:</p>
+
+<pre><code class="language-r">run(px, c(&quot;getenv&quot;, &quot;FOO&quot;), env = c(Sys.getenv(), FOO = &quot;bar&quot;))
+#&gt; $status
+#&gt; [1] 0
+#&gt; 
+#&gt; $stdout
+#&gt; [1] &quot;bar\n&quot;
+#&gt; 
+#&gt; $stderr
+#&gt; [1] &quot;&quot;
+#&gt; 
+#&gt; $timeout
+#&gt; [1] FALSE
+</code></pre>
+
+<h2 id="advanced-usage-background-processes">Advanced usage: background processes</h2>
+
+<p>processx really shines when it comes to controlling background processes.
+To start a backgound process, you create an R6 object of class <code>process</code>.
+The arguments of <code>process$new()</code> mostly correspond to the arguments of
+<code>run()</code>.</p>
+
+<pre><code class="language-r">proc &lt;- process$new(px, c(&quot;sleep&quot;, &quot;10&quot;))
+proc
+#&gt; PROCESS 'px', running, pid 61100.
+</code></pre>
+
+<p><code>process</code> objects have methods to query process information and to
+manipulate the subprocess. See <code>?process</code> for a complete list of methods.</p>
+
+<pre><code class="language-r">proc$get_name()
+#&gt; [1] &quot;px&quot;
+proc$get_cmdline()
+#&gt; [1] &quot;/Users/gaborcsardi/r_pkgs/processx/bin//px&quot;
+#&gt; [2] &quot;sleep&quot;                                     
+#&gt; [3] &quot;10&quot;
+proc$get_exe()
+#&gt; [1] &quot;/Users/gaborcsardi/r_pkgs/processx/bin/px&quot;
+proc$is_alive()
+#&gt; [1] TRUE
+proc$suspend()
+#&gt; NULL
+proc$get_status()
+#&gt; [1] &quot;stopped&quot;
+proc$resume()
+#&gt; NULL
+proc$get_status()
+#&gt; [1] &quot;running&quot;
+proc$kill()
+#&gt; [1] TRUE
+proc$is_alive()
+#&gt; [1] FALSE
+proc$get_exit_status()
+#&gt; [1] -9
+</code></pre>
+
+<h3 id="output-and-polling">Output and polling</h3>
+
+<p>The standard output and standard error of a background process are ignored
+by default. To write them to files, set the <code>stdout</code> and/or <code>stderr</code>
+arguments to the paths of the files. Alternatively, processx can create
+connections for standard output and error, and R can read from these
+connections or poll them. Polling a set of connections or processes means
+that R waits until data is available on any of the connections, or a
+timeout expires. This is useful if the R process is waiting on one or more
+processes.</p>
+
+<pre><code class="language-r">proc &lt;- process$new(px, c(&quot;sleep&quot;, &quot;1&quot;, &quot;outln&quot;, &quot;foo&quot;, &quot;sleep&quot;, &quot;1&quot;,
+     &quot;errln&quot;, &quot;bar&quot;, &quot;sleep&quot;, &quot;1&quot;), stdout = &quot;|&quot;, &quot;stderr&quot; = &quot;|&quot;)
+proc$poll_io(-1)
+#&gt;   output    error  process 
+#&gt;  &quot;ready&quot; &quot;silent&quot; &quot;nopipe&quot;
+proc$read_output_lines()
+#&gt; [1] &quot;foo&quot;
+proc$poll_io(-1)
+#&gt;   output    error  process 
+#&gt; &quot;silent&quot;  &quot;ready&quot; &quot;nopipe&quot;
+proc$read_error_lines()
+#&gt; [1] &quot;bar&quot;
+proc$poll_io(-1)
+#&gt;   output    error  process 
+#&gt; &quot;silent&quot;  &quot;ready&quot; &quot;nopipe&quot;
+proc$is_alive()
+#&gt; [1] FALSE
+</code></pre>
+
+<p><code>$poll_io()</code> also returns when the process terminates.</p>
+
+<p>To poll multiple processes, the non-member <code>poll()</code> function can be used,
+this takes a list of processes:</p>
+
+<pre><code class="language-r">proc1 &lt;- process$new(px, c(&quot;sleep&quot;, &quot;0.5&quot;, &quot;outln&quot;, &quot;foo1&quot;, &quot;sleep&quot;, &quot;1&quot;),
+     stdout = &quot;|&quot;, &quot;stderr&quot; = &quot;|&quot;)
+proc2 &lt;- process$new(px, c(&quot;sleep&quot;, &quot;1&quot;, &quot;outln&quot;, &quot;foo2&quot;, &quot;sleep&quot;, &quot;1&quot;),
+     stdout = &quot;|&quot;, &quot;stderr&quot; = &quot;|&quot;)
+poll(list(proc1, proc2), -1)
+#&gt; [[1]]
+#&gt;   output    error  process 
+#&gt;  &quot;ready&quot; &quot;silent&quot; &quot;nopipe&quot; 
+#&gt; 
+#&gt; [[2]]
+#&gt;   output    error  process 
+#&gt; &quot;silent&quot; &quot;silent&quot; &quot;nopipe&quot;
+proc1$read_output_lines()
+#&gt; [1] &quot;foo1&quot;
+poll(list(proc1, proc2), -1)
+#&gt; [[1]]
+#&gt;   output    error  process 
+#&gt; &quot;silent&quot; &quot;silent&quot; &quot;nopipe&quot; 
+#&gt; 
+#&gt; [[2]]
+#&gt;   output    error  process 
+#&gt;  &quot;ready&quot; &quot;silent&quot; &quot;nopipe&quot;
+proc2$read_output_lines()
+#&gt; [1] &quot;foo2&quot;
+</code></pre>
+
+<h3 id="process-tree-cleanup">Process tree cleanup</h3>
+
+<p>In addition to terminating the subprocess, processx supports terminating
+all child processes that were started by the subprocess, and the child
+processes of those, etc.</p>
+
+<p>To request process tree cleanup, set the <code>cleanup_tree</code> argument of <code>run()</code>
+or the <code>cleanup</code> argument of <code>process$new()</code> to  <code>TRUE</code>. (It is the
+default for <code>process$new()</code>.) To clean up manually, use the <code>$kill_tree()</code>
+method.</p>
+
+<h3 id="use-case-wait-for-an-external-process-to-be-ready">Use case: wait for an external process to be ready</h3>
+
+<p>When starting up an external process, sometimes you need to wait until
+the process is ready to receive input. E.g. PhantomJS is a headless
+browser, used for testing web applications. The headless browser is
+queried and controlled via an HTTP socket. PhantomJS has some startup time,
+and to make sure that it is ready for input, you need need to wait until
+it logs an INFO line to its standard output:</p>
+
+<pre><code>❯ phantomjs  -w
+[INFO  - 2018-08-21T19:57:53.957Z] GhostDriver - Main - running on port 8910
+^C
+</code></pre>
+
+<p>So processx must capture the standard output and wait until the message
+is printed. If the message is not printed within a timeout we throw an
+error. On success the function returns the PhantomJS <code>process</code> object:</p>
+
+<pre><code class="language-r">start_program &lt;- function(command, args, message, timeout = 5, ...) {
+  timeout &lt;- as.difftime(timeout, units = &quot;secs&quot;)
+  deadline &lt;- Sys.time() + timeout
+  px &lt;- process$new(command, args, stdout = &quot;|&quot;, ...)
+  while (px$is_alive() &amp;&amp; (now &lt;- Sys.time()) &lt; deadline) {
+    poll_time &lt;- as.double(deadline - now, units = &quot;secs&quot;) * 1000
+    px$poll_io(as.integer(poll_time))
+    lines &lt;- px$read_output_lines()
+    if (any(grepl(message, lines))) return(px)
+  }
+
+  px$kill()
+  stop(&quot;Cannot start &quot;, command)
+}
+</code></pre>
+
+<p>Use <code>start_program</code> like this:</p>
+
+<pre><code class="language-r">start_program(&quot;phantomjs&quot;, &quot;-w&quot;, &quot;running on port&quot;)
+</code></pre>
+
+<p>Some comments about <code>start_program()</code>:</p>
+
+<ul>
+<li>It waits for <code>message</code> to show up in the standard output of the process.</li>
+<li>If this does not happen within 5 seconds, it throws an error.</li>
+<li>On success, it returns the process object.</li>
+<li>The returned process object still has a connection to the standard output
+of the process. This needs to be read out regularly, otherwise its buffer
+fills up, and the subprocess stops, until the buffer it freed.
+Alternatively, one can close it with <code>close(px$get_output_connection())</code>.</li>
+<li>If an error happens, the subprocess is terminated when the process object,
+referred to by <code>px</code> within the function, is garbage collected.</li>
+</ul>
+
+<h2 id="related-tools">Related tools</h2>
+
+<h3 id="the-ps-package">The ps package</h3>
+
+<p>The <a href="https://ps.r-lib.org">ps</a> package deals with system processes in
+general. processx and ps methods overlap, in fact processx uses ps to
+implement some of its methods. It is also possible to create a <code>ps_handle</code>
+object from a processx object, with the <code>$as_ps_handle()</code> method.
+This can then be used with the ps functions directly:</p>
+
+<pre><code class="language-r">proc &lt;- process$new(px, c(&quot;sleep&quot;, &quot;3&quot;))
+ps &lt;- proc$as_ps_handle()
+ps::ps_memory_info(ps)
+#&gt;        rss        vms    pfaults    pageins 
+#&gt;     663552 2491170816        323          0
+</code></pre>
+
+<p>The ps package includes a testthat reporter that can be used to check
+that testthat test cases clean up all their child processes and close
+their connections and open files. See <code>?ps::CleanupReporter</code> for details.</p>
+
+<p>Here is a simple example on how to use it. In the <code>testthat.R</code> file of your
+package, update the <code>test_check()</code> call to use <code>CleanupReporter</code>. Since
+ps is not supported on all platforms (only Windows, macOS and Linux
+currently), we also need to check for ps support:</p>
+
+<pre><code>if (ps::ps_is_supported()) {
+  reporter &lt;- ps::CleanupReporter(testthat::SummaryReporter)$new()
+} else {
+  ## ps does not support this platform
+  reporter &lt;- &quot;progress&quot;
+}
+
+test_check(&quot;&lt;package-name&gt;&quot;, reporter = reporter)
+</code></pre>
+
+<p><code>CleanupReporter</code> will check for leftover child processes, R connections
+and open files at the end of each <code>test_that()</code> block. If a check fails,
+it generates a regular testthat test failure.</p>
+
+<h3 id="the-callr-package">The callr package</h3>
+
+<p>The callr package uses processx to start another R process, and run R
+code in it. It can start R processes synchonously or asynchronously,
+and the R processes can be either state-less or stateful. See <code>?callr::r</code>,
+<code>?callr::r_process</code> and <code>?callr::r_session</code> for details.</p>
+
+<h2 id="links">Links:</h2>
+
+<ul>
+<li><a href="https://github.com/r-lib/processx">processx on GitHub</a></li>
+<li><a href="https://processx.r-lib.org">processx documentation</a></li>
+<li><a href="https://cran.r-project.org/package=ps">ps on CRAN</a></li>
+<li><a href="https://cran.r-project.org/package=callr">callr on CRAN</a></li>
+</ul>
+
+<h2 id="acknowledgements">Acknowledgements</h2>
+
+<p>We’re grateful to the 8 people who contributed issues, code and comments
+since the last processx release:</p>
+
+<p><a href="https://github.com/breichholf">&#xFF20;breichholf</a>, <a href="https://github.com/dchiu911">&#xFF20;dchiu911</a>, <a href="https://github.com/gaborcsardi">&#xFF20;gaborcsardi</a>, <a href="https://github.com/hadley">&#xFF20;hadley</a>, <a href="https://github.com/joelnitta">&#xFF20;joelnitta</a>, <a href="https://github.com/matthijsvanderloos">&#xFF20;matthijsvanderloos</a>, <a href="https://github.com/maxheld83">&#xFF20;maxheld83</a>, and <a href="https://github.com/wlandau">&#xFF20;wlandau</a></p>
+
+      </div>
+
+      
+
+
+      </div>
+
+      <div class="column25">
+        <div class="section hideOnMobile">
+          <div class="sectionTitle">Contents</div>
+          <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#foreground-processes">Foreground processes</a>
+<ul>
+<li><a href="#quoting">Quoting</a></li>
+<li><a href="#interruption">Interruption</a></li>
+<li><a href="#spinner">Spinner</a></li>
+<li><a href="#time-limit">Time limit</a></li>
+<li><a href="#standard-output-and-error">Standard output and error</a></li>
+<li><a href="#setting-environment-variables">Setting environment variables</a></li>
+</ul></li>
+<li><a href="#advanced-usage-background-processes">Advanced usage: background processes</a>
+<ul>
+<li><a href="#output-and-polling">Output and polling</a></li>
+<li><a href="#process-tree-cleanup">Process tree cleanup</a></li>
+<li><a href="#use-case-wait-for-an-external-process-to-be-ready">Use case: wait for an external process to be ready</a></li>
+</ul></li>
+<li><a href="#related-tools">Related tools</a>
+<ul>
+<li><a href="#the-ps-package">The ps package</a></li>
+<li><a href="#the-callr-package">The callr package</a></li>
+</ul></li>
+<li><a href="#links">Links:</a></li>
+<li><a href="#acknowledgements">Acknowledgements</a></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+
+    </div>
+  </div>  
+</div> 
+
+        <div id="rStudioFooter" class="band">
+          <div class="bandContent">
+            <div id="copyright">
+              Markus Dumke, 2019</div>
+            <div id="logos">
+              <a href="https://github.com/markusdumke" class="footerLogo gitHub"></a>
+            </div>
+          </div>
+        </div>
+
+      </div>  
+    </div>  
+
+    
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-115082821-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+  </body>
+</html>
+

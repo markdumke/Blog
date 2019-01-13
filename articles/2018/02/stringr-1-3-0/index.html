@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="og:image" content="https://www.tidyverse.org/images/tidyverse-default.png" >
+<meta name="generator" content="Hugo 0.52" />
+
+<title>stringr 1.3.0 - markusdumke</title>
+<meta property="og:title" content="stringr 1.3.0 - markusdumke">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tidyverse.org/articles/stringr-1-3-0-sq.jpg" >
+<meta property="description" content="stringr 1.3.0 is now on CRAN.
+">
+<meta property="og:description" content="stringr 1.3.0 is now on CRAN.
+">
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png" />
+<link rel="manifest" href="/images/favicons/site.webmanifest" />
+<link rel="mask-icon" href="/images/favicons/safari-pinned-tab.svg" />
+<link rel="shortcut icon" href="/images/favicons/favicon.ico" />
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" href="/images/favicons/browserconfig.xml" >
+
+
+<script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/js/site.js"></script>
+
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.11.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+<link rel="stylesheet" href="/css/tidyverse-site.css" />
+<link rel="stylesheet" href="/css/tweaks.css" />
+<link rel="icon" href="/images/favicon.ico" />
+<link rel="alternate" type="application/atom+xml" title="Blog" href="/articles/index.xml" />
+
+  </head>
+  <body>
+    <div id="appTidyverseSite" class="shrinkHeader alwaysShrinkHeader">
+      <div id="main">
+        
+        <div id="rStudioHeader">
+          <div class="band">
+            <div class="innards bandContent">
+              <div>
+                <a class="productName" href="/">markusdumke</a>
+              </div>
+              <div id="menu">
+  <div id="menuToggler"></div>
+  <div id="menuItems" class="">
+    
+    
+    <a class="menuItem " href="/packages/">Packages</a>
+    
+    <a class="menuItem current" href="/articles/">Blog</a>
+    
+    <a class="menuItem " href="/about/">About</a>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </div>
+
+
+<div class="band padForHeader pushFooter">
+  <div class="bandContent">
+    <div class="full splitColumns withMobileMargins">
+      <div class="column75">
+
+      <h1 class="article-title">stringr 1.3.0</h1>
+
+      
+      
+      <div class="article-header">
+        <div class="photo" style="background-image: url('../../../stringr-1-3-0-wd.jpg');"></div>
+        <div class="photoCredit">Photo by <a href="https://unsplash.com/photos/dLTpk6N31Fc">Igor Ovsyannykov</a></div>
+      </div>
+      
+
+      
+
+      <div class="article-content">
+      
+
+
+<p>We are happy to announce that <a href="http://stringr.tidyverse.org/">stringr</a> 1.3.0
+is now on CRAN. stringr provides a cohesive set of functions designed to make
+working with strings as easy as possible. For a complete list of changes, please
+see the <a href="https://github.com/tidyverse/stringr/releases/tag/v1.3.0">release notes</a>.</p>
+<div id="whats-new" class="section level2">
+<h2>What’s new?</h2>
+<ul>
+<li><p>Two new wrappers from the <a href="http://glue.tidyverse.org/">glue</a>
+package: <code>str_glue()</code> and <code>str_glue_data()</code>. If you haven’t heard of glue, you’re in for a treat! Glue lets you easily interpolate data into strings.</p>
+<pre class="r"><code>name &lt;- &quot;Chet Manley&quot;
+str_glue(&quot;My name is {name}.&quot;)
+#&gt; My name is Chet Manley.</code></pre>
+<p>Since stringr is loaded with tidyverse, this means that you can now access glue’s functionality without loading another package.</p></li>
+<li><p><code>str_flatten()</code>, a wrapper for the <code>stri_flatten()</code> function, which
+flattens a character vector into a single string. This is equivalent to <code>paste(x, collapse = &quot;-&quot;)</code> but it is a bit more explicit in your code – <code>str_flatten()</code> always returns a single string.</p></li>
+<li><p><code>str_remove()</code> and <code>str_remove_all()</code>, which wrap <code>str_replace()</code> and <code>str_replace_all()</code> for removing patterns from strings.</p></li>
+<li><p><code>str_squish()</code>, which removes whitespace from the left and right sides of strings, and converts multiple spaces or space-like characters from the middle of strings into a single space.</p>
+<pre class="r"><code>str_squish(&quot;\n\nString \t\nwith all \tthis     \rspace   in it.\n\n&quot;)
+#&gt; [1] &quot;String with all this space in it.&quot;</code></pre></li>
+</ul>
+</div>
+<div id="api-changes" class="section level2">
+<h2>API changes</h2>
+<p>The long deprecated <code>str_join()</code>, <code>ignore.case()</code>, and <code>perl()</code> functions
+have been removed. You may see <code>Error : object ‘ignore.case’ is not exported by 'namespace:stringr'</code> during package build.</p>
+</div>
+<div id="contributors" class="section level2">
+<h2>Contributors</h2>
+<p>Thanks to all of the community members who helped with this release by contributing code and filing issues: <a href="https://github.com/alanault">@alanault</a>, <a href="https://github.com/AlunHewinson">@AlunHewinson</a>, <a href="https://github.com/amhrasmussen">@amhrasmussen</a>, <a href="https://github.com/andreypanchenko">@andreypanchenko</a>, <a href="https://github.com/austin3dickey">@austin3dickey</a>, <a href="https://github.com/bachlaw">@bachlaw</a>, <a href="https://github.com/bpasanek">@bpasanek</a>, <a href="https://github.com/cderv">@cderv</a>, <a href="https://github.com/ClaytonJY">@ClaytonJY</a>, <a href="https://github.com/cwickham">@cwickham</a>, <a href="https://github.com/danielsjf">@danielsjf</a>, <a href="https://github.com/dchiu911">@dchiu911</a>, <a href="https://github.com/dhicks">@dhicks</a>, <a href="https://github.com/dhodge">@dhodge</a>, <a href="https://github.com/djrobust">@djrobust</a>, <a href="https://github.com/dracodoc">@dracodoc</a>, <a href="https://github.com/duarteguilherme">@duarteguilherme</a>, <a href="https://github.com/etienne-s">@etienne-s</a>, <a href="https://github.com/ewallace">@ewallace</a>, <a href="https://github.com/florisvdh">@florisvdh</a>, <a href="https://github.com/frootor">@frootor</a>, <a href="https://github.com/geotheory">@geotheory</a>, <a href="https://github.com/gonulate">@gonulate</a>, <a href="https://github.com/guiastrennec">@guiastrennec</a>, <a href="https://github.com/hongshaoyang">@hongshaoyang</a>, <a href="https://github.com/IndrajeetPatil">@IndrajeetPatil</a>, <a href="https://github.com/IngaPa">@IngaPa</a>, <a href="https://github.com/jameshowison">@jameshowison</a>, <a href="https://github.com/jennybc">@jennybc</a>, <a href="https://github.com/jerryfuyu0104">@jerryfuyu0104</a>, <a href="https://github.com/jimvine">@jimvine</a>, <a href="https://github.com/jonmcalder">@jonmcalder</a>, <a href="https://github.com/jonocarroll">@jonocarroll</a>, <a href="https://github.com/landroni">@landroni</a>, <a href="https://github.com/lozalojo">@lozalojo</a>, <a href="https://github.com/m0nhawk">@m0nhawk</a>, <a href="https://github.com/mgirlich">@mgirlich</a>, <a href="https://github.com/mplourde">@mplourde</a>, <a href="https://github.com/msgoussi">@msgoussi</a>, <a href="https://github.com/nokome">@nokome</a>, <a href="https://github.com/novakowd">@novakowd</a>, <a href="https://github.com/nthun">@nthun</a>, <a href="https://github.com/pgensler">@pgensler</a>, <a href="https://github.com/richierocks">@richierocks</a>, <a href="https://github.com/shapiromatron">@shapiromatron</a>, <a href="https://github.com/Shians">@Shians</a>, <a href="https://github.com/sibojan">@sibojan</a>, <a href="https://github.com/sieste">@sieste</a>, <a href="https://github.com/simonthelwall">@simonthelwall</a>, <a href="https://github.com/skanskan">@skanskan</a>, <a href="https://github.com/stephlocke">@stephlocke</a>, <a href="https://github.com/swvanderlaan">@swvanderlaan</a>, <a href="https://github.com/thorvall">@thorvall</a>, <a href="https://github.com/tjmahr">@tjmahr</a>, <a href="https://github.com/tomwwagstaff">@tomwwagstaff</a>, <a href="https://github.com/yeedle">@yeedle</a>, <a href="https://github.com/yutannihilation">@yutannihilation</a>, <a href="https://github.com/zapashcanon">@zapashcanon</a>, and <a href="https://github.com/zhaoy">@zhaoy</a>.</p>
+</div>
+
+      </div>
+
+      
+
+
+      </div>
+
+      <div class="column25">
+        <div class="section hideOnMobile">
+          <div class="sectionTitle">Contents</div>
+          
+        </div>
+
+    </div>
+  </div>  
+</div> 
+
+        <div id="rStudioFooter" class="band">
+          <div class="bandContent">
+            <div id="copyright">
+              Markus Dumke, 2019</div>
+            <div id="logos">
+              <a href="https://github.com/markusdumke" class="footerLogo gitHub"></a>
+            </div>
+          </div>
+        </div>
+
+      </div>  
+    </div>  
+
+    
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-115082821-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+  </body>
+</html>
+

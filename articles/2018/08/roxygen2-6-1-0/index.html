@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="og:image" content="https://www.tidyverse.org/images/tidyverse-default.png" >
+<meta name="generator" content="Hugo 0.52" />
+
+<title>roxygen2 6.1.0 - markusdumke</title>
+<meta property="og:title" content="roxygen2 6.1.0 - markusdumke">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tidyverse.org/articles/roxygen2-6-1-0-sq.jpg" >
+<meta property="description" content="roxygen2 6.1.0 is now on CRAN!
+">
+<meta property="og:description" content="roxygen2 6.1.0 is now on CRAN!
+">
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png" />
+<link rel="manifest" href="/images/favicons/site.webmanifest" />
+<link rel="mask-icon" href="/images/favicons/safari-pinned-tab.svg" />
+<link rel="shortcut icon" href="/images/favicons/favicon.ico" />
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" href="/images/favicons/browserconfig.xml" >
+
+
+<script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/js/site.js"></script>
+
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.11.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+<link rel="stylesheet" href="/css/tidyverse-site.css" />
+<link rel="stylesheet" href="/css/tweaks.css" />
+<link rel="icon" href="/images/favicon.ico" />
+<link rel="alternate" type="application/atom+xml" title="Blog" href="/articles/index.xml" />
+
+  </head>
+  <body>
+    <div id="appTidyverseSite" class="shrinkHeader alwaysShrinkHeader">
+      <div id="main">
+        
+        <div id="rStudioHeader">
+          <div class="band">
+            <div class="innards bandContent">
+              <div>
+                <a class="productName" href="/">markusdumke</a>
+              </div>
+              <div id="menu">
+  <div id="menuToggler"></div>
+  <div id="menuItems" class="">
+    
+    
+    <a class="menuItem " href="/packages/">Packages</a>
+    
+    <a class="menuItem current" href="/articles/">Blog</a>
+    
+    <a class="menuItem " href="/about/">About</a>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </div>
+
+
+<div class="band padForHeader pushFooter">
+  <div class="bandContent">
+    <div class="full splitColumns withMobileMargins">
+      <div class="column75">
+
+      <h1 class="article-title">roxygen2 6.1.0</h1>
+
+      
+      
+      <div class="article-header">
+        <div class="photo" style="background-image: url('../../../roxygen2-6-1-0-wd.jpg');"></div>
+        <div class="photoCredit">Photo by <a href="https://unsplash.com/photos/3KEJMfoHoMY">Graeme Nicholl</a></div>
+      </div>
+      
+
+      
+
+      <div class="article-content">
+      
+
+<p>We&rsquo;re delighted to announce that <a href="https://CRAN.R-project.org/package=roxygen2">roxygen2</a>
+6.1.0 is now on CRAN. The goal of roxygen is to make documenting your code as
+easy as possible. It allows you to describe your functions in comments next to
+their definitions, and processes your source code and comments to produce <code>.Rd</code>
+files in the <code>man/</code> directory, as well as. roxygen will also create a
+<code>NAMESPACE</code> for you, and will manage the <code>Collate</code> field in <code>DESCRIPTION</code>.</p>
+
+<p>This release includes several updates to markdown parsing, as well as some new
+features we highlight below. For a full list of updates and changes, please
+see the <a href="https://github.com/klutometis/roxygen/blob/master/NEWS.md#roxygen2-610">release notes</a>.</p>
+
+<h2 id="new-features">New features</h2>
+
+<p>The <code>NAMESPACE</code> roclet now works in two passes - it first generates the
+<code>NAMESPACE</code> containing only import directives because this can be generated
+without evaluating the code in the package. This alleviates a problem where it
+was previously possible to get into a state that you could only get out of by
+carefully editing the <code>NAMESPACE</code> by hand.</p>
+
+<p><code>roxygenise()</code> now uses <code>pkgload::load_all()</code> instead of a homegrown solution
+to simulate package loading. This is one of the benefits of the
+<a href="http://devtools.r-lib.org/#diaspora">conscious uncoupling of devtools</a>. The
+simulated package loading is needed because roxygen2 uses run-time information
+to generate the documentation. This should reduce S4-related problems, and
+ensure that <code>devtools::document()</code> and <code>roxygenise()</code> always have the same
+behaviour.</p>
+
+<p><code>@evalRd</code> <code>foo()</code> evaluates <code>foo()</code> defined in the package namespace and
+inserts the results into the current block. The code should return a character
+vector with one entry for each line (and they should not start with <code>#'</code>). This
+provides a flexible way to extract out duplicated documentation. For example:</p>
+
+<pre><code class="language-r">today &lt;- function() {
+  paste0(&quot;Today is \\strong{&quot;, format(Sys.Date(), &quot;%A&quot;), &quot;}&quot;)
+}
+
+#' @evalRd today()
+NULL
+</code></pre>
+
+<p><code>today()</code> will be executed every time that you run roxygen2. There are two small
+limitations to the current implementation: the generated roxygen will not affect
+the <code>@md/@noMd</code> status, and <code>@evalRd</code> does not work inside templates.</p>
+
+<p><code>@evalNamespace</code> does for <code>NAMESPACE</code> what <code>@evalRd</code> does for <code>Rd</code> files: you
+give it R code that produces a literal entry in <code>NAMESPACE</code> when run. This
+should make it easier to export functions that are generated by other
+functions in your package.</p>
+
+<h2 id="improvements-to-markdown-parsing">Improvements to markdown parsing</h2>
+
+<p>Starting from version 6.0.0, roxygen supports markdown markup within most
+roxygen tags (learn more <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/markdown.html">here</a>). You can switch to markdown documentation with
+<a href="http://usethis.r-lib.org/reference/use_roxygen_md.html"><code>usethis::use_roxygen_md()</code></a>,
+which uses the <a href="https://github.com/r-lib/roxygen2md">roxygen2md</a> package to
+convert Rd expressions to markdown.</p>
+
+<p>In this version, we&rsquo;ve made a number of bug fixes to markdown translation:</p>
+
+<ul>
+<li><p>Whitespace between words in link text is now preserved as single space for
+links of the form <code>[text][fcn]</code> and <code>[text](URL)</code>.</p></li>
+
+<li><p>Code in link text is now properly rendered as code.</p></li>
+
+<li><p>The parsing of markdown links has been modified to reduce false
+positives. If you still get a false positive, you can add <code>\\</code> in front of the
+<code>[</code> to avoid its being converted to a link.</p></li>
+
+<li><p>Markdown features that are <em>not</em> supported should now generate a warning
+identifying them as such.</p></li>
+</ul>
+
+<h2 id="acknowledgements">Acknowledgements</h2>
+
+<p>Thank you to the 114 people who have contributed to this release: <a href="https://github.com/agwells">&#xFF20;agwells</a>,
+<a href="https://github.com/alexpghayes">&#xFF20;alexpghayes</a>, <a href="https://github.com/apomatix">&#xFF20;apomatix</a>, <a href="https://github.com/Ax3man">&#xFF20;Ax3man</a>, <a href="https://github.com/BarkleyBG">&#xFF20;BarkleyBG</a>, <a href="https://github.com/BillWeld">&#xFF20;BillWeld</a>, <a href="https://github.com/brodieG">&#xFF20;brodieG</a>, <a href="https://github.com/brry">&#xFF20;brry</a>, <a href="https://github.com/bwiernik">&#xFF20;bwiernik</a>, <a href="https://github.com/cfhammill">&#xFF20;cfhammill</a>, <a href="https://github.com/coatless">&#xFF20;coatless</a>, <a href="https://github.com/coldfir3">&#xFF20;coldfir3</a>, <a href="https://github.com/ColinFay">&#xFF20;ColinFay</a>, <a href="https://github.com/ctbrown">&#xFF20;ctbrown</a>, <a href="https://github.com/danielsjf">&#xFF20;danielsjf</a>, <a href="https://github.com/dankelley">&#xFF20;dankelley</a>, <a href="https://github.com/dewittpe">&#xFF20;dewittpe</a>, <a href="https://github.com/dongzhuoer">&#xFF20;dongzhuoer</a>, <a href="https://github.com/dpritchLibre">&#xFF20;dpritchLibre</a>, <a href="https://github.com/ebridge2">&#xFF20;ebridge2</a>, <a href="https://github.com/egnha">&#xFF20;egnha</a>, <a href="https://github.com/evanbiederstedt">&#xFF20;evanbiederstedt</a>, <a href="https://github.com/fangly">&#xFF20;fangly</a>, <a href="https://github.com/FelixErnst">&#xFF20;FelixErnst</a>, <a href="https://github.com/flyeye">&#xFF20;flyeye</a>, <a href="https://github.com/flying-sheep">&#xFF20;flying-sheep</a>, <a href="https://github.com/graemeleehickey">&#xFF20;graemeleehickey</a>, <a href="https://github.com/grst">&#xFF20;grst</a>, <a href="https://github.com/gvegayon">&#xFF20;gvegayon</a>, <a href="https://github.com/hadley">&#xFF20;hadley</a>, <a href="https://github.com/HenrikBengtsson">&#xFF20;HenrikBengtsson</a>, <a href="https://github.com/hughjonesd">&#xFF20;hughjonesd</a>, <a href="https://github.com/ijlyttle">&#xFF20;ijlyttle</a>, <a href="https://github.com/inkrement">&#xFF20;inkrement</a>, <a href="https://github.com/jackwasey">&#xFF20;jackwasey</a>, <a href="https://github.com/Jakob2014uafmx">&#xFF20;Jakob2014uafmx</a>, <a href="https://github.com/jcrodriguez1989">&#xFF20;jcrodriguez1989</a>, <a href="https://github.com/jeis2497052">&#xFF20;jeis2497052</a>, <a href="https://github.com/jennybc">&#xFF20;jennybc</a>, <a href="https://github.com/jimhester">&#xFF20;jimhester</a>, <a href="https://github.com/jkl789">&#xFF20;jkl789</a>, <a href="https://github.com/joethorley">&#xFF20;joethorley</a>, <a href="https://github.com/JoFAM">&#xFF20;JoFAM</a>, <a href="https://github.com/JohnMount">&#xFF20;JohnMount</a>, <a href="https://github.com/jonlehrer">&#xFF20;jonlehrer</a>, <a href="https://github.com/JoshOBrien">&#xFF20;JoshOBrien</a>, <a href="https://github.com/jpfrench81">&#xFF20;jpfrench81</a>, <a href="https://github.com/jpritikin">&#xFF20;jpritikin</a>, <a href="https://github.com/jrosen48">&#xFF20;jrosen48</a>, <a href="https://github.com/karawoo">&#xFF20;karawoo</a>, <a href="https://github.com/kbenoit">&#xFF20;kbenoit</a>, <a href="https://github.com/kevinushey">&#xFF20;kevinushey</a>, <a href="https://github.com/klmr">&#xFF20;klmr</a>, <a href="https://github.com/krivit">&#xFF20;krivit</a>, <a href="https://github.com/krlmlr">&#xFF20;krlmlr</a>, <a href="https://github.com/leifeld">&#xFF20;leifeld</a>, <a href="https://github.com/levisc8">&#xFF20;levisc8</a>, <a href="https://github.com/lindbrook">&#xFF20;lindbrook</a>, <a href="https://github.com/lionel-">&#xFF20;lionel-</a>, <a href="https://github.com/lorenzwalthert">&#xFF20;lorenzwalthert</a>, <a href="https://github.com/Lucaweihs">&#xFF20;Lucaweihs</a>, <a href="https://github.com/maelle">&#xFF20;maelle</a>, <a href="https://github.com/MansMeg">&#xFF20;MansMeg</a>, <a href="https://github.com/martin-mfg">&#xFF20;martin-mfg</a>, <a href="https://github.com/mashranga">&#xFF20;mashranga</a>, <a href="https://github.com/maxheld83">&#xFF20;maxheld83</a>, <a href="https://github.com/mb706">&#xFF20;mb706</a>, <a href="https://github.com/mcol">&#xFF20;mcol</a>, <a href="https://github.com/md0u80c9">&#xFF20;md0u80c9</a>, <a href="https://github.com/mikmart">&#xFF20;mikmart</a>, <a href="https://github.com/mixtrak">&#xFF20;mixtrak</a>, <a href="https://github.com/mkoohafkan">&#xFF20;mkoohafkan</a>, <a href="https://github.com/mvkorpel">&#xFF20;mvkorpel</a>, <a href="https://github.com/natgoodman">&#xFF20;natgoodman</a>, <a href="https://github.com/nteetor">&#xFF20;nteetor</a>, <a href="https://github.com/nuno-agostinho">&#xFF20;nuno-agostinho</a>, <a href="https://github.com/PeterVermont">&#xFF20;PeterVermont</a>, <a href="https://github.com/philmikejones">&#xFF20;philmikejones</a>, <a href="https://github.com/pierreroudier">&#xFF20;pierreroudier</a>, <a href="https://github.com/pkq">&#xFF20;pkq</a>, <a href="https://github.com/privefl">&#xFF20;privefl</a>, <a href="https://github.com/publicus">&#xFF20;publicus</a>, <a href="https://github.com/QuLogic">&#xFF20;QuLogic</a>, <a href="https://github.com/r2evans">&#xFF20;r2evans</a>, <a href="https://github.com/rabutler">&#xFF20;rabutler</a>, <a href="https://github.com/renozao">&#xFF20;renozao</a>, <a href="https://github.com/richierocks">&#xFF20;richierocks</a>, <a href="https://github.com/romainfrancois">&#xFF20;romainfrancois</a>, <a href="https://github.com/rvlenth">&#xFF20;rvlenth</a>, <a href="https://github.com/s-fleck">&#xFF20;s-fleck</a>, <a href="https://github.com/saralinker">&#xFF20;saralinker</a>, <a href="https://github.com/sgibb">&#xFF20;sgibb</a>, <a href="https://github.com/spluque">&#xFF20;spluque</a>, <a href="https://github.com/ssdavenport">&#xFF20;ssdavenport</a>, <a href="https://github.com/ssokolen">&#xFF20;ssokolen</a>, <a href="https://github.com/Stanwood18">&#xFF20;Stanwood18</a>, <a href="https://github.com/statnmap">&#xFF20;statnmap</a>, <a href="https://github.com/stufield">&#xFF20;stufield</a>, <a href="https://github.com/StuHorsman">&#xFF20;StuHorsman</a>, <a href="https://github.com/sylvainschmitt">&#xFF20;sylvainschmitt</a>, <a href="https://github.com/sz-cgt">&#xFF20;sz-cgt</a>, <a href="https://github.com/tbates">&#xFF20;tbates</a>, <a href="https://github.com/teo029">&#xFF20;teo029</a>, <a href="https://github.com/tpbilton">&#xFF20;tpbilton</a>, <a href="https://github.com/twang2218">&#xFF20;twang2218</a>, <a href="https://github.com/ugroempi">&#xFF20;ugroempi</a>, <a href="https://github.com/unDocUMeantIt">&#xFF20;unDocUMeantIt</a>, <a href="https://github.com/vjcitn">&#xFF20;vjcitn</a>, <a href="https://github.com/WastlM">&#xFF20;WastlM</a>, <a href="https://github.com/xhdong-umd">&#xFF20;xhdong-umd</a>, <a href="https://github.com/xhudik">&#xFF20;xhudik</a>, <a href="https://github.com/ximeg">&#xFF20;ximeg</a>, <a href="https://github.com/yannickspill">&#xFF20;yannickspill</a>, and <a href="https://github.com/yutannihilation">&#xFF20;yutannihilation</a>.</p>
+
+      </div>
+
+      
+
+
+      </div>
+
+      <div class="column25">
+        <div class="section hideOnMobile">
+          <div class="sectionTitle">Contents</div>
+          <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#new-features">New features</a></li>
+<li><a href="#improvements-to-markdown-parsing">Improvements to markdown parsing</a></li>
+<li><a href="#acknowledgements">Acknowledgements</a></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+
+    </div>
+  </div>  
+</div> 
+
+        <div id="rStudioFooter" class="band">
+          <div class="bandContent">
+            <div id="copyright">
+              Markus Dumke, 2019</div>
+            <div id="logos">
+              <a href="https://github.com/markusdumke" class="footerLogo gitHub"></a>
+            </div>
+          </div>
+        </div>
+
+      </div>  
+    </div>  
+
+    
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-115082821-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+  </body>
+</html>
+

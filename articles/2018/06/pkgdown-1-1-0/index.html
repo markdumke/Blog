@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="og:image" content="https://www.tidyverse.org/images/tidyverse-default.png" >
+<meta name="generator" content="Hugo 0.52" />
+
+<title>pkgdown 1.1.0 - markusdumke</title>
+<meta property="og:title" content="pkgdown 1.1.0 - markusdumke">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tidyverse.org/articles/pkgdown-1-1-0-sq.jpg" >
+<meta property="description" content="pkgdown 1.1.0 is now on CRAN.
+">
+<meta property="og:description" content="pkgdown 1.1.0 is now on CRAN.
+">
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png" />
+<link rel="manifest" href="/images/favicons/site.webmanifest" />
+<link rel="mask-icon" href="/images/favicons/safari-pinned-tab.svg" />
+<link rel="shortcut icon" href="/images/favicons/favicon.ico" />
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" href="/images/favicons/browserconfig.xml" >
+
+
+<script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/js/site.js"></script>
+
+<link rel="stylesheet" href="/css/tidyverse-site.css" />
+<link rel="stylesheet" href="/css/tweaks.css" />
+<link rel="icon" href="/images/favicon.ico" />
+<link rel="alternate" type="application/atom+xml" title="Blog" href="/articles/index.xml" />
+
+  </head>
+  <body>
+    <div id="appTidyverseSite" class="shrinkHeader alwaysShrinkHeader">
+      <div id="main">
+        
+        <div id="rStudioHeader">
+          <div class="band">
+            <div class="innards bandContent">
+              <div>
+                <a class="productName" href="/">markusdumke</a>
+              </div>
+              <div id="menu">
+  <div id="menuToggler"></div>
+  <div id="menuItems" class="">
+    
+    
+    <a class="menuItem " href="/packages/">Packages</a>
+    
+    <a class="menuItem current" href="/articles/">Blog</a>
+    
+    <a class="menuItem " href="/about/">About</a>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </div>
+
+
+<div class="band padForHeader pushFooter">
+  <div class="bandContent">
+    <div class="full splitColumns withMobileMargins">
+      <div class="column75">
+
+      <h1 class="article-title">pkgdown 1.1.0</h1>
+
+      
+      
+      <div class="article-header">
+        <div class="photo" style="background-image: url('../../../pkgdown-1-1-0-wd.jpg');"></div>
+        <div class="photoCredit">Photo by <a href="https://www.pexels.com/photo/person-s-holds-brown-gift-box-842876/">Kim Stiver</a></div>
+      </div>
+      
+
+      
+
+      <div class="article-content">
+      
+
+
+<p>We’re delighted to announce the release of <a href="http://pkgdown.r-lib.org/">pkgdown</a>
+1.1.0. pkgdown is designed to make it quick and easy to build a website for
+your package. In addition to minor fixes, this release includes front-end and
+Rd-translation improvements. For a full list of changes, please see the
+<a href="https://github.com/r-lib/pkgdown/blob/master/NEWS.md#pkgdown-110">NEWS</a>.</p>
+<div id="new-features" class="section level2">
+<h2>New features</h2>
+<p><code>build_reference()</code> and <code>build_site()</code> have gained a new <code>document</code> argument,
+which defaults to <code>TRUE</code>. This ensures that your documentation is up to date
+by automatically running <code>devtools::document()</code>.</p>
+<p>The <code>build_site()</code> function has also gained a <code>new_process</code> argument. When
+<code>new_process</code> is set to <code>TRUE</code> (as it is by default), pkgdown will be run in
+a separate process to improve reproducibility. This also means that in example
+code <code>interactive()</code> will return <code>FALSE</code>, making that the best way to run code
+that is truly interactive (as with shiny apps).</p>
+<p>The new, improved display for icons can be seen in the <a href="http://ggplot2.tidyverse.org/reference/index.html">ggplot2 documentation</a>. Icons must
+be 30px, and stored in a top-level <a href="https://github.com/tidyverse/ggplot2/tree/master/icons"><code>icons/</code></a>
+directory. Icon names are matched to the name of the Rd file. The icons will be
+embedded in a separate column of the reference index table, rather than inside
+of comments. (See ggplot2’s <a href="https://github.com/tidyverse/ggplot2/blob/master/icons/icons.R"><code>icons.R</code></a>
+for detail).</p>
+</div>
+<div id="front-end" class="section level2">
+<h2>Front end</h2>
+<p>Users can now access search with a keyboard shortcut, <code>shift</code> + <code>/ (?)</code>.
+We’ve also improved active-tab highlighting in the navbar, and better isolated
+<code>pkgdown.js</code> to avoid issues when widgets loaded use a different version of
+jquery.</p>
+</div>
+<div id="rd-translation" class="section level2">
+<h2>Rd translation</h2>
+<p>This release includes several improvements to Rd translation. Automatic linking
+now works for re-exported objects that are not functions. <code>vignette()</code> calls
+that don’t link to existing vignettes fail silently, instead of generating
+uninformative errors. Empty <code>\section{}</code>s are now ignored. <code>\Sexpr{}</code> now
+supports <code>results=text</code>, <code>results=Rd</code>, and <code>results=hide</code>. Lastly, <code>\tabular{}</code>
+no longer requires a terminal <code>\cr</code>.</p>
+</div>
+<div id="acknowledgements" class="section level2">
+<h2>Acknowledgements</h2>
+<p>For other minor bug fixes and improvements, please see the <a href="http://pkgdown.r-lib.org/news/index.html#pkgdown-1-1-0">Changelog</a>.
+Thank you to everyone who contributed to this release:
+<a href="https://github.com/adibender">@adibender</a>, <a href="https://github.com/aoles">@aoles</a>, <a href="https://github.com/aravind-j">@aravind-j</a>, <a href="https://github.com/batpigandme">@batpigandme</a>, <a href="https://github.com/dchiu911">@dchiu911</a>, <a href="https://github.com/Enchufa2">@Enchufa2</a>, <a href="https://github.com/gaborcsardi">@gaborcsardi</a>, <a href="https://github.com/GeoBosh">@GeoBosh</a>, <a href="https://github.com/hadley">@hadley</a>, <a href="https://github.com/hrecht">@hrecht</a>, <a href="https://github.com/ijlyttle">@ijlyttle</a>, <a href="https://github.com/IndrajeetPatil">@IndrajeetPatil</a>, <a href="https://github.com/jackwasey">@jackwasey</a>, <a href="https://github.com/jakob-r">@jakob-r</a>, <a href="https://github.com/JasperHG90">@JasperHG90</a>, <a href="https://github.com/jayhesselberth">@jayhesselberth</a>, <a href="https://github.com/jennybc">@jennybc</a>, <a href="https://github.com/jeroen">@jeroen</a>, <a href="https://github.com/jflournoy">@jflournoy</a>, <a href="https://github.com/JohnCoene">@JohnCoene</a>, <a href="https://github.com/kenahoo">@kenahoo</a>, <a href="https://github.com/krlmlr">@krlmlr</a>, <a href="https://github.com/mcneney">@mcneney</a>, <a href="https://github.com/md0u80c9">@md0u80c9</a>, <a href="https://github.com/merliseclyde">@merliseclyde</a>, <a href="https://github.com/Miachol">@Miachol</a>, <a href="https://github.com/pat-s">@pat-s</a>, <a href="https://github.com/rmendels">@rmendels</a>, <a href="https://github.com/s-fleck">@s-fleck</a>, <a href="https://github.com/strengejacke">@strengejacke</a>, <a href="https://github.com/surh">@surh</a>, <a href="https://github.com/WastlM">@WastlM</a>, and <a href="https://github.com/yutannihilation">@yutannihilation</a></p>
+</div>
+
+      </div>
+
+      
+
+
+      </div>
+
+      <div class="column25">
+        <div class="section hideOnMobile">
+          <div class="sectionTitle">Contents</div>
+          
+        </div>
+
+    </div>
+  </div>  
+</div> 
+
+        <div id="rStudioFooter" class="band">
+          <div class="bandContent">
+            <div id="copyright">
+              Markus Dumke, 2019</div>
+            <div id="logos">
+              <a href="https://github.com/markusdumke" class="footerLogo gitHub"></a>
+            </div>
+          </div>
+        </div>
+
+      </div>  
+    </div>  
+
+    
+
+    
+<script src="/js/math-code.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-115082821-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+  </body>
+</html>
+

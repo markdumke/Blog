@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="og:image" content="https://www.tidyverse.org/images/tidyverse-default.png" >
+<meta name="generator" content="Hugo 0.52" />
+
+<title>Tidy evaluation in ggplot2 - markusdumke</title>
+<meta property="og:title" content="Tidy evaluation in ggplot2 - markusdumke">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tidyverse.org/articles/ggplot2-tidy-evaluation-sq.jpg" >
+<meta property="description" content="Using tidy evaluation in ggplot2 3.0.0.
+">
+<meta property="og:description" content="Using tidy evaluation in ggplot2 3.0.0.
+">
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png" />
+<link rel="manifest" href="/images/favicons/site.webmanifest" />
+<link rel="mask-icon" href="/images/favicons/safari-pinned-tab.svg" />
+<link rel="shortcut icon" href="/images/favicons/favicon.ico" />
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" href="/images/favicons/browserconfig.xml" >
+
+
+<script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/js/site.js"></script>
+
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.11.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+<link rel="stylesheet" href="/css/tidyverse-site.css" />
+<link rel="stylesheet" href="/css/tweaks.css" />
+<link rel="icon" href="/images/favicon.ico" />
+<link rel="alternate" type="application/atom+xml" title="Blog" href="/articles/index.xml" />
+
+  </head>
+  <body>
+    <div id="appTidyverseSite" class="shrinkHeader alwaysShrinkHeader">
+      <div id="main">
+        
+        <div id="rStudioHeader">
+          <div class="band">
+            <div class="innards bandContent">
+              <div>
+                <a class="productName" href="/">markusdumke</a>
+              </div>
+              <div id="menu">
+  <div id="menuToggler"></div>
+  <div id="menuItems" class="">
+    
+    
+    <a class="menuItem " href="/packages/">Packages</a>
+    
+    <a class="menuItem current" href="/articles/">Blog</a>
+    
+    <a class="menuItem " href="/about/">About</a>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </div>
+
+
+<div class="band padForHeader pushFooter">
+  <div class="bandContent">
+    <div class="full splitColumns withMobileMargins">
+      <div class="column75">
+
+      <h1 class="article-title">Tidy evaluation in ggplot2</h1>
+
+      
+      
+      <div class="article-header">
+        <div class="photo" style="background-image: url('../../../ggplot2-tidy-evaluation-wd.jpg');"></div>
+        <div class="photoCredit">Photo by <a href="https://unsplash.com/photos/8KfCR12oeUM">Christopher Burns</a></div>
+      </div>
+      
+
+      
+
+      <div class="article-content">
+      
+
+<p><html>
+<style>
+h2 code {
+    font-size: 1em;</p>
+
+<p>}
+</style>
+</html></p>
+
+<h2 id="tidy-evaluation">Tidy evaluation</h2>
+
+<p>One of the biggest changes in <a href="https://ggplot2.tidyverse.org/">ggplot2</a> 3.0.0 is support for <a href="https://adv-r.hadley.nz/evaluation.html#tidy-evaluation">tidy evaluation</a>, making it more programmable, and more consistent with the rest of the tidyverse. Though this introduces some breaking changes, we believe it to be worthwhile in the interest of improving future code. Here we show a couple of examples of how you might use it. New developer facing changes are also discussed (see <a href="#developer-facing-changes">below</a>).</p>
+
+<h2 id="tidy-aesthetics-with-aes">Tidy aesthetics with <code>aes()</code></h2>
+
+<p>You can now use <a href="https://adv-r.hadley.nz/quasiquotation.html">quasiquotation</a> in <a href="https://ggplot2.tidyverse.org/reference/aes.html"><code>aes()</code></a>, <a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html"><code>facet_wrap()</code></a>, and <a href="https://ggplot2.tidyverse.org/reference/facet_grid.html"><code>facet_grid()</code></a>. For <code>aes()</code>, quasiquotation (<code>!!</code>, <code>!!!</code>, <code>:=</code>) replaces <a href="https://ggplot2.tidyverse.org/reference/aes_.html"><code>aes_()</code></a> and <a href="https://ggplot2.tidyverse.org/reference/aes_.html"><code>aes_string()</code></a> (though these functions are being soft deprecated, and will be around for a while).</p>
+
+<p>Here we&rsquo;ll use quasiquotation to make a function to make a pie chart that allows the user to avoid using quotation marks when they pass their arguments to the function.<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup> The initial function, below, would require that the user know the exact specifications to pass to <code>aes()</code>.</p>
+
+<pre><code class="language-r">piechart_basic &lt;- function(data, mapping) {
+  ggplot(data, mapping) +
+    geom_bar(width = 1) +
+    coord_polar(theta = &quot;y&quot;) +
+    xlab(NULL) +
+    ylab(NULL)
+}
+piechart_basic(mpg, aes(factor(1), fill = class))
+</code></pre>
+
+<p><img src="/articles/2017-07-ggplot2-tidy-evaluation_files/figure-html/piechart-basic-1.png" width="700px" style="display: block; margin: auto;" /></p>
+
+<p>The key to calling a tidy evaluation function inside of another function is to quote (with <code>enquo()</code>) and unquote (with <code>!!</code>):</p>
+
+<pre><code class="language-r">pie_chart &lt;- function(data, var, ...) {
+  var &lt;- enquo(var)
+  piechart_basic(data, aes(factor(1), fill = !!var))
+}
+pie_chart(mpg, class)
+</code></pre>
+
+<p><img src="/articles/2017-07-ggplot2-tidy-evaluation_files/figure-html/piechart-qq-1.png" width="700px" style="display: block; margin: auto;" /></p>
+
+<p>We could use this same pattern to make a scatterplot:</p>
+
+<pre><code class="language-r">scatter_plot &lt;- function(data, x, y) {
+  x &lt;- enquo(x)
+  y &lt;- enquo(y)
+
+  ggplot(data) + geom_point(aes(!!x, !!y))
+}
+scatter_plot(mtcars, disp, drat)
+</code></pre>
+
+<p><img src="/articles/2017-07-ggplot2-tidy-evaluation_files/figure-html/scatter-by-1.png" width="700px" style="display: block; margin: auto;" /></p>
+
+<h2 id="tidy-facets-with-vars">Tidy facets with <code>vars()</code></h2>
+
+<p>To support quasiquotation in facetting, we’ve added a new helper function: <a href="https://ggplot2.tidyverse.org/reference/vars.html"><code>vars()</code></a>, short for variables. Instead of <code>facet_grid(x + y ~ a + b)</code> you can now write <code>facet_grid(vars(x, y), vars(a, b))</code>. The formula interface won’t go away; but the new <code>vars()</code> interface supports tidy evaluation, so can be easily programmed with.</p>
+
+<p><code>vars()</code> is used to supply variables or expressions, evaluated in the context of the dataset to form facetting groups.</p>
+
+<pre><code class="language-r">p &lt;- ggplot(mpg, aes(displ, cty)) + geom_point()
+
+p + facet_grid(rows = vars(drv))
+</code></pre>
+
+<p><img src="/articles/2017-07-ggplot2-tidy-evaluation_files/figure-html/facet-vars-1.png" width="218px" style="display: block; margin: auto;" /></p>
+
+<p>Compared to <code>aes()</code>, <code>vars()</code> takes unnamed arguments. This makes it a more
+natural fit for use with <code>!!!</code>, the unquote-splice operator.</p>
+
+<pre><code class="language-r">year &lt;- 2018
+
+d &lt;- mpg %&gt;%
+  filter(manufacturer %in% c(&quot;dodge&quot;, &quot;ford&quot;)) %&gt;%
+  ggplot() +
+    geom_point(aes(displ, cty))
+
+args &lt;- quos(year, manufacturer)
+
+d + facet_grid(vars(!!!args))
+</code></pre>
+
+<p><img src="/articles/2017-07-ggplot2-tidy-evaluation_files/figure-html/vars-env-1.png" width="177px" style="display: block; margin: auto;" /></p>
+
+<p>Inside of <code>vars()</code> you can easily supply names, which will add titles to the facets.</p>
+
+<pre><code class="language-r">p + facet_grid(vars(Cylinder = cyl), labeller = label_both)
+</code></pre>
+
+<p><img src="/articles/2017-07-ggplot2-tidy-evaluation_files/figure-html/labelled-grid-1.png" width="177px" style="display: block; margin: auto;" /></p>
+
+<p><code>vars()</code> makes it easier to pass variables from wrapper functions.</p>
+
+<pre><code class="language-r">p &lt;- ggplot(mtcars, aes(wt, disp)) + geom_point()
+
+wrap_by &lt;- function(...) {
+  facet_wrap(vars(...), labeller = label_both)
+}
+
+p + wrap_by(vs, am)
+</code></pre>
+
+<p><img src="/articles/2017-07-ggplot2-tidy-evaluation_files/figure-html/wrap-by-1.png" width="700px" style="display: block; margin: auto;" /></p>
+
+<p>In our <code>wrap_by()</code> function above, we used tidy dots (<a href="https://adv-r.hadley.nz/quasiquotation.html#dot-dot-dot-..."><code>...</code></a>), which represent an arbitrary number of additional arguments. Alternatively, we could allow the user to provide a single named argument with <a href="http://rlang.r-lib.org/reference/quotation.html"><code>enquo()</code></a>. To create a default name, we&rsquo;ll use <a href="http://rlang.r-lib.org/reference/quo_label.html"><code>quo_name()</code></a>, which transforms a quosure into a simple string. Then we unquote and evaluate our arguments in their proper contexts using the <a href="http://rlang.r-lib.org/reference/quasiquotation.html"><code>!!</code></a> (read: bang bang) operator, and the <code>:=</code> operator to unquote the name.</p>
+
+<pre><code class="language-r">wrap_cut &lt;- function(var, n = 3) {
+  var &lt;- enquo(var)
+  nm &lt;- quo_name(var)
+  wrap_by(!!nm := cut_number(!!var, !!n))
+}
+
+p + wrap_cut(drat)
+</code></pre>
+
+<p><img src="/articles/2017-07-ggplot2-tidy-evaluation_files/figure-html/wrap-cut-1.png" width="700px" style="display: block; margin: auto;" /></p>
+
+<p>You will also need to use <a href="http://rlang.r-lib.org/">rlang</a> tools if computing on the mapping of an existing ggplot2 object.</p>
+
+<h2 id="developer-facing-changes">Developer facing changes</h2>
+
+<p>If you&rsquo;re building an extension package on top of ggplot2, you need to be aware that the introduction of tidy evaluation fundamentally changes the data structures that <code>aes()</code> uses. In brief:</p>
+
+<pre><code class="language-r">mapping &lt;- aes(mpg, colour = &quot;smoothed&quot;)
+
+# Variables are now stored as quosures
+mapping$x
+#&gt; &lt;quosure&gt;
+#&gt;   expr: ^mpg
+#&gt;   env:  global
+
+# Constants (atomic vectors of length 1), remain
+# as is
+mapping$colour
+#&gt; [1] &quot;smoothed&quot;
+</code></pre>
+
+<h2 id="getting-help">Getting help</h2>
+
+<p>If you&rsquo;re new to tidy evaluation, the best place to learn more about it is in the work-in-progress 2nd edition of <a href="https://adv-r.hadley.nz/">Advanced R</a>, especially the <a href="https://adv-r.hadley.nz/meta.html">Metaprogramming section</a>. You may also want to check out RStudio&rsquo;s <a href="https://www.rstudio.com/resources/webinars/tidy-eval/">tidy evaluation webinar</a> with Lionel Henry, or (if you&rsquo;re short on time) Hadley&rsquo;s video: <a href="https://www.youtube.com/watch?v=nERXS3ssntw">Tidy evaluation in 5 minutes</a>.</p>
+
+<p>You can also always ask for help at <a href="https://community.rstudio.com/">community.rstudio.com</a>.</p>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:1">Wickham, Hadley. 2016. “Programming with Ggplot2.” In <em>Ggplot2: Elegant Graphics for Data Analysis</em>, 241–53. Cham: Springer International Publishing. doi:10.<sup>1007</sup>&frasl;<sub>978</sub>-3-319-24277-4_12.
+ <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
+</ol>
+</div>
+
+      </div>
+
+      
+
+
+      </div>
+
+      <div class="column25">
+        <div class="section hideOnMobile">
+          <div class="sectionTitle">Contents</div>
+          <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#tidy-evaluation">Tidy evaluation</a></li>
+<li><a href="#tidy-aesthetics-with-aes">Tidy aesthetics with <code>aes()</code></a></li>
+<li><a href="#tidy-facets-with-vars">Tidy facets with <code>vars()</code></a></li>
+<li><a href="#developer-facing-changes">Developer facing changes</a></li>
+<li><a href="#getting-help">Getting help</a></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+
+    </div>
+  </div>  
+</div> 
+
+        <div id="rStudioFooter" class="band">
+          <div class="bandContent">
+            <div id="copyright">
+              Markus Dumke, 2019</div>
+            <div id="logos">
+              <a href="https://github.com/markusdumke" class="footerLogo gitHub"></a>
+            </div>
+          </div>
+        </div>
+
+      </div>  
+    </div>  
+
+    
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-115082821-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+  </body>
+</html>
+

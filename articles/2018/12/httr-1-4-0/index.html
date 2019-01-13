@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="og:image" content="https://www.tidyverse.org/images/tidyverse-default.png" >
+<meta name="generator" content="Hugo 0.52" />
+
+<title>httr 1.4.0 - markusdumke</title>
+<meta property="og:title" content="httr 1.4.0 - markusdumke">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tidyverse.org/articles/httr-1-4-0-sq.jpg" >
+<meta property="description" content="httr 1.4.0 is now on CRAN!
+">
+<meta property="og:description" content="httr 1.4.0 is now on CRAN!
+">
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png" />
+<link rel="manifest" href="/images/favicons/site.webmanifest" />
+<link rel="mask-icon" href="/images/favicons/safari-pinned-tab.svg" />
+<link rel="shortcut icon" href="/images/favicons/favicon.ico" />
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" href="/images/favicons/browserconfig.xml" >
+
+
+<script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/js/site.js"></script>
+
+<link rel="stylesheet" href="/css/tidyverse-site.css" />
+<link rel="stylesheet" href="/css/tweaks.css" />
+<link rel="icon" href="/images/favicon.ico" />
+<link rel="alternate" type="application/atom+xml" title="Blog" href="/articles/index.xml" />
+
+  </head>
+  <body>
+    <div id="appTidyverseSite" class="shrinkHeader alwaysShrinkHeader">
+      <div id="main">
+        
+        <div id="rStudioHeader">
+          <div class="band">
+            <div class="innards bandContent">
+              <div>
+                <a class="productName" href="/">markusdumke</a>
+              </div>
+              <div id="menu">
+  <div id="menuToggler"></div>
+  <div id="menuItems" class="">
+    
+    
+    <a class="menuItem " href="/packages/">Packages</a>
+    
+    <a class="menuItem current" href="/articles/">Blog</a>
+    
+    <a class="menuItem " href="/about/">About</a>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </div>
+
+
+<div class="band padForHeader pushFooter">
+  <div class="bandContent">
+    <div class="full splitColumns withMobileMargins">
+      <div class="column75">
+
+      <h1 class="article-title">httr 1.4.0</h1>
+
+      
+      
+      <div class="article-header">
+        <div class="photo" style="background-image: url('../../../httr-1-4-0-wd.jpg');"></div>
+        <div class="photoCredit">Photo by <a href="https://unsplash.com/photos/0JhaVZUowWU">Chris Yang</a></div>
+      </div>
+      
+
+      
+
+      <div class="article-content">
+      
+
+<p>We&rsquo;re well pleased to announce the release of <a href="https://httr.r-lib.org/">httr</a> 1.4.0. The goal of httr is to provide a wrapper for the <a href="https://CRAN.R-project.org/package=curl">curl</a> package, customised to the demands of modern web APIs.</p>
+
+<p>The <a href="https://httr.r-lib.org/news/index.html#httr-1-4-0">httr 1.4.0</a> release includes improved flexibility for <a href="https://oauth.net/2/">OAuth 2.0</a>, new and updated <a href="https://github.com/r-lib/httr/tree/master/demo">demos</a>, and several minor changes and improvements — the full details of which can be found in the <a href="https://github.com/r-lib/httr/blob/master/NEWS.md#httr-140">changelog</a>.</p>
+
+<h2 id="oauth-2-0-improvements">OAuth 2.0 improvements</h2>
+
+<p>OAuth 2.0 has been made somewhat more flexible in order to support more websites. <a href="https://httr.r-lib.org/reference/init_oauth2.0.html"><code>init_oauth2.0()</code></a> now passes <code>use_basic_auth</code> onward, enabling basic authentication for OAuth 2.0. <a href="https://httr.r-lib.org/reference/oauth2.0_token.html"><code>oauth2.0_token()</code></a> and <code>init_oauth2.0()</code> have gained two new arguments:</p>
+
+<ul>
+<li><code>oob_value</code> specifies the value to use for the <code>redirect_uri</code> parameter when retrieving an authorization URL, necessary when using &ldquo;out-of-band&rdquo; (oob) configuration.<br /></li>
+<li><code>query_authorize_extra</code> makes it possible to add extra query parameters to the authorization URL, as is required by some APIs.<br /></li>
+</ul>
+
+<p>Scopes are now de-duplicated, sorted and stripped of names before being hashed for on-disk token retrieval. This eliminates a source of hash mismatch that could cause new tokens to be requested, even when existing tokens had the necessary scope.</p>
+
+<h2 id="demo-updates">Demo updates</h2>
+
+<p>Thanks to <a href="https://github.com/cderv">Christophe Dervieux</a>, a new <a href="https://github.com/r-lib/httr/blob/master/demo/oauth1-nounproject.r">demo</a> for <a href="http://oauthbible.com/#oauth-10a-one-legged">OAuth 1.0a&rsquo;s one-legged</a> authentication mechanism has been added, using the <a href="https://thenounproject.com/">Noun Project</a> API.</p>
+
+<p>The <a href="https://github.com/r-lib/httr/blob/master/demo/oauth2-facebook.r">Faceboook demo</a> now uses <a href="https://developers.facebook.com/docs/facebook-login/for-devices/">device flow</a>. This means that you can continue to use the Facebook API from R under their new security policy.</p>
+
+<p>The <a href="https://github.com/r-lib/httr/blob/master/demo/oauth2-vimeo.r">Vimeo demo</a> has been updated to use OAuth 2.0.</p>
+
+<h2 id="acknowledgements">Acknowledgements</h2>
+
+<p>Thank you to the 69 contributors who made this release possible:
+<a href="https://github.com/aazaff">&#x0040;aazaff</a>, <a href="https://github.com/alex-hioperator">&#x0040;alex-hioperator</a>, <a href="https://github.com/barryrowlingson">&#x0040;barryrowlingson</a>, <a href="https://github.com/billdenney">&#x0040;billdenney</a>, <a href="https://github.com/bradyte">&#x0040;bradyte</a>, <a href="https://github.com/braggbear">&#x0040;braggbear</a>, <a href="https://github.com/brennanpincardiff">&#x0040;brennanpincardiff</a>, <a href="https://github.com/cameronbracken">&#x0040;cameronbracken</a>, <a href="https://github.com/cderv">&#x0040;cderv</a>, <a href="https://github.com/ChrisMuir">&#x0040;ChrisMuir</a>, <a href="https://github.com/cosmomeese">&#x0040;cosmomeese</a>, <a href="https://github.com/cranknasty">&#x0040;cranknasty</a>, <a href="https://github.com/cschroed-usgs">&#x0040;cschroed-usgs</a>, <a href="https://github.com/cstawitz">&#x0040;cstawitz</a>, <a href="https://github.com/ctrombley">&#x0040;ctrombley</a>, <a href="https://github.com/dcldmartin">&#x0040;dcldmartin</a>, <a href="https://github.com/dfv-ms">&#x0040;dfv-ms</a>, <a href="https://github.com/dkulp2">&#x0040;dkulp2</a>, <a href="https://github.com/drewabbot">&#x0040;drewabbot</a>, <a href="https://github.com/EOneita">&#x0040;EOneita</a>, <a href="https://github.com/ErezLo">&#x0040;ErezLo</a>, <a href="https://github.com/FelixMailoa">&#x0040;FelixMailoa</a>, <a href="https://github.com/giuseppec">&#x0040;giuseppec</a>, <a href="https://github.com/hadley">&#x0040;hadley</a>, <a href="https://github.com/Hong-Revo">&#x0040;Hong-Revo</a>, <a href="https://github.com/infinitetrial">&#x0040;infinitetrial</a>, <a href="https://github.com/Isaacsh">&#x0040;Isaacsh</a>, <a href="https://github.com/j-Rinehart">&#x0040;j-Rinehart</a>, <a href="https://github.com/JacquesBonet">&#x0040;JacquesBonet</a>, <a href="https://github.com/jennybc">&#x0040;jennybc</a>, <a href="https://github.com/jguerrero77">&#x0040;jguerrero77</a>, <a href="https://github.com/JhossePaul">&#x0040;JhossePaul</a>, <a href="https://github.com/jlegewie">&#x0040;jlegewie</a>, <a href="https://github.com/jmwerner">&#x0040;jmwerner</a>, <a href="https://github.com/jthomp1818">&#x0040;jthomp1818</a>, <a href="https://github.com/KaranKhullar">&#x0040;KaranKhullar</a>, <a href="https://github.com/karigunnarsson">&#x0040;karigunnarsson</a>, <a href="https://github.com/klarakaleb">&#x0040;klarakaleb</a>, <a href="https://github.com/kokomoo">&#x0040;kokomoo</a>, <a href="https://github.com/krlmlr">&#x0040;krlmlr</a>, <a href="https://github.com/l-ts">&#x0040;l-ts</a>, <a href="https://github.com/leonardo-murano">&#x0040;leonardo-murano</a>, <a href="https://github.com/maalsol">&#x0040;maalsol</a>, <a href="https://github.com/mmuurr">&#x0040;mmuurr</a>, <a href="https://github.com/moloscripts">&#x0040;moloscripts</a>, <a href="https://github.com/mtmorgan">&#x0040;mtmorgan</a>, <a href="https://github.com/mvkorpel">&#x0040;mvkorpel</a>, <a href="https://github.com/Nosferican">&#x0040;Nosferican</a>, <a href="https://github.com/paulgarnes">&#x0040;paulgarnes</a>, <a href="https://github.com/peterdesmet">&#x0040;peterdesmet</a>, <a href="https://github.com/peterhartman">&#x0040;peterhartman</a>, <a href="https://github.com/picousse">&#x0040;picousse</a>, <a href="https://github.com/pohzipohzi">&#x0040;pohzipohzi</a>, <a href="https://github.com/porfila">&#x0040;porfila</a>, <a href="https://github.com/potterzot">&#x0040;potterzot</a>, <a href="https://github.com/ramnov">&#x0040;ramnov</a>, <a href="https://github.com/sajukassim">&#x0040;sajukassim</a>, <a href="https://github.com/sasajuratovic">&#x0040;sasajuratovic</a>, <a href="https://github.com/Sb9309">&#x0040;Sb9309</a>, <a href="https://github.com/shrektan">&#x0040;shrektan</a>, <a href="https://github.com/skirmer">&#x0040;skirmer</a>, <a href="https://github.com/stefanfritsch">&#x0040;stefanfritsch</a>, <a href="https://github.com/StevenMMortimer">&#x0040;StevenMMortimer</a>, <a href="https://github.com/swanderz">&#x0040;swanderz</a>, <a href="https://github.com/swood-ecology">&#x0040;swood-ecology</a>, <a href="https://github.com/tjpalanca">&#x0040;tjpalanca</a>, <a href="https://github.com/TuanTran07">&#x0040;TuanTran07</a>, <a href="https://github.com/viddagrava">&#x0040;viddagrava</a>, and <a href="https://github.com/wsphd">&#x0040;wsphd</a>.</p>
+
+      </div>
+
+      
+
+
+      </div>
+
+      <div class="column25">
+        <div class="section hideOnMobile">
+          <div class="sectionTitle">Contents</div>
+          <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#oauth-2-0-improvements">OAuth 2.0 improvements</a></li>
+<li><a href="#demo-updates">Demo updates</a></li>
+<li><a href="#acknowledgements">Acknowledgements</a></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+
+    </div>
+  </div>  
+</div> 
+
+        <div id="rStudioFooter" class="band">
+          <div class="bandContent">
+            <div id="copyright">
+              Markus Dumke, 2019</div>
+            <div id="logos">
+              <a href="https://github.com/markusdumke" class="footerLogo gitHub"></a>
+            </div>
+          </div>
+        </div>
+
+      </div>  
+    </div>  
+
+    
+
+    
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-115082821-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+  </body>
+</html>
+

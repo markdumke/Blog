@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+  <title>Other on markusdumke</title>
+  <link>/categories/other/</link>
+  <description>Recent content in Other on markusdumke</description>
+  <generator>Hugo -- gohugo.io</generator>
+<language>en-us</language>
+<lastBuildDate>Mon, 17 Dec 2018 00:00:00 +0000</lastBuildDate>
+
+<atom:link href="/categories/other/index.xml" rel="self" type="application/rss+xml" />
+
+
+<item>
+  <title>tidyverse and r-lib: a year in review</title>
+  <link>/articles/2018/12/tidyverse-and-r-lib-year-in-review/</link>
+  <pubDate>Mon, 17 Dec 2018 00:00:00 +0000</pubDate>
+  
+<guid>/articles/2018/12/tidyverse-and-r-lib-year-in-review/</guid>
+  <description>
+
+&lt;p&gt;It&amp;rsquo;s been a banner year for the tidyverse and r-lib teams, and, as we close out 2018, we wanted to take a look back at some of our achievements.&lt;/p&gt;
+
+&lt;p&gt;We added significant roster depth this year, with &lt;a href=&#34;https://twitter.com/dvaughan32/&#34;&gt;Davis Vaughan&lt;/a&gt;, &lt;a href=&#34;https://twitter.com/thomasp85/&#34;&gt;Thomas Lin Pedersen&lt;/a&gt;, and &lt;a href=&#34;https://twitter.com/romain_francois/&#34;&gt;Romain François&lt;/a&gt; all joining the squad.&lt;/p&gt;
+
+&lt;h2 id=&#34;by-the-numbers&#34;&gt;By the numbers&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;22&lt;/strong&gt; new packages on CRAN (&lt;a href=&#34;https://github.com/r-lib/vctrs&#34;&gt;vctrs&lt;/a&gt;, &lt;a href=&#34;https://github.com/tidymodels/parsnip&#34;&gt;parsnip&lt;/a&gt;, &lt;a href=&#34;https://github.com/r-lib/lobstr&#34;&gt;lobstr&lt;/a&gt;, &lt;a href=&#34;https://github.com/r-lib/sloop&#34;&gt;sloop&lt;/a&gt;, &lt;a href=&#34;https://github.com/r-lib/err&#34;&gt;err&lt;/a&gt;, &lt;a href=&#34;https://github.com/r-lib/generics&#34;&gt;generics&lt;/a&gt;, &lt;a href=&#34;https://github.com/r-lib/carrier&#34;&gt;carrier&lt;/a&gt;, &lt;a href=&#34;https://github.com/r-lib/xopen&#34;&gt;xopen&lt;/a&gt;, &lt;a href=&#34;https://github.com/tidymodels/embed&#34;&gt;embed&lt;/a&gt;, &lt;a href=&#34;https://github.com/tidymodels/dials&#34;&gt;dials&lt;/a&gt;, &lt;a href=&#34;https://github.com/tidymodels/tidymodels&#34;&gt;tidymodels&lt;/a&gt;, &lt;a href=&#34;https://github.com/r-lib/ps&#34;&gt;ps&lt;/a&gt;, &lt;a href=&#34;https://github.com/r-lib/pkgload&#34;&gt;pkgload&lt;/a&gt;, &lt;a href=&#34;https://github.com/r-lib/pkgbuild&#34;&gt;pkgbuild&lt;/a&gt;, &lt;a href=&#34;https://github.com/r-lib/conflicted&#34;&gt;conflicted&lt;/a&gt;, &lt;a href=&#34;https://github.com/r-lib/bench&#34;&gt;bench&lt;/a&gt;, &lt;a href=&#34;https://github.com/r-lib/pkgdown&#34;&gt;pkgdown&lt;/a&gt;, &lt;a href=&#34;https://github.com/r-lib/conf&#34;&gt;conf&lt;/a&gt;, &lt;a href=&#34;https://github.com/r-lib/filelock&#34;&gt;filelock&lt;/a&gt;, &lt;a href=&#34;https://github.com/r-lib/showimage&#34;&gt;showimage&lt;/a&gt;, &lt;a href=&#34;https://github.com/r-lib/fs&#34;&gt;fs&lt;/a&gt;, and &lt;a href=&#34;https://github.com/tidymodels/infer&#34;&gt;infer&lt;/a&gt;.)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;54&lt;/strong&gt; packages with &lt;em&gt;major&lt;/em&gt; releases&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;91&lt;/strong&gt; packages with releases this year&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;100+&lt;/strong&gt; talks and workshops&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;42&lt;/strong&gt; articles on &lt;a href=&#34;https://www.tidyverse.org/articles/&#34;&gt;tidyverse.org&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;major-accomplishments&#34;&gt;Major accomplishments&lt;/h2&gt;
+
+&lt;p&gt;After 6 years of development, &lt;a href=&#34;https://www.tidyverse.org/articles/2018/05/pkgdown-1-0-0/&#34;&gt;&lt;strong&gt;pkgdown&lt;/strong&gt;&lt;/a&gt; had its initial release on CRAN. pkgdown is designed to make it quick and easy to build a website for your package, and has already been used to make sites for over 2500 packages.&lt;/p&gt;
+
+&lt;p&gt;Several major tidyverse package releases have centered on the implementation of &lt;a href=&#34;https://tidyeval.tidyverse.org/&#34;&gt;&lt;strong&gt;tidy evaluation&lt;/strong&gt;&lt;/a&gt;. Notable among these was the 3.0.0 release of &lt;a href=&#34;https://www.tidyverse.org/articles/2018/07/ggplot2-3-0-0/&#34;&gt;&lt;strong&gt;ggplot2&lt;/strong&gt;&lt;/a&gt;, which has more than 2000 reverse dependencies. We continue to improve our tools for and skills with releases with large numbers of reverse dependencies.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.tidyverse.org/articles/2018/10/devtools-2-0-0/&#34;&gt;&lt;strong&gt;devtools 2.0.0&lt;/strong&gt;&lt;/a&gt; split the functionality in devtools into a number of smaller packages which are simpler to develop, and also easier for other packages to depend on. Though devtools will remain the primary package with which developers interact, the functionality will come from its component packages (in what we’re calling a &lt;a href=&#34;https://github.com/r-lib/devtools#conscious-uncoupling&#34;&gt;conscious uncoupling&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href=&#34;https://github.com/tidymodels&#34;&gt;&lt;strong&gt;tidymodels&lt;/strong&gt;&lt;/a&gt; collection is the home of several new modelling packages, which follow opinionated but reasonable &lt;a href=&#34;https://tidymodels.github.io/model-implementation-principles/&#34;&gt;model implementation practices&lt;/a&gt;. This includes the &lt;a href=&#34;https://tidymodels.github.io/parsnip/&#34;&gt;&lt;strong&gt;parsnip&lt;/strong&gt;&lt;/a&gt; package, which standardizes the interface for fitting models as well as their return values — separating model &lt;em&gt;specification&lt;/em&gt; from model &lt;em&gt;implementation&lt;/em&gt; (&lt;a href=&#34;https://www.tidyverse.org/articles/2018/11/parsnip-0-0-1/&#34;&gt;more detail here&lt;/a&gt;). In effect, when using parsnip, you don’t have to remember each interface and its unique set of argument names to easily move between R packages.&lt;/p&gt;
+
+&lt;h2 id=&#34;consistency&#34;&gt;Consistency&lt;/h2&gt;
+
+&lt;p&gt;Among the &lt;a href=&#34;https://principles.tidyverse.org&#34;&gt;tidyverse development principles&lt;/a&gt; is the goal of being &lt;a href=&#34;https://principles.tidyverse.org/unifying-principles.html#consistent&#34;&gt;consistent&lt;/a&gt;. This has, perhaps, been most visible in our implementation of &lt;a href=&#34;https://tidyeval.tidyverse.org/&#34;&gt;tidy evaluation&lt;/a&gt; across tidyverse packages. The &lt;a href=&#34;https://fs.r-lib.org/&#34;&gt;&lt;strong&gt;fs&lt;/strong&gt;&lt;/a&gt; r-lib package, first released at the beginning of the year, helps bring such consistency to file system operations. More recently, we’ve devised a consistent strategy for handling &lt;a href=&#34;https://principles.tidyverse.org/names-attribute.html&#34;&gt;name repair&lt;/a&gt; that can be used to make name-handling more predictable. &lt;a href=&#34;https://vctrs.r-lib.org/&#34;&gt;&lt;strong&gt;vctrs&lt;/strong&gt;&lt;/a&gt;, which recently had its first CRAN release, will allow us to bring &lt;a href=&#34;https://vctrs.r-lib.org/articles/stability.html&#34;&gt;type- and size-stability&lt;/a&gt; to user-facing functions; a major focus as we head into the next year.&lt;/p&gt;
+
+&lt;h2 id=&#34;tidyverse-dev-day&#34;&gt;Tidyverse dev day&lt;/h2&gt;
+
+&lt;p&gt;We hope that our first &lt;a href=&#34;https://www.tidyverse.org/articles/2018/11/tidyverse-developer-day-2019/&#34;&gt;&lt;strong&gt;tidyverse developer day&lt;/strong&gt;&lt;/a&gt; (held after rstudio::conf) will help us continue to nurture regular contributors of all skill levels. We have 100 developers (50 general admission + 50 URM) signed up to participate, and we&amp;rsquo;re looking forward to a fun and productive day!&lt;/p&gt;
+
+&lt;h2 id=&#34;acknowledgements&#34;&gt;Acknowledgements&lt;/h2&gt;
+
+&lt;p&gt;A huge thank you goes out to the &lt;strong&gt;568&lt;/strong&gt; people who submitted PRs to the &lt;a href=&#34;https://github.com/tidyverse/&#34;&gt;tidyverse&lt;/a&gt;, &lt;a href=&#34;https://github.com/r-lib/&#34;&gt;r-lib&lt;/a&gt;, &lt;a href=&#34;https://github.com/tidymodels&#34;&gt;tidymodels&lt;/a&gt;, or &lt;a href=&#34;https://github.com/r-dbi&#34;&gt;r-dbi&lt;/a&gt; repos in 2018:
+&lt;a href=&#34;https://github.com/414theodore&#34;&gt;&amp;#x0040;414theodore&lt;/a&gt;, &lt;a href=&#34;https://github.com/aaronrudkin&#34;&gt;&amp;#x0040;aaronrudkin&lt;/a&gt;, &lt;a href=&#34;https://github.com/aaronwolen&#34;&gt;&amp;#x0040;aaronwolen&lt;/a&gt;, &lt;a href=&#34;https://github.com/aayala15&#34;&gt;&amp;#x0040;aayala15&lt;/a&gt;, &lt;a href=&#34;https://github.com/abichat&#34;&gt;&amp;#x0040;abichat&lt;/a&gt;, &lt;a href=&#34;https://github.com/adam-gruer&#34;&gt;&amp;#x0040;adam-gruer&lt;/a&gt;, &lt;a href=&#34;https://github.com/AdeelH&#34;&gt;&amp;#x0040;AdeelH&lt;/a&gt;, &lt;a href=&#34;https://github.com/adibender&#34;&gt;&amp;#x0040;adibender&lt;/a&gt;, &lt;a href=&#34;https://github.com/AdrianHordyk&#34;&gt;&amp;#x0040;AdrianHordyk&lt;/a&gt;, &lt;a href=&#34;https://github.com/AEBilgrau&#34;&gt;&amp;#x0040;AEBilgrau&lt;/a&gt;, &lt;a href=&#34;https://github.com/aeklant&#34;&gt;&amp;#x0040;aeklant&lt;/a&gt;, &lt;a href=&#34;https://github.com/aghaynes&#34;&gt;&amp;#x0040;aghaynes&lt;/a&gt;, &lt;a href=&#34;https://github.com/ahoho&#34;&gt;&amp;#x0040;ahoho&lt;/a&gt;, &lt;a href=&#34;https://github.com/ajdamico&#34;&gt;&amp;#x0040;ajdamico&lt;/a&gt;, &lt;a href=&#34;https://github.com/akbertram&#34;&gt;&amp;#x0040;akbertram&lt;/a&gt;, &lt;a href=&#34;https://github.com/AkhilGNair&#34;&gt;&amp;#x0040;AkhilGNair&lt;/a&gt;, &lt;a href=&#34;https://github.com/Alanocallaghan&#34;&gt;&amp;#x0040;Alanocallaghan&lt;/a&gt;, &lt;a href=&#34;https://github.com/alecuba16&#34;&gt;&amp;#x0040;alecuba16&lt;/a&gt;, &lt;a href=&#34;https://github.com/alexpghayes&#34;&gt;&amp;#x0040;alexpghayes&lt;/a&gt;, &lt;a href=&#34;https://github.com/alexwhan&#34;&gt;&amp;#x0040;alexwhan&lt;/a&gt;, &lt;a href=&#34;https://github.com/alistaire47&#34;&gt;&amp;#x0040;alistaire47&lt;/a&gt;, &lt;a href=&#34;https://github.com/amhrasmussen&#34;&gt;&amp;#x0040;amhrasmussen&lt;/a&gt;, &lt;a href=&#34;https://github.com/amilenkovic&#34;&gt;&amp;#x0040;amilenkovic&lt;/a&gt;, &lt;a href=&#34;https://github.com/AmundsenJunior&#34;&gt;&amp;#x0040;AmundsenJunior&lt;/a&gt;, &lt;a href=&#34;https://github.com/AndreaCirilloAC&#34;&gt;&amp;#x0040;AndreaCirilloAC&lt;/a&gt;, &lt;a href=&#34;https://github.com/andrewjlm&#34;&gt;&amp;#x0040;andrewjlm&lt;/a&gt;, &lt;a href=&#34;https://github.com/andrewpbray&#34;&gt;&amp;#x0040;andrewpbray&lt;/a&gt;, &lt;a href=&#34;https://github.com/anhqle&#34;&gt;&amp;#x0040;anhqle&lt;/a&gt;, &lt;a href=&#34;https://github.com/Anirudhsekar96&#34;&gt;&amp;#x0040;Anirudhsekar96&lt;/a&gt;, &lt;a href=&#34;https://github.com/ankane&#34;&gt;&amp;#x0040;ankane&lt;/a&gt;, &lt;a href=&#34;https://github.com/aoles&#34;&gt;&amp;#x0040;aoles&lt;/a&gt;, &lt;a href=&#34;https://github.com/apreshill&#34;&gt;&amp;#x0040;apreshill&lt;/a&gt;, &lt;a href=&#34;https://github.com/ArtemSokolov&#34;&gt;&amp;#x0040;ArtemSokolov&lt;/a&gt;, &lt;a href=&#34;https://github.com/artichaud1&#34;&gt;&amp;#x0040;artichaud1&lt;/a&gt;, &lt;a href=&#34;https://github.com/aryoda&#34;&gt;&amp;#x0040;aryoda&lt;/a&gt;, &lt;a href=&#34;https://github.com/AshesITR&#34;&gt;&amp;#x0040;AshesITR&lt;/a&gt;, &lt;a href=&#34;https://github.com/asieira&#34;&gt;&amp;#x0040;asieira&lt;/a&gt;, &lt;a href=&#34;https://github.com/atheriel&#34;&gt;&amp;#x0040;atheriel&lt;/a&gt;, &lt;a href=&#34;https://github.com/atusy&#34;&gt;&amp;#x0040;atusy&lt;/a&gt;, &lt;a href=&#34;https://github.com/atyre2&#34;&gt;&amp;#x0040;atyre2&lt;/a&gt;, &lt;a href=&#34;https://github.com/austensen&#34;&gt;&amp;#x0040;austensen&lt;/a&gt;, &lt;a href=&#34;https://github.com/austin3dickey&#34;&gt;&amp;#x0040;austin3dickey&lt;/a&gt;, &lt;a href=&#34;https://github.com/aviast&#34;&gt;&amp;#x0040;aviast&lt;/a&gt;, &lt;a href=&#34;https://github.com/Ax3man&#34;&gt;&amp;#x0040;Ax3man&lt;/a&gt;, &lt;a href=&#34;https://github.com/baogorek&#34;&gt;&amp;#x0040;baogorek&lt;/a&gt;, &lt;a href=&#34;https://github.com/BarkleyBG&#34;&gt;&amp;#x0040;BarkleyBG&lt;/a&gt;, &lt;a href=&#34;https://github.com/Bart6114&#34;&gt;&amp;#x0040;Bart6114&lt;/a&gt;, &lt;a href=&#34;https://github.com/bastistician&#34;&gt;&amp;#x0040;bastistician&lt;/a&gt;, &lt;a href=&#34;https://github.com/batpigandme&#34;&gt;&amp;#x0040;batpigandme&lt;/a&gt;, &lt;a href=&#34;https://github.com/bblette1&#34;&gt;&amp;#x0040;bblette1&lt;/a&gt;, &lt;a href=&#34;https://github.com/bbolker&#34;&gt;&amp;#x0040;bbolker&lt;/a&gt;, &lt;a href=&#34;https://github.com/bbrewington&#34;&gt;&amp;#x0040;bbrewington&lt;/a&gt;, &lt;a href=&#34;https://github.com/bcipolli&#34;&gt;&amp;#x0040;bcipolli&lt;/a&gt;, &lt;a href=&#34;https://github.com/bdemeshev&#34;&gt;&amp;#x0040;bdemeshev&lt;/a&gt;, &lt;a href=&#34;https://github.com/beanumber&#34;&gt;&amp;#x0040;beanumber&lt;/a&gt;, &lt;a href=&#34;https://github.com/benmarwick&#34;&gt;&amp;#x0040;benmarwick&lt;/a&gt;, &lt;a href=&#34;https://github.com/bensoltoff&#34;&gt;&amp;#x0040;bensoltoff&lt;/a&gt;, &lt;a href=&#34;https://github.com/bfgray3&#34;&gt;&amp;#x0040;bfgray3&lt;/a&gt;, &lt;a href=&#34;https://github.com/bgreenwell&#34;&gt;&amp;#x0040;bgreenwell&lt;/a&gt;, &lt;a href=&#34;https://github.com/bhive01&#34;&gt;&amp;#x0040;bhive01&lt;/a&gt;, &lt;a href=&#34;https://github.com/billdenney&#34;&gt;&amp;#x0040;billdenney&lt;/a&gt;, &lt;a href=&#34;https://github.com/Bisaloo&#34;&gt;&amp;#x0040;Bisaloo&lt;/a&gt;, &lt;a href=&#34;https://github.com/bjreisman&#34;&gt;&amp;#x0040;bjreisman&lt;/a&gt;, &lt;a href=&#34;https://github.com/blairj09&#34;&gt;&amp;#x0040;blairj09&lt;/a&gt;, &lt;a href=&#34;https://github.com/blakeboswell&#34;&gt;&amp;#x0040;blakeboswell&lt;/a&gt;, &lt;a href=&#34;https://github.com/blakeyc&#34;&gt;&amp;#x0040;blakeyc&lt;/a&gt;, &lt;a href=&#34;https://github.com/bleemayer&#34;&gt;&amp;#x0040;bleemayer&lt;/a&gt;, &lt;a href=&#34;https://github.com/bleutner&#34;&gt;&amp;#x0040;bleutner&lt;/a&gt;, &lt;a href=&#34;https://github.com/bmannakee&#34;&gt;&amp;#x0040;bmannakee&lt;/a&gt;, &lt;a href=&#34;https://github.com/boshek&#34;&gt;&amp;#x0040;boshek&lt;/a&gt;, &lt;a href=&#34;https://github.com/breichholf&#34;&gt;&amp;#x0040;breichholf&lt;/a&gt;, &lt;a href=&#34;https://github.com/BrianDiggs&#34;&gt;&amp;#x0040;BrianDiggs&lt;/a&gt;, &lt;a href=&#34;https://github.com/brianwdavis&#34;&gt;&amp;#x0040;brianwdavis&lt;/a&gt;, &lt;a href=&#34;https://github.com/briatte&#34;&gt;&amp;#x0040;briatte&lt;/a&gt;, &lt;a href=&#34;https://github.com/brodieG&#34;&gt;&amp;#x0040;brodieG&lt;/a&gt;, &lt;a href=&#34;https://github.com/brunolucian&#34;&gt;&amp;#x0040;brunolucian&lt;/a&gt;, &lt;a href=&#34;https://github.com/bschneidr&#34;&gt;&amp;#x0040;bschneidr&lt;/a&gt;, &lt;a href=&#34;https://github.com/burchill&#34;&gt;&amp;#x0040;burchill&lt;/a&gt;, &lt;a href=&#34;https://github.com/buyske&#34;&gt;&amp;#x0040;buyske&lt;/a&gt;, &lt;a href=&#34;https://github.com/byapparov&#34;&gt;&amp;#x0040;byapparov&lt;/a&gt;, &lt;a href=&#34;https://github.com/caijun&#34;&gt;&amp;#x0040;caijun&lt;/a&gt;, &lt;a href=&#34;https://github.com/calpan&#34;&gt;&amp;#x0040;calpan&lt;/a&gt;, &lt;a href=&#34;https://github.com/cathblatter&#34;&gt;&amp;#x0040;cathblatter&lt;/a&gt;, &lt;a href=&#34;https://github.com/cderv&#34;&gt;&amp;#x0040;cderv&lt;/a&gt;, &lt;a href=&#34;https://github.com/cfhammill&#34;&gt;&amp;#x0040;cfhammill&lt;/a&gt;, &lt;a href=&#34;https://github.com/CharlesNaylor&#34;&gt;&amp;#x0040;CharlesNaylor&lt;/a&gt;, &lt;a href=&#34;https://github.com/chendaniely&#34;&gt;&amp;#x0040;chendaniely&lt;/a&gt;, &lt;a href=&#34;https://github.com/chiarapiccino&#34;&gt;&amp;#x0040;chiarapiccino&lt;/a&gt;, &lt;a href=&#34;https://github.com/chris-park&#34;&gt;&amp;#x0040;chris-park&lt;/a&gt;, &lt;a href=&#34;https://github.com/ChrisMuir&#34;&gt;&amp;#x0040;ChrisMuir&lt;/a&gt;, &lt;a href=&#34;https://github.com/christophergandrud&#34;&gt;&amp;#x0040;christophergandrud&lt;/a&gt;, &lt;a href=&#34;https://github.com/ChuliangXiao&#34;&gt;&amp;#x0040;ChuliangXiao&lt;/a&gt;, &lt;a href=&#34;https://github.com/cimentadaj&#34;&gt;&amp;#x0040;cimentadaj&lt;/a&gt;, &lt;a href=&#34;https://github.com/ck37&#34;&gt;&amp;#x0040;ck37&lt;/a&gt;, &lt;a href=&#34;https://github.com/clauswilke&#34;&gt;&amp;#x0040;clauswilke&lt;/a&gt;, &lt;a href=&#34;https://github.com/ClaytonJY&#34;&gt;&amp;#x0040;ClaytonJY&lt;/a&gt;, &lt;a href=&#34;https://github.com/coatless&#34;&gt;&amp;#x0040;coatless&lt;/a&gt;, &lt;a href=&#34;https://github.com/codetriage-readme-bot&#34;&gt;&amp;#x0040;codetriage-readme-bot&lt;/a&gt;, &lt;a href=&#34;https://github.com/colearendt&#34;&gt;&amp;#x0040;colearendt&lt;/a&gt;, &lt;a href=&#34;https://github.com/ColinFay&#34;&gt;&amp;#x0040;ColinFay&lt;/a&gt;, &lt;a href=&#34;https://github.com/comicfans&#34;&gt;&amp;#x0040;comicfans&lt;/a&gt;, &lt;a href=&#34;https://github.com/ConorIA&#34;&gt;&amp;#x0040;ConorIA&lt;/a&gt;, &lt;a href=&#34;https://github.com/const-ae&#34;&gt;&amp;#x0040;const-ae&lt;/a&gt;, &lt;a href=&#34;https://github.com/coolbutuseless&#34;&gt;&amp;#x0040;coolbutuseless&lt;/a&gt;, &lt;a href=&#34;https://github.com/corinne-riddell&#34;&gt;&amp;#x0040;corinne-riddell&lt;/a&gt;, &lt;a href=&#34;https://github.com/CorradoLanera&#34;&gt;&amp;#x0040;CorradoLanera&lt;/a&gt;, &lt;a href=&#34;https://github.com/corybrunson&#34;&gt;&amp;#x0040;corybrunson&lt;/a&gt;, &lt;a href=&#34;https://github.com/cosmomeese&#34;&gt;&amp;#x0040;cosmomeese&lt;/a&gt;, &lt;a href=&#34;https://github.com/cpsievert&#34;&gt;&amp;#x0040;cpsievert&lt;/a&gt;, &lt;a href=&#34;https://github.com/crew102&#34;&gt;&amp;#x0040;crew102&lt;/a&gt;, &lt;a href=&#34;https://github.com/crossett&#34;&gt;&amp;#x0040;crossett&lt;/a&gt;, &lt;a href=&#34;https://github.com/cschroed-usgs&#34;&gt;&amp;#x0040;cschroed-usgs&lt;/a&gt;, &lt;a href=&#34;https://github.com/csetraynor&#34;&gt;&amp;#x0040;csetraynor&lt;/a&gt;, &lt;a href=&#34;https://github.com/ctbrown&#34;&gt;&amp;#x0040;ctbrown&lt;/a&gt;, &lt;a href=&#34;https://github.com/ctrombley&#34;&gt;&amp;#x0040;ctrombley&lt;/a&gt;, &lt;a href=&#34;https://github.com/cwickham&#34;&gt;&amp;#x0040;cwickham&lt;/a&gt;, &lt;a href=&#34;https://github.com/czeildi&#34;&gt;&amp;#x0040;czeildi&lt;/a&gt;, &lt;a href=&#34;https://github.com/daattali&#34;&gt;&amp;#x0040;daattali&lt;/a&gt;, &lt;a href=&#34;https://github.com/dandermotj&#34;&gt;&amp;#x0040;dandermotj&lt;/a&gt;, &lt;a href=&#34;https://github.com/daniel-barnett&#34;&gt;&amp;#x0040;daniel-barnett&lt;/a&gt;, &lt;a href=&#34;https://github.com/daniellima123&#34;&gt;&amp;#x0040;daniellima123&lt;/a&gt;, &lt;a href=&#34;https://github.com/DataWookie&#34;&gt;&amp;#x0040;DataWookie&lt;/a&gt;, &lt;a href=&#34;https://github.com/davechilders&#34;&gt;&amp;#x0040;davechilders&lt;/a&gt;, &lt;a href=&#34;https://github.com/davidkane9&#34;&gt;&amp;#x0040;davidkane9&lt;/a&gt;, &lt;a href=&#34;https://github.com/DavisVaughan&#34;&gt;&amp;#x0040;DavisVaughan&lt;/a&gt;, &lt;a href=&#34;https://github.com/dchiu911&#34;&gt;&amp;#x0040;dchiu911&lt;/a&gt;, &lt;a href=&#34;https://github.com/delferts&#34;&gt;&amp;#x0040;delferts&lt;/a&gt;, &lt;a href=&#34;https://github.com/devillemereuil&#34;&gt;&amp;#x0040;devillemereuil&lt;/a&gt;, &lt;a href=&#34;https://github.com/dgkf&#34;&gt;&amp;#x0040;dgkf&lt;/a&gt;, &lt;a href=&#34;https://github.com/dgromer&#34;&gt;&amp;#x0040;dgromer&lt;/a&gt;, &lt;a href=&#34;https://github.com/dgrtwo&#34;&gt;&amp;#x0040;dgrtwo&lt;/a&gt;, &lt;a href=&#34;https://github.com/diogocp&#34;&gt;&amp;#x0040;diogocp&lt;/a&gt;, &lt;a href=&#34;https://github.com/dleutnant&#34;&gt;&amp;#x0040;dleutnant&lt;/a&gt;, &lt;a href=&#34;https://github.com/dmenne&#34;&gt;&amp;#x0040;dmenne&lt;/a&gt;, &lt;a href=&#34;https://github.com/dominiklanger&#34;&gt;&amp;#x0040;dominiklanger&lt;/a&gt;, &lt;a href=&#34;https://github.com/dongzhuoer&#34;&gt;&amp;#x0040;dongzhuoer&lt;/a&gt;, &lt;a href=&#34;https://github.com/doug-friedman&#34;&gt;&amp;#x0040;doug-friedman&lt;/a&gt;, &lt;a href=&#34;https://github.com/dougmitarotonda&#34;&gt;&amp;#x0040;dougmitarotonda&lt;/a&gt;, &lt;a href=&#34;https://github.com/Dpananos&#34;&gt;&amp;#x0040;Dpananos&lt;/a&gt;, &lt;a href=&#34;https://github.com/dpastoor&#34;&gt;&amp;#x0040;dpastoor&lt;/a&gt;, &lt;a href=&#34;https://github.com/dpocock&#34;&gt;&amp;#x0040;dpocock&lt;/a&gt;, &lt;a href=&#34;https://github.com/dpprdan&#34;&gt;&amp;#x0040;dpprdan&lt;/a&gt;, &lt;a href=&#34;https://github.com/dpseidel&#34;&gt;&amp;#x0040;dpseidel&lt;/a&gt;, &lt;a href=&#34;https://github.com/dracodoc&#34;&gt;&amp;#x0040;dracodoc&lt;/a&gt;, &lt;a href=&#34;https://github.com/dragosmg&#34;&gt;&amp;#x0040;dragosmg&lt;/a&gt;, &lt;a href=&#34;https://github.com/drewabbot&#34;&gt;&amp;#x0040;drewabbot&lt;/a&gt;, &lt;a href=&#34;https://github.com/drkrynstrng&#34;&gt;&amp;#x0040;drkrynstrng&lt;/a&gt;, &lt;a href=&#34;https://github.com/drsimonj&#34;&gt;&amp;#x0040;drsimonj&lt;/a&gt;, &lt;a href=&#34;https://github.com/duckmayr&#34;&gt;&amp;#x0040;duckmayr&lt;/a&gt;, &lt;a href=&#34;https://github.com/duju211&#34;&gt;&amp;#x0040;duju211&lt;/a&gt;, &lt;a href=&#34;https://github.com/dvcv&#34;&gt;&amp;#x0040;dvcv&lt;/a&gt;, &lt;a href=&#34;https://github.com/dveeden&#34;&gt;&amp;#x0040;dveeden&lt;/a&gt;, &lt;a href=&#34;https://github.com/dvmlls&#34;&gt;&amp;#x0040;dvmlls&lt;/a&gt;, &lt;a href=&#34;https://github.com/dynamicwebpaige&#34;&gt;&amp;#x0040;dynamicwebpaige&lt;/a&gt;, &lt;a href=&#34;https://github.com/earowang&#34;&gt;&amp;#x0040;earowang&lt;/a&gt;, &lt;a href=&#34;https://github.com/echasnovski&#34;&gt;&amp;#x0040;echasnovski&lt;/a&gt;, &lt;a href=&#34;https://github.com/eclarke&#34;&gt;&amp;#x0040;eclarke&lt;/a&gt;, &lt;a href=&#34;https://github.com/econandrew&#34;&gt;&amp;#x0040;econandrew&lt;/a&gt;, &lt;a href=&#34;https://github.com/ecortens&#34;&gt;&amp;#x0040;ecortens&lt;/a&gt;, &lt;a href=&#34;https://github.com/eddelbuettel&#34;&gt;&amp;#x0040;eddelbuettel&lt;/a&gt;, &lt;a href=&#34;https://github.com/edgararuiz&#34;&gt;&amp;#x0040;edgararuiz&lt;/a&gt;, &lt;a href=&#34;https://github.com/edublancas&#34;&gt;&amp;#x0040;edublancas&lt;/a&gt;, &lt;a href=&#34;https://github.com/EdwinTh&#34;&gt;&amp;#x0040;EdwinTh&lt;/a&gt;, &lt;a href=&#34;https://github.com/edzer&#34;&gt;&amp;#x0040;edzer&lt;/a&gt;, &lt;a href=&#34;https://github.com/egnha&#34;&gt;&amp;#x0040;egnha&lt;/a&gt;, &lt;a href=&#34;https://github.com/elben10&#34;&gt;&amp;#x0040;elben10&lt;/a&gt;, &lt;a href=&#34;https://github.com/eliocamp&#34;&gt;&amp;#x0040;eliocamp&lt;/a&gt;, &lt;a href=&#34;https://github.com/EllaKaye&#34;&gt;&amp;#x0040;EllaKaye&lt;/a&gt;, &lt;a href=&#34;https://github.com/ellessenne&#34;&gt;&amp;#x0040;ellessenne&lt;/a&gt;, &lt;a href=&#34;https://github.com/EmilHvitfeldt&#34;&gt;&amp;#x0040;EmilHvitfeldt&lt;/a&gt;, &lt;a href=&#34;https://github.com/Enchufa2&#34;&gt;&amp;#x0040;Enchufa2&lt;/a&gt;, &lt;a href=&#34;https://github.com/endore&#34;&gt;&amp;#x0040;endore&lt;/a&gt;, &lt;a href=&#34;https://github.com/erleholgersen&#34;&gt;&amp;#x0040;erleholgersen&lt;/a&gt;, &lt;a href=&#34;https://github.com/erocoar&#34;&gt;&amp;#x0040;erocoar&lt;/a&gt;, &lt;a href=&#34;https://github.com/espinielli&#34;&gt;&amp;#x0040;espinielli&lt;/a&gt;, &lt;a href=&#34;https://github.com/ethchr&#34;&gt;&amp;#x0040;ethchr&lt;/a&gt;, &lt;a href=&#34;https://github.com/etiennebr&#34;&gt;&amp;#x0040;etiennebr&lt;/a&gt;, &lt;a href=&#34;https://github.com/evanhaldane&#34;&gt;&amp;#x0040;evanhaldane&lt;/a&gt;, &lt;a href=&#34;https://github.com/evanmiller&#34;&gt;&amp;#x0040;evanmiller&lt;/a&gt;, &lt;a href=&#34;https://github.com/everron&#34;&gt;&amp;#x0040;everron&lt;/a&gt;, &lt;a href=&#34;https://github.com/ewallace&#34;&gt;&amp;#x0040;ewallace&lt;/a&gt;, &lt;a href=&#34;https://github.com/ezequielpaura&#34;&gt;&amp;#x0040;ezequielpaura&lt;/a&gt;, &lt;a href=&#34;https://github.com/fbchow&#34;&gt;&amp;#x0040;fbchow&lt;/a&gt;, &lt;a href=&#34;https://github.com/fbreitwieser&#34;&gt;&amp;#x0040;fbreitwieser&lt;/a&gt;, &lt;a href=&#34;https://github.com/Felipe-Rubin&#34;&gt;&amp;#x0040;Felipe-Rubin&lt;/a&gt;, &lt;a href=&#34;https://github.com/filipefilardi&#34;&gt;&amp;#x0040;filipefilardi&lt;/a&gt;, &lt;a href=&#34;https://github.com/flaviobarros&#34;&gt;&amp;#x0040;flaviobarros&lt;/a&gt;, &lt;a href=&#34;https://github.com/flying-sheep&#34;&gt;&amp;#x0040;flying-sheep&lt;/a&gt;, &lt;a href=&#34;https://github.com/fmichonneau&#34;&gt;&amp;#x0040;fmichonneau&lt;/a&gt;, &lt;a href=&#34;https://github.com/foo-bar-baz-qux&#34;&gt;&amp;#x0040;foo-bar-baz-qux&lt;/a&gt;, &lt;a href=&#34;https://github.com/foundinblank&#34;&gt;&amp;#x0040;foundinblank&lt;/a&gt;, &lt;a href=&#34;https://github.com/frostell&#34;&gt;&amp;#x0040;frostell&lt;/a&gt;, &lt;a href=&#34;https://github.com/fxdlmatt&#34;&gt;&amp;#x0040;fxdlmatt&lt;/a&gt;, &lt;a href=&#34;https://github.com/gaborcsardi&#34;&gt;&amp;#x0040;gaborcsardi&lt;/a&gt;, &lt;a href=&#34;https://github.com/gadenbuie&#34;&gt;&amp;#x0040;gadenbuie&lt;/a&gt;, &lt;a href=&#34;https://github.com/gavinsimpson&#34;&gt;&amp;#x0040;gavinsimpson&lt;/a&gt;, &lt;a href=&#34;https://github.com/GegznaV&#34;&gt;&amp;#x0040;GegznaV&lt;/a&gt;, &lt;a href=&#34;https://github.com/gergness&#34;&gt;&amp;#x0040;gergness&lt;/a&gt;, &lt;a href=&#34;https://github.com/gfiumara&#34;&gt;&amp;#x0040;gfiumara&lt;/a&gt;, &lt;a href=&#34;https://github.com/ghost&#34;&gt;&amp;#x0040;ghost&lt;/a&gt;, &lt;a href=&#34;https://github.com/gitter-badger&#34;&gt;&amp;#x0040;gitter-badger&lt;/a&gt;, &lt;a href=&#34;https://github.com/GoldbergData&#34;&gt;&amp;#x0040;GoldbergData&lt;/a&gt;, &lt;a href=&#34;https://github.com/goldingn&#34;&gt;&amp;#x0040;goldingn&lt;/a&gt;, &lt;a href=&#34;https://github.com/gorcha&#34;&gt;&amp;#x0040;gorcha&lt;/a&gt;, &lt;a href=&#34;https://github.com/grayskripko&#34;&gt;&amp;#x0040;grayskripko&lt;/a&gt;, &lt;a href=&#34;https://github.com/gregmacfarlane&#34;&gt;&amp;#x0040;gregmacfarlane&lt;/a&gt;, &lt;a href=&#34;https://github.com/gregrs-uk&#34;&gt;&amp;#x0040;gregrs-uk&lt;/a&gt;, &lt;a href=&#34;https://github.com/Guillaume-Lombardo&#34;&gt;&amp;#x0040;Guillaume-Lombardo&lt;/a&gt;, &lt;a href=&#34;https://github.com/gutorc92&#34;&gt;&amp;#x0040;gutorc92&lt;/a&gt;, &lt;a href=&#34;https://github.com/gvelasq&#34;&gt;&amp;#x0040;gvelasq&lt;/a&gt;, &lt;a href=&#34;https://github.com/gvwilson&#34;&gt;&amp;#x0040;gvwilson&lt;/a&gt;, &lt;a href=&#34;https://github.com/haavardw&#34;&gt;&amp;#x0040;haavardw&lt;/a&gt;, &lt;a href=&#34;https://github.com/hadley&#34;&gt;&amp;#x0040;hadley&lt;/a&gt;, &lt;a href=&#34;https://github.com/hannesmuehleisen&#34;&gt;&amp;#x0040;hannesmuehleisen&lt;/a&gt;, &lt;a href=&#34;https://github.com/haozhu233&#34;&gt;&amp;#x0040;haozhu233&lt;/a&gt;, &lt;a href=&#34;https://github.com/hardeepsjohar&#34;&gt;&amp;#x0040;hardeepsjohar&lt;/a&gt;, &lt;a href=&#34;https://github.com/harrismcgehee&#34;&gt;&amp;#x0040;harrismcgehee&lt;/a&gt;, &lt;a href=&#34;https://github.com/harvey131&#34;&gt;&amp;#x0040;harvey131&lt;/a&gt;, &lt;a href=&#34;https://github.com/has2k1&#34;&gt;&amp;#x0040;has2k1&lt;/a&gt;, &lt;a href=&#34;https://github.com/helix123&#34;&gt;&amp;#x0040;helix123&lt;/a&gt;, &lt;a href=&#34;https://github.com/HenrikBengtsson&#34;&gt;&amp;#x0040;HenrikBengtsson&lt;/a&gt;, &lt;a href=&#34;https://github.com/hlynurhallgrims&#34;&gt;&amp;#x0040;hlynurhallgrims&lt;/a&gt;, &lt;a href=&#34;https://github.com/hmalmedal&#34;&gt;&amp;#x0040;hmalmedal&lt;/a&gt;, &lt;a href=&#34;https://github.com/Hong-Revo&#34;&gt;&amp;#x0040;Hong-Revo&lt;/a&gt;, &lt;a href=&#34;https://github.com/hrbrmstr&#34;&gt;&amp;#x0040;hrbrmstr&lt;/a&gt;, &lt;a href=&#34;https://github.com/huftis&#34;&gt;&amp;#x0040;huftis&lt;/a&gt;, &lt;a href=&#34;https://github.com/hughjonesd&#34;&gt;&amp;#x0040;hughjonesd&lt;/a&gt;, &lt;a href=&#34;https://github.com/HughParsonage&#34;&gt;&amp;#x0040;HughParsonage&lt;/a&gt;, &lt;a href=&#34;https://github.com/ijlyttle&#34;&gt;&amp;#x0040;ijlyttle&lt;/a&gt;, &lt;a href=&#34;https://github.com/ilarischeinin&#34;&gt;&amp;#x0040;ilarischeinin&lt;/a&gt;, &lt;a href=&#34;https://github.com/imanuelcostigan&#34;&gt;&amp;#x0040;imanuelcostigan&lt;/a&gt;, &lt;a href=&#34;https://github.com/Ironholds&#34;&gt;&amp;#x0040;Ironholds&lt;/a&gt;, &lt;a href=&#34;https://github.com/IronistM&#34;&gt;&amp;#x0040;IronistM&lt;/a&gt;, &lt;a href=&#34;https://github.com/ismayc&#34;&gt;&amp;#x0040;ismayc&lt;/a&gt;, &lt;a href=&#34;https://github.com/isomorphisms&#34;&gt;&amp;#x0040;isomorphisms&lt;/a&gt;, &lt;a href=&#34;https://github.com/isteves&#34;&gt;&amp;#x0040;isteves&lt;/a&gt;, &lt;a href=&#34;https://github.com/itsdalmo&#34;&gt;&amp;#x0040;itsdalmo&lt;/a&gt;, &lt;a href=&#34;https://github.com/j450h1&#34;&gt;&amp;#x0040;j450h1&lt;/a&gt;, &lt;a href=&#34;https://github.com/j6t&#34;&gt;&amp;#x0040;j6t&lt;/a&gt;, &lt;a href=&#34;https://github.com/jalsalam&#34;&gt;&amp;#x0040;jalsalam&lt;/a&gt;, &lt;a href=&#34;https://github.com/jameshowison&#34;&gt;&amp;#x0040;jameshowison&lt;/a&gt;, &lt;a href=&#34;https://github.com/jameslairdsmith&#34;&gt;&amp;#x0040;jameslairdsmith&lt;/a&gt;, &lt;a href=&#34;https://github.com/jameslamb&#34;&gt;&amp;#x0040;jameslamb&lt;/a&gt;, &lt;a href=&#34;https://github.com/jan-glx&#34;&gt;&amp;#x0040;jan-glx&lt;/a&gt;, &lt;a href=&#34;https://github.com/jankislinger&#34;&gt;&amp;#x0040;jankislinger&lt;/a&gt;, &lt;a href=&#34;https://github.com/jaredhuling&#34;&gt;&amp;#x0040;jaredhuling&lt;/a&gt;, &lt;a href=&#34;https://github.com/jarodmeng&#34;&gt;&amp;#x0040;jarodmeng&lt;/a&gt;, &lt;a href=&#34;https://github.com/jarvisc1&#34;&gt;&amp;#x0040;jarvisc1&lt;/a&gt;, &lt;a href=&#34;https://github.com/jasonmhoule&#34;&gt;&amp;#x0040;jasonmhoule&lt;/a&gt;, &lt;a href=&#34;https://github.com/javierluraschi&#34;&gt;&amp;#x0040;javierluraschi&lt;/a&gt;, &lt;a href=&#34;https://github.com/jayhesselberth&#34;&gt;&amp;#x0040;jayhesselberth&lt;/a&gt;, &lt;a href=&#34;https://github.com/jbao&#34;&gt;&amp;#x0040;jbao&lt;/a&gt;, &lt;a href=&#34;https://github.com/jbiesanz&#34;&gt;&amp;#x0040;jbiesanz&lt;/a&gt;, &lt;a href=&#34;https://github.com/jcheng5&#34;&gt;&amp;#x0040;jcheng5&lt;/a&gt;, &lt;a href=&#34;https://github.com/jdblischak&#34;&gt;&amp;#x0040;jdblischak&lt;/a&gt;, &lt;a href=&#34;https://github.com/jefferis&#34;&gt;&amp;#x0040;jefferis&lt;/a&gt;, &lt;a href=&#34;https://github.com/jeffreyhanson&#34;&gt;&amp;#x0040;jeffreyhanson&lt;/a&gt;, &lt;a href=&#34;https://github.com/jemus42&#34;&gt;&amp;#x0040;jemus42&lt;/a&gt;, &lt;a href=&#34;https://github.com/jennybc&#34;&gt;&amp;#x0040;jennybc&lt;/a&gt;, &lt;a href=&#34;https://github.com/jentjr&#34;&gt;&amp;#x0040;jentjr&lt;/a&gt;, &lt;a href=&#34;https://github.com/jenzopr&#34;&gt;&amp;#x0040;jenzopr&lt;/a&gt;, &lt;a href=&#34;https://github.com/jepusto&#34;&gt;&amp;#x0040;jepusto&lt;/a&gt;, &lt;a href=&#34;https://github.com/jeroen&#34;&gt;&amp;#x0040;jeroen&lt;/a&gt;, &lt;a href=&#34;https://github.com/jfcharney&#34;&gt;&amp;#x0040;jfcharney&lt;/a&gt;, &lt;a href=&#34;https://github.com/jgabry&#34;&gt;&amp;#x0040;jgabry&lt;/a&gt;, &lt;a href=&#34;https://github.com/JHonaker&#34;&gt;&amp;#x0040;JHonaker&lt;/a&gt;, &lt;a href=&#34;https://github.com/jiho&#34;&gt;&amp;#x0040;jiho&lt;/a&gt;, &lt;a href=&#34;https://github.com/jimhester&#34;&gt;&amp;#x0040;jimhester&lt;/a&gt;, &lt;a href=&#34;https://github.com/jimrothstein&#34;&gt;&amp;#x0040;jimrothstein&lt;/a&gt;, &lt;a href=&#34;https://github.com/jimvine&#34;&gt;&amp;#x0040;jimvine&lt;/a&gt;, &lt;a href=&#34;https://github.com/jinzhen-lin&#34;&gt;&amp;#x0040;jinzhen-lin&lt;/a&gt;, &lt;a href=&#34;https://github.com/jjchern&#34;&gt;&amp;#x0040;jjchern&lt;/a&gt;, &lt;a href=&#34;https://github.com/jlegewie&#34;&gt;&amp;#x0040;jlegewie&lt;/a&gt;, &lt;a href=&#34;https://github.com/jmpsteen&#34;&gt;&amp;#x0040;jmpsteen&lt;/a&gt;, &lt;a href=&#34;https://github.com/jmuhlenkamp&#34;&gt;&amp;#x0040;jmuhlenkamp&lt;/a&gt;, &lt;a href=&#34;https://github.com/jmwerner&#34;&gt;&amp;#x0040;jmwerner&lt;/a&gt;, &lt;a href=&#34;https://github.com/joelgombin&#34;&gt;&amp;#x0040;joelgombin&lt;/a&gt;, &lt;a href=&#34;https://github.com/jongbinjung&#34;&gt;&amp;#x0040;jongbinjung&lt;/a&gt;, &lt;a href=&#34;https://github.com/jonmcalder&#34;&gt;&amp;#x0040;jonmcalder&lt;/a&gt;, &lt;a href=&#34;https://github.com/jonocarroll&#34;&gt;&amp;#x0040;jonocarroll&lt;/a&gt;, &lt;a href=&#34;https://github.com/jonthegeek&#34;&gt;&amp;#x0040;jonthegeek&lt;/a&gt;, &lt;a href=&#34;https://github.com/joranE&#34;&gt;&amp;#x0040;joranE&lt;/a&gt;, &lt;a href=&#34;https://github.com/joshuaulrich&#34;&gt;&amp;#x0040;joshuaulrich&lt;/a&gt;, &lt;a href=&#34;https://github.com/josue-rodriguez&#34;&gt;&amp;#x0040;josue-rodriguez&lt;/a&gt;, &lt;a href=&#34;https://github.com/jrnold&#34;&gt;&amp;#x0040;jrnold&lt;/a&gt;, &lt;a href=&#34;https://github.com/jrosen48&#34;&gt;&amp;#x0040;jrosen48&lt;/a&gt;, &lt;a href=&#34;https://github.com/jschelbert&#34;&gt;&amp;#x0040;jschelbert&lt;/a&gt;, &lt;a href=&#34;https://github.com/jthurner&#34;&gt;&amp;#x0040;jthurner&lt;/a&gt;, &lt;a href=&#34;https://github.com/jtr13&#34;&gt;&amp;#x0040;jtr13&lt;/a&gt;, &lt;a href=&#34;https://github.com/junkka&#34;&gt;&amp;#x0040;junkka&lt;/a&gt;, &lt;a href=&#34;https://github.com/jwnorman&#34;&gt;&amp;#x0040;jwnorman&lt;/a&gt;, &lt;a href=&#34;https://github.com/kanishkamisra&#34;&gt;&amp;#x0040;kanishkamisra&lt;/a&gt;, &lt;a href=&#34;https://github.com/karawoo&#34;&gt;&amp;#x0040;karawoo&lt;/a&gt;, &lt;a href=&#34;https://github.com/karissawhiting&#34;&gt;&amp;#x0040;karissawhiting&lt;/a&gt;, &lt;a href=&#34;https://github.com/karldw&#34;&gt;&amp;#x0040;karldw&lt;/a&gt;, &lt;a href=&#34;https://github.com/katrinleinweber&#34;&gt;&amp;#x0040;katrinleinweber&lt;/a&gt;, &lt;a href=&#34;https://github.com/keithgw&#34;&gt;&amp;#x0040;keithgw&lt;/a&gt;, &lt;a href=&#34;https://github.com/kenahoo&#34;&gt;&amp;#x0040;kenahoo&lt;/a&gt;, &lt;a href=&#34;https://github.com/kendonB&#34;&gt;&amp;#x0040;kendonB&lt;/a&gt;, &lt;a href=&#34;https://github.com/kevinushey&#34;&gt;&amp;#x0040;kevinushey&lt;/a&gt;, &lt;a href=&#34;https://github.com/kevinykuo&#34;&gt;&amp;#x0040;kevinykuo&lt;/a&gt;, &lt;a href=&#34;https://github.com/kforner&#34;&gt;&amp;#x0040;kforner&lt;/a&gt;, &lt;a href=&#34;https://github.com/khotilov&#34;&gt;&amp;#x0040;khotilov&lt;/a&gt;, &lt;a href=&#34;https://github.com/kiendang&#34;&gt;&amp;#x0040;kiendang&lt;/a&gt;, &lt;a href=&#34;https://github.com/kiwiroy&#34;&gt;&amp;#x0040;kiwiroy&lt;/a&gt;, &lt;a href=&#34;https://github.com/KKulma&#34;&gt;&amp;#x0040;KKulma&lt;/a&gt;, &lt;a href=&#34;https://github.com/kohske&#34;&gt;&amp;#x0040;kohske&lt;/a&gt;, &lt;a href=&#34;https://github.com/kopperud&#34;&gt;&amp;#x0040;kopperud&lt;/a&gt;, &lt;a href=&#34;https://github.com/kos59125&#34;&gt;&amp;#x0040;kos59125&lt;/a&gt;, &lt;a href=&#34;https://github.com/krivit&#34;&gt;&amp;#x0040;krivit&lt;/a&gt;, &lt;a href=&#34;https://github.com/krlmlr&#34;&gt;&amp;#x0040;krlmlr&lt;/a&gt;, &lt;a href=&#34;https://github.com/ktmud&#34;&gt;&amp;#x0040;ktmud&lt;/a&gt;, &lt;a href=&#34;https://github.com/ktrask&#34;&gt;&amp;#x0040;ktrask&lt;/a&gt;, &lt;a href=&#34;https://github.com/kwstat&#34;&gt;&amp;#x0040;kwstat&lt;/a&gt;, &lt;a href=&#34;https://github.com/KZARCA&#34;&gt;&amp;#x0040;KZARCA&lt;/a&gt;, &lt;a href=&#34;https://github.com/l4u532&#34;&gt;&amp;#x0040;l4u532&lt;/a&gt;, &lt;a href=&#34;https://github.com/lambiase&#34;&gt;&amp;#x0040;lambiase&lt;/a&gt;, &lt;a href=&#34;https://github.com/landesbergn&#34;&gt;&amp;#x0040;landesbergn&lt;/a&gt;, &lt;a href=&#34;https://github.com/larmarange&#34;&gt;&amp;#x0040;larmarange&lt;/a&gt;, &lt;a href=&#34;https://github.com/lawwu&#34;&gt;&amp;#x0040;lawwu&lt;/a&gt;, &lt;a href=&#34;https://github.com/lbartnik&#34;&gt;&amp;#x0040;lbartnik&lt;/a&gt;, &lt;a href=&#34;https://github.com/lbusett&#34;&gt;&amp;#x0040;lbusett&lt;/a&gt;, &lt;a href=&#34;https://github.com/ledell&#34;&gt;&amp;#x0040;ledell&lt;/a&gt;, &lt;a href=&#34;https://github.com/leerssej&#34;&gt;&amp;#x0040;leerssej&lt;/a&gt;, &lt;a href=&#34;https://github.com/lemna&#34;&gt;&amp;#x0040;lemna&lt;/a&gt;, &lt;a href=&#34;https://github.com/lepennec&#34;&gt;&amp;#x0040;lepennec&lt;/a&gt;, &lt;a href=&#34;https://github.com/lindbrook&#34;&gt;&amp;#x0040;lindbrook&lt;/a&gt;, &lt;a href=&#34;https://github.com/LiNk-NY&#34;&gt;&amp;#x0040;LiNk-NY&lt;/a&gt;, &lt;a href=&#34;https://github.com/lionel-&#34;&gt;&amp;#x0040;lionel-&lt;/a&gt;, &lt;a href=&#34;https://github.com/llrs&#34;&gt;&amp;#x0040;llrs&lt;/a&gt;, &lt;a href=&#34;https://github.com/LluisRamon&#34;&gt;&amp;#x0040;LluisRamon&lt;/a&gt;, &lt;a href=&#34;https://github.com/lmullen&#34;&gt;&amp;#x0040;lmullen&lt;/a&gt;, &lt;a href=&#34;https://github.com/lorenzwalthert&#34;&gt;&amp;#x0040;lorenzwalthert&lt;/a&gt;, &lt;a href=&#34;https://github.com/lpmi-13&#34;&gt;&amp;#x0040;lpmi-13&lt;/a&gt;, &lt;a href=&#34;https://github.com/lselzer&#34;&gt;&amp;#x0040;lselzer&lt;/a&gt;, &lt;a href=&#34;https://github.com/ltobalina&#34;&gt;&amp;#x0040;ltobalina&lt;/a&gt;, &lt;a href=&#34;https://github.com/LucyMcGowan&#34;&gt;&amp;#x0040;LucyMcGowan&lt;/a&gt;, &lt;a href=&#34;https://github.com/luisDVA&#34;&gt;&amp;#x0040;luisDVA&lt;/a&gt;, &lt;a href=&#34;https://github.com/lukesonnet&#34;&gt;&amp;#x0040;lukesonnet&lt;/a&gt;, &lt;a href=&#34;https://github.com/lwjohnst86&#34;&gt;&amp;#x0040;lwjohnst86&lt;/a&gt;, &lt;a href=&#34;https://github.com/m-sostero&#34;&gt;&amp;#x0040;m-sostero&lt;/a&gt;, &lt;a href=&#34;https://github.com/m0nhawk&#34;&gt;&amp;#x0040;m0nhawk&lt;/a&gt;, &lt;a href=&#34;https://github.com/maelle&#34;&gt;&amp;#x0040;maelle&lt;/a&gt;, &lt;a href=&#34;https://github.com/malcolmbarrett&#34;&gt;&amp;#x0040;malcolmbarrett&lt;/a&gt;, &lt;a href=&#34;https://github.com/MarcusWalz&#34;&gt;&amp;#x0040;MarcusWalz&lt;/a&gt;, &lt;a href=&#34;https://github.com/mariusbarth&#34;&gt;&amp;#x0040;mariusbarth&lt;/a&gt;, &lt;a href=&#34;https://github.com/markdly&#34;&gt;&amp;#x0040;markdly&lt;/a&gt;, &lt;a href=&#34;https://github.com/MarkEdmondson1234&#34;&gt;&amp;#x0040;MarkEdmondson1234&lt;/a&gt;, &lt;a href=&#34;https://github.com/martin-mfg&#34;&gt;&amp;#x0040;martin-mfg&lt;/a&gt;, &lt;a href=&#34;https://github.com/martinjhnhadley&#34;&gt;&amp;#x0040;martinjhnhadley&lt;/a&gt;, &lt;a href=&#34;https://github.com/matthieugomez&#34;&gt;&amp;#x0040;matthieugomez&lt;/a&gt;, &lt;a href=&#34;https://github.com/MatthieuStigler&#34;&gt;&amp;#x0040;MatthieuStigler&lt;/a&gt;, &lt;a href=&#34;https://github.com/mattle24&#34;&gt;&amp;#x0040;mattle24&lt;/a&gt;, &lt;a href=&#34;https://github.com/maurolepore&#34;&gt;&amp;#x0040;maurolepore&lt;/a&gt;, &lt;a href=&#34;https://github.com/mawds&#34;&gt;&amp;#x0040;mawds&lt;/a&gt;, &lt;a href=&#34;https://github.com/maxheld83&#34;&gt;&amp;#x0040;maxheld83&lt;/a&gt;, &lt;a href=&#34;https://github.com/mb706&#34;&gt;&amp;#x0040;mb706&lt;/a&gt;, &lt;a href=&#34;https://github.com/mbjoseph&#34;&gt;&amp;#x0040;mbjoseph&lt;/a&gt;, &lt;a href=&#34;https://github.com/mbojan&#34;&gt;&amp;#x0040;mbojan&lt;/a&gt;, &lt;a href=&#34;https://github.com/mcol&#34;&gt;&amp;#x0040;mcol&lt;/a&gt;, &lt;a href=&#34;https://github.com/md0u80c9&#34;&gt;&amp;#x0040;md0u80c9&lt;/a&gt;, &lt;a href=&#34;https://github.com/mdlincoln&#34;&gt;&amp;#x0040;mdlincoln&lt;/a&gt;, &lt;a href=&#34;https://github.com/medinali&#34;&gt;&amp;#x0040;medinali&lt;/a&gt;, &lt;a href=&#34;https://github.com/mfansler&#34;&gt;&amp;#x0040;mfansler&lt;/a&gt;, &lt;a href=&#34;https://github.com/mgirlich&#34;&gt;&amp;#x0040;mgirlich&lt;/a&gt;, &lt;a href=&#34;https://github.com/mhpedersen&#34;&gt;&amp;#x0040;mhpedersen&lt;/a&gt;, &lt;a href=&#34;https://github.com/MichaelChirico&#34;&gt;&amp;#x0040;MichaelChirico&lt;/a&gt;, &lt;a href=&#34;https://github.com/michaellevy&#34;&gt;&amp;#x0040;michaellevy&lt;/a&gt;, &lt;a href=&#34;https://github.com/michaelquinn32&#34;&gt;&amp;#x0040;michaelquinn32&lt;/a&gt;, &lt;a href=&#34;https://github.com/michaelweylandt&#34;&gt;&amp;#x0040;michaelweylandt&lt;/a&gt;, &lt;a href=&#34;https://github.com/mikmart&#34;&gt;&amp;#x0040;mikmart&lt;/a&gt;, &lt;a href=&#34;https://github.com/MilesMcBain&#34;&gt;&amp;#x0040;MilesMcBain&lt;/a&gt;, &lt;a href=&#34;https://github.com/mine-cetinkaya-rundel&#34;&gt;&amp;#x0040;mine-cetinkaya-rundel&lt;/a&gt;, &lt;a href=&#34;https://github.com/mingwandroid&#34;&gt;&amp;#x0040;mingwandroid&lt;/a&gt;, &lt;a href=&#34;https://github.com/mitchelloharawild&#34;&gt;&amp;#x0040;mitchelloharawild&lt;/a&gt;, &lt;a href=&#34;https://github.com/mjskay&#34;&gt;&amp;#x0040;mjskay&lt;/a&gt;, &lt;a href=&#34;https://github.com/mkcor&#34;&gt;&amp;#x0040;mkcor&lt;/a&gt;, &lt;a href=&#34;https://github.com/mkearney&#34;&gt;&amp;#x0040;mkearney&lt;/a&gt;, &lt;a href=&#34;https://github.com/mkuehn10&#34;&gt;&amp;#x0040;mkuehn10&lt;/a&gt;, &lt;a href=&#34;https://github.com/mllg&#34;&gt;&amp;#x0040;mllg&lt;/a&gt;, &lt;a href=&#34;https://github.com/mlysy&#34;&gt;&amp;#x0040;mlysy&lt;/a&gt;, &lt;a href=&#34;https://github.com/moodymudskipper&#34;&gt;&amp;#x0040;moodymudskipper&lt;/a&gt;, &lt;a href=&#34;https://github.com/moslehi&#34;&gt;&amp;#x0040;moslehi&lt;/a&gt;, &lt;a href=&#34;https://github.com/mpadge&#34;&gt;&amp;#x0040;mpadge&lt;/a&gt;, &lt;a href=&#34;https://github.com/mpancia&#34;&gt;&amp;#x0040;mpancia&lt;/a&gt;, &lt;a href=&#34;https://github.com/mrchypark&#34;&gt;&amp;#x0040;mrchypark&lt;/a&gt;, &lt;a href=&#34;https://github.com/mrtns&#34;&gt;&amp;#x0040;mrtns&lt;/a&gt;, &lt;a href=&#34;https://github.com/mruessler&#34;&gt;&amp;#x0040;mruessler&lt;/a&gt;, &lt;a href=&#34;https://github.com/mtmorgan&#34;&gt;&amp;#x0040;mtmorgan&lt;/a&gt;, &lt;a href=&#34;https://github.com/Mullefa&#34;&gt;&amp;#x0040;Mullefa&lt;/a&gt;, &lt;a href=&#34;https://github.com/mundl&#34;&gt;&amp;#x0040;mundl&lt;/a&gt;, &lt;a href=&#34;https://github.com/muschellij2&#34;&gt;&amp;#x0040;muschellij2&lt;/a&gt;, &lt;a href=&#34;https://github.com/mvevans89&#34;&gt;&amp;#x0040;mvevans89&lt;/a&gt;, &lt;a href=&#34;https://github.com/mvkorpel&#34;&gt;&amp;#x0040;mvkorpel&lt;/a&gt;, &lt;a href=&#34;https://github.com/mwaldstein&#34;&gt;&amp;#x0040;mwaldstein&lt;/a&gt;, &lt;a href=&#34;https://github.com/nacnudus&#34;&gt;&amp;#x0040;nacnudus&lt;/a&gt;, &lt;a href=&#34;https://github.com/namelessjon&#34;&gt;&amp;#x0040;namelessjon&lt;/a&gt;, &lt;a href=&#34;https://github.com/nbenn&#34;&gt;&amp;#x0040;nbenn&lt;/a&gt;, &lt;a href=&#34;https://github.com/nealrichardson&#34;&gt;&amp;#x0040;nealrichardson&lt;/a&gt;, &lt;a href=&#34;https://github.com/neilmontgomery&#34;&gt;&amp;#x0040;neilmontgomery&lt;/a&gt;, &lt;a href=&#34;https://github.com/nfultz&#34;&gt;&amp;#x0040;nfultz&lt;/a&gt;, &lt;a href=&#34;https://github.com/nhamilton1980&#34;&gt;&amp;#x0040;nhamilton1980&lt;/a&gt;, &lt;a href=&#34;https://github.com/Nick-Rivera&#34;&gt;&amp;#x0040;Nick-Rivera&lt;/a&gt;, &lt;a href=&#34;https://github.com/nijibabulu&#34;&gt;&amp;#x0040;nijibabulu&lt;/a&gt;, &lt;a href=&#34;https://github.com/njtierney&#34;&gt;&amp;#x0040;njtierney&lt;/a&gt;, &lt;a href=&#34;https://github.com/nmattia&#34;&gt;&amp;#x0040;nmattia&lt;/a&gt;, &lt;a href=&#34;https://github.com/noamross&#34;&gt;&amp;#x0040;noamross&lt;/a&gt;, &lt;a href=&#34;https://github.com/ntdef&#34;&gt;&amp;#x0040;ntdef&lt;/a&gt;, &lt;a href=&#34;https://github.com/nuest&#34;&gt;&amp;#x0040;nuest&lt;/a&gt;, &lt;a href=&#34;https://github.com/nutterb&#34;&gt;&amp;#x0040;nutterb&lt;/a&gt;, &lt;a href=&#34;https://github.com/nzxwang&#34;&gt;&amp;#x0040;nzxwang&lt;/a&gt;, &lt;a href=&#34;https://github.com/odeleongt&#34;&gt;&amp;#x0040;odeleongt&lt;/a&gt;, &lt;a href=&#34;https://github.com/oscardssmith&#34;&gt;&amp;#x0040;oscardssmith&lt;/a&gt;, &lt;a href=&#34;https://github.com/osorensen&#34;&gt;&amp;#x0040;osorensen&lt;/a&gt;, &lt;a href=&#34;https://github.com/overmar&#34;&gt;&amp;#x0040;overmar&lt;/a&gt;, &lt;a href=&#34;https://github.com/pachevalier&#34;&gt;&amp;#x0040;pachevalier&lt;/a&gt;, &lt;a href=&#34;https://github.com/pank&#34;&gt;&amp;#x0040;pank&lt;/a&gt;, &lt;a href=&#34;https://github.com/pat-s&#34;&gt;&amp;#x0040;pat-s&lt;/a&gt;, &lt;a href=&#34;https://github.com/patperry&#34;&gt;&amp;#x0040;patperry&lt;/a&gt;, &lt;a href=&#34;https://github.com/paul-buerkner&#34;&gt;&amp;#x0040;paul-buerkner&lt;/a&gt;, &lt;a href=&#34;https://github.com/paulponcet&#34;&gt;&amp;#x0040;paulponcet&lt;/a&gt;, &lt;a href=&#34;https://github.com/pavel-filatov&#34;&gt;&amp;#x0040;pavel-filatov&lt;/a&gt;, &lt;a href=&#34;https://github.com/Paxanator&#34;&gt;&amp;#x0040;Paxanator&lt;/a&gt;, &lt;a href=&#34;https://github.com/peterdesmet&#34;&gt;&amp;#x0040;peterdesmet&lt;/a&gt;, &lt;a href=&#34;https://github.com/peterhartman&#34;&gt;&amp;#x0040;peterhartman&lt;/a&gt;, &lt;a href=&#34;https://github.com/petermeissner&#34;&gt;&amp;#x0040;petermeissner&lt;/a&gt;, &lt;a href=&#34;https://github.com/pgensler&#34;&gt;&amp;#x0040;pgensler&lt;/a&gt;, &lt;a href=&#34;https://github.com/phaverty&#34;&gt;&amp;#x0040;phaverty&lt;/a&gt;, &lt;a href=&#34;https://github.com/philmikejones&#34;&gt;&amp;#x0040;philmikejones&lt;/a&gt;, &lt;a href=&#34;https://github.com/pierreroudier&#34;&gt;&amp;#x0040;pierreroudier&lt;/a&gt;, &lt;a href=&#34;https://github.com/PirateGrunt&#34;&gt;&amp;#x0040;PirateGrunt&lt;/a&gt;, &lt;a href=&#34;https://github.com/pitakakariki&#34;&gt;&amp;#x0040;pitakakariki&lt;/a&gt;, &lt;a href=&#34;https://github.com/pjpaulpj&#34;&gt;&amp;#x0040;pjpaulpj&lt;/a&gt;, &lt;a href=&#34;https://github.com/pkq&#34;&gt;&amp;#x0040;pkq&lt;/a&gt;, &lt;a href=&#34;https://github.com/pkrog&#34;&gt;&amp;#x0040;pkrog&lt;/a&gt;, &lt;a href=&#34;https://github.com/pmenzel&#34;&gt;&amp;#x0040;pmenzel&lt;/a&gt;, &lt;a href=&#34;https://github.com/PoGibas&#34;&gt;&amp;#x0040;PoGibas&lt;/a&gt;, &lt;a href=&#34;https://github.com/pohzipohzi&#34;&gt;&amp;#x0040;pohzipohzi&lt;/a&gt;, &lt;a href=&#34;https://github.com/privefl&#34;&gt;&amp;#x0040;privefl&lt;/a&gt;, &lt;a href=&#34;https://github.com/prosoitos&#34;&gt;&amp;#x0040;prosoitos&lt;/a&gt;, &lt;a href=&#34;https://github.com/puterleat&#34;&gt;&amp;#x0040;puterleat&lt;/a&gt;, &lt;a href=&#34;https://github.com/pzingg&#34;&gt;&amp;#x0040;pzingg&lt;/a&gt;, &lt;a href=&#34;https://github.com/quartin&#34;&gt;&amp;#x0040;quartin&lt;/a&gt;, &lt;a href=&#34;https://github.com/QuLogic&#34;&gt;&amp;#x0040;QuLogic&lt;/a&gt;, &lt;a href=&#34;https://github.com/r2evans&#34;&gt;&amp;#x0040;r2evans&lt;/a&gt;, &lt;a href=&#34;https://github.com/raffscallion&#34;&gt;&amp;#x0040;raffscallion&lt;/a&gt;, &lt;a href=&#34;https://github.com/rajanand&#34;&gt;&amp;#x0040;rajanand&lt;/a&gt;, &lt;a href=&#34;https://github.com/ramnathv&#34;&gt;&amp;#x0040;ramnathv&lt;/a&gt;, &lt;a href=&#34;https://github.com/randy3k&#34;&gt;&amp;#x0040;randy3k&lt;/a&gt;, &lt;a href=&#34;https://github.com/ras44&#34;&gt;&amp;#x0040;ras44&lt;/a&gt;, &lt;a href=&#34;https://github.com/rasmusab&#34;&gt;&amp;#x0040;rasmusab&lt;/a&gt;, &lt;a href=&#34;https://github.com/rbloehm&#34;&gt;&amp;#x0040;rbloehm&lt;/a&gt;, &lt;a href=&#34;https://github.com/rcannood&#34;&gt;&amp;#x0040;rcannood&lt;/a&gt;, &lt;a href=&#34;https://github.com/realAkhmed&#34;&gt;&amp;#x0040;realAkhmed&lt;/a&gt;, &lt;a href=&#34;https://github.com/Rekyt&#34;&gt;&amp;#x0040;Rekyt&lt;/a&gt;, &lt;a href=&#34;https://github.com/RemkoDuursma&#34;&gt;&amp;#x0040;RemkoDuursma&lt;/a&gt;, &lt;a href=&#34;https://github.com/renkun-ken&#34;&gt;&amp;#x0040;renkun-ken&lt;/a&gt;, &lt;a href=&#34;https://github.com/renozao&#34;&gt;&amp;#x0040;renozao&lt;/a&gt;, &lt;a href=&#34;https://github.com/rensa&#34;&gt;&amp;#x0040;rensa&lt;/a&gt;, &lt;a href=&#34;https://github.com/rentrop&#34;&gt;&amp;#x0040;rentrop&lt;/a&gt;, &lt;a href=&#34;https://github.com/riccardopinosio&#34;&gt;&amp;#x0040;riccardopinosio&lt;/a&gt;, &lt;a href=&#34;https://github.com/RichardJActon&#34;&gt;&amp;#x0040;RichardJActon&lt;/a&gt;, &lt;a href=&#34;https://github.com/richardkunze&#34;&gt;&amp;#x0040;richardkunze&lt;/a&gt;, &lt;a href=&#34;https://github.com/richfitz&#34;&gt;&amp;#x0040;richfitz&lt;/a&gt;, &lt;a href=&#34;https://github.com/richierocks&#34;&gt;&amp;#x0040;richierocks&lt;/a&gt;, &lt;a href=&#34;https://github.com/rkahne&#34;&gt;&amp;#x0040;rkahne&lt;/a&gt;, &lt;a href=&#34;https://github.com/RLesur&#34;&gt;&amp;#x0040;RLesur&lt;/a&gt;, &lt;a href=&#34;https://github.com/rmatkins&#34;&gt;&amp;#x0040;rmatkins&lt;/a&gt;, &lt;a href=&#34;https://github.com/rmflight&#34;&gt;&amp;#x0040;rmflight&lt;/a&gt;, &lt;a href=&#34;https://github.com/rnuske&#34;&gt;&amp;#x0040;rnuske&lt;/a&gt;, &lt;a href=&#34;https://github.com/robertzk&#34;&gt;&amp;#x0040;robertzk&lt;/a&gt;, &lt;a href=&#34;https://github.com/Robinlovelace&#34;&gt;&amp;#x0040;Robinlovelace&lt;/a&gt;, &lt;a href=&#34;https://github.com/robinsones&#34;&gt;&amp;#x0040;robinsones&lt;/a&gt;, &lt;a href=&#34;https://github.com/robkar&#34;&gt;&amp;#x0040;robkar&lt;/a&gt;, &lt;a href=&#34;https://github.com/RolandASc&#34;&gt;&amp;#x0040;RolandASc&lt;/a&gt;, &lt;a href=&#34;https://github.com/romainfrancois&#34;&gt;&amp;#x0040;romainfrancois&lt;/a&gt;, &lt;a href=&#34;https://github.com/romunov&#34;&gt;&amp;#x0040;romunov&lt;/a&gt;, &lt;a href=&#34;https://github.com/rorynolan&#34;&gt;&amp;#x0040;rorynolan&lt;/a&gt;, &lt;a href=&#34;https://github.com/rsaporta&#34;&gt;&amp;#x0040;rsaporta&lt;/a&gt;, &lt;a href=&#34;https://github.com/rstub&#34;&gt;&amp;#x0040;rstub&lt;/a&gt;, &lt;a href=&#34;https://github.com/rtaph&#34;&gt;&amp;#x0040;rtaph&lt;/a&gt;, &lt;a href=&#34;https://github.com/rtobar&#34;&gt;&amp;#x0040;rtobar&lt;/a&gt;, &lt;a href=&#34;https://github.com/ruaridhw&#34;&gt;&amp;#x0040;ruaridhw&lt;/a&gt;, &lt;a href=&#34;https://github.com/rudeboybert&#34;&gt;&amp;#x0040;rudeboybert&lt;/a&gt;, &lt;a href=&#34;https://github.com/ryanatanner&#34;&gt;&amp;#x0040;ryanatanner&lt;/a&gt;, &lt;a href=&#34;https://github.com/ryapric&#34;&gt;&amp;#x0040;ryapric&lt;/a&gt;, &lt;a href=&#34;https://github.com/s-fleck&#34;&gt;&amp;#x0040;s-fleck&lt;/a&gt;, &lt;a href=&#34;https://github.com/sachsmc&#34;&gt;&amp;#x0040;sachsmc&lt;/a&gt;, &lt;a href=&#34;https://github.com/saghirb&#34;&gt;&amp;#x0040;saghirb&lt;/a&gt;, &lt;a href=&#34;https://github.com/salim-b&#34;&gt;&amp;#x0040;salim-b&lt;/a&gt;, &lt;a href=&#34;https://github.com/samssann&#34;&gt;&amp;#x0040;samssann&lt;/a&gt;, &lt;a href=&#34;https://github.com/samzhang111&#34;&gt;&amp;#x0040;samzhang111&lt;/a&gt;, &lt;a href=&#34;https://github.com/sandan&#34;&gt;&amp;#x0040;sandan&lt;/a&gt;, &lt;a href=&#34;https://github.com/saurfang&#34;&gt;&amp;#x0040;saurfang&lt;/a&gt;, &lt;a href=&#34;https://github.com/schloerke&#34;&gt;&amp;#x0040;schloerke&lt;/a&gt;, &lt;a href=&#34;https://github.com/schoonees&#34;&gt;&amp;#x0040;schoonees&lt;/a&gt;, &lt;a href=&#34;https://github.com/seaaan&#34;&gt;&amp;#x0040;seaaan&lt;/a&gt;, &lt;a href=&#34;https://github.com/seanpor&#34;&gt;&amp;#x0040;seanpor&lt;/a&gt;, &lt;a href=&#34;https://github.com/setempler&#34;&gt;&amp;#x0040;setempler&lt;/a&gt;, &lt;a href=&#34;https://github.com/sflippl&#34;&gt;&amp;#x0040;sflippl&lt;/a&gt;, &lt;a href=&#34;https://github.com/shabbybanks&#34;&gt;&amp;#x0040;shabbybanks&lt;/a&gt;, &lt;a href=&#34;https://github.com/shrektan&#34;&gt;&amp;#x0040;shrektan&lt;/a&gt;, &lt;a href=&#34;https://github.com/ShreyasSingh&#34;&gt;&amp;#x0040;ShreyasSingh&lt;/a&gt;, &lt;a href=&#34;https://github.com/siddharthab&#34;&gt;&amp;#x0040;siddharthab&lt;/a&gt;, &lt;a href=&#34;https://github.com/sinhrks&#34;&gt;&amp;#x0040;sinhrks&lt;/a&gt;, &lt;a href=&#34;https://github.com/sjackman&#34;&gt;&amp;#x0040;sjackman&lt;/a&gt;, &lt;a href=&#34;https://github.com/slnovak&#34;&gt;&amp;#x0040;slnovak&lt;/a&gt;, &lt;a href=&#34;https://github.com/slowkow&#34;&gt;&amp;#x0040;slowkow&lt;/a&gt;, &lt;a href=&#34;https://github.com/smaakage85&#34;&gt;&amp;#x0040;smaakage85&lt;/a&gt;, &lt;a href=&#34;https://github.com/snaut&#34;&gt;&amp;#x0040;snaut&lt;/a&gt;, &lt;a href=&#34;https://github.com/sowla&#34;&gt;&amp;#x0040;sowla&lt;/a&gt;, &lt;a href=&#34;https://github.com/statist7&#34;&gt;&amp;#x0040;statist7&lt;/a&gt;, &lt;a href=&#34;https://github.com/statwonk&#34;&gt;&amp;#x0040;statwonk&lt;/a&gt;, &lt;a href=&#34;https://github.com/stefanfritsch&#34;&gt;&amp;#x0040;stefanfritsch&lt;/a&gt;, &lt;a href=&#34;https://github.com/stillmatic&#34;&gt;&amp;#x0040;stillmatic&lt;/a&gt;, &lt;a href=&#34;https://github.com/stragu&#34;&gt;&amp;#x0040;stragu&lt;/a&gt;, &lt;a href=&#34;https://github.com/superchordate&#34;&gt;&amp;#x0040;superchordate&lt;/a&gt;, &lt;a href=&#34;https://github.com/surmann&#34;&gt;&amp;#x0040;surmann&lt;/a&gt;, &lt;a href=&#34;https://github.com/suzanbaert&#34;&gt;&amp;#x0040;suzanbaert&lt;/a&gt;, &lt;a href=&#34;https://github.com/sverchkov&#34;&gt;&amp;#x0040;sverchkov&lt;/a&gt;, &lt;a href=&#34;https://github.com/t-kalinowski&#34;&gt;&amp;#x0040;t-kalinowski&lt;/a&gt;, &lt;a href=&#34;https://github.com/talgalili&#34;&gt;&amp;#x0040;talgalili&lt;/a&gt;, &lt;a href=&#34;https://github.com/tareefk&#34;&gt;&amp;#x0040;tareefk&lt;/a&gt;, &lt;a href=&#34;https://github.com/tdsmith&#34;&gt;&amp;#x0040;tdsmith&lt;/a&gt;, &lt;a href=&#34;https://github.com/tereom&#34;&gt;&amp;#x0040;tereom&lt;/a&gt;, &lt;a href=&#34;https://github.com/terrytangyuan&#34;&gt;&amp;#x0040;terrytangyuan&lt;/a&gt;, &lt;a href=&#34;https://github.com/theGreatWhiteShark&#34;&gt;&amp;#x0040;theGreatWhiteShark&lt;/a&gt;, &lt;a href=&#34;https://github.com/ThierryO&#34;&gt;&amp;#x0040;ThierryO&lt;/a&gt;, &lt;a href=&#34;https://github.com/thisisnic&#34;&gt;&amp;#x0040;thisisnic&lt;/a&gt;, &lt;a href=&#34;https://github.com/thomascwells&#34;&gt;&amp;#x0040;thomascwells&lt;/a&gt;, &lt;a href=&#34;https://github.com/thomasp85&#34;&gt;&amp;#x0040;thomasp85&lt;/a&gt;, &lt;a href=&#34;https://github.com/tigertoes&#34;&gt;&amp;#x0040;tigertoes&lt;/a&gt;, &lt;a href=&#34;https://github.com/timgoodman&#34;&gt;&amp;#x0040;timgoodman&lt;/a&gt;, &lt;a href=&#34;https://github.com/timtrice&#34;&gt;&amp;#x0040;timtrice&lt;/a&gt;, &lt;a href=&#34;https://github.com/tmastny&#34;&gt;&amp;#x0040;tmastny&lt;/a&gt;, &lt;a href=&#34;https://github.com/tnagler&#34;&gt;&amp;#x0040;tnagler&lt;/a&gt;, &lt;a href=&#34;https://github.com/tonytonov&#34;&gt;&amp;#x0040;tonytonov&lt;/a&gt;, &lt;a href=&#34;https://github.com/topepo&#34;&gt;&amp;#x0040;topepo&lt;/a&gt;, &lt;a href=&#34;https://github.com/truemoid&#34;&gt;&amp;#x0040;truemoid&lt;/a&gt;, &lt;a href=&#34;https://github.com/tstev&#34;&gt;&amp;#x0040;tstev&lt;/a&gt;, &lt;a href=&#34;https://github.com/tyluRp&#34;&gt;&amp;#x0040;tyluRp&lt;/a&gt;, &lt;a href=&#34;https://github.com/uribo&#34;&gt;&amp;#x0040;uribo&lt;/a&gt;, &lt;a href=&#34;https://github.com/vkapartzianis&#34;&gt;&amp;#x0040;vkapartzianis&lt;/a&gt;, &lt;a href=&#34;https://github.com/vnijs&#34;&gt;&amp;#x0040;vnijs&lt;/a&gt;, &lt;a href=&#34;https://github.com/vsabarly&#34;&gt;&amp;#x0040;vsabarly&lt;/a&gt;, &lt;a href=&#34;https://github.com/washcycle&#34;&gt;&amp;#x0040;washcycle&lt;/a&gt;, &lt;a href=&#34;https://github.com/wch&#34;&gt;&amp;#x0040;wch&lt;/a&gt;, &lt;a href=&#34;https://github.com/wenjie2wang&#34;&gt;&amp;#x0040;wenjie2wang&lt;/a&gt;, &lt;a href=&#34;https://github.com/wibeasley&#34;&gt;&amp;#x0040;wibeasley&lt;/a&gt;, &lt;a href=&#34;https://github.com/wilkox&#34;&gt;&amp;#x0040;wilkox&lt;/a&gt;, &lt;a href=&#34;https://github.com/wilsonfreitas&#34;&gt;&amp;#x0040;wilsonfreitas&lt;/a&gt;, &lt;a href=&#34;https://github.com/wjakethompson&#34;&gt;&amp;#x0040;wjakethompson&lt;/a&gt;, &lt;a href=&#34;https://github.com/wlandau&#34;&gt;&amp;#x0040;wlandau&lt;/a&gt;, &lt;a href=&#34;https://github.com/xhdong-umd&#34;&gt;&amp;#x0040;xhdong-umd&lt;/a&gt;, &lt;a href=&#34;https://github.com/xvrdm&#34;&gt;&amp;#x0040;xvrdm&lt;/a&gt;, &lt;a href=&#34;https://github.com/yatharth&#34;&gt;&amp;#x0040;yatharth&lt;/a&gt;, &lt;a href=&#34;https://github.com/yihui&#34;&gt;&amp;#x0040;yihui&lt;/a&gt;, &lt;a href=&#34;https://github.com/yiluheihei&#34;&gt;&amp;#x0040;yiluheihei&lt;/a&gt;, &lt;a href=&#34;https://github.com/yiufung&#34;&gt;&amp;#x0040;yiufung&lt;/a&gt;, &lt;a href=&#34;https://github.com/yonicd&#34;&gt;&amp;#x0040;yonicd&lt;/a&gt;, &lt;a href=&#34;https://github.com/yutannihilation&#34;&gt;&amp;#x0040;yutannihilation&lt;/a&gt;, &lt;a href=&#34;https://github.com/zachary-foster&#34;&gt;&amp;#x0040;zachary-foster&lt;/a&gt;, &lt;a href=&#34;https://github.com/zappingseb&#34;&gt;&amp;#x0040;zappingseb&lt;/a&gt;, &lt;a href=&#34;https://github.com/zeehio&#34;&gt;&amp;#x0040;zeehio&lt;/a&gt;, &lt;a href=&#34;https://github.com/zkamvar&#34;&gt;&amp;#x0040;zkamvar&lt;/a&gt;, &lt;a href=&#34;https://github.com/ZoidbergIII&#34;&gt;&amp;#x0040;ZoidbergIII&lt;/a&gt;, &lt;a href=&#34;https://github.com/zozlak&#34;&gt;&amp;#x0040;zozlak&lt;/a&gt;, and &lt;a href=&#34;https://github.com/Zsedo&#34;&gt;&amp;#x0040;Zsedo&lt;/a&gt;.&lt;/p&gt;
+</description>
+  </item>
+  
+<item>
+  <title>Tidyverse developer day 2019</title>
+  <link>/articles/2018/11/tidyverse-developer-day-2019/</link>
+  <pubDate>Wed, 28 Nov 2018 00:00:00 +0000</pubDate>
+  
+<guid>/articles/2018/11/tidyverse-developer-day-2019/</guid>
+  <description>
+
+&lt;p&gt;On the Saturday following &lt;a href=&#34;https://www.rstudio.com/conference/&#34;&gt;rstudio::conf&lt;/a&gt;, we&amp;rsquo;ll be holding our first ever tidyverse developer day!&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;📆 &lt;strong&gt;When:&lt;/strong&gt; 19 January, 9 am - 4 pm&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;📍 &lt;strong&gt;Where:&lt;/strong&gt; &lt;a href=&#34;https://www.sunsetroomaustin.com/&#34;&gt;The Sunset Room&lt;/a&gt;, just a couple blocks away from where rstudio::conf is being held.&lt;/li&gt;
+&lt;li&gt;👥 &lt;strong&gt;Who:&lt;/strong&gt; Anyone who would like to get better at contributing to the tidyverse! Everyone is welcome regardless of whether you&amp;rsquo;ve never done a PR before, or if you&amp;rsquo;ve already made your 10th package.&lt;/li&gt;
+&lt;li&gt;💻 &lt;strong&gt;What:&lt;/strong&gt; A day of learning and coding. We&amp;rsquo;ll provide
+breakfast, lunch, snacks, and coffee; you&amp;rsquo;ll bring your laptop and enthusiasm.
+The tidyverse team will be on hand to help out and answer your questions. We&amp;rsquo;ll also host some discussions about future development plans for tidymodels.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;topics&#34;&gt;Topics 🤓&lt;/h2&gt;
+
+&lt;p&gt;The broad goal of this event is to nurture regular contributors. The tidyverse team will be there, so we can help you hit the ground running and/or get over any stumbling blocks that you encounter. Don&amp;rsquo;t have any ideas for something to work on? No problem! We&amp;rsquo;ll be tagging issues in advance to make sure there&amp;rsquo;s lots to do for any- and everyone, regardless of level of expertise.&lt;/p&gt;
+
+&lt;p&gt;We&amp;rsquo;ll have tables led by different members of the team focusing on topics including:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;First-time contributions,&lt;/li&gt;
+&lt;li&gt;Code makeovers,&lt;/li&gt;
+&lt;li&gt;rlang and tidy eval,&lt;/li&gt;
+&lt;li&gt;Primers,&lt;/li&gt;
+&lt;li&gt;Spanish translations,&lt;/li&gt;
+&lt;li&gt;Modelling, and&lt;/li&gt;
+&lt;li&gt;Repo hygiene.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;tickets&#34;&gt;Tickets 🎫&lt;/h2&gt;
+
+&lt;p&gt;Tickets are &lt;a href=&#34;https://www.eventbrite.com/e/tidyverse-developer-day-tickets-1617065687&#34;&gt;&lt;strong&gt;on sale
+now&lt;/strong&gt;!&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Tickets cost $10; we&amp;rsquo;re charging a small fee because space is limited. All fees
+will be donated to &lt;a href=&#34;https://code2college.org/about/&#34;&gt;Code2College&lt;/a&gt;, a local
+charity that &amp;ldquo;aims to dramatically increase the number of minority and
+low-income high school students who enter and excel in STEM undergraduate majors
+and careers&amp;rdquo;.&lt;/p&gt;
+
+&lt;h3 id=&#34;code-of-conduct&#34;&gt;Code of Conduct&lt;/h3&gt;
+
+&lt;p&gt;All attendees are bound by the &lt;a href=&#34;CODE_OF_CONDUCT.md&#34;&gt;rstudio::conf Code of Conduct&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;questions&#34;&gt;Questions?&lt;/h3&gt;
+
+&lt;p&gt;Have questions? Head over to the &lt;a href=&#34;https://community.rstudio.com/t/tidyverse-developer-day/13146&#34;&gt;tidyverse developer day&lt;/a&gt;
+thread on the RStudio community site!&lt;/p&gt;
+</description>
+  </item>
+  
+<item>
+  <title>Save the date: tidyverse developer day</title>
+  <link>/articles/2018/08/tidyverse-developer-day/</link>
+  <pubDate>Mon, 27 Aug 2018 00:00:00 +0000</pubDate>
+  
+<guid>/articles/2018/08/tidyverse-developer-day/</guid>
+  <description>
+
+&lt;h3 id=&#34;save-the-date&#34;&gt;Save the date 📆&lt;/h3&gt;
+
+&lt;p&gt;On the Saturday following &lt;a href=&#34;https://www.rstudio.com/conference/&#34;&gt;rstudio::conf&lt;/a&gt;,
+we&amp;rsquo;ll be holding our first ever &lt;strong&gt;tidyverse developer day&lt;/strong&gt;, and you&amp;rsquo;re invited!
+So, if you&amp;rsquo;re interested, plan on being in Austin on the 19th of January.
+The venue is not settled yet, but the intent is to make it convenient for
+people who’ve chosen lodging based on the rstudio::conf location.&lt;/p&gt;
+
+&lt;h3 id=&#34;squad-goals&#34;&gt;Squad goals 🎯&lt;/h3&gt;
+
+&lt;p&gt;There will be more details to come, but the idea is to have a day where we
+can work together on anything ranging from submitting your first pull request,
+to working on your own package. The tidyverse team will be there, so we can
+help you hit the ground running and/or get over any stumbling blocks that you
+encounter. Don&amp;rsquo;t have any ideas for something to work on? No problem! We&amp;rsquo;ll
+be tagging issues in advance to make sure there&amp;rsquo;s lots to do for any- and
+everyone, regardless of level of expertise.&lt;/p&gt;
+
+&lt;h3 id=&#34;bonus&#34;&gt;Bonus 🎉&lt;/h3&gt;
+
+&lt;p&gt;Hadley has promised &amp;ldquo;the best BBQ in Texas,&amp;rdquo; so feel free to take that into
+account. We&amp;rsquo;re excited to give this a whirl, and hope to see you there!&lt;/p&gt;
+
+&lt;p&gt;Have questions? Head over to the &lt;a href=&#34;https://community.rstudio.com/t/tidyverse-developer-day/13146&#34;&gt;tidyverse developer day&lt;/a&gt; thread on
+the RStudio community site!&lt;/p&gt;
+</description>
+  </item>
+  
+<item>
+  <title>ggplot2 3.0.0: community posts</title>
+  <link>/articles/2018/08/ggplot2-community-posts/</link>
+  <pubDate>Thu, 09 Aug 2018 00:00:00 +0000</pubDate>
+  
+<guid>/articles/2018/08/ggplot2-community-posts/</guid>
+  <description>
+
+&lt;p&gt;ggplot2 3.0.0 has more changes and features than we could possibly cover in our &lt;a href=&#34;https://www.tidyverse.org/articles/2018/07/ggplot2-3-0-0/#new-features&#34;&gt;release announcement&lt;/a&gt;. So, we asked you (the community) to share &lt;em&gt;your&lt;/em&gt; posts with us during the month following its release.&lt;/p&gt;
+
+&lt;p&gt;Spoiler alert: excellent material ahead!&lt;/p&gt;
+
+&lt;h3 id=&#34;english&#34;&gt;English&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://yutani.rbind.io/post/2017-11-07-ggplot-add/&#34;&gt;An Example Usage of &lt;code&gt;ggplot_add()&lt;/code&gt;&lt;/a&gt;
+by &lt;a href=&#34;https://twitter.com/yutannihilat_en&#34;&gt;Hiroaki Yutani&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.johnmackintosh.com/2018-07-04-tidily-evaluated-ggplot2/&#34;&gt;Tidily evaluated ggplot2&lt;/a&gt;
+by &lt;a href=&#34;https://twitter.com/_johnmackintosh&#34;&gt;John MacKintosh&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.johnmackintosh.com/2018-07-04-more-tidy-evaluation-with-ggplot2/&#34;&gt;More tidy evaluation with ggplot2&lt;/a&gt;
+by &lt;a href=&#34;https://twitter.com/_johnmackintosh&#34;&gt;John MacKintosh&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.onceupondata.com/2018/07/06/ggplot-tidyeval/&#34;&gt;Tidy Eval Meets ggplot2: the bang bang plots&lt;/a&gt; by &lt;a href=&#34;https://twitter.com/OmaymaS_&#34;&gt;Omayma Said&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rtask.thinkr.fr/blog/ggplot2-welcome-viridis/&#34;&gt;[ggplot2] Welcome viridis !&lt;/a&gt;
+by &lt;a href=&#34;https://twitter.com/_ColinFay&#34;&gt;Colin Fay&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://statnmap.com/2018-07-14-introduction-to-mapping-with-sf-and-co/&#34;&gt;Introduction to mapping with {sf} &amp;amp; co.&lt;/a&gt; by &lt;a href=&#34;https://twitter.com/statnmap&#34;&gt;Sébastien Rochette&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.mango-solutions.com/blog/visualising-italian-wine-production&#34;&gt;Visualising Italian wine production&lt;/a&gt; by &lt;a href=&#34;https://twitter.com/aimeegott_R&#34;&gt;Aimee Gott&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://tonyelhabr.rbind.io/posts/bubble-grid-texas-high-school/&#34;&gt;Visualizing Texas High School SAT Math Scores with Bubble Grids&lt;/a&gt; by &lt;a href=&#34;https://twitter.com/TonyElHabr&#34;&gt;Tony ElHabr&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://crunch.io/dev/blog/autoplot-with-tidyeval/&#34;&gt;Making Graphs Look Easy with ggplot2 and Tidy Evaluation&lt;/a&gt; by &lt;a href=&#34;https://twitter.com/gshotwell&#34;&gt;Gordon Shotwell&lt;/a&gt;, &lt;a href=&#34;https://twitter.com/jonkeane&#34;&gt;Jonathan Keane&lt;/a&gt;, and &lt;a href=&#34;https://twitter.com/enpiar&#34;&gt;Neal Richardson&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;french&#34;&gt;French&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://thinkr.fr/quoi-de-neuf-ggplot2/&#34;&gt;Quoi de neuf {ggplot2} ?&lt;/a&gt; by &lt;a href=&#34;https://twitter.com/_ColinFay&#34;&gt;Colin Fay&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;japanese&#34;&gt;Japanese&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://notchained.hatenablog.com/entry/2018/05/27/190740&#34;&gt;ggplot2 3.0.0を使ってみた&lt;/a&gt; by &lt;a href=&#34;https://twitter.com/yutannihilat_en&#34;&gt;Hiroaki Yutani&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://notchained.hatenablog.com/entry/2018/05/28/003910&#34;&gt;&lt;code&gt;ggplot2::geom_sf()&lt;/code&gt;を使ってみる&lt;/a&gt; by &lt;a href=&#34;https://twitter.com/yutannihilat_en&#34;&gt;Hiroaki Yutani&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+  </item>
+  
+<item>
+  <title>Carpe Talk</title>
+  <link>/articles/2018/07/carpe-talk/</link>
+  <pubDate>Sun, 08 Jul 2018 00:00:00 +0000</pubDate>
+  
+<guid>/articles/2018/07/carpe-talk/</guid>
+  <description>
+
+&lt;p&gt;Summer conference season is in full swing, with &lt;a href=&#34;https://user2018.r-project.org&#34;&gt;useR! 2018 Brisbane&lt;/a&gt; nearly upon us!&lt;/p&gt;
+
+&lt;p&gt;Conference talks are a great opportunity to help people learn about the cool and useful things you have built. Given all the hard work you&amp;rsquo;ve already put in, a bit of marketing effort can be a wise investment in drumming up users.&lt;/p&gt;
+
+&lt;p&gt;Making your talk easy for others to promote is like &lt;a href=&#34;http://universaldesign.ie/What-is-Universal-Design/&#34;&gt;universal design&lt;/a&gt;: it makes your accomplishment more accessible for everyone, whether or not they use Twitter or maintain a blog. It&amp;rsquo;s another version of the &lt;a href=&#34;https://en.wikipedia.org/wiki/Elevator_pitch&#34;&gt;Elevator Pitch&lt;/a&gt; or &lt;a href=&#34;https://en.wikipedia.org/wiki/Three_Minute_Thesis&#34;&gt;Three Minute Thesis&lt;/a&gt;, but with more hyperlinks!&lt;/p&gt;
+
+&lt;h2 id=&#34;what-this-post-is-and-is-not-about&#34;&gt;What this post is and is not about&lt;/h2&gt;
+
+&lt;p&gt;We provide concrete tips to make your product easier for others to appreciate. Even if you can only dedicate 30 minutes or a couple of hours to this, you should find a few things here that feel doable and worth it. No one does all of this, nor do they need to. At the end, we link to an annotated, crowd-sourced list of great examples of talk-based marketing. We also draw on this for examples along the way.&lt;/p&gt;
+
+&lt;p&gt;We assume that your product already exists and is ready to share with others. We assume that it is already documented. For example, if it&amp;rsquo;s a package, we assume you already have a good README, vignettes, or articles. There should be a way for someone to learn about your product and &lt;em&gt;then&lt;/em&gt; install it. Realistically, this order of operations is much more likely than &amp;ldquo;install on blind faith, then figure out what it does&amp;rdquo;.&lt;/p&gt;
+
+&lt;p&gt;This post is not about how to build a high-quality package, how to write documentation, or how to give a great talk. We include a few links to such resources below.&lt;/p&gt;
+
+&lt;h2 id=&#34;marketing-is-not-a-four-letter-word&#34;&gt;Marketing is not a Four Letter Word&lt;/h2&gt;
+
+&lt;p&gt;First, deal with the word and concept of &amp;ldquo;marketing&amp;rdquo;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Marketing is the study and management of exchange relationships.&lt;/p&gt;
+
+&lt;p&gt;&amp;ndash; &lt;cite&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Marketing&#34;&gt;https://en.wikipedia.org/wiki/Marketing&lt;/a&gt;&lt;/cite&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;If you have taken the trouble to build an R package, Shiny app, tutorial, or talk, presumably you would like people to know about it and use it! Marketing is the set of activities that help your target audience:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;discover that your thing exists,&lt;/li&gt;
+&lt;li&gt;learn how your thing could benefit them.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Some creators take a peculiar pride in being &amp;ldquo;bad at marketing,&amp;rdquo; but it is not some elusive skill. Nor is marketing effort a sign that your work isn&amp;rsquo;t good enough to sell itself. It&amp;rsquo;s hard to digest all the exciting developments in the R world! It&amp;rsquo;s a kindness to the community if you make it easy to find and appreciate your work.&lt;/p&gt;
+
+&lt;p&gt;You can acknowledge the value in marketing or you can declare that cultivating broader usage is not a goal. Pick one.&lt;/p&gt;
+
+&lt;h2 id=&#34;designate-a-primary-online-home&#34;&gt;Designate a primary online home&lt;/h2&gt;
+
+&lt;p&gt;Pick one primary landing page for your product. Here are some possibilities, illustrated with the infer package:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A dedicated website, possibly made with &lt;a href=&#34;http://pkgdown.r-lib.org&#34;&gt;pkgdown&lt;/a&gt;, &lt;a href=&#34;https://bookdown.org/yihui/blogdown/&#34;&gt;blogdown&lt;/a&gt;, &lt;a href=&#34;https://bookdown.org/yihui/bookdown/&#34;&gt;bookdown&lt;/a&gt;, or, in the case of &lt;a href=&#34;https://shiny.rstudio.com&#34;&gt;Shiny&lt;/a&gt;, a &lt;a href=&#34;https://www.shinyapps.io&#34;&gt;running app&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://infer.netlify.com&#34;&gt;https://infer.netlify.com&lt;/a&gt; is a site generated with pkgdown and the landing page has links to GitHub, CRAN, etc.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;A development venue, such as a &lt;a href=&#34;https://github.com&#34;&gt;GitHub repository&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/andrewpbray/infer&#34;&gt;https://github.com/andrewpbray/infer&lt;/a&gt; features a link to main pkgdown site, plus a badge that links to CRAN.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;A &lt;a href=&#34;https://cran.r-project.org/web/packages/index.html&#34;&gt;CRAN&lt;/a&gt; package landing page
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://cran.r-project.org/web/packages/infer/index.html&#34;&gt;https://cran.r-project.org/web/packages/infer/index.html&lt;/a&gt; links to development repo on GitHub in URL and BugReports field.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Visit this with the eyes of a newcomer. Do you show basic usage? Do you define key terms and acronyms? If your product is related to vis, are there any actual visualizations? Refine accordingly.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/slowkow/ggrepel#readme&#34;&gt;ggrepel&lt;/a&gt; is a good example of a README for a vis package that includes figures.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If your thing has multiple online homes, make sure they are interlinked. There should be a strong push towards the primary home, which then links out to the other locations. Here is a visual review of key online resources (plus a title slide) for the infer package example, with important hyperlinks and identifiers highlighted.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://infer.netlify.com&#34;&gt;
+&lt;img src=&#34;/images/2018-07-carpe-talk/infer-pkgdown-netlify.jpg&#34; alt=&#34;skimr slide&#34; width=&#34;400&#34;&gt;
+&lt;/a&gt;
+&lt;a href=&#34;https://github.com/andrewpbray/infer&#34;&gt;
+&lt;img src=&#34;/images/2018-07-carpe-talk/infer-github-top.jpg&#34; alt=&#34;skimr slide&#34; width=&#34;400&#34;&gt;
+&lt;/a&gt;
+&lt;a href=&#34;https://github.com/andrewpbray/infer#readme&#34;&gt;
+&lt;img src=&#34;/images/2018-07-carpe-talk/infer-github-readme.jpg&#34; alt=&#34;skimr slide&#34; width=&#34;400&#34;&gt;
+&lt;/a&gt;
+&lt;a href=&#34;https://ismayc.github.io/talks/data-day-texas-infer/slide_deck.html#1&#34;&gt;
+&lt;img src=&#34;/images/2018-07-carpe-talk/infer-title-slide.jpg&#34; alt=&#34;skimr slide&#34; width=&#34;400&#34;&gt;
+&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;As you give talks or write papers related to your product, be sure to incorporate the associated links back into the primary online home or docs.&lt;/p&gt;
+
+&lt;h2 id=&#34;a-url-is-a-user-interface&#34;&gt;A URL is a user interface&lt;/h2&gt;
+
+&lt;p&gt;Take a hard look at your product&amp;rsquo;s URL. Is it short, memorable, and informative? If not, work on that. Options include:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Give it a nice URL within your own website. Examples: &lt;a href=&#34;https://earo.me/talk/&#34;&gt;https://earo.me/talk/&lt;/a&gt;, &lt;a href=&#34;http://rich-iannone.github.io/DiagrammeR/&#34;&gt;http://rich-iannone.github.io/DiagrammeR/&lt;/a&gt;, &lt;a href=&#34;https://alison.rbind.io/talk/ohsu-biodatavis/&#34;&gt;https://alison.rbind.io/talk/ohsu-biodatavis/&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Purchase a domain (typical cost is \$5-\$20/year). Example: &lt;a href=&#34;http://happygitwithr.com&#34;&gt;happygitwithr.com&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Make a shortlink using a service, such as &lt;a href=&#34;http://bit.ly&#34;&gt;http://bit.ly&lt;/a&gt;. Examples: Maëlle Salmon&amp;rsquo;s recent talk at Rencontres R &lt;a href=&#34;http://bit.do/rr2018&#34;&gt;http://bit.do/rr2018&lt;/a&gt;, Jenny Bryan webinar on row-oriented workflows &lt;a href=&#34;https://rstd.io/row-work&#34;&gt;https://rstd.io/row-work&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Ideally your URL is easy to hold in human memory long enough to type it with fat fingers, on a phone. In some settings, you might even include this URL and/or a Twitter handle in the slide footer, so it&amp;rsquo;s visible at all times.&lt;/p&gt;
+
+&lt;h2 id=&#34;personal-online-home-and-shortlink&#34;&gt;Personal online home and shortlink&lt;/h2&gt;
+
+&lt;p&gt;If you&amp;rsquo;ve been considering a Twitter account, go ahead and get one, even if you have no immediate plans to be active. Why? A Twitter handle can serve as a great shortlink for you as a person. You can include a link to your primary online presence in your Twitter profile. If people tweet about your talk and product, they will want to &lt;code&gt;@&lt;/code&gt; mention you. And that, in turn, lets you see the reaction and join in any downstream conversations.&lt;/p&gt;
+
+&lt;h2 id=&#34;title-slide&#34;&gt;Title slide&lt;/h2&gt;
+
+&lt;p&gt;Make a slide with the most important coordinates for you and your thing. Include this as the first or second slide. This slide should include one or more of:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Your product&amp;rsquo;s name and primary URL or shortlink.&lt;/li&gt;
+&lt;li&gt;Your name and primary URL(s), handles, or usernames.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;DO THIS IN AN ABSOLUTELY HUGE FONT. Now is not the time for subtlety or mumbling &amp;ldquo;I know this is hard to read, but &amp;hellip;&amp;rdquo;. Incorporate an evocative image or logo as appropriate.&lt;/p&gt;
+
+&lt;p&gt;Leave this slide up for a bigly amount of time, so people have ample opportunity to get out their phones and fire up the camera. Do not flash this vital slide for 3 seconds, only to spend 2 minutes displaying a bulleted outline of your talk. Consider omitting your outline slide and, instead, verbally convey this overview while displaying your title slide.&lt;/p&gt;
+
+&lt;h2 id=&#34;closing-slide&#34;&gt;Closing slide&lt;/h2&gt;
+
+&lt;p&gt;Make a conclusion slide to display as you wrap up and take questions. It should repeat key URLs and handles from the title slide. Consider doing that in a smaller font, so you have room to recap a few key points. This delivers more value than a generic &amp;ldquo;THANK YOU&amp;rdquo; or &amp;ldquo;Questions?&amp;rdquo; slide that lacks identifying content.&lt;/p&gt;
+
+&lt;h2 id=&#34;feature-slides&#34;&gt;Feature slides&lt;/h2&gt;
+
+&lt;p&gt;Accept that people photograph and share individual slides, e.g., via Twitter. This can be a good thing, especially if you harness it for your ends! If an audience member is moved to share your thing, it is natural they want to enhance the basic message with an evocative slide or image. Think about how well your slides work with this predictable behaviour.&lt;/p&gt;
+
+&lt;p&gt;If something would be terrible taken out of context or circulated widely, reflect on that and take appropriate measures.&lt;/p&gt;
+
+&lt;p&gt;If you have a pithy and hilarious point, give that slide some extra attention.&lt;/p&gt;
+
+&lt;p&gt;Here are some resources for live-tweeting. If you&amp;rsquo;d like people to tweet about your talk, make it easy for them. This is just like grant-writing: notice the words the funder uses to describe what they want to fund and describe your work in those terms.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&amp;ldquo;Live Tweeting: Qualitative and Quantitative Advice&amp;rdquo;, a &lt;a href=&#34;https://youtu.be/pxwGIZlPKT0&#34;&gt;4 minute video&lt;/a&gt; by &lt;a href=&#34;http://varianceexplained.org/about/&#34;&gt;David Robinson&lt;/a&gt; from the &lt;a href=&#34;https://www.rstats.nyc&#34;&gt;NYR Conference&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://twitter.com/alice_data/status/899613048771575816?s=19&#34;&gt;Twitter thread&lt;/a&gt; by &lt;a href=&#34;https://twitter.com/alice_data&#34;&gt;Alice Daish&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.rctatman.com/Livetweeting-Guide/&#34;&gt;Rachael Tatman’s Guide to Conference Livetweeting&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;post-materials-before-the-talk&#34;&gt;Post materials &lt;em&gt;before&lt;/em&gt; the talk&lt;/h2&gt;
+
+&lt;p&gt;Choose your primary online home and humane URL &lt;em&gt;before your talk&lt;/em&gt;. It is very tempting, but sub-optimal, to promise the slides or materials &amp;ldquo;after the talk&amp;rdquo;. People are taking notes and photos right now, during your talk, and this is your best chance to tell them how to find your awesome thing when they get home.&lt;/p&gt;
+
+&lt;p&gt;Even if you add more materials or update your slides after the talk, it is still worth it to publicize the URL during the talk. Tweets come up in searches months and years later and wrap-up blog posts will come out over the next couple of weeks. Most of the genuine visits to your thing will happen later, but your talk represents the best opportunity to put the URL in front of people&amp;rsquo;s eyeballs.&lt;/p&gt;
+
+&lt;h2 id=&#34;make-your-slides-easy-to-consume&#34;&gt;Make your slides easy to consume&lt;/h2&gt;
+
+&lt;p&gt;When sharing slides, the main point is to minimize friction for the consumer. Making slides in Rmd is great; making readers clone your repo, install any necessary packages, and knit the document in order to see your slides is not.
+ The way &lt;em&gt;you&lt;/em&gt; store, interact with, and present your slides is not necessarily a great distribution platform, although it is certainly better than keeping them to yourself.&lt;/p&gt;
+
+&lt;p&gt;Slide-specific platforms, such as &lt;a href=&#34;https://speakerdeck.com&#34;&gt;SpeakerDeck&lt;/a&gt;, are the best for pleasant and immediate browsing, linking to specific slides, and embedding in blogs or websites. The main downside is that hyperlinks in slides viewed this way are not immediately clickable.&lt;/p&gt;
+
+&lt;p&gt;PDF files can be shared in a GitHub repo, but this doesn&amp;rsquo;t offer a very pleasant browsing experience, especially if the file is large. Raw R Markdown or HTML on GitHub are even more frustrating because they are not immediately consumable by the user. Video is also not a great primary source, as the perceived time commitment can be off-putting and it is often awkward to consume in the workplace.&lt;/p&gt;
+
+&lt;h2 id=&#34;credit-where-credit-is-due&#34;&gt;Credit where credit is due&lt;/h2&gt;
+
+&lt;p&gt;When in doubt, over-credit and over-thank others whose work has enhanced yours, directly or indirectly. This is much better than under-crediting.&lt;/p&gt;
+
+&lt;p&gt;Don&amp;rsquo;t use other people&amp;rsquo;s work without permission. Comply with licenses and always give attribution. Link back to the source and original creator whenever possible.&lt;/p&gt;
+
+&lt;p&gt;A tricky mechanical question is where to provide information, such as photo credit. Some people include it directly on every slide, but that can create visual clutter. Others collect in a designated place, such as an acknowledgement section or document. Find a method that you feel is fair and aesthetically acceptable.&lt;/p&gt;
+
+&lt;h2 id=&#34;wild-caught-and-crowd-sourced-examples&#34;&gt;Wild-caught and crowd-sourced examples&lt;/h2&gt;
+
+&lt;p&gt;We solicited submissions from the community of talks that exemplified various aspects of good marketing. The response was fantastic and, indeed, proved to be too much to summarize here. So instead we encourage you to mine &lt;a href=&#34;https://github.com/tidyverse/tidyverse.org/issues/182&#34;&gt;this issue thread&lt;/a&gt; for inspiration. There are specific examples, complete with hyperlinks, of many different implementations of the recommendations here.&lt;/p&gt;
+
+&lt;h2 id=&#34;thanks-and-additional-resources&#34;&gt;Thanks and additional resources&lt;/h2&gt;
+
+&lt;p&gt;Special thanks to &lt;a href=&#34;https://masalmon.eu/&#34;&gt;Maëlle Salmon&lt;/a&gt;. In addition to weighing in on the &lt;a href=&#34;https://github.com/tidyverse/tidyverse.org/issues/182&#34;&gt;GitHub thread&lt;/a&gt;, she provided several general suggestions that are incorporated above. We thank everyone who contributed to or was nominated in the &lt;a href=&#34;https://github.com/tidyverse/tidyverse.org/issues/182&#34;&gt;GitHub thread&lt;/a&gt; for making their work publicly available.&lt;/p&gt;
+
+&lt;p&gt;Recommended resources on talk preparation and the value of marketing and networking in data science:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://speakerdeck.com/mseckington/the-art-of-slide-design&#34;&gt;The Art of Slide Design&lt;/a&gt; by Melinda Seckington&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://kieranhealy.org/blog/archives/2018/03/24/making-slides/&#34;&gt;Presenting Effectively&lt;/a&gt; by Kieran Healy&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.nngroup.com/articles/presenting-bulleted-lists/&#34;&gt;7 Tips for Presenting Bulleted Lists in Digital Content&lt;/a&gt; by Hoa Loranger&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.howtogiveatalk.com&#34;&gt;How To Give a Talk&lt;/a&gt; by David L. Stern&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://hookedondata.org/Building-Your-Data-Science-Network-Finding-Community/&#34;&gt;Building Your Data Science Network: Finding Community&lt;/a&gt; by Emily Robinson&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://medium.com/indeed-data-science/marketing-for-data-science-a-7-step-go-to-market-plan-for-your-next-data-product-60c034c34d55&#34;&gt;Marketing for Data Science: A 7 Step ‘Go-to-Market’ Plan for Your Next Data Product&lt;/a&gt; by Erik Oberg&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+  </item>
+  
+<item>
+  <title>The tidyverse is for EDA, not packages</title>
+  <link>/articles/2018/06/tidyverse-not-for-packages/</link>
+  <pubDate>Wed, 20 Jun 2018 00:00:00 +0000</pubDate>
+  
+<guid>/articles/2018/06/tidyverse-not-for-packages/</guid>
+  <description>
+
+
+&lt;p&gt;A couple of months back, we sent out the following email to the maintainers of
+packages on CRAN with &lt;a href=&#34;http://tidyverse.tidyverse.org/&#34;&gt;tidyverse&lt;/a&gt; listed in
+either Depends, Imports, or Suggests:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Dear &lt;code&gt;{maintainer}&lt;/code&gt;,&lt;/p&gt;
+&lt;p&gt;As of &lt;code&gt;{date}&lt;/code&gt;, your package, &lt;code&gt;{package_name}&lt;/code&gt;, lists the tidyverse package in
+either Depends, Imports, or Suggests on CRAN.&lt;/p&gt;
+&lt;p&gt;Because the tidyverse is a set of packages designed for interactive data
+analysis, this is, in short, a bad idea. The tidyverse package includes a
+substantial number of direct and indirect dependencies (79 packages, as of this
+writing), many of which are likely unnecessary for the purposes of your package.
+Furthermore, the CRAN maintainers frown upon depending on it, which can cause
+hassle for you down the line.&lt;/p&gt;
+&lt;p&gt;If you could please correct this by importing functions from, suggesting,
+or depending on the tidyverse component packages you require at your nearest
+convenience, it would be most appreciated.&lt;/p&gt;
+&lt;p&gt;Please let us know if you have any questions.&lt;/p&gt;
+&lt;p&gt;Thank you,&lt;/p&gt;
+Hadley Wickham&lt;br /&gt;
+c/o Mara Averick
+&lt;/blockquote&gt;
+</description>
+  </item>
+  
+<item>
+  <title>Upvoting issues</title>
+  <link>/articles/2018/04/upvoting-issues/</link>
+  <pubDate>Thu, 12 Apr 2018 00:00:00 +0000</pubDate>
+  
+<guid>/articles/2018/04/upvoting-issues/</guid>
+  <description>
+  &lt;link rel=&#34;stylesheet&#34; href=&#34;/css/article-image.css&#34; type=&#34;text/css&#34; /&gt;
+
+
+&lt;p&gt;Contributions to the tidyverse, and to open source software in general can
+be framed as various forms of “feedback.” Giving useful feedback can be hard!
+That’s one of the reasons that &lt;a href=&#34;https://www.tidyverse.org/contribute/&#34;&gt;&lt;strong&gt;File issues&lt;/strong&gt;&lt;/a&gt;
+is part of our contributing guide. Hopefully, it’s a mutually-beneficial endeavor
+— if you’ve found a bug while &lt;a href=&#34;https://www.tidyverse.org/help/&#34;&gt;getting help&lt;/a&gt;,
+we want to know about it so we can improve the software.&lt;/p&gt;
+&lt;p&gt;For the purposes of this post, let’s suppose you’ve found a bug or there’s a
+feature you’d like to see added to one of your favourite packages. Being the
+thoughtful user that you are, you’ve made your way to the appropriate GitHub
+repo. Before writing anything, you search the existing issues to see if it’s
+already there, or perhaps you’ve landed yourself in the open issue by way of
+searching for your error message. The point is: you have an issue, and you’re
+not alone — someone’s beat you to the punch/blazed a trail ahead of you.&lt;/p&gt;
+&lt;p&gt;Sometimes you’ll have something to add to the conversation (like adding a
+&lt;a href=&#34;http://reprex.tidyverse.org/&#34;&gt;reprex&lt;/a&gt; if one doesn’t exist, or making an
+existing reprex more minimal), but that’s not always the case. This is precisely
+what &lt;a href=&#34;https://blog.github.com/2016-03-10-add-reactions-to-pull-requests-issues-and-comments/&#34;&gt;GitHub Reactions&lt;/a&gt; were meant for. To quote from their launch
+post:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;We’re adding Reactions to conversations today to help people express their
+feelings more simply and effectively.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Feedback that falls on deaf ears isn’t worth much, so we’ve started tracking
+these using the &lt;a href=&#34;https://github.com/r-lib/gh&#34;&gt;gh&lt;/a&gt; package and &lt;a href=&#34;https://developer.github.com/v3/reactions/#list-reactions-for-an-issue&#34;&gt;GitHub’s API&lt;/a&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;GET /repos/:owner/:repo/issues/:number/reactions&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;GitHub has six reaction types, but we’ve bagged them into two categories,
+&lt;code&gt;:+1:&lt;/code&gt; (thumbs up), and the others.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/images/upvoting-issues/reaction_types.png&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;When we pull the repo, issue, and reaction data together we end up with
+something that looks like the following figure.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/images/upvoting-issues/tidyverse_issue_reactions.png&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;It’s a far cry from a fancy report, but it provides another avenue for easy
+communication among users and developers.&lt;/p&gt;
+&lt;div id=&#34;how-do-i-react&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;How do I react?&lt;/h4&gt;
+&lt;p&gt;As long as you have a GitHub account, all you need to do is click-and-pick.
+This isn’t a &lt;em&gt;true&lt;/em&gt; upvoting system, just a way of saying &lt;code&gt;+1&lt;/code&gt; without having
+to write a comment to that same effect.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/images/upvoting-issues/pkgdown_upvoting.gif&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;what-if-the-issue-is-closed&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;What if the issue is closed?&lt;/h4&gt;
+&lt;p&gt;We are &lt;em&gt;not&lt;/em&gt; tracking reactions on closed issues.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;what-about-comments&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;What about comments?&lt;/h4&gt;
+&lt;p&gt;Comments are great, and they’re not going away. Tracking upvotes is intended to
+be an at-a-glance indicator. Comments don’t serve this purpose quite so well, as
+they can be positive, negative, or anything in between.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/images/upvoting-issues/pkgdown_comment.gif&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;does-this-mean-that-issues-will-be-dealt-with-sequentially-by-popular-demand&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Does this mean that issues will be dealt with sequentially by popular demand?&lt;/h4&gt;
+&lt;p&gt;Nope. While we want and value your feedback, our development process isn’t a
+popularity contest — we carefully weigh the severity of the issue, the number
+of people it affects, our estimate of how much time it will take to fix, and our
+current development foci to decide what to work on next.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;tldr&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;TL;DR&lt;/h3&gt;
+&lt;p&gt;If you go to a GitHub repo to file an issue/request a feature and find an open
+thread, give it a thumbs up: we are listening!&lt;/p&gt;
+&lt;/div&gt;
+</description>
+  </item>
+  
+<item>
+  <title>November/December in the tidyverse</title>
+  <link>/articles/2017/12/nov-updates-2017/</link>
+  <pubDate>Fri, 29 Dec 2017 00:00:00 +0000</pubDate>
+  
+<guid>/articles/2017/12/nov-updates-2017/</guid>
+  <description>
+&lt;link href=&#34;/rmarkdown-libs/font-awesome/css/font-awesome.min.css&#34; rel=&#34;stylesheet&#34; /&gt;
+
+
+&lt;p&gt;In an effort to keep the community up to date with the evolution of the tidyverse, we’ll be doing regular roundups cataloging the latest developments.&lt;/p&gt;
+&lt;section id=&#34;tidyverse-package-updates&#34; class=&#34;level2&#34;&gt;
+&lt;h2&gt;tidyverse package updates&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.tidyverse.org/articles/2017/11/tidyverse_1.2.0/&#34;&gt;tidyverse 1.2.0 &lt;i class=&#34;fa  fa-file &#34;&gt;&lt;/i&gt;&lt;/a&gt; (&lt;a href=&#34;https://github.com/tidyverse/tidyverse/releases/&#34;&gt;release notes&lt;/a&gt;)
+&lt;ul&gt;
+&lt;li&gt;membership changes, with &lt;a href=&#34;http://stringr.tidyverse.org&#34;&gt;stringr&lt;/a&gt; and &lt;a href=&#34;http://forcats.tidyverse.org&#34;&gt;forcats&lt;/a&gt; moving to the core, and the addition of the &lt;a href=&#34;http://reprex.tidyverse.org/&#34;&gt;reprex&lt;/a&gt; package&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://www.tidyverse.org/articles/2017/11/lubridate-1.7.0/&#34;&gt;lubridate 1.7.0 &lt;i class=&#34;fa  fa-file &#34;&gt;&lt;/i&gt;&lt;/a&gt; (&lt;a href=&#34;https://github.com/tidyverse/lubridate/releases&#34;&gt;release notes&lt;/a&gt;)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;rlang 0.1.4 (&lt;a href=&#34;https://github.com/tidyverse/rlang/releases&#34;&gt;release notes&lt;/a&gt;)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;tidyselect 0.2.3 (&lt;a href=&#34;https://github.com/tidyverse/tidyselect/releases&#34;&gt;release notes&lt;/a&gt;)&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;section id=&#34;tidyselect&#34; class=&#34;level3&#34;&gt;
+&lt;h3&gt;tidyselect&lt;/h3&gt;
+&lt;p&gt;tidyselect provides a common back-end for &lt;code&gt;dplyr::select()&lt;/code&gt;, &lt;code&gt;tidyr::gather()&lt;/code&gt;, as well as for modelling packages. It is also the source of selection helpers, such as &lt;code&gt;everything()&lt;/code&gt;, and &lt;code&gt;starts_with()&lt;/code&gt;. tidyselect allows you to create selecting verbs that are consistent across tidyverse packages.&lt;/p&gt;
+&lt;/section&gt;
+&lt;section id=&#34;tidy-models&#34; class=&#34;level3&#34;&gt;
+&lt;h3&gt;tidy models&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://topepo.github.io/yardstick/&#34;&gt;yardstick&lt;/a&gt; allows you to easily create tidy performance estimates. Using a syntax similar to dplyr’s you can compute common performance metrics, such as precision, and recall (for classification), or numeric metric outcomes for regression, and have them returned in a tidy data frame.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://topepo.github.io/recipes/&#34;&gt;recipes&lt;/a&gt; is an extensible framework for feature selection and the creation of preprocess design matrices, which can then be applied to statistical and machine learning models. The updated version of recipes includes a tidy method for many of the step functions. The tidy method returns relevant information about the step. This could include estimated parameters or which variables were affected by the step. &lt;a href=&#34;https://topepo.github.io/recipes/news/index.html&#34;&gt;NEWS&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://topepo.github.io/rsample/&#34;&gt;rsample&lt;/a&gt;’s major upgrade from caret is that it allows for &lt;em&gt;nested&lt;/em&gt; resampling. The goal is to have a modular, extensible set of methods that can be used across R packages for traditional resampling techniques, and estimating model performance. rsample can be used to create objects containing resamples of the original data, allowing you to create a model and optimization parameters with placeholders for features to be defined later. The &lt;a href=&#34;https://topepo.github.io/rsample/&#34;&gt;package website&lt;/a&gt; has examples for resampling time series, survival models, and neural networks using &lt;code&gt;tensorflow&lt;/code&gt;. &lt;a href=&#34;https://topepo.github.io/rsample/news/index.html&#34;&gt;NEWS&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://topepo.github.io/tidyposterior/&#34;&gt;tidyposterior&lt;/a&gt; is used to conduct Bayesian &lt;em&gt;post hoc&lt;/em&gt; analyses of resampling results generated by models. It can be considered an upgraded version of &lt;code&gt;caret::resample&lt;/code&gt;. Though it works natively with rsample, it can be used with any data frame of results.&lt;/p&gt;
+&lt;/section&gt;
+&lt;/section&gt;
+&lt;section id=&#34;r-lib&#34; class=&#34;level2&#34;&gt;
+&lt;h2&gt;r-lib&lt;/h2&gt;
+&lt;p&gt;While the tidyverse consists of highly-opinionated tools for data science; r-lib contains mostly-unopinionated infrastructure tools with fewer dependencies.&lt;/p&gt;
+&lt;section id=&#34;package-updates&#34; class=&#34;level3&#34;&gt;
+&lt;h3&gt;package updates&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://www.tidyverse.org/articles/2017/11/withr-2.1.0/&#34;&gt;withr 2.1.0 &lt;i class=&#34;fa  fa-file &#34;&gt;&lt;/i&gt;&lt;/a&gt; (&lt;a href=&#34;https://github.com/r-lib/withr/releases&#34;&gt;release notes&lt;/a&gt;)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://www.tidyverse.org/articles/2017/11/usethis-1.0.0/&#34;&gt;usethis 1.0.0 (and 1.1.0) &lt;i class=&#34;fa  fa-file &#34;&gt;&lt;/i&gt;&lt;/a&gt; (&lt;a href=&#34;https://github.com/r-lib/usethis/releases/tag/v1.1.0&#34;&gt;release notes&lt;/a&gt;)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;cli 1.0.0 now on &lt;a href=&#34;https://cran.r-project.org/web/packages/cli/&#34;&gt;CRAN&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;roxygen2md 0.4.0 (&lt;a href=&#34;https://github.com/r-lib/roxygen2md/releases/tag/v0.0-4&#34;&gt;release notes&lt;/a&gt;)&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;
+&lt;/section&gt;
+</description>
+  </item>
+  
+<item>
+  <title>Welcome!</title>
+  <link>/articles/2017/07/welcome/</link>
+  <pubDate>Sun, 30 Jul 2017 00:00:00 +0000</pubDate>
+  
+<guid>/articles/2017/07/welcome/</guid>
+  <description>&lt;p&gt;Welcome to the new and improved tidyverse website. We are working hard to make tidyverse.org &lt;strong&gt;the&lt;/strong&gt; place to go to learn the tidyverse and to keep up to date with it as it evolves. We want &lt;a href=&#34;https://tidyverse.org&#34;&gt;https://tidyverse.org&lt;/a&gt; to be your one stop shop for everything tidy!&lt;/p&gt;
+
+&lt;p&gt;As well as radically improved graphic design, the site includes four new components:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;/packages&#34;&gt;Packages&lt;/a&gt;: a listing of all packages in the tidyverse,
+broken down by domain.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;/learn&#34;&gt;Learn&lt;/a&gt;: our advice on learning the tidyverse.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;/help&#34;&gt;Help&lt;/a&gt;: are you stuck on something involving the tidyverse?
+Learn how to write &lt;a href=&#34;/help#reprex&#34;&gt;a reprex&lt;/a&gt; then learn where to ask for
+help.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;This blog! Expect to see regular updates on what&amp;rsquo;s happening in the
+tidyverse. This includes package updates, in person events, and
+integrative case studies that show you how to use multiple packages
+from the tidyverse to solve real problems.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The site is made with &lt;a href=&#34;https://bookdown.org/yihui/blogdown&#34;&gt;blogdown&lt;/a&gt; and the source code is &lt;a href=&#34;https://github.com/tidyverse/tidyverse.org&#34;&gt;available on GitHub&lt;/a&gt;. If you spot any small mistakes please feel empowered to create a PR and fix them!&lt;/p&gt;
+</description>
+  </item>
+  
+</channel>
+  </rss>

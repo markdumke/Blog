@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="og:image" content="https://www.tidyverse.org/images/tidyverse-default.png" >
+<meta name="generator" content="Hugo 0.52" />
+
+<title>Make matplotlib look like ggplot - markusdumke</title>
+<meta property="og:title" content="Make matplotlib look like ggplot - markusdumke">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tidyverse.org/articles/vdiffr-0-3-0-sq.jpg" >
+<meta property="description" content="Make matplotlib look like ggplot
+">
+<meta property="og:description" content="Make matplotlib look like ggplot
+">
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png" />
+<link rel="manifest" href="/images/favicons/site.webmanifest" />
+<link rel="mask-icon" href="/images/favicons/safari-pinned-tab.svg" />
+<link rel="shortcut icon" href="/images/favicons/favicon.ico" />
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" href="/images/favicons/browserconfig.xml" >
+
+
+<script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/js/site.js"></script>
+
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.11.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+<link rel="stylesheet" href="/css/tidyverse-site.css" />
+<link rel="stylesheet" href="/css/tweaks.css" />
+<link rel="icon" href="/images/favicon.ico" />
+<link rel="alternate" type="application/atom+xml" title="Blog" href="/articles/index.xml" />
+
+  </head>
+  <body>
+    <div id="appTidyverseSite" class="shrinkHeader alwaysShrinkHeader">
+      <div id="main">
+        
+        <div id="rStudioHeader">
+          <div class="band">
+            <div class="innards bandContent">
+              <div>
+                <a class="productName" href="/">markusdumke</a>
+              </div>
+              <div id="menu">
+  <div id="menuToggler"></div>
+  <div id="menuItems" class="">
+    
+    
+    <a class="menuItem " href="/packages/">Packages</a>
+    
+    <a class="menuItem current" href="/articles/">Blog</a>
+    
+    <a class="menuItem " href="/about/">About</a>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </div>
+
+
+<div class="band padForHeader pushFooter">
+  <div class="bandContent">
+    <div class="full splitColumns withMobileMargins">
+      <div class="column75">
+
+      <h1 class="article-title">Make matplotlib look like ggplot</h1>
+
+      
+      
+      <div class="article-header">
+        <div class="photo" style="background-image: url('../../../vdiffr-0-3-0-wd.jpg');"></div>
+        <div class="photoCredit">Photo by <a href="https://unsplash.com/photos/jHjjWSmnznc">Jakob Owens</a></div>
+      </div>
+      
+
+      
+
+      <div class="article-content">
+      
+
+
+<p>This is a fun post, where I wanted to try to make a matplotlib figure similar to a ggplot figure. Can you guess which image was created with matplotlib and which with ggplot? The answer can be found <a href="#exactline">here</a>.</p>
+<figure>
+<center>
+<img src = "iris_r.png" width = "400px" hspace="50"> <img src = "iris_matplotlib.png" width = "400px">
+<figcaption>
+Two plots, one generated with matplotlib, one with ggplot.
+</figcaption>
+</center>
+</figure>
+<p><br></p>
+<p>To make the matplotlib similar to the ggplot you can pass on a style argument. There is a <code>ggplot</code> style already available but I personally prefer the white background as in ggplot’s <code>theme_bw</code>. So I adapted the mplstyle file and put it on <a href="https://gist.github.com/markusdumke/572e2a8546c54b322b48c0c792799b77">Gist</a>.</p>
+<p>If you want to use this style download the file and specify in Python the path to this file, e.g.</p>
+<pre class="python"><code>import matplotlib.pyplot as plt
+theme_bw = &quot;path2file/theme_bw.mplstyle&quot;
+plt.style.use(theme_bw)</code></pre>
+<p>You can also put the <code>theme_bw.mplstyle</code> into your matplotlib folder (Python -&gt; Lib -&gt; site-packages -&gt; matplotlib -&gt; mpl-data -&gt; stylelib), then you can load the style more easily with</p>
+<pre class="python"><code>plt.style.use(&quot;theme_bw&quot;)</code></pre>
+<p>Here is the full code to generate the two figures above. I had to make a few tweaks to make them as similar as possible.</p>
+<p>In R with ggplot:</p>
+<pre class="r"><code>library(ggplot2)
+# Define colors
+cols &lt;- c(&quot;setosa&quot; = &quot;#E24A33&quot;, &quot;virginica&quot; = &quot;#348ABD&quot;, &quot;versicolor&quot; = &quot;#FBC15E&quot;)
+g &lt;- ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width, col = factor(Species))) +
+  geom_point(size = 3) +
+  theme_bw() +
+  xlab(&quot;Sepal Length&quot;) +
+  ylab(&quot;Sepal Width&quot;) +
+  ggtitle(&quot;Iris&quot;) +
+  scale_colour_manual(values = cols) +
+  guides(col = guide_legend(title = &quot;Species&quot;)) +
+  theme(legend.title.align = 0.5,
+    legend.background = element_rect(colour = &#39;lightgrey&#39;, linetype = &#39;solid&#39;))
+g</code></pre>
+<p>And in Python with matplotlib:</p>
+<pre class="python"><code>import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+from sklearn import datasets
+# Load the theme_bw matplotlib theme
+theme_bw = &quot;path2file/theme_bw.mplstyle&quot;
+plt.style.use(theme_bw)
+# Load the famous iris data
+iris = datasets.load_iris()
+# Convert to pandas data frame and rename columns
+df = pd.DataFrame(data = np.c_[iris[&#39;data&#39;], iris[&#39;target&#39;]],
+                     columns = iris[&#39;feature_names&#39;] + [&#39;target&#39;])
+df.rename(columns = {&#39;sepal length (cm)&#39;: &#39;sepal_length&#39;, 
+                     &#39;sepal width (cm)&#39;: &#39;sepal_width&#39;,
+                     &quot;petal length (cm)&quot;: &quot;petal_length&quot;,
+                     &quot;petal width (cm)&quot;: &quot;petal_width&quot;,
+                     &quot;target&quot;: &quot;species&quot;}, inplace=True)
+# Specify colors
+col = [&quot;#E24A33&quot;, &quot;#FBC15E&quot;, &quot;#348ABD&quot;]
+species = [&quot;setosa&quot;, &quot;versicolor&quot;, &quot;virginica&quot;]
+# Plot
+fig = plt.figure(figsize = (9, 7.2), dpi = 50)
+ax = plt.subplot(111)
+# A few tweaks to save the image in the same aspect ratio as the R graphic
+fig.subplots_adjust(top = 0.8,
+                    bottom = 0.1,
+                    left = 0.1,
+                    right = 0.9)
+# Add plot for each species
+for i in np.unique(df[&quot;species&quot;]):
+    ax.plot(df[df[&quot;species&quot;] == i][&quot;sepal_length&quot;], 
+            df[df[&quot;species&quot;] == i][&quot;sepal_width&quot;], &quot;o&quot;, markersize = 8,
+            c = col[int(i)], label = species[int(i)])
+plt.ylabel(&quot;Sepal Width&quot;)
+plt.xlabel(&quot;Sepal Length&quot;)
+plt.title(&quot;Iris&quot;, loc = &quot;left&quot;)
+# Add space for legend on the right
+box = ax.get_position()
+ax.set_position([box.x0, box.y0, box.width * 0.75, box.height])
+# Add legend
+ax.legend(bbox_to_anchor = (1, 0.6), title = &quot;Species&quot;, labelspacing = 1.5)
+# Remove minor ticks on x axis
+plt.xticks(np.arange(5, max(df.sepal_length) + 1, 1.0))
+plt.show()</code></pre>
+<p><a name="exactline"></a> To answer the initial question: The left plot above has been created with ggplot in R, the right plot with matplotlib in Python.</p>
+
+      </div>
+
+      
+
+
+      </div>
+
+      <div class="column25">
+        <div class="section hideOnMobile">
+          <div class="sectionTitle">Contents</div>
+          
+        </div>
+
+    </div>
+  </div>  
+</div> 
+
+        <div id="rStudioFooter" class="band">
+          <div class="bandContent">
+            <div id="copyright">
+              Markus Dumke, 2019</div>
+            <div id="logos">
+              <a href="https://github.com/markusdumke" class="footerLogo gitHub"></a>
+            </div>
+          </div>
+        </div>
+
+      </div>  
+    </div>  
+
+    
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-115082821-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+  </body>
+</html>
+

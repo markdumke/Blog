@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="og:image" content="https://www.tidyverse.org/images/tidyverse-default.png" >
+<meta name="generator" content="Hugo 0.52" />
+
+<title>devtools 2.0.0 - markusdumke</title>
+<meta property="og:title" content="devtools 2.0.0 - markusdumke">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tidyverse.org/articles/devtools-2-0-0-sq.jpg" >
+<meta property="description" content="Make package development easier by providing R functions that simplify and expedite common tasks.
+">
+<meta property="og:description" content="Make package development easier by providing R functions that simplify and expedite common tasks.
+">
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png" />
+<link rel="manifest" href="/images/favicons/site.webmanifest" />
+<link rel="mask-icon" href="/images/favicons/safari-pinned-tab.svg" />
+<link rel="shortcut icon" href="/images/favicons/favicon.ico" />
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" href="/images/favicons/browserconfig.xml" >
+
+
+<script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/js/site.js"></script>
+
+<link rel="stylesheet" href="/css/tidyverse-site.css" />
+<link rel="stylesheet" href="/css/tweaks.css" />
+<link rel="icon" href="/images/favicon.ico" />
+<link rel="alternate" type="application/atom+xml" title="Blog" href="/articles/index.xml" />
+
+  </head>
+  <body>
+    <div id="appTidyverseSite" class="shrinkHeader alwaysShrinkHeader">
+      <div id="main">
+        
+        <div id="rStudioHeader">
+          <div class="band">
+            <div class="innards bandContent">
+              <div>
+                <a class="productName" href="/">markusdumke</a>
+              </div>
+              <div id="menu">
+  <div id="menuToggler"></div>
+  <div id="menuItems" class="">
+    
+    
+    <a class="menuItem " href="/packages/">Packages</a>
+    
+    <a class="menuItem current" href="/articles/">Blog</a>
+    
+    <a class="menuItem " href="/about/">About</a>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </div>
+
+
+<div class="band padForHeader pushFooter">
+  <div class="bandContent">
+    <div class="full splitColumns withMobileMargins">
+      <div class="column75">
+
+      <h1 class="article-title">devtools 2.0.0</h1>
+
+      
+      
+      <div class="article-header">
+        <div class="photo" style="background-image: url('../../../devtools-2-0-0-wd.jpg');"></div>
+        <div class="photoCredit">Photo by <a href="https://unsplash.com/photos/wEJK4q_YlNQ">Hunter Haley</a></div>
+      </div>
+      
+
+      
+
+      <div class="article-content">
+      
+
+<h2 id="introduction">Introduction</h2>
+
+<p><a href="https://devtools.r-lib.org">devtools</a> 2.0.0 is now on CRAN!</p>
+
+<p>devtools makes package development easier by providing R functions that
+simplify and expedite common tasks. <a href="http://r-pkgs.had.co.nz/">R Packages</a> is a book based around this
+workflow.</p>
+
+<p>devtools 2.0.0 is a major release! It contains all work from the last major
+release (1.13.0) more than a year and a half ago!</p>
+
+<h2 id="breaking-changes">Breaking changes</h2>
+
+<p>There are a handful of breaking changes in this release, mainly done in the
+interest of simplifying and standardizing the function APIs.</p>
+
+<p>The changes should affect relatively little user code, but have required
+developers to make changes. Common errors and ways to work around them
+as well as the full list of changes can be found in the <a href="https://devtools.r-lib.org/news/index.html#breaking-changes">Breaking
+changes</a>
+section of devtools&rsquo;
+<a href="https://github.com/r-lib/devtools/blob/master/NEWS.md">NEWS</a>. If you
+discover something missing, please let us know so we can add it.</p>
+
+<h2 id="conscious-uncoupling">Conscious uncoupling</h2>
+
+<p>This release splits the functionality in devtools into a number of smaller
+packages which are simpler to develop and also easier for other packages to
+depend on. In particular the following packages have been spun off in what we
+are calling the <a href="https://web.archive.org/web/20140326060230/http://www.goop.com/journal/be/conscious-uncoupling">conscious uncoupling</a> of devtools.</p>
+
+<ul>
+<li><a href="https://remotes.r-lib.org">remotes</a>: Installs packages (e.g.
+<code>install_github()</code>).</li>
+<li><a href="https://github.com/r-lib/pkgbuild">pkgbuild</a>: Builds binary packages
+(including checking if build tools are available) (e.g. <code>build()</code>).</li>
+<li><a href="https://github.com/r-lib/pkgload">pkgload</a>: Simulates package loading (e.g.
+<code>load_all()</code>).</li>
+<li><a href="https://github.com/r-lib/rcmdcheck">rcmdcheck</a>: Runs <code>R CMD check</code> and
+reports the results (e.g. <code>check()</code>).</li>
+<li><a href="https://github.com/r-lib/revdepcheck">revdepcheck</a>: Runs <code>R CMD check</code> on
+all reverse dependencies, and figures out what has changed since the last CRAN
+release (e.g. <code>revdep_check()</code>).</li>
+<li><a href="https://github.com/r-lib/sessioninfo">sessioninfo</a>: R session info (e.g.
+<code>session_info()</code>).</li>
+<li><a href="https://usethis.r-lib.org">usethis</a>: Automates package setup (e.g.
+<code>use_test()</code>).</li>
+</ul>
+
+<p>devtools will remain the primary package developers will interact with when
+writing R packages; it will just rely on these other packages internally
+for most of the functionality.</p>
+
+<p>Generally, you should not need to worry about these different packages, because
+devtools installs them all automatically. You will need to care, however, if
+you&rsquo;re filing a bug because reporting it at the correct place will lead to a
+speedier resolution.</p>
+
+<p>Package developers who wish to depend on devtools features should also pay
+attention to which package the functionality is coming from and depend on that
+rather than devtools. In most cases packages should not depend on devtools
+directly. This is similar to the situation with the <a href="https://www.tidyverse.org/articles/2018/06/tidyverse-not-for-packages/">tidyverse
+package</a>.</p>
+
+<h2 id="new-features">New features</h2>
+
+<p>The majority of the work for this release was related to bugfixes and
+infrastructure improvements, but there are also some new features you may
+notice.</p>
+
+<p>As always a complete list of all the changes is available in the package
+<a href="https://devtools.r-lib.org/news/index.html">Changelog</a>.</p>
+
+<h3 id="upgrade-menu">Upgrade menu</h3>
+
+<p>All of the install functions (e.g. <code>install_github()</code>) now prompt the user with
+a menu if there are dependencies of the package being installed which are
+outdated. This allows the user to pick which if any they would like to upgrade.</p>
+
+<p>Previous versions of devtools always upgraded these packages automatically by
+default, which sometimes was frustrating when you simply wanted to install one
+package.</p>
+
+<p>When used non-interactively the install functions work like the previous default of
+always upgrading outdated packages.</p>
+
+<p align="center">
+<img src="/images/devtools-2.0.0/upgrade-menu.png" alt="upgrade menu">
+</p>
+
+<p>The menu respects the <code>menu.graphics</code> option, so set <code>options(menu.graphics =
+FALSE)</code> in your .Rprofile if you prefer text based menus, or <code>TRUE</code> if you
+prefer graphical widgets.</p>
+
+<h3 id="improved-check-output">Improved check output</h3>
+
+<p><code>check()</code> now uses the <a href="https://cran.r-project.org/package=rcmdcheck">rcmdcheck</a> package, which has much richer, more colorful
+output to the check results, making check failures much easier to see.</p>
+
+<p align="center">
+<a href="https://github.com/r-lib/rcmdcheck">
+<img src="https://raw.githubusercontent.com/r-lib/rcmdcheck/master/inst/rcmdcheck.gif" alt="rcmdcheck output" width="700">
+</a>
+</p>
+
+<h3 id="testing-single-files">Testing single files</h3>
+
+<p>devtools now includes functions (<code>test_file()</code> and <code>test_coverage_file()</code>) to
+improve development of a single file. Rather than running all
+tests, or manually supplying a <code>filter</code> argument to restrict the tests
+<code>test_file()</code> automatically runs the corresponding tests for a given source
+file. These functions make the feedback loop when developing new features
+quicker as you only run the relevant tests for the file you are editing.</p>
+
+<p>This requires you use a <a href="https://style.tidyverse.org/tests.html">standard naming
+convention</a> for your tests, e.g. if you
+have a source file <code>R/featureA.R</code> the corresponding test file would be
+<code>tests/testthat/test-featureR.R</code>.</p>
+
+<p>The tests file to run is automatically detected from the open file in RStudio (if
+available), so you can call <code>test_file()</code> with either the source file or
+the test file open. A corresponding <code>test_coverage_file()</code>
+function shows the test code coverage for a single source file.</p>
+
+<p>There is also a <code>test_coverage()</code> function to report test coverage for your
+whole package.</p>
+
+<p>These functions have <a href="https://rstudio.github.io/rstudioaddins/">RStudio addins</a>
+which allows you to <a href="https://rstudio.github.io/rstudioaddins/#keyboard-shorcuts"> bind them to shortcut
+keys</a>.</p>
+
+<p>Shortcuts we recommend</p>
+
+<style>
+kbd {
+  border: 1px solid #aaa;
+  border-radius: 0.2em;
+  background-color: #f9f9f9;
+  padding: 0.1em 0.3em;
+}
+td,th {
+  padding: 0.4em;
+}
+</style>
+
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Windows shortcut</th>
+<th>macOS shortcut</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>test_file()</code></td>
+<td><kbd>Ctrl</kbd>+<kbd>T</kbd></td>
+<td><kbd>Command ⌘ </kbd>+<kbd>T</kbd></td>
+</tr>
+
+<tr>
+<td><code>test_coverage_file()</code></td>
+<td><kbd>Ctrl</kbd>+<kbd>R</kbd></td>
+<td><kbd>Command ⌘ </kbd>+<kbd>R</kbd></td>
+</tr>
+
+<tr>
+<td><code>test_coverage()</code></td>
+<td><kbd>Ctrl</kbd>+<kbd>Shift ⇧</kbd>+<kbd>R</kbd></td>
+<td><kbd>Command ⌘ </kbd>+<kbd>Shift ⇧</kbd>+<kbd>R</kbd></td>
+</tr>
+</tbody>
+</table>
+
+<p><br></p>
+
+<h3 id="spell-checking">Spell checking</h3>
+
+<p><code>spell_check()</code> can be used to check the spelling of package documentation
+using the <a href="https://cran.r-project.org/package=spelling">spelling</a> package. We have found checking spelling before a release
+often catches a number of errors. For more details on features of
+the spelling package see the <a href="https://ropensci.org/technotes/2017/09/07/spelling-release/">rOpenSci
+spelling release post</a>.</p>
+
+<p>Also see
+<a href="https://usethis.r-lib.org/reference/use_spell_check.html">usethis::use_spell_check()</a>
+to have spell checking for the package performed automatically during <code>devtools::check()</code>.</p>
+
+<h2 id="acknowledgements">Acknowledgements</h2>
+
+<p>This release was truly a team effort! Much of the work in the uncoupled
+packages, particularly the remotes, rcmdcheck, revdepcheck and sessioninfo
+packages was done by Gábor Csárdi. Hadley Wickham worked extensively on
+pkgbuild, pkgload and usethis (as well as being responsible for most of the
+original code in devtools) and Jenny Bryan had major contributions to the
+usethis package.</p>
+
+<p>The work spanned over 8 packages (devtools + the uncoupled packages) and
+includes 1,579 commits, 1,487 closed issues and 107 different code contributors!</p>
+
+<p>We are of course grateful to <em>all</em> of the <em>336</em> people who contributed not just code, but also issues and comments for this release:
+<a href="https://github.com/ankane">&#x0040;ankane</a>, <a href="https://github.com/ashiklom">&#x0040;ashiklom</a>, <a href="https://github.com/bleutner">&#x0040;bleutner</a>, <a href="https://github.com/coatless">&#x0040;coatless</a>, <a href="https://github.com/dandelo">&#x0040;dandelo</a>, <a href="https://github.com/dleutnant">&#x0040;dleutnant</a>, <a href="https://github.com/dpprdan">&#x0040;dpprdan</a>, <a href="https://github.com/evanbiederstedt">&#x0040;evanbiederstedt</a>, <a href="https://github.com/gaborcsardi">&#x0040;gaborcsardi</a>, <a href="https://github.com/glin">&#x0040;glin</a>, <a href="https://github.com/gungne">&#x0040;gungne</a>, <a href="https://github.com/hadley">&#x0040;hadley</a>, <a href="https://github.com/heavywatal">&#x0040;heavywatal</a>, <a href="https://github.com/imanuelcostigan">&#x0040;imanuelcostigan</a>, <a href="https://github.com/jennybc">&#x0040;jennybc</a>, <a href="https://github.com/jimhester">&#x0040;jimhester</a>, <a href="https://github.com/jogrue">&#x0040;jogrue</a>, <a href="https://github.com/jonasfoe">&#x0040;jonasfoe</a>, <a href="https://github.com/joshuaulrich">&#x0040;joshuaulrich</a>, <a href="https://github.com/jsal13">&#x0040;jsal13</a>, <a href="https://github.com/KasperSkytte">&#x0040;KasperSkytte</a>, <a href="https://github.com/krlmlr">&#x0040;krlmlr</a>, <a href="https://github.com/LiNk-NY">&#x0040;LiNk-NY</a>, <a href="https://github.com/lorenzwalthert">&#x0040;lorenzwalthert</a>, <a href="https://github.com/nbenn">&#x0040;nbenn</a>, <a href="https://github.com/overmar">&#x0040;overmar</a>, <a href="https://github.com/paulobrecht">&#x0040;paulobrecht</a>, <a href="https://github.com/pgensler">&#x0040;pgensler</a>, <a href="https://github.com/profandyfield">&#x0040;profandyfield</a>, <a href="https://github.com/r-cheologist">&#x0040;r-cheologist</a>, <a href="https://github.com/rcannood">&#x0040;rcannood</a>, <a href="https://github.com/richfitz">&#x0040;richfitz</a>, <a href="https://github.com/robertdj">&#x0040;robertdj</a>, <a href="https://github.com/rtobar">&#x0040;rtobar</a>, <a href="https://github.com/surmann">&#x0040;surmann</a>, <a href="https://github.com/trinker">&#x0040;trinker</a>, <a href="https://github.com/VincentGuyader">&#x0040;VincentGuyader</a>, <a href="https://github.com/vsabarly">&#x0040;vsabarly</a>, <a href="https://github.com/vspinu">&#x0040;vspinu</a>, <a href="https://github.com/wch">&#x0040;wch</a>, <a href="https://github.com/wibeasley">&#x0040;wibeasley</a>, <a href="https://github.com/yutannihilation">&#x0040;yutannihilation</a>, <a href="https://github.com/aravind-j">&#x0040;aravind-j</a>, <a href="https://github.com/eddelbuettel">&#x0040;eddelbuettel</a>, <a href="https://github.com/helix123">&#x0040;helix123</a>, <a href="https://github.com/HughParsonage">&#x0040;HughParsonage</a>, <a href="https://github.com/jrosen48">&#x0040;jrosen48</a>, <a href="https://github.com/noamross">&#x0040;noamross</a>, <a href="https://github.com/pat-s">&#x0040;pat-s</a>, <a href="https://github.com/wlandau-lilly">&#x0040;wlandau-lilly</a>, <a href="https://github.com/baptiste">&#x0040;baptiste</a>, <a href="https://github.com/bbolker">&#x0040;bbolker</a>, <a href="https://github.com/benjaminhlina">&#x0040;benjaminhlina</a>, <a href="https://github.com/colearendt">&#x0040;colearendt</a>, <a href="https://github.com/HenrikBengtsson">&#x0040;HenrikBengtsson</a>, <a href="https://github.com/IndrajeetPatil">&#x0040;IndrajeetPatil</a>, <a href="https://github.com/jeroen">&#x0040;jeroen</a>, <a href="https://github.com/kevinushey">&#x0040;kevinushey</a>, <a href="https://github.com/lionel-">&#x0040;lionel-</a>, <a href="https://github.com/nitisethi28">&#x0040;nitisethi28</a>, <a href="https://github.com/schloerke">&#x0040;schloerke</a>, <a href="https://github.com/topepo">&#x0040;topepo</a>, <a href="https://github.com/lcolladotor">&#x0040;lcolladotor</a>, <a href="https://github.com/llrs">&#x0040;llrs</a>, <a href="https://github.com/patperry">&#x0040;patperry</a>, <a href="https://github.com/bgoodri">&#x0040;bgoodri</a>, <a href="https://github.com/dpastoor">&#x0040;dpastoor</a>, <a href="https://github.com/karldw">&#x0040;karldw</a>, <a href="https://github.com/kylebmetrum">&#x0040;kylebmetrum</a>, <a href="https://github.com/njtierney">&#x0040;njtierney</a>, <a href="https://github.com/richierocks">&#x0040;richierocks</a>, <a href="https://github.com/sangeetabhatia03">&#x0040;sangeetabhatia03</a>, <a href="https://github.com/theGreatWhiteShark">&#x0040;theGreatWhiteShark</a>, <a href="https://github.com/benmarwick">&#x0040;benmarwick</a>, <a href="https://github.com/billdenney">&#x0040;billdenney</a>, <a href="https://github.com/Dripdrop12">&#x0040;Dripdrop12</a>, <a href="https://github.com/friendly">&#x0040;friendly</a>, <a href="https://github.com/isteves">&#x0040;isteves</a>, <a href="https://github.com/mb706">&#x0040;mb706</a>, <a href="https://github.com/pitakakariki">&#x0040;pitakakariki</a>, <a href="https://github.com/prosoitos">&#x0040;prosoitos</a>, <a href="https://github.com/tetron">&#x0040;tetron</a>, <a href="https://github.com/yiufung">&#x0040;yiufung</a>, <a href="https://github.com/adomingues">&#x0040;adomingues</a>, <a href="https://github.com/alexholcombe">&#x0040;alexholcombe</a>, <a href="https://github.com/alexpghayes">&#x0040;alexpghayes</a>, <a href="https://github.com/andrie">&#x0040;andrie</a>, <a href="https://github.com/atheriel">&#x0040;atheriel</a>, <a href="https://github.com/batpigandme">&#x0040;batpigandme</a>, <a href="https://github.com/behrman">&#x0040;behrman</a>, <a href="https://github.com/bestdan">&#x0040;bestdan</a>, <a href="https://github.com/bfgray3">&#x0040;bfgray3</a>, <a href="https://github.com/bhaskarvk">&#x0040;bhaskarvk</a>, <a href="https://github.com/boshek">&#x0040;boshek</a>, <a href="https://github.com/cboettig">&#x0040;cboettig</a>, <a href="https://github.com/cderv">&#x0040;cderv</a>, <a href="https://github.com/chris-billingham">&#x0040;chris-billingham</a>, <a href="https://github.com/Chris-Engelhardt">&#x0040;Chris-Engelhardt</a>, <a href="https://github.com/chris-prener">&#x0040;chris-prener</a>, <a href="https://github.com/CorradoLanera">&#x0040;CorradoLanera</a>, <a href="https://github.com/dchiu911">&#x0040;dchiu911</a>, <a href="https://github.com/dirkschumacher">&#x0040;dirkschumacher</a>, <a href="https://github.com/dougmet">&#x0040;dougmet</a>, <a href="https://github.com/dragosmg">&#x0040;dragosmg</a>, <a href="https://github.com/duckmayr">&#x0040;duckmayr</a>, <a href="https://github.com/echasnovski">&#x0040;echasnovski</a>, <a href="https://github.com/eheinzen">&#x0040;eheinzen</a>, <a href="https://github.com/EmilHvitfeldt">&#x0040;EmilHvitfeldt</a>, <a href="https://github.com/GregorDeCillia">&#x0040;GregorDeCillia</a>, <a href="https://github.com/gvegayon">&#x0040;gvegayon</a>, <a href="https://github.com/gvelasq">&#x0040;gvelasq</a>, <a href="https://github.com/hafen">&#x0040;hafen</a>, <a href="https://github.com/HanjoStudy">&#x0040;HanjoStudy</a>, <a href="https://github.com/ijlyttle">&#x0040;ijlyttle</a>, <a href="https://github.com/jackwasey">&#x0040;jackwasey</a>, <a href="https://github.com/jasonserviss">&#x0040;jasonserviss</a>, <a href="https://github.com/jayhesselberth">&#x0040;jayhesselberth</a>, <a href="https://github.com/jdblischak">&#x0040;jdblischak</a>, <a href="https://github.com/jjchern">&#x0040;jjchern</a>, <a href="https://github.com/jmgirard">&#x0040;jmgirard</a>, <a href="https://github.com/jonocarroll">&#x0040;jonocarroll</a>, <a href="https://github.com/jsta">&#x0040;jsta</a>, <a href="https://github.com/karawoo">&#x0040;karawoo</a>, <a href="https://github.com/katrinleinweber">&#x0040;katrinleinweber</a>, <a href="https://github.com/kiwiroy">&#x0040;kiwiroy</a>, <a href="https://github.com/lbusett">&#x0040;lbusett</a>, <a href="https://github.com/lwjohnst86">&#x0040;lwjohnst86</a>, <a href="https://github.com/maelle">&#x0040;maelle</a>, <a href="https://github.com/maislind">&#x0040;maislind</a>, <a href="https://github.com/malcolmbarrett">&#x0040;malcolmbarrett</a>, <a href="https://github.com/markdly">&#x0040;markdly</a>, <a href="https://github.com/martinjhnhadley">&#x0040;martinjhnhadley</a>, <a href="https://github.com/maurolepore">&#x0040;maurolepore</a>, <a href="https://github.com/mdlincoln">&#x0040;mdlincoln</a>, <a href="https://github.com/mine-cetinkaya-rundel">&#x0040;mine-cetinkaya-rundel</a>, <a href="https://github.com/mixtrak">&#x0040;mixtrak</a>, <a href="https://github.com/muschellij2">&#x0040;muschellij2</a>, <a href="https://github.com/nijibabulu">&#x0040;nijibabulu</a>, <a href="https://github.com/PeteHaitch">&#x0040;PeteHaitch</a>, <a href="https://github.com/rdrivers">&#x0040;rdrivers</a>, <a href="https://github.com/romainfrancois">&#x0040;romainfrancois</a>, <a href="https://github.com/rorynolan">&#x0040;rorynolan</a>, <a href="https://github.com/s-fleck">&#x0040;s-fleck</a>, <a href="https://github.com/seankross">&#x0040;seankross</a>, <a href="https://github.com/strboul">&#x0040;strboul</a>, <a href="https://github.com/tjmahr">&#x0040;tjmahr</a>, <a href="https://github.com/uribo">&#x0040;uribo</a>, <a href="https://github.com/vnijs">&#x0040;vnijs</a>, <a href="https://github.com/webbedfeet">&#x0040;webbedfeet</a>, <a href="https://github.com/1beb">&#x0040;1beb</a>, <a href="https://github.com/ackleymi">&#x0040;ackleymi</a>, <a href="https://github.com/akubisch">&#x0040;akubisch</a>, <a href="https://github.com/alexilliamson">&#x0040;alexilliamson</a>, <a href="https://github.com/alistaire47">&#x0040;alistaire47</a>, <a href="https://github.com/amilenkovic">&#x0040;amilenkovic</a>, <a href="https://github.com/amstilp">&#x0040;amstilp</a>, <a href="https://github.com/AmundsenJunior">&#x0040;AmundsenJunior</a>, <a href="https://github.com/AndreMikulec">&#x0040;AndreMikulec</a>, <a href="https://github.com/andrewrech">&#x0040;andrewrech</a>, <a href="https://github.com/andriuking">&#x0040;andriuking</a>, <a href="https://github.com/anhqle">&#x0040;anhqle</a>, <a href="https://github.com/Ashilex">&#x0040;Ashilex</a>, <a href="https://github.com/Bandytwin">&#x0040;Bandytwin</a>, <a href="https://github.com/bastistician">&#x0040;bastistician</a>, <a href="https://github.com/BenoitLondon">&#x0040;BenoitLondon</a>, <a href="https://github.com/bgctw">&#x0040;bgctw</a>, <a href="https://github.com/BillPetti">&#x0040;BillPetti</a>, <a href="https://github.com/bioinformatist">&#x0040;bioinformatist</a>, <a href="https://github.com/bioticinteractions">&#x0040;bioticinteractions</a>, <a href="https://github.com/Bustami">&#x0040;Bustami</a>, <a href="https://github.com/carlganz">&#x0040;carlganz</a>, <a href="https://github.com/cbail">&#x0040;cbail</a>, <a href="https://github.com/cdeterman">&#x0040;cdeterman</a>, <a href="https://github.com/cfhammill">&#x0040;cfhammill</a>, <a href="https://github.com/chiarapiccino">&#x0040;chiarapiccino</a>, <a href="https://github.com/ChrisMuir">&#x0040;ChrisMuir</a>, <a href="https://github.com/ck37">&#x0040;ck37</a>, <a href="https://github.com/cklunch">&#x0040;cklunch</a>, <a href="https://github.com/courtiol">&#x0040;courtiol</a>, <a href="https://github.com/crossxwill">&#x0040;crossxwill</a>, <a href="https://github.com/daattali">&#x0040;daattali</a>, <a href="https://github.com/damianooldoni">&#x0040;damianooldoni</a>, <a href="https://github.com/darsoo">&#x0040;darsoo</a>, <a href="https://github.com/dataisdata">&#x0040;dataisdata</a>, <a href="https://github.com/DavisVaughan">&#x0040;DavisVaughan</a>, <a href="https://github.com/dbaston">&#x0040;dbaston</a>, <a href="https://github.com/deephoot">&#x0040;deephoot</a>, <a href="https://github.com/dfrankow">&#x0040;dfrankow</a>, <a href="https://github.com/DiogoFerrari">&#x0040;DiogoFerrari</a>, <a href="https://github.com/DivadNojnarg">&#x0040;DivadNojnarg</a>, <a href="https://github.com/djm158">&#x0040;djm158</a>, <a href="https://github.com/djvanderlaan">&#x0040;djvanderlaan</a>, <a href="https://github.com/dmenne">&#x0040;dmenne</a>, <a href="https://github.com/dmurdoch">&#x0040;dmurdoch</a>, <a href="https://github.com/DocOfi">&#x0040;DocOfi</a>, <a href="https://github.com/dracodoc">&#x0040;dracodoc</a>, <a href="https://github.com/dtelad11">&#x0040;dtelad11</a>, <a href="https://github.com/EmilBode">&#x0040;EmilBode</a>, <a href="https://github.com/epurdom">&#x0040;epurdom</a>, <a href="https://github.com/Fazendaaa">&#x0040;Fazendaaa</a>, <a href="https://github.com/feng-li">&#x0040;feng-li</a>, <a href="https://github.com/FilipeamTeixeira">&#x0040;FilipeamTeixeira</a>, <a href="https://github.com/flying-sheep">&#x0040;flying-sheep</a>, <a href="https://github.com/fmichonneau">&#x0040;fmichonneau</a>, <a href="https://github.com/gbouzill">&#x0040;gbouzill</a>, <a href="https://github.com/GeoBosh">&#x0040;GeoBosh</a>, <a href="https://github.com/gilbertocamara">&#x0040;gilbertocamara</a>, <a href="https://github.com/Gioparra91">&#x0040;Gioparra91</a>, <a href="https://github.com/gitter-badger">&#x0040;gitter-badger</a>, <a href="https://github.com/goranbrostrom">&#x0040;goranbrostrom</a>, <a href="https://github.com/guhjy">&#x0040;guhjy</a>, <a href="https://github.com/gwarnes-mdsol">&#x0040;gwarnes-mdsol</a>, <a href="https://github.com/gzagatti">&#x0040;gzagatti</a>, <a href="https://github.com/ha0ye">&#x0040;ha0ye</a>, <a href="https://github.com/holgerbrandl">&#x0040;holgerbrandl</a>, <a href="https://github.com/Hong-Revo">&#x0040;Hong-Revo</a>, <a href="https://github.com/hrbrmstr">&#x0040;hrbrmstr</a>, <a href="https://github.com/hughjonesd">&#x0040;hughjonesd</a>, <a href="https://github.com/ianmcook">&#x0040;ianmcook</a>, <a href="https://github.com/Isaacsh">&#x0040;Isaacsh</a>, <a href="https://github.com/Jadamso">&#x0040;Jadamso</a>, <a href="https://github.com/james-atkins">&#x0040;james-atkins</a>, <a href="https://github.com/JamesSteeleII">&#x0040;JamesSteeleII</a>, <a href="https://github.com/jceleste1991">&#x0040;jceleste1991</a>, <a href="https://github.com/jefshe">&#x0040;jefshe</a>, <a href="https://github.com/jiaqitony">&#x0040;jiaqitony</a>, <a href="https://github.com/JiaxiangBU">&#x0040;JiaxiangBU</a>, <a href="https://github.com/jkraut">&#x0040;jkraut</a>, <a href="https://github.com/joeddav">&#x0040;joeddav</a>, <a href="https://github.com/JohnMount">&#x0040;JohnMount</a>, <a href="https://github.com/joncfoo">&#x0040;joncfoo</a>, <a href="https://github.com/jonkeane">&#x0040;jonkeane</a>, <a href="https://github.com/josherrickson">&#x0040;josherrickson</a>, <a href="https://github.com/JustinMShea">&#x0040;JustinMShea</a>, <a href="https://github.com/KallyopeBio">&#x0040;KallyopeBio</a>, <a href="https://github.com/kanasethu">&#x0040;kanasethu</a>, <a href="https://github.com/karlropkins">&#x0040;karlropkins</a>, <a href="https://github.com/Keaton1188">&#x0040;Keaton1188</a>, <a href="https://github.com/kemin711">&#x0040;kemin711</a>, <a href="https://github.com/kenahoo">&#x0040;kenahoo</a>, <a href="https://github.com/kendonB">&#x0040;kendonB</a>, <a href="https://github.com/kimyen">&#x0040;kimyen</a>, <a href="https://github.com/klmr">&#x0040;klmr</a>, <a href="https://github.com/kmcconeghy">&#x0040;kmcconeghy</a>, <a href="https://github.com/komalsrathi">&#x0040;komalsrathi</a>, <a href="https://github.com/krshedd">&#x0040;krshedd</a>, <a href="https://github.com/layik">&#x0040;layik</a>, <a href="https://github.com/lindbrook">&#x0040;lindbrook</a>, <a href="https://github.com/lucacerone">&#x0040;lucacerone</a>, <a href="https://github.com/magic-lantern">&#x0040;magic-lantern</a>, <a href="https://github.com/malwinare">&#x0040;malwinare</a>, <a href="https://github.com/MansMeg">&#x0040;MansMeg</a>, <a href="https://github.com/MarcHiggins">&#x0040;MarcHiggins</a>, <a href="https://github.com/MarkEdmondson1234">&#x0040;MarkEdmondson1234</a>, <a href="https://github.com/martin11112">&#x0040;martin11112</a>, <a href="https://github.com/mattfidler">&#x0040;mattfidler</a>, <a href="https://github.com/mdavy86">&#x0040;mdavy86</a>, <a href="https://github.com/meowcat">&#x0040;meowcat</a>, <a href="https://github.com/mhines-usgs">&#x0040;mhines-usgs</a>, <a href="https://github.com/MichaelM27">&#x0040;MichaelM27</a>, <a href="https://github.com/michaelwhammer">&#x0040;michaelwhammer</a>, <a href="https://github.com/mikemeredith">&#x0040;mikemeredith</a>, <a href="https://github.com/mikldk">&#x0040;mikldk</a>, <a href="https://github.com/MilesMcBain">&#x0040;MilesMcBain</a>, <a href="https://github.com/mjpnijmeijer">&#x0040;mjpnijmeijer</a>, <a href="https://github.com/mkearney">&#x0040;mkearney</a>, <a href="https://github.com/mkhezr">&#x0040;mkhezr</a>, <a href="https://github.com/mojaveazure">&#x0040;mojaveazure</a>, <a href="https://github.com/moodymudskipper">&#x0040;moodymudskipper</a>, <a href="https://github.com/MrFlick">&#x0040;MrFlick</a>, <a href="https://github.com/mroemer">&#x0040;mroemer</a>, <a href="https://github.com/mrustl">&#x0040;mrustl</a>, <a href="https://github.com/ms609">&#x0040;ms609</a>, <a href="https://github.com/msberends">&#x0040;msberends</a>, <a href="https://github.com/mtmorgan">&#x0040;mtmorgan</a>, <a href="https://github.com/mvuorre">&#x0040;mvuorre</a>, <a href="https://github.com/myaseen208">&#x0040;myaseen208</a>, <a href="https://github.com/navdeep-G">&#x0040;navdeep-G</a>, <a href="https://github.com/neekro">&#x0040;neekro</a>, <a href="https://github.com/Neil-Schneider">&#x0040;Neil-Schneider</a>, <a href="https://github.com/ngreifer">&#x0040;ngreifer</a>, <a href="https://github.com/nick-youngblut">&#x0040;nick-youngblut</a>, <a href="https://github.com/nmattia">&#x0040;nmattia</a>, <a href="https://github.com/ntdef">&#x0040;ntdef</a>, <a href="https://github.com/okayaa">&#x0040;okayaa</a>, <a href="https://github.com/paternogbc">&#x0040;paternogbc</a>, <a href="https://github.com/paul-buerkner">&#x0040;paul-buerkner</a>, <a href="https://github.com/paulmartins">&#x0040;paulmartins</a>, <a href="https://github.com/pavel-filatov">&#x0040;pavel-filatov</a>, <a href="https://github.com/Paxanator">&#x0040;Paxanator</a>, <a href="https://github.com/peterhurford">&#x0040;peterhurford</a>, <a href="https://github.com/petermeissner">&#x0040;petermeissner</a>, <a href="https://github.com/pfgherardini">&#x0040;pfgherardini</a>, <a href="https://github.com/plantarum">&#x0040;plantarum</a>, <a href="https://github.com/potterzot">&#x0040;potterzot</a>, <a href="https://github.com/privefl">&#x0040;privefl</a>, <a href="https://github.com/qpcg">&#x0040;qpcg</a>, <a href="https://github.com/renkun-ken">&#x0040;renkun-ken</a>, <a href="https://github.com/renozao">&#x0040;renozao</a>, <a href="https://github.com/rpruim">&#x0040;rpruim</a>, <a href="https://github.com/RS-eco">&#x0040;RS-eco</a>, <a href="https://github.com/RSIGitHubAdmin">&#x0040;RSIGitHubAdmin</a>, <a href="https://github.com/sammo3182">&#x0040;sammo3182</a>, <a href="https://github.com/SanVerhavert">&#x0040;SanVerhavert</a>, <a href="https://github.com/saurfang">&#x0040;saurfang</a>, <a href="https://github.com/sfirke">&#x0040;sfirke</a>, <a href="https://github.com/ShanSabri">&#x0040;ShanSabri</a>, <a href="https://github.com/skhiggins">&#x0040;skhiggins</a>, <a href="https://github.com/SrinivasTammana">&#x0040;SrinivasTammana</a>, <a href="https://github.com/StanleyXu">&#x0040;StanleyXu</a>, <a href="https://github.com/statquant">&#x0040;statquant</a>, <a href="https://github.com/stla">&#x0040;stla</a>, <a href="https://github.com/stumoodie">&#x0040;stumoodie</a>, <a href="https://github.com/sushilashenoy">&#x0040;sushilashenoy</a>, <a href="https://github.com/Swarje">&#x0040;Swarje</a>, <a href="https://github.com/SymbolixAU">&#x0040;SymbolixAU</a>, <a href="https://github.com/talgalili">&#x0040;talgalili</a>, <a href="https://github.com/tbates">&#x0040;tbates</a>, <a href="https://github.com/tfitzhughilx">&#x0040;tfitzhughilx</a>, <a href="https://github.com/thk686">&#x0040;thk686</a>, <a href="https://github.com/ThorleyJack">&#x0040;ThorleyJack</a>, <a href="https://github.com/TinkaMiau">&#x0040;TinkaMiau</a>, <a href="https://github.com/TKoscik">&#x0040;TKoscik</a>, <a href="https://github.com/tungmilan">&#x0040;tungmilan</a>, <a href="https://github.com/twolodzko">&#x0040;twolodzko</a>, <a href="https://github.com/unDocUMeantIt">&#x0040;unDocUMeantIt</a>, <a href="https://github.com/vaibhav2903">&#x0040;vaibhav2903</a>, <a href="https://github.com/vermouthmjl">&#x0040;vermouthmjl</a>, <a href="https://github.com/vishnu1994">&#x0040;vishnu1994</a>, <a href="https://github.com/wehc1">&#x0040;wehc1</a>, <a href="https://github.com/wldnjs">&#x0040;wldnjs</a>, <a href="https://github.com/wolski">&#x0040;wolski</a>, <a href="https://github.com/xingbaodong">&#x0040;xingbaodong</a>, <a href="https://github.com/Xinzhu-Fang">&#x0040;Xinzhu-Fang</a>, <a href="https://github.com/YanpingGuo312">&#x0040;YanpingGuo312</a>, and <a href="https://github.com/yurivict">&#x0040;yurivict</a></p>
+
+      </div>
+
+      
+
+
+      </div>
+
+      <div class="column25">
+        <div class="section hideOnMobile">
+          <div class="sectionTitle">Contents</div>
+          <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#breaking-changes">Breaking changes</a></li>
+<li><a href="#conscious-uncoupling">Conscious uncoupling</a></li>
+<li><a href="#new-features">New features</a>
+<ul>
+<li><a href="#upgrade-menu">Upgrade menu</a></li>
+<li><a href="#improved-check-output">Improved check output</a></li>
+<li><a href="#testing-single-files">Testing single files</a></li>
+<li><a href="#spell-checking">Spell checking</a></li>
+</ul></li>
+<li><a href="#acknowledgements">Acknowledgements</a></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+
+    </div>
+  </div>  
+</div> 
+
+        <div id="rStudioFooter" class="band">
+          <div class="bandContent">
+            <div id="copyright">
+              Markus Dumke, 2019</div>
+            <div id="logos">
+              <a href="https://github.com/markusdumke" class="footerLogo gitHub"></a>
+            </div>
+          </div>
+        </div>
+
+      </div>  
+    </div>  
+
+    
+
+    
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-115082821-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+  </body>
+</html>
+

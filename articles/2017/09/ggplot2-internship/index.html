@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="og:image" content="https://www.tidyverse.org/images/tidyverse-default.png" >
+<meta name="generator" content="Hugo 0.52" />
+
+<title>The summer of ggplot2 - wooooo! - markusdumke</title>
+<meta property="og:title" content="The summer of ggplot2 - wooooo! - markusdumke">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tidyverse.org/articles/ggplot2-internship-sq.jpg" >
+<meta property="description" content="This summer I had the great fortune to accept the ggplot2 internship baton and spend ten weeks developing new features and fixing bugs in ggplot2.
+">
+<meta property="og:description" content="This summer I had the great fortune to accept the ggplot2 internship baton and spend ten weeks developing new features and fixing bugs in ggplot2.
+">
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png" />
+<link rel="manifest" href="/images/favicons/site.webmanifest" />
+<link rel="mask-icon" href="/images/favicons/safari-pinned-tab.svg" />
+<link rel="shortcut icon" href="/images/favicons/favicon.ico" />
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" href="/images/favicons/browserconfig.xml" >
+
+
+<script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/js/site.js"></script>
+
+<link rel="stylesheet" href="/css/tidyverse-site.css" />
+<link rel="stylesheet" href="/css/tweaks.css" />
+<link rel="icon" href="/images/favicon.ico" />
+<link rel="alternate" type="application/atom+xml" title="Blog" href="/articles/index.xml" />
+
+  </head>
+  <body>
+    <div id="appTidyverseSite" class="shrinkHeader alwaysShrinkHeader">
+      <div id="main">
+        
+        <div id="rStudioHeader">
+          <div class="band">
+            <div class="innards bandContent">
+              <div>
+                <a class="productName" href="/">markusdumke</a>
+              </div>
+              <div id="menu">
+  <div id="menuToggler"></div>
+  <div id="menuItems" class="">
+    
+    
+    <a class="menuItem " href="/packages/">Packages</a>
+    
+    <a class="menuItem current" href="/articles/">Blog</a>
+    
+    <a class="menuItem " href="/about/">About</a>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </div>
+
+
+<div class="band padForHeader pushFooter">
+  <div class="bandContent">
+    <div class="full splitColumns withMobileMargins">
+      <div class="column75">
+
+      <h1 class="article-title">The summer of ggplot2 - wooooo!</h1>
+
+      
+      
+      <div class="article-header">
+        <div class="photo" style="background-image: url('../../../ggplot2-internship-wd.jpg');"></div>
+        <div class="photoCredit">Photo by <a href="https://unsplash.com/photos/DpF8nI-dQKA">Joe Shillington</a></div>
+      </div>
+      
+
+      
+
+      <div class="article-content">
+      
+
+
+<p>This summer I had the great fortune to accept the <a href="https://twitter.com/dataandme/status/880952970602532864">ggplot2 internship baton</a> from <a href="http://www.data-imaginist.com/2016/Becoming-the-intern/">Thomas Lin Pedersen</a> and spend ten weeks developing new features and fixing bugs in ggplot2. My internship was a great experience, and I learned a ton from working with Hadley and digging into the ggplot2 codebase.</p>
+<div id="daily-life-as-a-ggplot2-intern" class="section level2">
+<h2>Daily life as a ggplot2 intern</h2>
+<p>My ggplot2 work consisted of a few different things: issue and pull request triage, bug fixes, and developing new features. The tidyverse gets a lot of new issues opened on GitHub, so to help keep things organized I tagged each ggplot2 issue with labels describing the type of issue and which part of ggplot2 it related to (scales, themes, layers, etc.). In some cases I helped the authors create reprexes so that we could diagnose the problems and determine when they were fixed. I triaged new pull requests as well, merging anything that was very straightforward, helping authors conform to the tidyverse style guide, and requesting reviews from Hadley for bigger changes.</p>
+<p>Fixing bugs was fun detective work and helped me build an understanding of how ggplot2 works internally. Along the way I got pretty good at using R’s debugging tools and have come to really appreciate the value of following a consistent <a href="http://style.tidyverse.org/">coding style</a>. It is vastly easier to understand what a piece of code is doing when it is written in a readable and consistent way. Enforcing a style guide is time very well spent.</p>
+<p>I implemented some significant new features during this summer as well. The first was an overhaul of certain scale types in ggplot2. Scales are what control how data gets mapped to visual elements on a plot, and they vary based on the type of data (for instance, you can’t map a continuous variable to discrete shapes). As part of this project I improved support for datetime scales and ordered factors. I also added built-in support for <a href="https://bids.github.io/colormap/">viridis color palettes</a>, a move that has garnered me some significant Twitter popularity. 😎</p>
+<p>I created a new position function, <code>position_dodge2()</code>, for placing box plots, bars, and rectangles. This project started out as a fix for a bug where boxes of differing widths could not be dodged from one another using the existing <code>position_dodge()</code> function, but it quickly grew into a larger project that fixed not only the <a href="https://github.com/tidyverse/ggplot2/issues/2143">original issue</a>, but <a href="https://github.com/tidyverse/ggplot2/issues/2153">three</a> <a href="https://github.com/tidyverse/ggplot2/issues/2076">other</a> <a href="https://github.com/tidyverse/ggplot2/issues/2106">issues</a> as well.</p>
+<div class="figure">
+<img src="https://media.giphy.com/media/8VrtCswiLDNnO/giphy.gif" />
+
+</div>
+<p>The last big effort was a mostly behind-the-scenes refactor of the way text gets placed on plots. This was a fun and challenging project that required me to get familiar with the grid graphics system for the first time. ggplot2 users should notice only very minor changes as a result of this project—primarily to the way facet strip labels get customized—but internally we’ve really cleaned up the code, reduced duplication, and documented a number of internal functions to make them easier to work with in the future.</p>
+</div>
+<div id="some-reflections" class="section level2">
+<h2>Some reflections</h2>
+<p>I’m not usually prone to a lot of impostor syndrome, but before I started my work on ggplot2 I worried about whether I was going to be up to the task of contributing to a complex and unfamiliar package. Before this summer I had used ggplot2 extensively, but didn’t know all that much about how it works under the hood. I’d never submitted a package to CRAN, and I’d never worked on any piece of software that had more than a couple users, let alone the popularity of ggplot2. I’ve learned a lot in the last ten weeks, and with Hadley’s mentorship it’s been a great experience.</p>
+<p>Working remotely adds its own challenges, and I think that a key to being successful in this kind of position is a willingness to dive into a codebase, tinker around, try lots of things (and break lots of things in the process) until you figure out how the pieces fit together. Being able to work independently helped me a lot, but I never lacked guidance from Hadley; our regular calls and chats on Slack kept me on track and got me out of a lot of pickles.</p>
+<p>I am very grateful to Hadley for this opportunity, and sad that my summer of ggplot2 has come to an end. It has been really rewarding to contribute back to a package that I’ve used so much, and though I’ll no longer be the intern I hope to keep contributing to ggplot2 in the future.</p>
+</div>
+
+      </div>
+
+      
+
+
+      </div>
+
+      <div class="column25">
+        <div class="section hideOnMobile">
+          <div class="sectionTitle">Contents</div>
+          
+        </div>
+
+    </div>
+  </div>  
+</div> 
+
+        <div id="rStudioFooter" class="band">
+          <div class="bandContent">
+            <div id="copyright">
+              Markus Dumke, 2019</div>
+            <div id="logos">
+              <a href="https://github.com/markusdumke" class="footerLogo gitHub"></a>
+            </div>
+          </div>
+        </div>
+
+      </div>  
+    </div>  
+
+    
+
+    
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-115082821-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+  </body>
+</html>
+

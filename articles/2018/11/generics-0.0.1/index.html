@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="og:image" content="https://www.tidyverse.org/images/tidyverse-default.png" >
+<meta name="generator" content="Hugo 0.52" />
+
+<title>generics 0.0.1 - markusdumke</title>
+<meta property="og:title" content="generics 0.0.1 - markusdumke">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tidyverse.org/articles/generics-0.0.1-sq.jpg" >
+<meta property="description" content="Reduce package dependencies by using common lightweight S3 generics.
+">
+<meta property="og:description" content="Reduce package dependencies by using common lightweight S3 generics.
+">
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png" />
+<link rel="manifest" href="/images/favicons/site.webmanifest" />
+<link rel="mask-icon" href="/images/favicons/safari-pinned-tab.svg" />
+<link rel="shortcut icon" href="/images/favicons/favicon.ico" />
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" href="/images/favicons/browserconfig.xml" >
+
+
+<script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/js/site.js"></script>
+
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.11.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+<link rel="stylesheet" href="/css/tidyverse-site.css" />
+<link rel="stylesheet" href="/css/tweaks.css" />
+<link rel="icon" href="/images/favicon.ico" />
+<link rel="alternate" type="application/atom+xml" title="Blog" href="/articles/index.xml" />
+
+  </head>
+  <body>
+    <div id="appTidyverseSite" class="shrinkHeader alwaysShrinkHeader">
+      <div id="main">
+        
+        <div id="rStudioHeader">
+          <div class="band">
+            <div class="innards bandContent">
+              <div>
+                <a class="productName" href="/">markusdumke</a>
+              </div>
+              <div id="menu">
+  <div id="menuToggler"></div>
+  <div id="menuItems" class="">
+    
+    
+    <a class="menuItem " href="/packages/">Packages</a>
+    
+    <a class="menuItem current" href="/articles/">Blog</a>
+    
+    <a class="menuItem " href="/about/">About</a>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </div>
+
+
+<div class="band padForHeader pushFooter">
+  <div class="bandContent">
+    <div class="full splitColumns withMobileMargins">
+      <div class="column75">
+
+      <h1 class="article-title">generics 0.0.1</h1>
+
+      
+      
+      <div class="article-header">
+        <div class="photo" style="background-image: url('../../../generics-0.0.1-wd.jpg');"></div>
+        <div class="photoCredit">Photo by <a href="https://unsplash.com/photos/9GMO0Sxyw_Y">Jonathan Knepper</a></div>
+      </div>
+      
+
+      
+
+      <div class="article-content">
+      <p>The <a href="https://github.com/r-lib/generics"><code>generics</code></a> package is now on CRAN. <code>generics</code> is a lightweight package that is designed to help developers reduce dependencies for their packages.</p>
+
+<p>The idea is to have many generic S3 functions live in a single package that has almost no dependencies. Normally, if you wanted to create a <code>broom::tidy()</code> method, you would import <code>broom</code> as a dependency, import the <code>tidy()</code> generic, then export it so that package users can have access to that specific method. One issue with this is that your package now carries along the dependencies of the package that defines the generic (in this case, <code>broom</code>).</p>
+
+<p>Consider <code>fit()</code>. There are at least 15 packages that export an object called <code>fit</code> (either a function or method), and at least 12 have specific S3 <code>fit()</code> methods. When more than one is loaded, there is a potential for conflicts to arise:</p>
+
+<pre><code class="language-r">library(NMF)
+library(text2vec)
+#&gt; 
+#&gt; Attaching package: 'text2vec'
+#&gt; The following object is masked from 'package:NMF':
+#&gt; 
+#&gt;     fit
+</code></pre>
+
+<p><code>generics</code> provides a way to avoid such conflicts. To do so, a package would include <code>generics</code> as an import dependency, import the generic function of interest, then re-export using the <code>roxygen2</code> commands:</p>
+
+<pre><code class="language-r">#' @importFrom generics fit
+#' @export
+generics::fit
+</code></pre>
+
+<p>One interesting aspect of the package is that the <code>generics</code> function documentation is dynamic. Suppose that <code>generics</code> is loaded in a clean R session. If you look at the help file <code>?generics::tidy</code>, the documentation page has:</p>
+
+<pre><code>Methods:
+
+     No methods found in currently loaded packages.
+</code></pre>
+
+<p>However, once another package is loaded with an exported <code>tidy()</code> method, <code>?generics::tidy</code> shows a list of all exported methods and includes a link to the help page specific to each one. For example, after loading the <code>embed</code> package:</p>
+
+<pre><code>Methods:
+
+     See the following help topics for more details about individual
+     methods:
+
+     ‘embed’
+
+        • ‘step_embed’: ‘step_embed’
+
+        • ‘step_lencode_bayes’: ‘step_lencode_bayes’
+
+        • ‘step_lencode_glm’: ‘step_lencode_glm’
+
+        • ‘step_lencode_mixed’: ‘step_lencode_mixed’
+
+     ‘recipes’
+
+        • ‘check_cols’: ‘check_cols’
+
+        • ‘check_missing’: ‘check_missing’
+
+        • ‘check_range’: ‘check_range’
+</code></pre>
+
+<p>The current list of S3 generics that are included in the package are: <code>as.factor</code>, <code>as.ordered</code>, <code>augment</code>, <code>calculate</code>, <code>compile</code>, <code>components</code>, <code>equation</code>, <code>estfun</code>, <code>evaluate</code>, <code>explain</code>, <code>fit</code>, <code>fit_xy</code>, <code>generate</code>, <code>glance</code>, <code>hypothesize</code>, <code>interpolate</code>, <code>intersect</code>, <code>is.element</code>, <code>learn</code>, <code>prune</code>, <code>refit</code>, <code>setdiff</code>, <code>setequal</code>, <code>specify</code>, <code>tidy</code>, <code>train</code>, <code>union</code>, <code>var_imp</code>, <code>varying_args</code>, and <code>visualize</code>.</p>
+
+<p>Thanks to those who contributed to the discussion prior to releasing the package: Achim Zeileis, Alex Hayes, Andrew Bray, Andy Liaw, Chester Ismay, Davis Vaughan, Hadley Wickham, Mitchell O&rsquo;Hara-Wild, Przemyslaw Biecek, Rob Hyndman, Thomas Lin Pedersen, and Torsten Hothorn.</p>
+
+      </div>
+
+      
+
+
+      </div>
+
+      <div class="column25">
+        <div class="section hideOnMobile">
+          <div class="sectionTitle">Contents</div>
+          
+        </div>
+
+    </div>
+  </div>  
+</div> 
+
+        <div id="rStudioFooter" class="band">
+          <div class="bandContent">
+            <div id="copyright">
+              Markus Dumke, 2019</div>
+            <div id="logos">
+              <a href="https://github.com/markusdumke" class="footerLogo gitHub"></a>
+            </div>
+          </div>
+        </div>
+
+      </div>  
+    </div>  
+
+    
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-115082821-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+  </body>
+</html>
+

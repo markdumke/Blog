@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="og:image" content="https://www.tidyverse.org/images/tidyverse-default.png" >
+<meta name="generator" content="Hugo 0.52" />
+
+<title>tidymodels package updates - markusdumke</title>
+<meta property="og:title" content="tidymodels package updates - markusdumke">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tidyverse.org/articles/tidymodels-update-nov-18-sq.jpg" >
+<meta property="description" content="A variety of updates for tidymodels packages.
+">
+<meta property="og:description" content="A variety of updates for tidymodels packages.
+">
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png" />
+<link rel="manifest" href="/images/favicons/site.webmanifest" />
+<link rel="mask-icon" href="/images/favicons/safari-pinned-tab.svg" />
+<link rel="shortcut icon" href="/images/favicons/favicon.ico" />
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" href="/images/favicons/browserconfig.xml" >
+
+
+<script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/js/site.js"></script>
+
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.11.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+<link rel="stylesheet" href="/css/tidyverse-site.css" />
+<link rel="stylesheet" href="/css/tweaks.css" />
+<link rel="icon" href="/images/favicon.ico" />
+<link rel="alternate" type="application/atom+xml" title="Blog" href="/articles/index.xml" />
+
+  </head>
+  <body>
+    <div id="appTidyverseSite" class="shrinkHeader alwaysShrinkHeader">
+      <div id="main">
+        
+        <div id="rStudioHeader">
+          <div class="band">
+            <div class="innards bandContent">
+              <div>
+                <a class="productName" href="/">markusdumke</a>
+              </div>
+              <div id="menu">
+  <div id="menuToggler"></div>
+  <div id="menuItems" class="">
+    
+    
+    <a class="menuItem " href="/packages/">Packages</a>
+    
+    <a class="menuItem current" href="/articles/">Blog</a>
+    
+    <a class="menuItem " href="/about/">About</a>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </div>
+
+
+<div class="band padForHeader pushFooter">
+  <div class="bandContent">
+    <div class="full splitColumns withMobileMargins">
+      <div class="column75">
+
+      <h1 class="article-title">tidymodels package updates</h1>
+
+      
+      
+      <div class="article-header">
+        <div class="photo" style="background-image: url('../../../tidymodels-update-nov-18-wd.jpg');"></div>
+        <div class="photoCredit">Photo by <a href="https://unsplash.com/photos/O6N9RV2rzX8">Jeremy Thomas</a></div>
+      </div>
+      
+
+      
+
+      <div class="article-content">
+      
+
+<p>Along with the release of <a href="https://tidymodels.github.io/parsnip/"><code>parsnip</code></a> there are new versions of many <code>tidymodels</code> packages: <a href="https://tidymodels.github.io/recipes/"><code>recipes</code></a>, <a href="https://tidymodels.github.io/yardstick/"><code>yardstick</code></a>, <a href="https://tidymodels.github.io/embed/"><code>embed</code></a>, <a href="https://tidymodels.github.io/tidyposterior/"><code>tidyposterior</code></a>, and <a href="https://github.com/tidymodels/tidymodels"><code>tidymodels</code></a>.</p>
+
+<p>We made the conscious choice to add all of the breaking changes now instead of spreading them out over a few versions. The biggest changes are in <code>yardstick</code> and <code>recipes</code> and these are described below.</p>
+
+<p>One change across all of these packages: <code>broom</code> is no longer used to obtain the <code>tidy</code> S3 methods. Instead, the <a href="https://www.tidyverse.org/articles/2018/11/generics-0.0.1/"><code>generics</code> package</a> is imported so that we might reduce dependencies.</p>
+
+<h2 id="yardstick"><strong>yardstick</strong></h2>
+
+<p>This is a large release for yardstick, with more metrics, grouped
+data frame integration, multiclass metric support, and a few breaking changes.</p>
+
+<h3 id="breaking-changes">Breaking changes</h3>
+
+<p>These changes were made with the intention of standardizing both the API and the output of each metric.</p>
+
+<p>All metrics now return a tibble rather than a single numeric value. This sets
+the groundwork for allowing metrics to be used with grouped data frames, and
+allows more informative output to be returned from each metric.</p>
+
+<p>To preserve some of the old behavior,  <code>_vec()</code> functions have been added for each
+metric. These take vectors as inputs and return a single numeric result.</p>
+
+<p>A number of small breaking changes have been made to be in line with the tidymodels <a href="https://tidymodels.github.io/model-implementation-principles/">model implementation principles</a>. These include: <code>mnLogLoss()</code> being renamed to <a href="https://tidymodels.github.io/yardstick/reference/mn_log_loss.html"><code>mn_log_loss()</code></a>, the <code>na.rm</code> argument being renamed to <code>na_rm</code>, and other similar changes that reflect a standardization that is being implemented across the entire tidymodels ecosystem. All of the changes are documented in the <a href="https://tidymodels.github.io/yardstick/news/index.html#breaking-changes">NEWS</a>.</p>
+
+<h3 id="multiclass-metrics">Multiclass metrics</h3>
+
+<p>A multiclass model is a classification model that has more than two potential outputs. Until now, the only metric with multiclass support was <a href="https://tidymodels.github.io/yardstick/reference/accuracy.html"><code>accuracy()</code></a> because its definition extends naturally into the multiclass world. Now, all metrics have some form of multiclass support through the concepts of macro and micro averaging. To learn about how these types of averaging work, read the new <a href="https://tidymodels.github.io/yardstick/articles/multiclass.html">vignette</a>.</p>
+
+<p>As an example, the following data set has columns for an observed multiclass result, the predicted class, individual class probability predictions, and the current resample (out of 10).</p>
+
+<pre><code class="language-r">library(dplyr)
+data(&quot;hpc_cv&quot;)
+hpc_single_resample &lt;- filter(hpc_cv, Resample == &quot;Fold01&quot;)
+head(hpc_single_resample, n = 1)
+</code></pre>
+
+<pre><code>#&gt;   obs pred    VF      F       M        L Resample
+#&gt; 1  VF   VF 0.914 0.0779 0.00848 1.99e-05   Fold01
+</code></pre>
+
+<pre><code class="language-r"># The outcome has 4 potential values
+unique(hpc_single_resample$obs)
+</code></pre>
+
+<pre><code>#&gt; [1] VF F  M  L 
+#&gt; Levels: VF F M L
+</code></pre>
+
+<p>yardstick will automatically detect that the input is from a multiclass model,
+and will choose to use macro averaging by default in most cases.</p>
+
+<pre><code class="language-r">precision(hpc_single_resample, obs, pred)
+</code></pre>
+
+<pre><code>#&gt; # A tibble: 1 x 3
+#&gt;   .metric   .estimator .estimate
+#&gt;   &lt;chr&gt;     &lt;chr&gt;          &lt;dbl&gt;
+#&gt; 1 precision macro          0.637
+</code></pre>
+
+<p>To tell yardstick metrics to use a different variant of averaging, use the <code>estimator</code>
+argument to specify <code>&quot;macro&quot;</code>, <code>&quot;micro&quot;</code> or <code>&quot;macro_weighted&quot;</code> averaging, among
+others depending on the metric.</p>
+
+<h3 id="grouped-data-frames">Grouped data frames</h3>
+
+<p>To calculate metrics on multiple resamples at once, yardstick now recognizes
+grouped data frames and calculates the metric on each group separately.</p>
+
+<pre><code class="language-r">hpc_grouped &lt;- hpc_cv %&gt;%
+  group_by(Resample)
+
+hpc_grouped %&gt;%
+  pr_auc(obs, VF:L) %&gt;%
+  head(3)
+</code></pre>
+
+<pre><code>#&gt; # A tibble: 3 x 4
+#&gt;   Resample .metric .estimator .estimate
+#&gt;   &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
+#&gt; 1 Fold01   pr_auc  macro          0.595
+#&gt; 2 Fold02   pr_auc  macro          0.599
+#&gt; 3 Fold03   pr_auc  macro          0.682
+</code></pre>
+
+<p>Combined with <a href="https://tidymodels.github.io/yardstick/reference/metric_set.html"><code>metric_set()</code></a>, a new function for combining multiple metrics into one function call, this workflow makes calculating a large number of metrics over multiple resamples a quick task. We encourage you to check out the example section of <a href="https://tidymodels.github.io/yardstick/reference/metric_set.html"><code>metric_set()</code>&rsquo;s help page</a> if you are interested in learning more.</p>
+
+<h3 id="curve-functions">Curve functions</h3>
+
+<p>Four new &ldquo;curve&rdquo; functions have been added to compute the full ROC curve, precision-recall curve, lift curve, and gain curve. Each of these functions has a corresponding <code>ggplot2::autoplot()</code> method. Combined with the grouped data frame support, this greatly simplifies some aspects of visualizing model performance.</p>
+
+<pre><code class="language-r">library(ggplot2)
+hpc_grouped %&gt;%
+  roc_curve(obs, VF:L) %&gt;%
+  autoplot() +
+  ggtitle(&quot;One-VS-All ROC Curve&quot;, subtitle = &quot;Computed for each resample&quot;)
+</code></pre>
+
+<p><img src="/articles/2018-11-tidymodels-updates_files/figure-html/unnamed-chunk-4-1.png" width="700px" style="display: block; margin: auto;" /></p>
+
+<h3 id="new-metrics-and-vignettes">New metrics and vignettes</h3>
+
+<p>The following metrics are new in this release: <a href="https://tidymodels.github.io/yardstick/reference/mape.html"><code>mape()</code></a>, <a href="https://tidymodels.github.io/yardstick/reference/kap.html"><code>kap()</code></a>, <a href="https://tidymodels.github.io/yardstick/reference/detection_prevalence.html"><code>detection_prevalence()</code></a>, <a href="https://tidymodels.github.io/yardstick/reference/bal_accuracy.html"><code>bal_accuracy()</code></a>, <a href="https://tidymodels.github.io/yardstick/reference/roc_curve.html"><code>roc_curve()</code></a>, <a href="https://tidymodels.github.io/yardstick/reference/pr_curve.html"><code>pr_curve()</code></a>, <a href="https://tidymodels.github.io/yardstick/reference/gain_curve.html"><code>gain_curve()</code></a>, <a href="https://tidymodels.github.io/yardstick/reference/lift_curve.html"><code>lift_curve()</code></a>, and <a href="https://tidymodels.github.io/yardstick/reference/gain_capture.html"><code>gain_capture()</code></a>.</p>
+
+<p>There are also three new vignettes. One has already been mentioned that describes <a href="https://tidymodels.github.io/yardstick/articles/multiclass.html">multiclass averaging</a>. The other two focus on the three main <a href="https://tidymodels.github.io/yardstick/articles/metric-types.html">metric types</a> in yardstick, and on implementing <a href="https://tidymodels.github.io/yardstick/articles/custom-metrics.html">custom metrics</a> for personal use.</p>
+
+<h2 id="recipes"><strong>recipes</strong></h2>
+
+<h3 id="breaking-changes-1">Breaking changes</h3>
+
+<p>One big change was to make the argument names more consistent with the tidyverse standards and to also make them consistent with <code>dials</code> and other packages. For example, <a href="https://tidymodels.github.io/recipes/reference/step_pca.html"><code>step_pca()</code></a> now has an argument <code>num_comp</code> that replaces the previous <code>num</code> argument. This will pay off later when we enable the detection of tuning parameters and the automatic determination of grid values or parameter ranges. The biggest name change is in <a href="https://tidymodels.github.io/recipes/reference/bake.html"><code>bake()</code></a>; <code>newdata</code> is now <code>new_data</code>. For the time being, a warning will be issued when <code>newdata</code> is used but that won&rsquo;t last past the next version. The list of name changes are detailed <a href="https://tidymodels.github.io/recipes/news/index.html">here</a>.</p>
+
+<p>In recipes, variables can have different roles (e.g. &ldquo;predictor&rdquo; or &ldquo;outcome&rdquo;). Beyond those set by the package, roles are largely user specified and can be pretty much anything. Previously, only a single role was allowed. The new version of recipes expands the number of roles per column. This now means that <a href="https://tidymodels.github.io/recipes/reference/roles.html"><code>add_role()</code></a> will <em>append</em> roles, and the new function <a href="https://tidymodels.github.io/recipes/reference/roles.html"><code>update_role()</code></a> will reset them. It also changes how the <code>summary()</code> results for a recipe are returned since there can now be multiple rows per column variable.</p>
+
+<p>A feature that we will be working on in the <em>next</em> version is to be able to reference (and use) previous steps. For example, if you center some variables, you might want to uncenter them at a later step. For this future feature, this version of <code>recipes</code> mandates an ID field for each step. The ID can be anything, but the current convention is to use the step name followed by random digits (e.g. <code>&quot;center_irqtH&quot;</code>).</p>
+
+<p>Another change was to default the <a href="https://tidymodels.github.io/recipes/reference/prep.html"><code>prep()</code></a> option <code>retain</code> to <code>TRUE</code>. We (and others) found that this was something that is always done since it allows <a href="https://tidymodels.github.io/recipes/reference/juice.html"><code>juice()</code></a> to get the processed training set at no extra cost. The down-side is that, if the training set is large, you carry a large copy of the data inside the recipe. When the <code>verbose</code> option is turned on, a message is printed showing the size of the training set, i.e.:</p>
+
+<blockquote>
+<p>&ldquo;The retained training set is ~ 20.0 Mb  in memory.&rdquo;</p>
+</blockquote>
+
+<p>This size estimate is approximate since the base R function <code>object.size()</code> is used, which does not count objects in any environments that are carried along.</p>
+
+<p>Finally, a number of steps check for duplicate names and will throw an error during <code>prep()</code> if this occurs. This behavior may slightly change in the future due to changes in the <code>tibble</code> package related to how unique names should treated be when creating data frames.</p>
+
+<h3 id="new-steps">New steps</h3>
+
+<p>A big new feature in this version of <code>recipes</code> is the addition of <code>dplyr</code>-related steps: <a href="https://tidymodels.github.io/recipes/reference/step_arrange.html"><code>step_arrange()</code></a>, <a href="https://tidymodels.github.io/recipes/reference/step_filter.html"><code>step_filter()</code></a>, <a href="https://tidymodels.github.io/recipes/reference/step_mutate.html"><code>step_mutate()</code></a>, <a href="https://tidymodels.github.io/recipes/reference/step_sample.html"><code>step_sample()</code></a>, and <a href="https://tidymodels.github.io/recipes/reference/step_slice.html"><code>step_slice()</code></a>. They follow their <code>dplyr</code> analogs. <a href="https://tidymodels.github.io/recipes/reference/step_sample.html"><code>step_sample()</code></a> covers both <code>dplyr::sample_n()</code> and <code>dplyr::sample_frac()</code>. Other new steps include:</p>
+
+<ul>
+<li><p><a href="https://tidymodels.github.io/recipes/reference/step_integer.html"><code>step_integer()</code></a> converts data to ordered integers similar to <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.LabelEncoder.html"><code>LabelEncoder</code></a>.</p></li>
+
+<li><p><a href="https://tidymodels.github.io/recipes/reference/step_geodist.html"><code>step_geodist()</code></a> can be used to calculate the distance between geocodes and a single reference location.</p></li>
+
+<li><p><a href="https://tidymodels.github.io/recipes/reference/step_nnmf.html"><code>step_nnmf()</code></a> computes the non-negative matrix factorization components for non-negative data.</p></li>
+</ul>
+
+<p>List-columns are also supported in <code>recipes</code> now. <a href="https://tidymodels.github.io/recipes/reference/summary.recipe.html"><code>summary.recipe()</code></a> now shows <code>type</code> column values as &ldquo;list&rdquo; and these can be selected using <code>has_type(&quot;list&quot;)</code>. When printing the recipe, a row is labeled as missing when its entire list element is missing (e.g. <code>is.na(list[[i]])</code> is <code>TRUE</code>). If the list element has some non-missing values, it is not counted as missing.</p>
+
+<p>There are also bug fixes and other small changes that can be found in the <a href="https://tidymodels.github.io/recipes/news/index.html">News file</a>.</p>
+
+<h2 id="rsample"><strong>rsample</strong></h2>
+
+<p>A function <a href="https://tidymodels.github.io/rsample/reference/initial_split.html"><code>initial_time_split()</code></a> was added. It can be used to create <em>ordered</em> initial splits and would be appropriate for time series data.</p>
+
+<p>(<strong>breaking change</strong>) Also, the <code>recipes</code>-related <a href="https://tidymodels.github.io/recipes/reference/prepper.html"><code>prepper()</code></a> function was moved to the <code>recipes</code> package. This makes the <code>rsample</code>&rsquo;s install footprint much smaller.</p>
+
+<p>Finally, <code>rsplit</code> objects have a better representation inside of tibbles when the sample sizes are large.</p>
+
+<h2 id="embed"><strong>embed</strong></h2>
+
+<p>The tensorflow function <a href="https://tidymodels.github.io/embed/reference/step_embed.html"><code>step_embed()</code></a> can now handle callbacks to <code>keras</code>. This enables a few different features, including stopping when a convergence criterion is met.</p>
+
+<h2 id="tidymodels"><strong>tidymodels</strong></h2>
+
+<p>We added <a href="https://tidymodels.github.io/parsnip/"><code>parsnip</code></a> and <a href="https://tidymodels.github.io/dials/"><code>dials</code></a> to the core set of packages and bumped all packages up to their current versions.</p>
+
+      </div>
+
+      
+
+
+      </div>
+
+      <div class="column25">
+        <div class="section hideOnMobile">
+          <div class="sectionTitle">Contents</div>
+          <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#yardstick"><strong>yardstick</strong></a>
+<ul>
+<li><a href="#breaking-changes">Breaking changes</a></li>
+<li><a href="#multiclass-metrics">Multiclass metrics</a></li>
+<li><a href="#grouped-data-frames">Grouped data frames</a></li>
+<li><a href="#curve-functions">Curve functions</a></li>
+<li><a href="#new-metrics-and-vignettes">New metrics and vignettes</a></li>
+</ul></li>
+<li><a href="#recipes"><strong>recipes</strong></a>
+<ul>
+<li><a href="#breaking-changes-1">Breaking changes</a></li>
+<li><a href="#new-steps">New steps</a></li>
+</ul></li>
+<li><a href="#rsample"><strong>rsample</strong></a></li>
+<li><a href="#embed"><strong>embed</strong></a></li>
+<li><a href="#tidymodels"><strong>tidymodels</strong></a></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+
+    </div>
+  </div>  
+</div> 
+
+        <div id="rStudioFooter" class="band">
+          <div class="bandContent">
+            <div id="copyright">
+              Markus Dumke, 2019</div>
+            <div id="logos">
+              <a href="https://github.com/markusdumke" class="footerLogo gitHub"></a>
+            </div>
+          </div>
+        </div>
+
+      </div>  
+    </div>  
+
+    
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-115082821-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+  </body>
+</html>
+

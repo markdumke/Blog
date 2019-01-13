@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+  <title>Learn on markusdumke</title>
+  <link>/categories/learn/</link>
+  <description>Recent content in Learn on markusdumke</description>
+  <generator>Hugo -- gohugo.io</generator>
+<language>en-us</language>
+<lastBuildDate>Thu, 14 Sep 2017 00:00:00 +0000</lastBuildDate>
+
+<atom:link href="/categories/learn/index.xml" rel="self" type="application/rss+xml" />
+
+
+<item>
+  <title>RStudio community</title>
+  <link>/articles/2017/09/rstudio-community/</link>
+  <pubDate>Thu, 14 Sep 2017 00:00:00 +0000</pubDate>
+  
+<guid>/articles/2017/09/rstudio-community/</guid>
+  <description>&lt;p&gt;We&amp;rsquo;re very excited to announce the new &lt;a href=&#34;http://community.rstudio.com&#34;&gt;community.rstudio.com&lt;/a&gt; &amp;mdash; this is a great place to ask any questions you might have about the tidyverse.  Read more on the &lt;a href=&#34;https://blog.rstudio.com/2017/09/14/rstudio-community/&#34;&gt;RStudio blog&lt;/a&gt;.&lt;/p&gt;
+</description>
+  </item>
+  
+<item>
+  <title>The summer of ggplot2 - wooooo!</title>
+  <link>/articles/2017/09/ggplot2-internship/</link>
+  <pubDate>Fri, 08 Sep 2017 00:00:00 +0000</pubDate>
+  
+<guid>/articles/2017/09/ggplot2-internship/</guid>
+  <description>
+
+
+&lt;p&gt;This summer I had the great fortune to accept the &lt;a href=&#34;https://twitter.com/dataandme/status/880952970602532864&#34;&gt;ggplot2 internship baton&lt;/a&gt; from &lt;a href=&#34;http://www.data-imaginist.com/2016/Becoming-the-intern/&#34;&gt;Thomas Lin Pedersen&lt;/a&gt; and spend ten weeks developing new features and fixing bugs in ggplot2. My internship was a great experience, and I learned a ton from working with Hadley and digging into the ggplot2 codebase.&lt;/p&gt;
+&lt;div id=&#34;daily-life-as-a-ggplot2-intern&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Daily life as a ggplot2 intern&lt;/h2&gt;
+&lt;p&gt;My ggplot2 work consisted of a few different things: issue and pull request triage, bug fixes, and developing new features. The tidyverse gets a lot of new issues opened on GitHub, so to help keep things organized I tagged each ggplot2 issue with labels describing the type of issue and which part of ggplot2 it related to (scales, themes, layers, etc.). In some cases I helped the authors create reprexes so that we could diagnose the problems and determine when they were fixed. I triaged new pull requests as well, merging anything that was very straightforward, helping authors conform to the tidyverse style guide, and requesting reviews from Hadley for bigger changes.&lt;/p&gt;
+&lt;p&gt;Fixing bugs was fun detective work and helped me build an understanding of how ggplot2 works internally. Along the way I got pretty good at using R’s debugging tools and have come to really appreciate the value of following a consistent &lt;a href=&#34;http://style.tidyverse.org/&#34;&gt;coding style&lt;/a&gt;. It is vastly easier to understand what a piece of code is doing when it is written in a readable and consistent way. Enforcing a style guide is time very well spent.&lt;/p&gt;
+&lt;p&gt;I implemented some significant new features during this summer as well. The first was an overhaul of certain scale types in ggplot2. Scales are what control how data gets mapped to visual elements on a plot, and they vary based on the type of data (for instance, you can’t map a continuous variable to discrete shapes). As part of this project I improved support for datetime scales and ordered factors. I also added built-in support for &lt;a href=&#34;https://bids.github.io/colormap/&#34;&gt;viridis color palettes&lt;/a&gt;, a move that has garnered me some significant Twitter popularity. 😎&lt;/p&gt;
+&lt;p&gt;I created a new position function, &lt;code&gt;position_dodge2()&lt;/code&gt;, for placing box plots, bars, and rectangles. This project started out as a fix for a bug where boxes of differing widths could not be dodged from one another using the existing &lt;code&gt;position_dodge()&lt;/code&gt; function, but it quickly grew into a larger project that fixed not only the &lt;a href=&#34;https://github.com/tidyverse/ggplot2/issues/2143&#34;&gt;original issue&lt;/a&gt;, but &lt;a href=&#34;https://github.com/tidyverse/ggplot2/issues/2153&#34;&gt;three&lt;/a&gt; &lt;a href=&#34;https://github.com/tidyverse/ggplot2/issues/2076&#34;&gt;other&lt;/a&gt; &lt;a href=&#34;https://github.com/tidyverse/ggplot2/issues/2106&#34;&gt;issues&lt;/a&gt; as well.&lt;/p&gt;
+&lt;div class=&#34;figure&#34;&gt;
+&lt;img src=&#34;https://media.giphy.com/media/8VrtCswiLDNnO/giphy.gif&#34; /&gt;
+
+&lt;/div&gt;
+&lt;p&gt;The last big effort was a mostly behind-the-scenes refactor of the way text gets placed on plots. This was a fun and challenging project that required me to get familiar with the grid graphics system for the first time. ggplot2 users should notice only very minor changes as a result of this project—primarily to the way facet strip labels get customized—but internally we’ve really cleaned up the code, reduced duplication, and documented a number of internal functions to make them easier to work with in the future.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;some-reflections&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Some reflections&lt;/h2&gt;
+&lt;p&gt;I’m not usually prone to a lot of impostor syndrome, but before I started my work on ggplot2 I worried about whether I was going to be up to the task of contributing to a complex and unfamiliar package. Before this summer I had used ggplot2 extensively, but didn’t know all that much about how it works under the hood. I’d never submitted a package to CRAN, and I’d never worked on any piece of software that had more than a couple users, let alone the popularity of ggplot2. I’ve learned a lot in the last ten weeks, and with Hadley’s mentorship it’s been a great experience.&lt;/p&gt;
+&lt;p&gt;Working remotely adds its own challenges, and I think that a key to being successful in this kind of position is a willingness to dive into a codebase, tinker around, try lots of things (and break lots of things in the process) until you figure out how the pieces fit together. Being able to work independently helped me a lot, but I never lacked guidance from Hadley; our regular calls and chats on Slack kept me on track and got me out of a lot of pickles.&lt;/p&gt;
+&lt;p&gt;I am very grateful to Hadley for this opportunity, and sad that my summer of ggplot2 has come to an end. It has been really rewarding to contribute back to a package that I’ve used so much, and though I’ll no longer be the intern I hope to keep contributing to ggplot2 in the future.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+  </item>
+  
+<item>
+  <title>👩‍💻🚙👯: My googledrive internship</title>
+  <link>/articles/2017/09/lucy-internship/</link>
+  <pubDate>Fri, 08 Sep 2017 00:00:00 +0000</pubDate>
+  
+<guid>/articles/2017/09/lucy-internship/</guid>
+  <description>
+
+&lt;p&gt;&lt;em&gt;Over the past several months I have been working with Jenny Bryan on the googledrive package. I wanted to share a bit about the process and some things I learned along the way. While brainstorming this post, I went back through my GitHub commits to remind myself of the journey - it turns out they do a rather good job of showing the scope of this!&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;day-to-day-br-img-src-images-lucy-internship-01-first-png-width-400-img&#34;&gt;&lt;em&gt;Day to day&lt;/em&gt; &lt;br&gt; &lt;img src = &#34;/images/lucy-internship/01_first.png&#34; width = &#34;400&#34;&gt; &lt;/img&gt;&lt;/h2&gt;
+
+&lt;p&gt;The googledrive 📦 looked measurably different on this &lt;a href=&#34;https://github.com/tidyverse/googledrive/tree/ef8a410f8e74080670ff3145a330cdaa100472a8&#34;&gt;first day&lt;/a&gt;. I think this gives some really good insight into the iterative process of package design as well as how much I absorbed from Jenny along the way. In these early days, I was beavering away, building some small wrappers for Drive endpoints, spending most of my time getting to know the &lt;a href=&#34;https://developers.google.com/drive/v3/web/about-sdk&#34;&gt;Drive documentation&lt;/a&gt; and celebrating small victories.&lt;/p&gt;
+
+&lt;p&gt;&lt;div style=&#34;text-align: center;&#34;&gt;
+&lt;div style=&#34;display: inline-block; text-align: left&#34;&gt;
+&lt;img src = &#34;/images/lucy-internship/02_upload.png&#34; width = &#34;300&#34;&gt; &lt;/img&gt;&lt;br&gt;&lt;em&gt;Small victory 1: The ability to upload files to Drive&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src = &#34;/images/lucy-internship/03_delete.png&#34; width = &#34;300&#34;&gt; &lt;/img&gt;&lt;br&gt; &lt;em&gt;Small victory 2: The ability to delete files on Drive&lt;/em&gt;.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/br&gt;&lt;/p&gt;
+
+&lt;p&gt;My day to day back in April seems so foreign to the workflow Jenny and I have now established, but those first few weeks were incredibly useful for getting me steeped in all things Google Drive. Our process eventually converged to:&lt;/p&gt;
+
+&lt;p&gt;👩🏻‍💻👩🏼‍💻 Video chatting once a week to set priorities / discuss design decisions.&lt;br /&gt;
+✍️🙊 Documenting all problems as GitHub issues to resolve.&lt;br /&gt;
+👷‍♀️👀 Submitting all changes via PRs for review.&lt;/p&gt;
+
+&lt;p&gt;The PR review process was quite new to me, but SO integral to the success of this package. Here is an &lt;a href=&#34;https://github.com/tidyverse/googledrive/pull/13&#34;&gt;example&lt;/a&gt; of what this can look like. Our first PR with review consisted of 49 commits and 66 comments 😱. The GitHub review process allowed Jenny to comment line by line on my code, gently pushing me towards better coding conventions and style. This process really helped me to absorb all things &amp;ldquo;tidyverse&amp;rdquo; in a systematic way.&lt;/p&gt;
+
+&lt;h2 id=&#34;absorbing-all-things-tidyverse-br-img-src-images-lucy-internship-03-markdown-docs-png-width-400-img&#34;&gt;&lt;em&gt;Absorbing all things &amp;ldquo;tidyverse&amp;rdquo;&lt;/em&gt; &lt;br&gt; &lt;img src = &#34;/images/lucy-internship/03_markdown-docs.png&#34; width = &#34;400&#34;&gt;&lt;/img&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;center&gt;
+&lt;blockquote class=&#34;twitter-tweet&#34; data-lang=&#34;en&#34;&gt;&lt;p lang=&#34;en&#34; dir=&#34;ltr&#34;&gt;🌞 musing: learning a new coding style is like putting on freshly washed jeans; a struggle, but once I get it I&amp;#39;m like that looks GOOD 💃 &lt;a href=&#34;https://t.co/5QcEwEcI23&#34;&gt;pic.twitter.com/5QcEwEcI23&lt;/a&gt;&lt;/p&gt;&amp;mdash; Lucy 🌻 (@LucyStats) &lt;a href=&#34;https://twitter.com/LucyStats/status/873587893754843136&#34;&gt;June 10, 2017&lt;/a&gt;&lt;/blockquote&gt; &lt;script async src=&#34;//platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;
+&lt;/center&gt;&lt;/p&gt;
+
+&lt;p&gt;The tidyverse has an &lt;a href=&#34;http://style.tidyverse.org&#34;&gt;R Style Guide&lt;/a&gt;. My first pass at incorporating the style was switching my roxygen documentation to &lt;a href=&#34;https://github.com/klutometis/roxygen/blob/master/vignettes/markdown.Rmd&#34;&gt;markdown&lt;/a&gt; (this can be enabled by adding &lt;code&gt;Roxygen: list(markdown = TRUE)&lt;/code&gt; to the &lt;code&gt;DESCRIPTION&lt;/code&gt; file, or if you already have documentation and you&amp;rsquo;d like to convert it to markdown automagically ✨, check out the &lt;a href=&#34;https://github.com/r-lib/roxygen2md&#34;&gt;roxygen2md&lt;/a&gt; 📦). This is an example of something I didn&amp;rsquo;t even know existed prior to this project. Other pieces I absorbed include:&lt;/p&gt;
+
+&lt;p&gt;&lt;div style=&#34;text-align: center;&#34;&gt;
+&lt;div style=&#34;display: inline-block; text-align: left&#34;&gt;
+&lt;img src = &#34;/images/lucy-internship/04_travis.png&#34; width = &#34;300&#34;&gt; &lt;/img&gt;&lt;br&gt;  &lt;em&gt;Absorption example 1: Recommendations for continuous integration.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src = &#34;/images/lucy-internship/05_test.png&#34; width = &#34;300&#34;&gt; &lt;/img&gt;&lt;br&gt; &lt;em&gt;Absorption example 2: Learning sensible ways to test.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src = &#34;/images/lucy-internship/06_clean-up.png&#34; width = &#34;300&#34;&gt; &lt;/img&gt;&lt;br&gt;
+&lt;em&gt;Absorption example 3: Cleaning up my code.&lt;/em&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/br&gt;&lt;/p&gt;
+
+&lt;p&gt;I made GREAT use of &lt;a href=&#34;https://github.com/jimhester/lintr&#34;&gt;lintr&lt;/a&gt; 🛀 until the coding conventions became second nature to me. Even still, I cannot overstate the immense utility of coding alongside Jenny. I found myself slowly adapting her excellent coding principles and style simply from seeing her suggestions and reviewing her commits. She gently nudged me towards much prettier &amp;amp; more useful code!&lt;/p&gt;
+
+&lt;h2 id=&#34;flexing-my-programming-muscles-br-img-src-images-lucy-internship-08-s3-methods-png-width-400-img&#34;&gt;&lt;em&gt;Flexing my programming muscles&lt;/em&gt; &lt;br&gt; &lt;img src = &#34;/images/lucy-internship/08_s3-methods.png&#34; width = &#34;400&#34;&gt;&lt;/img&gt;&lt;/h2&gt;
+
+&lt;p&gt;Finally, this experience allowed me to dive into 🏊 things I otherwise may not have been exposed to. Some things that were new to me include:&lt;/p&gt;
+
+&lt;p&gt;🙃 Writing S3 methods.&lt;br /&gt;
+🙆🏻 Writing tests for an API-calling package.&lt;br /&gt;
+💅 Working with / writing in an established coding style.&lt;/p&gt;
+
+&lt;p&gt;I am so grateful for the opportunity to learn these concepts in such a welcoming environment, and am certainly committed to passing any knowledge I have gained from this experience to anyone and everyone!&lt;/p&gt;
+
+&lt;h2 id=&#34;an-ode-to-jenny-bryan&#34;&gt;&lt;em&gt;An ode to Jenny Bryan&lt;/em&gt;&lt;/h2&gt;
+
+&lt;p&gt;I&amp;rsquo;d like to wrap up by expressing my immense gratitude to Jenny 👯. This experience was SO excellent due to her rockstar coding abilities, impeccable teaching skills, and of course her unwavering patience. And so I&amp;rsquo;d like to end with a haiku:&lt;/p&gt;
+
+&lt;p&gt;Thank you, tidyverse.&lt;br /&gt;
+You&amp;rsquo;ve given me a leg up!&lt;br /&gt;
+Checkout googledrive!&lt;/p&gt;
+</description>
+  </item>
+  
+</channel>
+  </rss>

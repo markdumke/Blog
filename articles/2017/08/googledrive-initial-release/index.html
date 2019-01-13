@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="og:image" content="https://www.tidyverse.org/images/tidyverse-default.png" >
+<meta name="generator" content="Hugo 0.52" />
+
+<title>googledrive initial release - markusdumke</title>
+<meta property="og:title" content="googledrive initial release - markusdumke">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tidyverse.org/articles/googledrive-initial-release-sq.jpg" >
+<meta property="description" content="The first release of googledrive is now on CRAN. Operate on Google Drive files from R.
+">
+<meta property="og:description" content="The first release of googledrive is now on CRAN. Operate on Google Drive files from R.
+">
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png" />
+<link rel="manifest" href="/images/favicons/site.webmanifest" />
+<link rel="mask-icon" href="/images/favicons/safari-pinned-tab.svg" />
+<link rel="shortcut icon" href="/images/favicons/favicon.ico" />
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" href="/images/favicons/browserconfig.xml" >
+
+
+<script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/js/site.js"></script>
+
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.11.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+<link rel="stylesheet" href="/css/tidyverse-site.css" />
+<link rel="stylesheet" href="/css/tweaks.css" />
+<link rel="icon" href="/images/favicon.ico" />
+<link rel="alternate" type="application/atom+xml" title="Blog" href="/articles/index.xml" />
+
+  </head>
+  <body>
+    <div id="appTidyverseSite" class="shrinkHeader alwaysShrinkHeader">
+      <div id="main">
+        
+        <div id="rStudioHeader">
+          <div class="band">
+            <div class="innards bandContent">
+              <div>
+                <a class="productName" href="/">markusdumke</a>
+              </div>
+              <div id="menu">
+  <div id="menuToggler"></div>
+  <div id="menuItems" class="">
+    
+    
+    <a class="menuItem " href="/packages/">Packages</a>
+    
+    <a class="menuItem current" href="/articles/">Blog</a>
+    
+    <a class="menuItem " href="/about/">About</a>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </div>
+
+
+<div class="band padForHeader pushFooter">
+  <div class="bandContent">
+    <div class="full splitColumns withMobileMargins">
+      <div class="column75">
+
+      <h1 class="article-title">googledrive initial release</h1>
+
+      
+      
+      <div class="article-header">
+        <div class="photo" style="background-image: url('../../../googledrive-initial-release-wd.jpg');"></div>
+        <div class="photoCredit">Photo by <a href="https://unsplash.com/photos/wgLPy2YBXuc">Paul Csogi</a></div>
+      </div>
+      
+
+      
+
+      <div class="article-content">
+      
+
+<p>We are tickled pink to announce the initial CRAN release of the <a href="http://googledrive.tidyverse.org">googledrive package</a>. This is a collaboration between Jenny Bryan and tidyverse intern, <a href="http://lucymcgowan.com/">Lucy D&rsquo;Agostino McGowan</a> (blog post on that coming soon!).</p>
+
+<p>googledrive wraps the <a href="https://developers.google.com/drive/v3/web/about-sdk">Drive REST API v3</a>. The most common file operations are implemented in high-level functions designed for ease of use. You can find, list, create, trash, delete, rename, move, copy, browse, download, share and publish Drive files, including those on Team Drives.</p>
+
+<p>Install googledrive with:</p>
+
+<pre><code class="language-r">install.packages(&quot;googledrive&quot;)
+</code></pre>
+
+<p>The auth flow should &ldquo;just work&rdquo; for most people, especially for early and interactive use. For more advanced usage, functions are available that give the user much more control, i.e. to support non-interactive and remote usage. A low-level interface, used internally, is also exposed for those who wish to program around the Drive API.</p>
+
+<h2 id="first-use">First use</h2>
+
+<p>You can see and filter your files, similar to the experience at <a href="https://drive.google.com/">https://drive.google.com/</a>, with <code>drive_find()</code>. Expect to be taken to the browser here, in order to authorize googledrive to act on your behalf. We limit <code>drive_find()</code> to 10 files and just a few file types for brevity.</p>
+
+<pre><code class="language-r">library(googledrive)
+(x &lt;- drive_find(n_max = 10, type = c(&quot;spreadsheet&quot;, &quot;jpg&quot;, &quot;pdf&quot;)))
+#&gt; Auto-refreshing stale OAuth token.
+#&gt; # A tibble: 10 x 3
+#&gt;                             name
+#&gt;  *                         &lt;chr&gt;
+#&gt;  1                   chicken.jpg
+#&gt;  2            README-mirrors.csv
+#&gt;  3            README-mirrors.csv
+#&gt;  4                      logo.jpg
+#&gt;  5                     sheet-xyz
+#&gt;  6                      logo.jpg
+#&gt;  7                         test2
+#&gt;  8    foo_pdf-TEST-drive-publish
+#&gt;  9  foo_sheet-TEST-drive-publish
+#&gt; 10 export-mime-type-defaults.csv
+#&gt; # ... with 2 more variables: id &lt;chr&gt;, drive_resource &lt;list&gt;
+</code></pre>
+
+<p>googledrive holds Drive file info in a <a href="http://googledrive.tidyverse.org/reference/dribble.html">dribble</a>, a &ldquo;Drive tibble&rdquo;. This allows us to provide human-readable file names, packaged with API-friendly file ids and other useful metadata in the <code>drive_resource</code> list-column. Each row represents a Drive file.</p>
+
+<p><code>drive_reveal()</code> adds extra information to the dribble by excavating interesting metadata out of <code>drive_resource</code> or by making additional API calls.</p>
+
+<pre><code class="language-r">(x &lt;- x %&gt;%
+   drive_reveal(&quot;permissions&quot;) %&gt;% 
+   drive_reveal(&quot;mime_type&quot;))
+#&gt; # A tibble: 10 x 6
+#&gt;                             name                               mime_type
+#&gt;                            &lt;chr&gt;                                   &lt;chr&gt;
+#&gt;  1                   chicken.jpg                              image/jpeg
+#&gt;  2            README-mirrors.csv application/vnd.google-apps.spreadsheet
+#&gt;  3            README-mirrors.csv application/vnd.google-apps.spreadsheet
+#&gt;  4                      logo.jpg                              image/jpeg
+#&gt;  5                     sheet-xyz application/vnd.google-apps.spreadsheet
+#&gt;  6                      logo.jpg                              image/jpeg
+#&gt;  7                         test2 application/vnd.google-apps.spreadsheet
+#&gt;  8    foo_pdf-TEST-drive-publish                         application/pdf
+#&gt;  9  foo_sheet-TEST-drive-publish application/vnd.google-apps.spreadsheet
+#&gt; 10 export-mime-type-defaults.csv application/vnd.google-apps.spreadsheet
+#&gt; # ... with 4 more variables: shared &lt;lgl&gt;, id &lt;chr&gt;,
+#&gt; #   drive_resource &lt;list&gt;, permissions_resource &lt;list&gt;
+</code></pre>
+
+<p>Since files are stored in a specialized tibble, you can use your usual tidyverse workflows to manipulate this data frame.</p>
+
+<pre><code class="language-r">x %&gt;% 
+  filter(mime_type == &quot;image/jpeg&quot;) %&gt;% 
+  select(name, id, drive_resource)
+#&gt; # A tibble: 3 x 3
+#&gt;          name                           id drive_resource
+#&gt; *       &lt;chr&gt;                        &lt;chr&gt;         &lt;list&gt;
+#&gt; 1 chicken.jpg 0B0Gh-SuuA2nTbEhtYnIzcFNfX3M    &lt;list [39]&gt;
+#&gt; 2    logo.jpg 0B0Gh-SuuA2nTLVE0VGZQVU40Z0U    &lt;list [38]&gt;
+#&gt; 3    logo.jpg 0B0Gh-SuuA2nTZjlpQmlVTm9BcVU    &lt;list [38]&gt;
+</code></pre>
+
+<h2 id="test-drive-and-cleanup">Test drive and cleanup</h2>
+
+<p>We&rsquo;ll quickly show off a few basic file operations and then clean up. This example also demonstrates the file conversion features available when importing into and exporting out of native Google file types.</p>
+
+<p>First, we make a new folder. Then we make a new Drive file (a Google Sheet) by uploading a local file (csv). A few example files ship with googledrive and <code>drive_example()</code> is just a convenience function to get the local path on any system.</p>
+
+<pre><code class="language-r">folder &lt;- drive_mkdir(&quot;blog-folder&quot;)
+#&gt; Folder created:
+#&gt;   * blog-folder
+
+chicken_sheet &lt;- drive_example(&quot;chicken.csv&quot;) %&gt;% 
+  drive_upload(path = &quot;blog-folder/blog-chicken-sheet&quot;, type = &quot;spreadsheet&quot;)
+#&gt; Local file:
+#&gt;   * /Users/jenny/resources/R/library/googledrive/extdata/chicken.csv
+#&gt; uploaded into Drive file:
+#&gt;   * blog-chicken-sheet: 1qGE2yLpe4qN-wZCMCl1t5ml-0acGW-xEPZ2l6PMHd7o
+#&gt; with MIME type:
+#&gt;   * application/vnd.google-apps.spreadsheet
+</code></pre>
+
+<p>Let&rsquo;s list the contents of the folder and reveal file path to confirm the new file exists and has been placed in the target folder.</p>
+
+<pre><code class="language-r">drive_ls(folder) %&gt;%
+  drive_reveal(&quot;path&quot;)
+#&gt; # A tibble: 1 x 4
+#&gt;                 name                             path
+#&gt; *              &lt;chr&gt;                            &lt;chr&gt;
+#&gt; 1 blog-chicken-sheet ~/blog-folder/blog-chicken-sheet
+#&gt; # ... with 2 more variables: id &lt;chr&gt;, drive_resource &lt;list&gt;
+</code></pre>
+
+<p>Here we rename the file and download it to a local file. Since we are downloading from a Google Sheet, we must convert to a more conventional file type, such as csv or, the default, an Excel workbook.</p>
+
+<pre><code class="language-r">chicken_sheet %&gt;% 
+  drive_rename(&quot;blog-famous-chickens&quot;) %&gt;% 
+  drive_download()
+#&gt; File renamed:
+#&gt;   * blog-chicken-sheet -&gt; blog-famous-chickens
+#&gt; File downloaded:
+#&gt;   * blog-famous-chickens
+#&gt; Saved locally as:
+#&gt;   * blog-famous-chickens.xlsx
+</code></pre>
+
+<p>Finally, we clean up by deleting the local spreadsheet, as well as the folder we created on Drive.</p>
+
+<pre><code class="language-r">file.remove(&quot;blog-famous-chickens.xlsx&quot;)
+#&gt; [1] TRUE
+drive_rm(folder)
+#&gt; Files deleted:
+#&gt;   * blog-folder: 0B0Gh-SuuA2nTMTl0cjIwZThQRzg
+</code></pre>
+
+<p>We look forward to hearing how this package is useful to you. Feel free to chime in on <a href="https://github.com/tidyverse/googledrive/issues">GitHub issues</a> to discuss how googledrive can best support your workflows.</p>
+
+<p>Learn more about googledrive at:</p>
+
+<ul>
+<li><a href="http://googledrive.tidyverse.org">http://googledrive.tidyverse.org</a></li>
+</ul>
+
+      </div>
+
+      
+
+
+      </div>
+
+      <div class="column25">
+        <div class="section hideOnMobile">
+          <div class="sectionTitle">Contents</div>
+          <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#first-use">First use</a></li>
+<li><a href="#test-drive-and-cleanup">Test drive and cleanup</a></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+
+    </div>
+  </div>  
+</div> 
+
+        <div id="rStudioFooter" class="band">
+          <div class="bandContent">
+            <div id="copyright">
+              Markus Dumke, 2019</div>
+            <div id="logos">
+              <a href="https://github.com/markusdumke" class="footerLogo gitHub"></a>
+            </div>
+          </div>
+        </div>
+
+      </div>  
+    </div>  
+
+    
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-115082821-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+  </body>
+</html>
+

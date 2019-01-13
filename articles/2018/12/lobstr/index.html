@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="og:image" content="https://www.tidyverse.org/images/tidyverse-default.png" >
+<meta name="generator" content="Hugo 0.52" />
+
+<title>lobstr 1.0.0 - markusdumke</title>
+<meta property="og:title" content="lobstr 1.0.0 - markusdumke">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tidyverse.org/articles/lobstr-sq.jpg" >
+<meta property="description" content="lobstr is now on CRAN. lobstr provides tools that allow you to dig into the detail of an object.
+">
+<meta property="og:description" content="lobstr is now on CRAN. lobstr provides tools that allow you to dig into the detail of an object.
+">
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png" />
+<link rel="manifest" href="/images/favicons/site.webmanifest" />
+<link rel="mask-icon" href="/images/favicons/safari-pinned-tab.svg" />
+<link rel="shortcut icon" href="/images/favicons/favicon.ico" />
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" href="/images/favicons/browserconfig.xml" >
+
+
+<script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/js/site.js"></script>
+
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.11.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+<link rel="stylesheet" href="/css/tidyverse-site.css" />
+<link rel="stylesheet" href="/css/tweaks.css" />
+<link rel="icon" href="/images/favicon.ico" />
+<link rel="alternate" type="application/atom+xml" title="Blog" href="/articles/index.xml" />
+
+  </head>
+  <body>
+    <div id="appTidyverseSite" class="shrinkHeader alwaysShrinkHeader">
+      <div id="main">
+        
+        <div id="rStudioHeader">
+          <div class="band">
+            <div class="innards bandContent">
+              <div>
+                <a class="productName" href="/">markusdumke</a>
+              </div>
+              <div id="menu">
+  <div id="menuToggler"></div>
+  <div id="menuItems" class="">
+    
+    
+    <a class="menuItem " href="/packages/">Packages</a>
+    
+    <a class="menuItem current" href="/articles/">Blog</a>
+    
+    <a class="menuItem " href="/about/">About</a>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </div>
+
+
+<div class="band padForHeader pushFooter">
+  <div class="bandContent">
+    <div class="full splitColumns withMobileMargins">
+      <div class="column75">
+
+      <h1 class="article-title">lobstr 1.0.0</h1>
+
+      
+      
+      <div class="article-header">
+        <div class="photo" style="background-image: url('../../../lobstr-wd.jpg');"></div>
+        <div class="photoCredit">Photo by <a href="https://unsplash.com/photos/BmjuEqM4YOY">Toa Heftiba</a></div>
+      </div>
+      
+
+      
+
+      <div class="article-content">
+      
+
+<p>We&rsquo;re so happy to announce the release of <a href="https://lobstr.r-lib.org/">lobstr</a> on CRAN. lobstr provides tools that allow you to dig into the internal representation and structure of R objects, in a similar vein to <a href="https://stat.ethz.ch/R-manual/R-devel/library/utils/html/str.html"><code>str()</code></a>.</p>
+
+<p>You can install it by running:</p>
+
+<pre><code class="language-r">install.packages(&quot;lobstr&quot;)
+</code></pre>
+
+<h2 id="visualising-r-data-structures-with-trees">Visualising R data structures with trees</h2>
+
+<h3 id="abstract-syntax-trees">Abstract syntax trees</h3>
+
+<p><a href="https://lobstr.r-lib.org/reference/ast.html"><code>ast()</code></a> draws the abstract syntax tree (AST) of R expressions. You can learn about these in greater detail in the <a href="https://adv-r.hadley.nz/expressions.html#abstract-syntax-trees">Abstract syntax trees</a> section of <a href="https://adv-r.hadley.nz/">Advanced R</a>.</p>
+
+<pre><code class="language-r">ast(a + b + c)
+#&gt; █─`+` 
+#&gt; ├─█─`+` 
+#&gt; │ ├─a 
+#&gt; │ └─b 
+#&gt; └─c
+</code></pre>
+
+<h3 id="call-stack-trees">Call stack trees</h3>
+
+<p><a href="https://lobstr.r-lib.org/reference/cst.html"><code>cst()</code></a> shows how the frames of a call stack are connected:</p>
+
+<pre><code class="language-r">f &lt;- function(x) g(x)
+g &lt;- function(x) h(x)
+h &lt;- function(x) x
+f(cst())
+#&gt;     █
+#&gt;  1. ├─global::f(cst())
+#&gt;  2. │ └─global::g(x)
+#&gt;  3. │   └─global::h(x)
+#&gt;  4. └─lobstr::cst()
+</code></pre>
+
+<p>Learn more about this in <a href="https://adv-r.hadley.nz/environments.html#call-stack">The call stack</a>.</p>
+
+<h3 id="references">References</h3>
+
+<p><a href="https://lobstr.r-lib.org/reference/ref.html"><code>ref()</code></a> shows the connection between shared references using a locally unique id by printing the memory address of each object (further discussed <a href="https://adv-r.hadley.nz/names-values.html#copy-on-modify">here</a>).</p>
+
+<pre><code class="language-r">x &lt;- 1:100
+ref(x)
+#&gt; [1:0x7fb19c66bbc8] &lt;int&gt;
+
+y &lt;- list(x, x, x)
+ref(y)
+#&gt; █ [1:0x7fb19d0d5a28] &lt;list&gt; 
+#&gt; ├─[2:0x7fb19c66bbc8] &lt;int&gt; 
+#&gt; ├─[2:0x7fb19c66bbc8] 
+#&gt; └─[2:0x7fb19c66bbc8]
+</code></pre>
+
+<h2 id="object-inspection">Object inspection</h2>
+
+<p>The <a href="https://lobstr.r-lib.org/reference/obj_addr.html"><code>obj_addr()</code></a> function gives the address of the value that an object, <code>x</code>, points to. In <a href="https://adv-r.hadley.nz/names-values.html#binding-basics">Binding basics</a>, this is used to illustrate the &ldquo;lazy copying&rdquo; used by R: when multiple names reference the same value, they point to the same identifier. The object itself is not duplicated.</p>
+
+<pre><code class="language-r">x &lt;- 1:10
+y &lt;- x
+
+obj_addr(x)
+#&gt; [1] &quot;0x7fb19c7aeeb0&quot;
+obj_addr(y)
+#&gt; [1] &quot;0x7fb19c7aeeb0&quot;
+</code></pre>
+
+<p><a href="https://lobstr.r-lib.org/reference/obj_size.html"><code>obj_size()</code></a> computes the size of an object or set of objects. It is different to <code>object.size()</code> in three ways. It:</p>
+
+<ul>
+<li>Accounts for all types of shared values, not just strings in the global string pool,<br /></li>
+<li>Includes the size of environments (up to <code>env</code>), and<br /></li>
+<li>Accurately measures the size of ALTREP objects.</li>
+</ul>
+
+<p><code>obj_size()</code> attempts to take into account the size of the environments associated with an object. By default, it never counts the size of the global environment, the base environment, the empty environment, or any namespace. However, the optional <code>env</code> argument allows you to specify another environment at which to stop.</p>
+
+<pre><code class="language-r">x &lt;- runif(1e4)
+obj_size(x)
+#&gt; 80,048 B
+
+z &lt;- list(a = x, b = x, c = x)
+obj_size(z)
+#&gt; 80,488 B
+</code></pre>
+
+<p>You can use <code>obj_sizes()</code> to see the unique contribution of each component:</p>
+
+<pre><code class="language-r">obj_sizes(x, z)
+#&gt; * 80,048 B
+#&gt; *    440 B
+</code></pre>
+
+<p>For more detail, see the <a href="https://adv-r.hadley.nz/names-values.html#object-size">Object size</a> section of Advanced R.</p>
+
+<h2 id="memory-usage">Memory usage</h2>
+
+<p><a href="https://lobstr.r-lib.org/reference/mem_used.html"><code>mem_used()</code></a> wraps around the base-R garbage collection function, <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/gc.html"><code>gc()</code></a>, and returns the exact number of bytes currently used by R. See <a href="https://adv-r.hadley.nz/names-values.html#gc">Unbinding and the garbage collector</a> for details.</p>
+
+      </div>
+
+      
+
+
+      </div>
+
+      <div class="column25">
+        <div class="section hideOnMobile">
+          <div class="sectionTitle">Contents</div>
+          <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#visualising-r-data-structures-with-trees">Visualising R data structures with trees</a>
+<ul>
+<li><a href="#abstract-syntax-trees">Abstract syntax trees</a></li>
+<li><a href="#call-stack-trees">Call stack trees</a></li>
+<li><a href="#references">References</a></li>
+</ul></li>
+<li><a href="#object-inspection">Object inspection</a></li>
+<li><a href="#memory-usage">Memory usage</a></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+
+    </div>
+  </div>  
+</div> 
+
+        <div id="rStudioFooter" class="band">
+          <div class="bandContent">
+            <div id="copyright">
+              Markus Dumke, 2019</div>
+            <div id="logos">
+              <a href="https://github.com/markusdumke" class="footerLogo gitHub"></a>
+            </div>
+          </div>
+        </div>
+
+      </div>  
+    </div>  
+
+    
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-115082821-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+  </body>
+</html>
+

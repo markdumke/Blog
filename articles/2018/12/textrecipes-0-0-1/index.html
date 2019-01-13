@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="og:image" content="https://www.tidyverse.org/images/tidyverse-default.png" >
+<meta name="generator" content="Hugo 0.52" />
+
+<title>textrecipes 0.0.1 - markusdumke</title>
+<meta property="og:title" content="textrecipes 0.0.1 - markusdumke">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tidyverse.org/articles/textrecipes-0-0-1-sq.jpg" >
+<meta property="description" content="textrecipes 0.0.1 is now on CRAN!
+">
+<meta property="og:description" content="textrecipes 0.0.1 is now on CRAN!
+">
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png" />
+<link rel="manifest" href="/images/favicons/site.webmanifest" />
+<link rel="mask-icon" href="/images/favicons/safari-pinned-tab.svg" />
+<link rel="shortcut icon" href="/images/favicons/favicon.ico" />
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" href="/images/favicons/browserconfig.xml" >
+
+
+<script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/js/site.js"></script>
+
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.11.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+<link rel="stylesheet" href="/css/tidyverse-site.css" />
+<link rel="stylesheet" href="/css/tweaks.css" />
+<link rel="icon" href="/images/favicon.ico" />
+<link rel="alternate" type="application/atom+xml" title="Blog" href="/articles/index.xml" />
+
+  </head>
+  <body>
+    <div id="appTidyverseSite" class="shrinkHeader alwaysShrinkHeader">
+      <div id="main">
+        
+        <div id="rStudioHeader">
+          <div class="band">
+            <div class="innards bandContent">
+              <div>
+                <a class="productName" href="/">markusdumke</a>
+              </div>
+              <div id="menu">
+  <div id="menuToggler"></div>
+  <div id="menuItems" class="">
+    
+    
+    <a class="menuItem " href="/packages/">Packages</a>
+    
+    <a class="menuItem current" href="/articles/">Blog</a>
+    
+    <a class="menuItem " href="/about/">About</a>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </div>
+
+
+<div class="band padForHeader pushFooter">
+  <div class="bandContent">
+    <div class="full splitColumns withMobileMargins">
+      <div class="column75">
+
+      <h1 class="article-title">textrecipes 0.0.1</h1>
+
+      
+      
+      <div class="article-header">
+        <div class="photo" style="background-image: url('../../../textrecipes-0-0-1-wd.jpg');"></div>
+        <div class="photoCredit">Photo by <a href="https://unsplash.com/photos/X1exjxxBho4">Roman Kraft</a></div>
+      </div>
+      
+
+      
+
+      <div class="article-content">
+      
+
+<p>We&rsquo;re delighted to announce the release of <a href="https://github.com/tidymodels/textrecipes">textrecipes 0.0.1</a> on CRAN. <a href="https://tidymodels.github.io/textrecipes/">textrecipes</a> implements a collection of new steps for the <a href="https://github.com/tidymodels/recipes">recipes</a> package to deal with text preprocessing. textrecipes is still in early development so any and all feedback is highly appreciated.</p>
+
+<p>You can install it by running:</p>
+
+<pre><code class="language-r">install.packages(&quot;textrecipes&quot;)
+</code></pre>
+
+<h2 id="new-steps">New steps</h2>
+
+<p>The steps introduced here can be split into 3 types, those that:</p>
+
+<ol>
+<li>convert from characters to list-columns and vice versa,</li>
+<li>modify the elements in list-columns, and</li>
+<li>convert list-columns to numerics.</li>
+</ol>
+
+<p>This allows for greater flexibility in the preprocessing tasks that can be done while staying inside the <a href="https://github.com/tidymodels/recipes">recipes</a> framework. This also prevents having a single step with many arguments.</p>
+
+<h2 id="workflows">Workflows</h2>
+
+<p>First we start by creating a <a href="https://tidymodels.github.io/recipes/reference/recipe.html"><code>recipe</code></a> object from the original data.</p>
+
+<pre><code class="language-r">data(&quot;okc_text&quot;)
+rec_obj &lt;- recipe(~ ., okc_text)
+
+rec_obj
+#&gt; Data Recipe
+#&gt; 
+#&gt; Inputs:
+#&gt; 
+#&gt;       role #variables
+#&gt;  predictor         10
+</code></pre>
+
+<p>The workflow in textrecipes so far starts with <a href="https://tidymodels.github.io/textrecipes/reference/step_tokenize.html"><code>step_tokenize()</code></a>, followed by a combination of type-1 and type-2 steps ending with a type-3 step. <a href="https://tidymodels.github.io/textrecipes/reference/step_tokenize.html"><code>step_tokenize()</code></a> wraps the <a href="https://github.com/ropensci/tokenizers">tokenizers</a> package for tokenization, but other tokenization functions can be utilized using the <code>custom_token</code> argument. More information concerning arguments can be found in the documentation. The shortest possible recipes are <code>step_tokenize()</code> directly followed by a type-3 step.</p>
+
+<pre><code class="language-r">### Feature hashing done on word tokens
+rec_obj %&gt;%
+  step_tokenize(essay0) %&gt;% # token argument defaults to &quot;words&quot;
+  step_texthash(essay0)
+#&gt; Data Recipe
+#&gt; 
+#&gt; Inputs:
+#&gt; 
+#&gt;       role #variables
+#&gt;  predictor         10
+#&gt; 
+#&gt; Operations:
+#&gt; 
+#&gt; Tokenization for essay0
+#&gt; Feature hashing with essay0
+
+### Counting chacter occurrences
+rec_obj %&gt;%
+  step_tokenize(essay0, token = &quot;character&quot;) %&gt;%
+  step_tf(essay0)
+#&gt; Data Recipe
+#&gt; 
+#&gt; Inputs:
+#&gt; 
+#&gt;       role #variables
+#&gt;  predictor         10
+#&gt; 
+#&gt; Operations:
+#&gt; 
+#&gt; Tokenization for essay0
+#&gt; Term frequency with essay0
+</code></pre>
+
+<p>If one wanted to calculate the word count of the top 100 most frequently used words after stemming is performed, type-2 steps are needed. Here we use <a href="https://tidymodels.github.io/textrecipes/reference/step_stem.html"><code>step_stem()</code></a> to perform stemming using the <a href="https://CRAN.R-project.org/package=SnowballC">SnowballC</a> package and <a href="https://tidymodels.github.io/textrecipes/reference/step_tokenfilter.html"><code>step_tokenfilter()</code></a> to keep only the 100 most frequent tokens.</p>
+
+<pre><code class="language-r">rec_obj %&gt;%
+  step_tokenize(essay0) %&gt;%
+  step_stem(essay0) %&gt;%
+  step_tokenfilter(essay0, max_tokens = 100) %&gt;%
+  step_tf(essay0)
+#&gt; Data Recipe
+#&gt; 
+#&gt; Inputs:
+#&gt; 
+#&gt;       role #variables
+#&gt;  predictor         10
+#&gt; 
+#&gt; Operations:
+#&gt; 
+#&gt; Tokenization for essay0
+#&gt; Stemming for essay0
+#&gt; Text filtering for essay0
+#&gt; Term frequency with essay0
+</code></pre>
+
+<p>For more combinations, please consult the documentation and the <a href="https://tidymodels.github.io/textrecipes/articles/cookbook---using-more-complex-recipes-involving-text.html">vignette</a>, which includes recipe examples.</p>
+
+<h2 id="acknowledgements">Acknowledgements</h2>
+
+<p>A big thank you goes out to the 6 people who contributed to this release:
+<a href="https://github.com/ClaytonJY">&#x0040;ClaytonJY</a>, <a href="https://github.com/DavisVaughan">&#x0040;DavisVaughan</a>, <a href="https://github.com/EmilHvitfeldt">&#x0040;EmilHvitfeldt</a>, <a href="https://github.com/jwijffels">&#x0040;jwijffels</a>, <a href="https://github.com/kanishkamisra">&#x0040;kanishkamisra</a>, and <a href="https://github.com/topepo">&#x0040;topepo</a>.</p>
+
+      </div>
+
+      
+
+
+      </div>
+
+      <div class="column25">
+        <div class="section hideOnMobile">
+          <div class="sectionTitle">Contents</div>
+          <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#new-steps">New steps</a></li>
+<li><a href="#workflows">Workflows</a></li>
+<li><a href="#acknowledgements">Acknowledgements</a></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+
+    </div>
+  </div>  
+</div> 
+
+        <div id="rStudioFooter" class="band">
+          <div class="bandContent">
+            <div id="copyright">
+              Markus Dumke, 2019</div>
+            <div id="logos">
+              <a href="https://github.com/markusdumke" class="footerLogo gitHub"></a>
+            </div>
+          </div>
+        </div>
+
+      </div>  
+    </div>  
+
+    
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-115082821-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+  </body>
+</html>
+

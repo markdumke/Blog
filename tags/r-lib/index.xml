@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+  <title>R Lib on markusdumke</title>
+  <link>/tags/r-lib/</link>
+  <description>Recent content in R Lib on markusdumke</description>
+  <generator>Hugo -- gohugo.io</generator>
+<language>en-us</language>
+<lastBuildDate>Tue, 19 Dec 2017 00:00:00 +0000</lastBuildDate>
+
+<atom:link href="/tags/r-lib/index.xml" rel="self" type="application/rss+xml" />
+
+
+<item>
+  <title>testthat 2.0.0</title>
+  <link>/articles/2017/12/testthat-2-0-0/</link>
+  <pubDate>Tue, 19 Dec 2017 00:00:00 +0000</pubDate>
+  
+<guid>/articles/2017/12/testthat-2-0-0/</guid>
+  <description>
+
+
+&lt;p&gt;We are very excited to announce that &lt;a href=&#34;http://testthat.r-lib.org&#34;&gt;testthat 2.0.0&lt;/a&gt; is now available on CRAN! Testthat makes it easy to turn your existing informal tests into formal automated tests that you can rerun quickly and easily. testthat is the most popular unit testing package for R, and is used by over 2,600 CRAN packages and by many more &lt;a href=&#34;https://github.com/search?q=filename%3Atestthat.R&#34;&gt;Github packages&lt;/a&gt;. Learn more about unit testing at &lt;a href=&#34;http://r-pkgs.had.co.nz/tests.html&#34; class=&#34;uri&#34;&gt;http://r-pkgs.had.co.nz/tests.html&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Install the latest version of testthat with:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;install.packages(&amp;quot;testthat&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;testthat 2.0.0 is a massive release containing a bunch of new features. For the full details, see the &lt;a href=&#34;https://github.com/r-lib/testthat/releases/tag/v2.0.0&#34;&gt;release notes&lt;/a&gt;, or read the hightlights below:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;A new default reporter revamps the output to make better use of colour.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;New setup and teardown tools make it easier to run code before and after each test file, and before and after all tests.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;New and improved expectations make it easier to test printed output and precisely test conditions (i.e. errors, warnings, and messages).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Quasiquotation support makes it easier to wrap tests in for loops and functions and still get useful failure messages.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Along with these new features we unfortunately also had to make a few breaking changes. We describe the symptoms and how to work around the changes below.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In addition, as part of a general process to make tidyverse and r-lib packages available more widely, we are now checking testthat with R 3.1, 3.2, 3.3, 3.4, and 3.5.&lt;/p&gt;
+&lt;div id=&#34;new-default-reporter&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;New default reporter&lt;/h2&gt;
+&lt;p&gt;A new default reporter, &lt;code&gt;ReporterProgress&lt;/code&gt;, revamps the output to make use of colour and reveal details of failures as they occur:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/images/testthat-2-0/progress.gif&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;If you prefer the previous version, you can run it once with &lt;code&gt;devtools::test(reporter = &amp;quot;summary&amp;quot;)&lt;/code&gt; or turn back time by setting &lt;code&gt;option(testthat.default_reporter = &amp;quot;summary&amp;quot;)&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;setup-and-teardown&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Setup and teardown&lt;/h2&gt;
+&lt;p&gt;There are two new ways to setup and teardown code:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;New &lt;code&gt;setup()&lt;/code&gt; and &lt;code&gt;teardown()&lt;/code&gt; functions specify code to be run at the beginning and end of each test file. Write them next to each other so you can easily confirm that each &lt;code&gt;setup()&lt;/code&gt; is paired with a &lt;code&gt;teardown()&lt;/code&gt; that cleans up any changes to the global state.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tmp &amp;lt;- tempfile()
+setup({
+  writeLines(&amp;quot;TEST DATA&amp;quot;, tmp)
+})
+teardown({
+  unlink(tmp)
+})&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;tests/testthat/setup-xyz.R&lt;/code&gt; files are run before the first test file is executed. They are similar to the existing &lt;code&gt;helpers-xyz.R&lt;/code&gt; files, but are not run by &lt;code&gt;devtools::load_all()&lt;/code&gt;. Similarly, &lt;code&gt;test/teststhat/teardown-xyz.R&lt;/code&gt; files are run after all tests are complete; use these to clean up any global changes made by the setup files.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;new-and-improved-expectations&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;New and improved expectations&lt;/h2&gt;
+&lt;p&gt;We have identified a new family of expectations that compares the results of an expression to a known good value stored in a file. They are designed to be used in conjunction with git so that you can see what precisely has changed, and revert it if needed:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;expect_known_output()&lt;/code&gt; saves the output of an expression and will fail the first time the output changes. The file is updated on each run, so needs to be used in conjunction with git. It replaces &lt;code&gt;expect_output_file()&lt;/code&gt; which is now soft-deprecated.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# File to save results: would usually be filename, which will be stored 
+# in tests/testthat.
+tmp &amp;lt;- tempfile()
+
+# The first run always succeeds, but warns
+expect_known_output(mtcars[1:10, ], tmp, print = TRUE)
+#&amp;gt; Warning: Creating reference output
+
+# Subsequent runs will suceed only if the file is unchanged
+# This will succeed:
+expect_known_output(mtcars[1:10, ], tmp, print = TRUE)
+
+# This will fail
+expect_known_output(mtcars[1:9, ], tmp, print = TRUE)
+#&amp;gt; Error: `mtcars[1:9, ]` has changed from known value recorded in &amp;#39;/tmp/Rtmphlp98S/file481a3697072d&amp;#39;.
+#&amp;gt; Lengths differ: 10 is not 11&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;expect_known_value()&lt;/code&gt; replaces &lt;code&gt;expect_equal_to_reference()&lt;/code&gt;, which has been soft-deprecated. It gains an update argument defaulting to &lt;code&gt;TRUE&lt;/code&gt;. This changes behaviour from the previous version, and soft-deprecated &lt;code&gt;expect_equal_to_reference()&lt;/code&gt; gets &lt;code&gt;update = FALSE&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We’ve also improved tools for testing for failures:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;expect_condition()&lt;/code&gt; works like &lt;code&gt;expect_error()&lt;/code&gt; but captures any condition, not just error conditions.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;expect_error()&lt;/code&gt; gains a &lt;code&gt;class&lt;/code&gt; argument that allows you to make an assertion about the class of the error object.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We’ve also added &lt;code&gt;expect_setequal()&lt;/code&gt; to compares two sets (stored in vectors), ignoring duplicates and differences in order. Finally, we added a few new helpers for skipping tests:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;skip_if()&lt;/code&gt; makes it easy to skip a test when a condition is true. For example, use &lt;code&gt;skip_if(getRversion() &amp;lt;= 3.1)&lt;/code&gt; to skip a test in older R versions.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;skip_if_translated()&lt;/code&gt; skips tests if you’re running in an locale where translations are likely to occur. Use this to avoid spurious failures when checking the text of error messages in non-English locales.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;skip_if_not_installed()&lt;/code&gt; gains new &lt;code&gt;minimum_version&lt;/code&gt; argument. This allows you to only test if a minimum version requrement is met, e.g.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;skip_if_not_installed(&amp;quot;ggplot2&amp;quot;, &amp;quot;2.0.0&amp;quot;)&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;quasiquotation-support&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Quasiquotation support&lt;/h2&gt;
+&lt;p&gt;All expectations can now make use of &lt;a href=&#34;https://adv-r.hadley.nz/tidy-eval&#34;&gt;unquoting&lt;/a&gt;, with &lt;code&gt;!!&lt;/code&gt;. This makes it much easier to generate informative failure messages when running tests in a for loop or function. For example take this test:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;f &amp;lt;- function(i) if (i &amp;gt; 3) i * 9 else i * 10
+
+for (i in 1:5) {
+  expect_equal(f(i), i * 10)
+}
+#&amp;gt; Error: f(i) not equal to i * 10.
+#&amp;gt; 1/1 mismatches
+#&amp;gt; [1] 36 - 40 == -4&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The error message is not great because you don’t know which iteration caused the problem! You can resolve that problem by using the unquoting operator &lt;code&gt;!!&lt;/code&gt; (pronounced bang-bang):&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;for (i in 1:5) {
+  expect_equal(f(!!i), !!(i * 10))
+}
+#&amp;gt; Error: f(4L) not equal to 40.
+#&amp;gt; 1/1 mismatches
+#&amp;gt; [1] 36 - 40 == -4&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;(Note that this is not tidy evaluation &lt;em&gt;per se&lt;/em&gt;, but is closely related. It works a little differently compared to tidyverse packages because quoting is only used to generate the failure messages: see &lt;code&gt;?quasi_label()&lt;/code&gt; for more details. At this time you can not unquote quosures.)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;breaking-changes&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Breaking changes&lt;/h2&gt;
+&lt;p&gt;Unfortunately it was necessary to make a few API breaking changes in testthat in order to make testthat more flexible for the future, and deal with some changes made to R. These changes affected around 1 in 40 packages using testthat on CRAN, and all maintainers were warned a month in advance.&lt;/p&gt;
+&lt;p&gt;If you have a non-CRAN package, read the following list of symptoms and remedies in order to get your package working with testthat 2.0.0:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;“Can’t mock functions in base packages”&lt;/strong&gt;: You can no longer use &lt;code&gt;with_mock()&lt;/code&gt; to mock functions in base packages, because this no longer works in R-devel due to changes with the byte code compiler. I recommend using &lt;a href=&#34;https://github.com/n-s-f/mockery&#34;&gt;mockery&lt;/a&gt; or &lt;a href=&#34;https://github.com/krlmlr/mockr&#34;&gt;mockr&lt;/a&gt; instead.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The order of arguments to &lt;code&gt;expect_equivalent()&lt;/code&gt; and &lt;code&gt;expect_error()&lt;/code&gt; was changed slightly as both now pass &lt;code&gt;...&lt;/code&gt; on to another function. This reveals itself with a number of different errors, like:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;‘what’ must be a character vector&lt;/li&gt;
+&lt;li&gt;‘check.attributes’ must be logical&lt;/li&gt;
+&lt;li&gt;‘tolerance’ should be numeric&lt;/li&gt;
+&lt;li&gt;argument is not interpretable as logical&lt;/li&gt;
+&lt;li&gt;threw an error with unexpected class&lt;/li&gt;
+&lt;li&gt;argument “quo” is missing, with no default&lt;/li&gt;
+&lt;li&gt;argument is missing, with no default&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If you see one of these errors, check the number, order, and names of arguments to the expectation.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;“Failure: (unknown)”&lt;/strong&gt;. The last release mistakenly failed to test bare expectations not wrapped inside &lt;code&gt;test_that()&lt;/code&gt;. If you see “(unknown)” in a failure message, this is a failing expectation that you previously weren’t seeing. As well as fixing the failure, please also wrap inside a &lt;code&gt;test_that()&lt;/code&gt; with an informative name.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;“Error: the argument has already been evaluated”&lt;/strong&gt;: the way in which expectations now create labels has changed, which caused a couple of failures with unusual usage when combined with &lt;code&gt;Reduce&lt;/code&gt;, &lt;code&gt;lapply()&lt;/code&gt;, and &lt;code&gt;Map()&lt;/code&gt;. Avoid these functions in favour of for loops. I also recommend reading the section on quasiquotation support (above) in order to create more informative failure messages.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;is_null()&lt;/code&gt; and &lt;code&gt;matches()&lt;/code&gt; have been deprecated because they conflict with other functions in the tidyverse. Use the modern &lt;code&gt;expect_null()&lt;/code&gt; and &lt;code&gt;expect_matches()&lt;/code&gt; instead.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;acknowledgements&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Acknowledgements&lt;/h2&gt;
+&lt;p&gt;A big thanks goes to &lt;a href=&#34;https://github.com/krlmlr&#34;&gt;Kirill Müller&lt;/a&gt; for his help running R CMD check on all the packages that use testthat - in total he ran R CMD check over 10,000 times! Likewise, a big thanks to the CRAN team who also have to run these checks to ensure that other packages are not broken inadvertently.&lt;/p&gt;
+&lt;p&gt;A whopping 103 people helped to make this release happen. Thanks to everyone who opened issues and contributed code: &lt;a href=&#34;https://github.com/3psil0n&#34;&gt;@3psil0n&lt;/a&gt;, &lt;a href=&#34;https://github.com/agricolamz&#34;&gt;@agricolamz&lt;/a&gt;, &lt;a href=&#34;https://github.com/akbertram&#34;&gt;@akbertram&lt;/a&gt;, &lt;a href=&#34;https://github.com/AmeliaMN&#34;&gt;@AmeliaMN&lt;/a&gt;, &lt;a href=&#34;https://github.com/andrie&#34;&gt;@andrie&lt;/a&gt;, &lt;a href=&#34;https://github.com/aronatkins&#34;&gt;@aronatkins&lt;/a&gt;, &lt;a href=&#34;https://github.com/BarkleyBG&#34;&gt;@BarkleyBG&lt;/a&gt;, &lt;a href=&#34;https://github.com/bbolker&#34;&gt;@bbolker&lt;/a&gt;, &lt;a href=&#34;https://github.com/bc&#34;&gt;@bc&lt;/a&gt;, &lt;a href=&#34;https://github.com/bdwyer2&#34;&gt;@bdwyer2&lt;/a&gt;, &lt;a href=&#34;https://github.com/billchenxi&#34;&gt;@billchenxi&lt;/a&gt;, &lt;a href=&#34;https://github.com/billdenney&#34;&gt;@billdenney&lt;/a&gt;, &lt;a href=&#34;https://github.com/BillDunlap&#34;&gt;@BillDunlap&lt;/a&gt;, &lt;a href=&#34;https://github.com/boennecd&#34;&gt;@boennecd&lt;/a&gt;, &lt;a href=&#34;https://github.com/bradleyjeck&#34;&gt;@bradleyjeck&lt;/a&gt;, &lt;a href=&#34;https://github.com/briencj&#34;&gt;@briencj&lt;/a&gt;, &lt;a href=&#34;https://github.com/brodieG&#34;&gt;@brodieG&lt;/a&gt;, &lt;a href=&#34;https://github.com/carlganz&#34;&gt;@carlganz&lt;/a&gt;, &lt;a href=&#34;https://github.com/cbare&#34;&gt;@cbare&lt;/a&gt;, &lt;a href=&#34;https://github.com/cderv&#34;&gt;@cderv&lt;/a&gt;, &lt;a href=&#34;https://github.com/cdriveraus&#34;&gt;@cdriveraus&lt;/a&gt;, &lt;a href=&#34;https://github.com/cfhammill&#34;&gt;@cfhammill&lt;/a&gt;, &lt;a href=&#34;https://github.com/chambm&#34;&gt;@chambm&lt;/a&gt;, &lt;a href=&#34;https://github.com/Christoph999&#34;&gt;@Christoph999&lt;/a&gt;, &lt;a href=&#34;https://github.com/cogmind&#34;&gt;@cogmind&lt;/a&gt;, &lt;a href=&#34;https://github.com/colearendt&#34;&gt;@colearendt&lt;/a&gt;, &lt;a href=&#34;https://github.com/dchudz&#34;&gt;@dchudz&lt;/a&gt;, &lt;a href=&#34;https://github.com/dlindelof&#34;&gt;@dlindelof&lt;/a&gt;, &lt;a href=&#34;https://github.com/dmenne&#34;&gt;@dmenne&lt;/a&gt;, &lt;a href=&#34;https://github.com/dougpagani&#34;&gt;@dougpagani&lt;/a&gt;, &lt;a href=&#34;https://github.com/egnha&#34;&gt;@egnha&lt;/a&gt;, &lt;a href=&#34;https://github.com/epurdom&#34;&gt;@epurdom&lt;/a&gt;, &lt;a href=&#34;https://github.com/fangly&#34;&gt;@fangly&lt;/a&gt;, &lt;a href=&#34;https://github.com/floybix&#34;&gt;@floybix&lt;/a&gt;, &lt;a href=&#34;https://github.com/FrancoisGuillem&#34;&gt;@FrancoisGuillem&lt;/a&gt;, &lt;a href=&#34;https://github.com/frankandrobot&#34;&gt;@frankandrobot&lt;/a&gt;, &lt;a href=&#34;https://github.com/fritzo&#34;&gt;@fritzo&lt;/a&gt;, &lt;a href=&#34;https://github.com/gaborcsardi&#34;&gt;@gaborcsardi&lt;/a&gt;, &lt;a href=&#34;https://github.com/george-weingart&#34;&gt;@george-weingart&lt;/a&gt;, &lt;a href=&#34;https://github.com/hadley&#34;&gt;@hadley&lt;/a&gt;, &lt;a href=&#34;https://github.com/hansharhoff&#34;&gt;@hansharhoff&lt;/a&gt;, &lt;a href=&#34;https://github.com/hesamaseh&#34;&gt;@hesamaseh&lt;/a&gt;, &lt;a href=&#34;https://github.com/HyukjinKwon&#34;&gt;@HyukjinKwon&lt;/a&gt;, &lt;a href=&#34;https://github.com/jackolney&#34;&gt;@jackolney&lt;/a&gt;, &lt;a href=&#34;https://github.com/jackwasey&#34;&gt;@jackwasey&lt;/a&gt;, &lt;a href=&#34;https://github.com/jcheng5&#34;&gt;@jcheng5&lt;/a&gt;, &lt;a href=&#34;https://github.com/jdblischak&#34;&gt;@jdblischak&lt;/a&gt;, &lt;a href=&#34;https://github.com/jdshkolnik&#34;&gt;@jdshkolnik&lt;/a&gt;, &lt;a href=&#34;https://github.com/jefferis&#34;&gt;@jefferis&lt;/a&gt;, &lt;a href=&#34;https://github.com/jennybc&#34;&gt;@jennybc&lt;/a&gt;, &lt;a href=&#34;https://github.com/jeroen&#34;&gt;@jeroen&lt;/a&gt;, &lt;a href=&#34;https://github.com/jimhester&#34;&gt;@jimhester&lt;/a&gt;, &lt;a href=&#34;https://github.com/joethorley&#34;&gt;@joethorley&lt;/a&gt;, &lt;a href=&#34;https://github.com/jspitzen&#34;&gt;@jspitzen&lt;/a&gt;, &lt;a href=&#34;https://github.com/kalibera&#34;&gt;@kalibera&lt;/a&gt;, &lt;a href=&#34;https://github.com/katrinleinweber&#34;&gt;@katrinleinweber&lt;/a&gt;, &lt;a href=&#34;https://github.com/kenahoo&#34;&gt;@kenahoo&lt;/a&gt;, &lt;a href=&#34;https://github.com/kenahoo-windlogics&#34;&gt;@kenahoo-windlogics&lt;/a&gt;, &lt;a href=&#34;https://github.com/kendonB&#34;&gt;@kendonB&lt;/a&gt;, &lt;a href=&#34;https://github.com/kevinushey&#34;&gt;@kevinushey&lt;/a&gt;, &lt;a href=&#34;https://github.com/kevinykuo&#34;&gt;@kevinykuo&lt;/a&gt;, &lt;a href=&#34;https://github.com/kforner&#34;&gt;@kforner&lt;/a&gt;, &lt;a href=&#34;https://github.com/klmr&#34;&gt;@klmr&lt;/a&gt;, &lt;a href=&#34;https://github.com/krlmlr&#34;&gt;@krlmlr&lt;/a&gt;, &lt;a href=&#34;https://github.com/lbartnik&#34;&gt;@lbartnik&lt;/a&gt;, &lt;a href=&#34;https://github.com/lc0&#34;&gt;@lc0&lt;/a&gt;, &lt;a href=&#34;https://github.com/lionel-&#34;&gt;@lionel-&lt;/a&gt;, &lt;a href=&#34;https://github.com/lorenzwalthert&#34;&gt;@lorenzwalthert&lt;/a&gt;, &lt;a href=&#34;https://github.com/mahaiyer&#34;&gt;@mahaiyer&lt;/a&gt;, &lt;a href=&#34;https://github.com/MarkEdmondson1234&#34;&gt;@MarkEdmondson1234&lt;/a&gt;, &lt;a href=&#34;https://github.com/maxheld83&#34;&gt;@maxheld83&lt;/a&gt;, &lt;a href=&#34;https://github.com/micstr&#34;&gt;@micstr&lt;/a&gt;, &lt;a href=&#34;https://github.com/mllg&#34;&gt;@mllg&lt;/a&gt;, &lt;a href=&#34;https://github.com/mlysy&#34;&gt;@mlysy&lt;/a&gt;, &lt;a href=&#34;https://github.com/mschubert&#34;&gt;@mschubert&lt;/a&gt;, &lt;a href=&#34;https://github.com/nabilabd&#34;&gt;@nabilabd&lt;/a&gt;, &lt;a href=&#34;https://github.com/nealrichardson&#34;&gt;@nealrichardson&lt;/a&gt;, &lt;a href=&#34;https://github.com/p-smirnov&#34;&gt;@p-smirnov&lt;/a&gt;, &lt;a href=&#34;https://github.com/paciorek&#34;&gt;@paciorek&lt;/a&gt;, &lt;a href=&#34;https://github.com/pat-s&#34;&gt;@pat-s&lt;/a&gt;, &lt;a href=&#34;https://github.com/patperry&#34;&gt;@patperry&lt;/a&gt;, &lt;a href=&#34;https://github.com/r2evans&#34;&gt;@r2evans&lt;/a&gt;, &lt;a href=&#34;https://github.com/rdiaz02&#34;&gt;@rdiaz02&lt;/a&gt;, &lt;a href=&#34;https://github.com/rgknight&#34;&gt;@rgknight&lt;/a&gt;, &lt;a href=&#34;https://github.com/richierocks&#34;&gt;@richierocks&lt;/a&gt;, &lt;a href=&#34;https://github.com/robwe&#34;&gt;@robwe&lt;/a&gt;, &lt;a href=&#34;https://github.com/ruaridhw&#34;&gt;@ruaridhw&lt;/a&gt;, &lt;a href=&#34;https://github.com/s6mike&#34;&gt;@s6mike&lt;/a&gt;, &lt;a href=&#34;https://github.com/schoettl&#34;&gt;@schoettl&lt;/a&gt;, &lt;a href=&#34;https://github.com/scottkosty&#34;&gt;@scottkosty&lt;/a&gt;, &lt;a href=&#34;https://github.com/Stan125&#34;&gt;@Stan125&lt;/a&gt;, &lt;a href=&#34;https://github.com/stla&#34;&gt;@stla&lt;/a&gt;, &lt;a href=&#34;https://github.com/swt30&#34;&gt;@swt30&lt;/a&gt;, &lt;a href=&#34;https://github.com/twolodzko&#34;&gt;@twolodzko&lt;/a&gt;, &lt;a href=&#34;https://github.com/unDocUMeantIt&#34;&gt;@unDocUMeantIt&lt;/a&gt;, &lt;a href=&#34;https://github.com/vermouthmjl&#34;&gt;@vermouthmjl&lt;/a&gt;, &lt;a href=&#34;https://github.com/wch&#34;&gt;@wch&lt;/a&gt;, &lt;a href=&#34;https://github.com/wlandau-lilly&#34;&gt;@wlandau-lilly&lt;/a&gt;, &lt;a href=&#34;https://github.com/wligtenberg&#34;&gt;@wligtenberg&lt;/a&gt;, &lt;a href=&#34;https://github.com/wsloand&#34;&gt;@wsloand&lt;/a&gt;, &lt;a href=&#34;https://github.com/wush978&#34;&gt;@wush978&lt;/a&gt;, &lt;a href=&#34;https://github.com/zachcp&#34;&gt;@zachcp&lt;/a&gt;, and &lt;a href=&#34;https://github.com/zer0hedge&#34;&gt;@zer0hedge&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+  </item>
+  
+</channel>
+  </rss>

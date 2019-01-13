@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="og:image" content="https://www.tidyverse.org/images/tidyverse-default.png" >
+<meta name="generator" content="Hugo 0.52" />
+
+<title>Intermingle R and Python in R Markdown - markusdumke</title>
+<meta property="og:title" content="Intermingle R and Python in R Markdown - markusdumke">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tidyverse.org/articles/-sq.jpg" >
+<meta property="description" content="Intermingle R and Python in R Markdown
+">
+<meta property="og:description" content="Intermingle R and Python in R Markdown
+">
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png" />
+<link rel="manifest" href="/images/favicons/site.webmanifest" />
+<link rel="mask-icon" href="/images/favicons/safari-pinned-tab.svg" />
+<link rel="shortcut icon" href="/images/favicons/favicon.ico" />
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" href="/images/favicons/browserconfig.xml" >
+
+
+<script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/js/site.js"></script>
+
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.11.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+<link rel="stylesheet" href="/css/tidyverse-site.css" />
+<link rel="stylesheet" href="/css/tweaks.css" />
+<link rel="icon" href="/images/favicon.ico" />
+<link rel="alternate" type="application/atom+xml" title="Blog" href="/articles/index.xml" />
+
+  </head>
+  <body>
+    <div id="appTidyverseSite" class="shrinkHeader alwaysShrinkHeader">
+      <div id="main">
+        
+        <div id="rStudioHeader">
+          <div class="band">
+            <div class="innards bandContent">
+              <div>
+                <a class="productName" href="/">markusdumke</a>
+              </div>
+              <div id="menu">
+  <div id="menuToggler"></div>
+  <div id="menuItems" class="">
+    
+    
+    <a class="menuItem " href="/packages/">Packages</a>
+    
+    <a class="menuItem current" href="/articles/">Blog</a>
+    
+    <a class="menuItem " href="/about/">About</a>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </div>
+
+
+<div class="band padForHeader pushFooter">
+  <div class="bandContent">
+    <div class="full splitColumns withMobileMargins">
+      <div class="column75">
+
+      <h1 class="article-title">Intermingle R and Python in R Markdown</h1>
+
+      
+      
+
+      
+
+      <div class="article-content">
+      
+
+
+<p>This blog post shows how to use R and Python inside one document and how to easily intermingle code, plain text and graphics and share data between R and Python.</p>
+<div id="why-r-markdown" class="section level2">
+<h2>Why R Markdown?</h2>
+<p>R Markdown is great to make reproducible reports or presentations and allows to intermingle code, plain text and figures. It comes with a wide variety of output formats, e.g. pdf, html, word or latex beamer slides. You can even embed shiny apps in a html report. For example this document was generated with R Markdown.</p>
+<p>In the following we will show how to combine R and Python code chunks inside one R Markdown document and how to share data between these chunks. Therefore R Markdown is a great tool for data scientists who wants to make the most out of the tools R and Python offer for data science.</p>
+</div>
+<div id="r-code-chunks" class="section level2">
+<h2>R code chunks</h2>
+<p>Using R code in R Markdown is easy:</p>
+<pre class="r"><code>library(ggplot2)
+head(iris)
+ggplot(iris, aes(Sepal.Length, Sepal.Width, col = Species)) +
+  geom_point(size = 3) + theme_bw()</code></pre>
+</div>
+<div id="python-code-chunks" class="section level2">
+<h2>Python code chunks</h2>
+<p>We can also include Python code chunks. We will use <code>knitr::knit_engines$set(python = reticulate::eng_python)</code> in the setup to render the Python code. Make sure to install the newest <code>reticulate</code> package via <code>devtools::install_github(&quot;rstudio/reticulate&quot;)</code>.</p>
+<pre class="python"><code>import numpy as np
+x = np.arange(10)
+y = x**2</code></pre>
+<p>And the objects are still available in the next Python chunk.</p>
+<pre class="python"><code>print(y)</code></pre>
+<p>We can also include plots.</p>
+<pre class="python"><code>import matplotlib.pyplot as plt
+plt.plot(x, y)
+plt.show()</code></pre>
+</div>
+<div id="share-data-between-r-and-python-chunks" class="section level2">
+<h2>Share data between R and Python chunks</h2>
+<p>To share objects between Python and R chunks we need to save the files at the end of a chunk and load again in the next chunk. The best way to do this is probably <a href="https://blog.rstudio.com/2016/03/29/feather/">feather</a>.</p>
+<p>Get the iris data set into Python using feather. First save it in an R chunk.</p>
+<pre class="r"><code>library(feather)
+write_feather(iris, &quot;iris.feather&quot;)</code></pre>
+<p>Then we can load the file in a Python chunk.</p>
+<pre class="python"><code>import feather
+iris = feather.read_dataframe(&quot;iris.feather&quot;)
+print(iris.head())</code></pre>
+<p>To share data frames from a Python chunk to an R chunk you can run</p>
+<pre class="python"><code>import pandas as pd
+d = {&#39;col1&#39;: [1, 2, 6, 8], &#39;col2&#39;: [&quot;first&quot;, &quot;lab&quot;, &quot;d&quot;, &quot;car&quot;]}
+df = pd.DataFrame(data = d)
+feather.write_dataframe(df, &quot;df.feather&quot;)
+print(df.head())</code></pre>
+<p>and load it in an R chunk with</p>
+<pre class="r"><code>df &lt;- read_feather(&quot;df.feather&quot;)
+df</code></pre>
+</div>
+
+      </div>
+
+      
+
+
+      </div>
+
+      <div class="column25">
+        <div class="section hideOnMobile">
+          <div class="sectionTitle">Contents</div>
+          
+        </div>
+
+    </div>
+  </div>  
+</div> 
+
+        <div id="rStudioFooter" class="band">
+          <div class="bandContent">
+            <div id="copyright">
+              Markus Dumke, 2019</div>
+            <div id="logos">
+              <a href="https://github.com/markusdumke" class="footerLogo gitHub"></a>
+            </div>
+          </div>
+        </div>
+
+      </div>  
+    </div>  
+
+    
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-115082821-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+  </body>
+</html>
+

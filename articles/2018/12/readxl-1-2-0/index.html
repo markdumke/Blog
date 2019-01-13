@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="og:image" content="https://www.tidyverse.org/images/tidyverse-default.png" >
+<meta name="generator" content="Hugo 0.52" />
+
+<title>readxl 1.2.0 - markusdumke</title>
+<meta property="og:title" content="readxl 1.2.0 - markusdumke">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tidyverse.org/articles/readxl-1-2-0-sq.jpg" >
+<meta property="description" content="readxl 1.2.0 is now on CRAN.
+">
+<meta property="og:description" content="readxl 1.2.0 is now on CRAN.
+">
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png" />
+<link rel="manifest" href="/images/favicons/site.webmanifest" />
+<link rel="mask-icon" href="/images/favicons/safari-pinned-tab.svg" />
+<link rel="shortcut icon" href="/images/favicons/favicon.ico" />
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" href="/images/favicons/browserconfig.xml" >
+
+
+<script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/js/site.js"></script>
+
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.11.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+<link rel="stylesheet" href="/css/tidyverse-site.css" />
+<link rel="stylesheet" href="/css/tweaks.css" />
+<link rel="icon" href="/images/favicon.ico" />
+<link rel="alternate" type="application/atom+xml" title="Blog" href="/articles/index.xml" />
+
+  </head>
+  <body>
+    <div id="appTidyverseSite" class="shrinkHeader alwaysShrinkHeader">
+      <div id="main">
+        
+        <div id="rStudioHeader">
+          <div class="band">
+            <div class="innards bandContent">
+              <div>
+                <a class="productName" href="/">markusdumke</a>
+              </div>
+              <div id="menu">
+  <div id="menuToggler"></div>
+  <div id="menuItems" class="">
+    
+    
+    <a class="menuItem " href="/packages/">Packages</a>
+    
+    <a class="menuItem current" href="/articles/">Blog</a>
+    
+    <a class="menuItem " href="/about/">About</a>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </div>
+
+
+<div class="band padForHeader pushFooter">
+  <div class="bandContent">
+    <div class="full splitColumns withMobileMargins">
+      <div class="column75">
+
+      <h1 class="article-title">readxl 1.2.0</h1>
+
+      
+      
+      <div class="article-header">
+        <div class="photo" style="background-image: url('../../../readxl-1-2-0-wd.jpg');"></div>
+        <div class="photoCredit">Photo by <a href="https://twitter.com/Thoughtfulnz/status/987900521309614080">David Hood</a></div>
+      </div>
+      
+
+      
+
+      <div class="article-content">
+      
+
+<p>We&rsquo;re stoked to announce that <a href="http://readxl.tidyverse.org">readxl</a> 1.2.0 is now available on CRAN. Learn more about readxl at <a href="http://readxl.tidyverse.org">http://readxl.tidyverse.org</a>. Detailed notes are always in the <a href="https://readxl.tidyverse.org/news/index.html#readxl-1-2-0">change log</a>.</p>
+
+<p>The readxl package makes it easy to get tabular data out of Excel files and into R with code, not mouse clicks. It supports both the legacy <code>.xls</code> format and the modern XML-based <code>.xlsx</code> format. readxl is expressly designed to be easy to install and use on all operating systems. Therefore it has no external dependencies, such as Java or Perl, which have historically been a source of aggravation with some R packages that read Excel files.</p>
+
+<p>The easiest way to install the latest version from CRAN is to install the whole tidyverse.</p>
+
+<pre><code class="language-r">install.packages(&quot;tidyverse&quot;)
+</code></pre>
+
+<p>Alternatively, install just readxl from CRAN:</p>
+
+<pre><code class="language-r">install.packages(&quot;readxl&quot;)
+</code></pre>
+
+<p>Regardless, you will still need to attach readxl explicitly. It is not a core tidyverse package, i.e. readxl is NOT attached via <code>library(tidyverse)</code>. Instead, do this in your script:</p>
+
+<pre><code class="language-r">library(readxl)
+</code></pre>
+
+<h2 id="column-name-repair">Column name repair</h2>
+
+<p>The most exciting change in the v1.2.0 release is the introduction of the new <code>.name_repair</code> argument to <code>read_excel()</code>, <code>read_xlsx()</code>, and <code>read_xls()</code>. readxl exposes the <code>.name_repair</code> argument that is <a href="https://www.tidyverse.org/articles/2018/11/tibble-2.0.0-pre-announce/">coming soon to version 2.0.0 of the tibble package</a>. <strong>Note: the following examples were executed with the not-yet-released version 2.0.0 of the tibble package.</strong></p>
+
+<p>First, rest assured that if your sheet has unique column names, readxl leaves them alone, as always:</p>
+
+<pre><code class="language-r">read_excel(readxl_example(&quot;datasets.xlsx&quot;), sheet = &quot;iris&quot;, n_max = 3)
+#&gt; # A tibble: 3 x 5
+#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+#&gt;          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;  
+#&gt; 1          5.1         3.5          1.4         0.2 setosa 
+#&gt; 2          4.9         3            1.4         0.2 setosa 
+#&gt; 3          4.7         3.2          1.3         0.2 setosa
+</code></pre>
+
+<p>However, spreadsheet column names frequently leave much to be desired. <code>.name_repair</code> is a more flexible alternative to passing a specific vector of <code>col_names</code>. You can express what you want in two main ways:</p>
+
+<ul>
+<li>Levels of name repair:
+
+<ul>
+<li><code>&quot;minimal&quot;</code>: use <code>&quot;&quot;</code> for any missing names</li>
+<li><code>&quot;unique&quot;</code>: names are made unique <strong>readxl&rsquo;s default</strong></li>
+<li><code>&quot;universal&quot;</code>: names are made <code>&quot;unique&quot;</code> and syntactic</li>
+</ul></li>
+<li>Name repair strategy, as a function that takes (bad) names in and returns (good) names:
+
+<ul>
+<li>Function defined in base R, by another package, or by you</li>
+<li>Anonymous function, specified using a purrr-style <code>~</code> formula</li>
+</ul></li>
+</ul>
+
+<p>Here are two examples of specifying a name repair strategy.</p>
+
+<pre><code class="language-r">## pass custom function to implement &quot;lower_snake_case&quot;
+my_custom_name_repair &lt;- function(nms) tolower(gsub(&quot;[.]&quot;, &quot;_&quot;, nms))
+read_excel(
+  readxl_example(&quot;datasets.xlsx&quot;), n_max = 3,
+  .name_repair = my_custom_name_repair
+)
+#&gt; # A tibble: 3 x 5
+#&gt;   sepal_length sepal_width petal_length petal_width species
+#&gt;          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;  
+#&gt; 1          5.1         3.5          1.4         0.2 setosa 
+#&gt; 2          4.9         3            1.4         0.2 setosa 
+#&gt; 3          4.7         3.2          1.3         0.2 setosa
+
+## use purrr-style formula to truncate names at 3 characters
+read_excel(
+  readxl_example(&quot;datasets.xlsx&quot;), sheet = &quot;chickwts&quot;, n_max = 3,
+  .name_repair = ~ substr(.x, start = 1, stop = 3)
+)
+#&gt; # A tibble: 3 x 2
+#&gt;     wei fee      
+#&gt;   &lt;dbl&gt; &lt;chr&gt;    
+#&gt; 1   179 horsebean
+#&gt; 2   160 horsebean
+#&gt; 3   136 horsebean
+</code></pre>
+
+<p>Read more in readxl&rsquo;s new <a href="https://readxl.tidyverse.org/articles/articles/column-names.html">Column Names</a> article.</p>
+
+<h2 id="hello-is-any-one-there">Hello, is any one there?</h2>
+
+<p>readxl now displays a progress spinner in interactive sessions if it looks like the operation might take several seconds or more. This should provide some measure of reassurance when reading large sheets. This was accompanied by a rationalization of when readxl checks for user interrupts.</p>
+
+<h2 id="updated-libxls">Updated libxls</h2>
+
+<p>The last user-visible change is that all known <code>.xls</code> regressions have been fixed. The previous version, readxl v1.1.0, included some big updates in the embedded libxls library, which were overwhelmingly positive. But there were a few reports of <code>.xls</code> files that went from &ldquo;readable&rdquo; to &ldquo;unreadable&rdquo;. To the best of my knowledge, those regressions have now all been addressed upstream and in readxl v1.2.0.</p>
+
+<h2 id="acknowledgements">Acknowledgements</h2>
+
+<p>Special thanks to Evan Miller for his recent work on libxls.</p>
+
+<p>Thank you to the 47 contributors who made this release possible: <a href="https://github.com/2005m">&#x0040;2005m</a>, <a href="https://github.com/ajdamico">&#x0040;ajdamico</a>, <a href="https://github.com/alfredojavier5">&#x0040;alfredojavier5</a>, <a href="https://github.com/antuki">&#x0040;antuki</a>, <a href="https://github.com/apreshill">&#x0040;apreshill</a>, <a href="https://github.com/awwsmm">&#x0040;awwsmm</a>, <a href="https://github.com/batpigandme">&#x0040;batpigandme</a>, <a href="https://github.com/berkorbay">&#x0040;berkorbay</a>, <a href="https://github.com/billdenney">&#x0040;billdenney</a>, <a href="https://github.com/breichholf">&#x0040;breichholf</a>, <a href="https://github.com/brianwdavis">&#x0040;brianwdavis</a>, <a href="https://github.com/chrowe">&#x0040;chrowe</a>, <a href="https://github.com/ddheart">&#x0040;ddheart</a>, <a href="https://github.com/doctsh">&#x0040;doctsh</a>, <a href="https://github.com/dominicshore">&#x0040;dominicshore</a>, <a href="https://github.com/Gillis">&#x0040;Gillis</a>, <a href="https://github.com/gorkang">&#x0040;gorkang</a>, <a href="https://github.com/gregdutkowski">&#x0040;gregdutkowski</a>, <a href="https://github.com/gregleleu">&#x0040;gregleleu</a>, <a href="https://github.com/hidekoji">&#x0040;hidekoji</a>, <a href="https://github.com/hlenka">&#x0040;hlenka</a>, <a href="https://github.com/hroptatyr">&#x0040;hroptatyr</a>, <a href="https://github.com/j6t">&#x0040;j6t</a>, <a href="https://github.com/jamesdalg">&#x0040;jamesdalg</a>, <a href="https://github.com/jameshunterbr">&#x0040;jameshunterbr</a>, <a href="https://github.com/jennybc">&#x0040;jennybc</a>, <a href="https://github.com/jeroen">&#x0040;jeroen</a>, <a href="https://github.com/jimhester">&#x0040;jimhester</a>, <a href="https://github.com/KS2907">&#x0040;KS2907</a>, <a href="https://github.com/KyleHaynes">&#x0040;KyleHaynes</a>, <a href="https://github.com/llrs">&#x0040;llrs</a>, <a href="https://github.com/ltierney">&#x0040;ltierney</a>, <a href="https://github.com/LTLA">&#x0040;LTLA</a>, <a href="https://github.com/mcSamuelDataSci">&#x0040;mcSamuelDataSci</a>, <a href="https://github.com/mdekstrand">&#x0040;mdekstrand</a>, <a href="https://github.com/msgoussi">&#x0040;msgoussi</a>, <a href="https://github.com/N1h1l1sT">&#x0040;N1h1l1sT</a>, <a href="https://github.com/pm321">&#x0040;pm321</a>, <a href="https://github.com/ptoche">&#x0040;ptoche</a>, <a href="https://github.com/randallhelms">&#x0040;randallhelms</a>, <a href="https://github.com/rnuske">&#x0040;rnuske</a>, <a href="https://github.com/roualdes">&#x0040;roualdes</a>, <a href="https://github.com/rrohwer">&#x0040;rrohwer</a>, <a href="https://github.com/SebVen">&#x0040;SebVen</a>, <a href="https://github.com/siemersn">&#x0040;siemersn</a>, <a href="https://github.com/VincentGuyader">&#x0040;VincentGuyader</a>, and <a href="https://github.com/yurasmol">&#x0040;yurasmol</a>.</p>
+
+      </div>
+
+      
+
+
+      </div>
+
+      <div class="column25">
+        <div class="section hideOnMobile">
+          <div class="sectionTitle">Contents</div>
+          <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#column-name-repair">Column name repair</a></li>
+<li><a href="#hello-is-any-one-there">Hello, is any one there?</a></li>
+<li><a href="#updated-libxls">Updated libxls</a></li>
+<li><a href="#acknowledgements">Acknowledgements</a></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+
+    </div>
+  </div>  
+</div> 
+
+        <div id="rStudioFooter" class="band">
+          <div class="bandContent">
+            <div id="copyright">
+              Markus Dumke, 2019</div>
+            <div id="logos">
+              <a href="https://github.com/markusdumke" class="footerLogo gitHub"></a>
+            </div>
+          </div>
+        </div>
+
+      </div>  
+    </div>  
+
+    
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-115082821-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+  </body>
+</html>
+
