@@ -82,7 +82,7 @@ df&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This is a fun post, where I wanted to try to make a matplotlib figure similar to a ggplot figure. Can you guess which image was created with matplotlib and which with ggplot? The answer can be found &lt;a href=&#34;#exactline&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;figure&gt;
 &lt;center&gt;
-&lt;img src = &#34;/images/iris_r.png&#34; width = &#34;400px&#34; hspace=&#34;50&#34;&gt; &lt;img src = &#34;/images/iris_matplotlib.png&#34; width = &#34;400px&#34;&gt;
+&lt;img src = &#34;/images/iris_r.png&#34; width = &#34;300px&#34; hspace=&#34;50&#34;&gt; &lt;img src = &#34;/images/iris_matplotlib.png&#34; width = &#34;300px&#34;&gt;
 &lt;figcaption&gt;
 Two plots, one generated with matplotlib, one with ggplot.
 &lt;/figcaption&gt;
