@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="generator" content="Hugo 0.52" />
+
+<title>Quickly set up your new R package with usethis - markusdumke</title>
+<meta property="og:title" content="Quickly set up your new R package with usethis - markusdumke">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta property="description" content="Automatic R package setup.
+">
+<meta property="og:description" content="Automatic R package setup.
+">
+
+
+
+<script type="text/javascript" src="/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/js/site.js"></script>
+
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.11.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+<link rel="stylesheet" href="/css/tidyverse-site.css" />
+<link rel="stylesheet" href="/css/tweaks.css" />
+<link rel="alternate" type="application/atom+xml" title="Blog" href="/articles/index.xml" />
+
+  </head>
+  <body>
+    <div id="appTidyverseSite" class="shrinkHeader alwaysShrinkHeader">
+      <div id="main">
+        
+        <div id="rStudioHeader">
+          <div class="band">
+            <div class="innards bandContent">
+              <div>
+                <a class="productName" href="/articles/">Blog about R and Statistics</a>
+              </div>
+              <div id="menu">
+  <div id="menuToggler"></div>
+  <div id="menuItems" class="">
+    
+    
+    <a class="menuItem " href="/packages/">Packages</a>
+    
+    <a class="menuItem current" href="/articles/">Blog</a>
+    
+    <a class="menuItem " href="/about/">About</a>
+    
+    <a class="menuItem " href="https://github.com/markusdumke">GitHub</a>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </div>
+
+
+<div class="band padForHeader pushFooter">
+  <div class="bandContent">
+    <div class="full splitColumns withMobileMargins">
+      <div class="column75">
+
+      <h1 class="article-title">Quickly set up your new R package with usethis</h1>
+
+      
+      
+
+      
+
+      <div class="article-content">
+      <p>I recently discovered the R package <a href="https://usethis.r-lib.org/">usethis</a> which allows to quickly set up common components
+of an R package. If you are creating a lot of R packages this is definitely something
+you should look into.</p>
+
+<p>Creating a new package skeleton is as easy as <code>usethis::create_package(&quot;path/to/package&quot;)</code>.
+If you are in RStudio this will automatically open a new RStudio project for your package
+with the necessary components (folder <code>R</code>, <code>DESCRIPTION</code> file etc.).</p>
+
+<p>Afterwards you can add further useful components with <code>usethis</code>. This is what I run:</p>
+
+<pre><code class="language-r">options(
+  usethis.description = list(
+    `Authors@R` = 'person(&quot;Your&quot;, &quot;Name&quot;, email = &quot;youremail&quot;, role = c(&quot;aut&quot;, &quot;cre&quot;))',
+    License = &quot;MIT + file LICENSE&quot;
+  )
+)
+
+usethis::use_roxygen_md()
+usethis::use_mit_license(&quot;Your Name&quot;)
+usethis::use_readme_rmd()
+usethis::use_pipe()
+usethis::use_news_md()
+usethis::use_pkgdown()
+usethis::use_description_defaults()
+usethis::use_test()
+usethis::use_git()
+</code></pre>
+
+<p>Then you can start creating R scripts and adding and commiting your functions.</p>
+
+<p>What you still need to do is connect your local Git repository to your Github repository.
+Just create a repository on Github and then run in your terminal in RStudio (assuming
+you have already committed files):</p>
+
+<pre><code class="language-git">git remote add origin https://github.com/username/repo.git
+git push -u origin master
+</code></pre>
+
+      </div>
+
+      
+
+
+      </div>
+
+      <div class="column25">
+        <div class="section hideOnMobile">
+          <div class="sectionTitle">Contents</div>
+          
+        </div>
+
+    </div>
+  </div>  
+</div> 
+
+        <div id="rStudioFooter" class="band">
+          <div class="bandContent">
+            <div id="copyright">
+              Markus Dumke, 2019</div>
+            <div id="logos">
+              <a href="https://github.com/markusdumke" class="footerLogo gitHub"></a>
+            </div>
+          </div>
+        </div>
+
+      </div>  
+    </div>  
+
+    
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-115082821-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+  </body>
+</html>
+
